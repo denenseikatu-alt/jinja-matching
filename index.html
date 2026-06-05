@@ -18,6 +18,8 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* Header */
   header {
     background: linear-gradient(135deg, #4a0e0e 0%, #8B0000 60%, #a52a2a 100%);
     color: #fff;
@@ -26,61 +28,203 @@
     position: relative;
     overflow: hidden;
   }
-  header::before { content: '⛩'; position: absolute; font-size: 12rem; opacity: 0.06; top: -2rem; left: 50%; transform: translateX(-50%); }
+  header::before {
+    content: '⛩';
+    position: absolute;
+    font-size: 12rem;
+    opacity: 0.06;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   header h1 { font-size: 2rem; letter-spacing: 0.1em; position: relative; }
   header p { margin-top: 0.5rem; opacity: 0.85; font-size: 0.95rem; position: relative; }
   .header-badges { margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; position: relative; }
   .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.8rem; }
-  nav { background: #fff; display: flex; border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-  nav button { flex: 1; padding: 0.9rem 0.5rem; border: none; background: none; cursor: pointer; font-size: 0.85rem; color: var(--text-light); border-bottom: 3px solid transparent; transition: all 0.2s; font-family: inherit; }
+
+  /* Nav tabs */
+  nav {
+    background: #fff;
+    display: flex;
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav button {
+    flex: 1;
+    padding: 0.9rem 0.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
   nav button.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: bold; }
   nav button:hover { background: #fff5f5; }
+
+  /* Sections */
   .section { display: none; padding: 1.5rem 1rem; max-width: 700px; margin: 0 auto; }
   .section.active { display: block; }
-  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
+
+  /* Card */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
   .card h2 { font-size: 1.1rem; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+
+  /* Matching form */
   .question { margin-bottom: 1.2rem; }
   .question label { display: block; font-weight: bold; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light); }
   .choices { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .choice-btn { padding: 0.5rem 1rem; border: 2px solid var(--border); border-radius: 20px; background: #fff; cursor: pointer; font-size: 0.85rem; font-family: inherit; transition: all 0.2s; color: var(--text); }
+  .choice-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: inherit;
+    transition: all 0.2s;
+    color: var(--text);
+  }
   .choice-btn:hover { border-color: var(--primary-light); background: #fff5f5; }
   .choice-btn.selected { border-color: var(--primary); background: var(--primary); color: #fff; }
-  .match-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-family: inherit; cursor: pointer; margin-top: 0.5rem; letter-spacing: 0.05em; transition: transform 0.1s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(139,0,0,0.3); }
+
+  .match-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+    transition: transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(139,0,0,0.3);
+  }
   .match-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(139,0,0,0.4); }
-  .result-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; position: relative; overflow: hidden; }
-  .result-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--primary); border-radius: 4px 0 0 4px; }
+  .match-btn:active { transform: translateY(0); }
+
+  /* Result cards */
+  .result-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .result-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--primary);
+    border-radius: 4px 0 0 4px;
+  }
   .result-card h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 0.3rem; }
   .result-card .location { font-size: 0.8rem; color: var(--text-light); margin-bottom: 0.5rem; }
   .result-card .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.7rem; }
   .tag { background: #fff0f0; color: var(--primary); border: 1px solid #ffd0d0; border-radius: 12px; padding: 0.15rem 0.6rem; font-size: 0.75rem; }
   .result-card p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; margin-bottom: 0.7rem; }
   .result-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .link-btn { padding: 0.35rem 0.8rem; border-radius: 6px; font-size: 0.8rem; text-decoration: none; font-family: inherit; cursor: pointer; border: none; transition: opacity 0.2s; }
+  .link-btn {
+    padding: 0.35rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+  }
   .link-btn:hover { opacity: 0.8; }
   .link-btn.hp { background: var(--primary); color: #fff; }
   .link-btn.map { background: #2980b9; color: #fff; }
   .link-btn.jinja-cho { background: #27ae60; color: #fff; }
+
   .match-score { position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: #fff; border-radius: 20px; padding: 0.2rem 0.6rem; font-size: 0.8rem; font-weight: bold; }
+
+  /* Omikuji */
   .omikuji-box { text-align: center; padding: 2rem 1rem; }
-  .omikuji-btn { width: 160px; height: 160px; border-radius: 50%; border: 4px solid var(--accent); background: linear-gradient(135deg, #8B0000, #c0392b); color: #fff; font-size: 1.4rem; cursor: pointer; font-family: inherit; letter-spacing: 0.1em; box-shadow: 0 8px 24px rgba(139,0,0,0.3); transition: transform 0.2s, box-shadow 0.2s; }
+  .omikuji-btn {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    border: 4px solid var(--accent);
+    background: linear-gradient(135deg, #8B0000, #c0392b);
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: 0.1em;
+    box-shadow: 0 8px 24px rgba(139,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
   .omikuji-btn:hover { transform: scale(1.05); box-shadow: 0 12px 32px rgba(139,0,0,0.4); }
   .omikuji-result { margin-top: 2rem; display: none; }
   .omikuji-result.show { display: block; animation: fadeIn 0.5s ease; }
-  .omikuji-title { font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  .omikuji-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
   .omikuji-items { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 1.2rem; text-align: left; }
   .omikuji-item { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 0.7rem; }
   .omikuji-item .item-label { font-size: 0.75rem; color: var(--text-light); margin-bottom: 0.2rem; }
   .omikuji-item .item-value { font-size: 0.9rem; font-weight: bold; color: var(--primary); }
   .omikuji-poem { background: linear-gradient(135deg, #fff9f0, #fff5e6); border: 1px solid var(--accent); border-radius: 8px; padding: 1rem; margin-top: 1rem; font-style: italic; line-height: 1.8; color: var(--text); font-size: 0.9rem; }
-  .shrine-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1rem; box-shadow: var(--shadow); }
-  .shrine-header { background: linear-gradient(135deg, #4a0e0e, #8B0000); color: #fff; padding: 1rem 1.2rem; display: flex; justify-content: space-between; align-items: center; }
+
+  /* Shrine list */
+  .shrine-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+  .shrine-header {
+    background: linear-gradient(135deg, #4a0e0e, #8B0000);
+    color: #fff;
+    padding: 1rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   .shrine-header h3 { font-size: 1rem; }
   .shrine-header .region { font-size: 0.8rem; opacity: 0.8; }
   .shrine-body { padding: 1rem 1.2rem; }
   .shrine-body p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; margin-bottom: 0.7rem; }
   .shrine-body .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.7rem; }
-  .search-bar { width: 100%; padding: 0.8rem 1rem; border: 2px solid var(--border); border-radius: 8px; font-size: 0.95rem; font-family: inherit; margin-bottom: 1rem; outline: none; transition: border-color 0.2s; }
+  .search-bar {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
   .search-bar:focus { border-color: var(--primary); }
+
+  /* About */
   .about-section { line-height: 1.8; }
   .about-section h3 { color: var(--primary); margin: 1.2rem 0 0.5rem; font-size: 1rem; }
   .about-section p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 0.5rem; }
@@ -89,13 +233,77 @@
   .support-item .icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
   .support-item h4 { font-size: 0.85rem; color: var(--primary); margin-bottom: 0.2rem; }
   .support-item p { font-size: 0.75rem; color: var(--text-light); }
+
+  /* Empty state */
   .empty { text-align: center; padding: 3rem 1rem; color: var(--text-light); }
   .empty .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+  /* Paid fortune */
+  .free-label, .paid-label {
+    display: inline-block; font-size: 0.72rem; font-weight: bold;
+    padding: 0.15rem 0.6rem; border-radius: 10px; margin-left: 0.5rem; vertical-align: middle;
+  }
+  .free-label { background: #e8f5e9; color: #27ae60; border: 1px solid #a5d6a7; }
+  .paid-label { background: #fff3cd; color: #856404; border: 1px solid #ffd97d; }
+  .paid-fortune-card { margin-top: 1rem; border: 2px solid var(--accent); border-radius: 12px; padding: 1.5rem; background: linear-gradient(135deg, #fffdf5, #fff9e6); }
+  .paid-fortune-card h3 { font-size: 1rem; color: var(--primary); margin-bottom: 0.3rem; }
+  .paid-fortune-card .sub { font-size: 0.8rem; color: var(--text-light); margin-bottom: 1.2rem; }
+  .fortune-step { margin-bottom: 1.2rem; }
+  .fortune-step label { display: block; font-weight: bold; font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem; }
+  .fortune-choices { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .fortune-choice {
+    padding: 0.45rem 0.9rem; border: 2px solid var(--border); border-radius: 20px;
+    background: #fff; cursor: pointer; font-size: 0.82rem; font-family: inherit;
+    color: var(--text); transition: all 0.2s;
+  }
+  .fortune-choice:hover { border-color: var(--accent); background: #fffdf5; }
+  .fortune-choice.selected { border-color: var(--accent); background: var(--accent); color: #fff; }
+  .fortune-pay-btn {
+    display: none; width: 100%; margin-top: 1rem; padding: 0.9rem;
+    background: linear-gradient(135deg, #856404, var(--accent));
+    color: #fff; border: none; border-radius: 8px; font-size: 0.95rem;
+    font-family: inherit; cursor: pointer; letter-spacing: 0.05em;
+    box-shadow: 0 4px 12px rgba(212,160,23,0.4); text-decoration: none;
+    text-align: center; transition: transform 0.1s, box-shadow 0.2s;
+  }
+  .fortune-pay-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(212,160,23,0.5); }
+  .fortune-pay-btn.visible { display: block; }
+
+  /* Saisen */
+  .saisen-intro { text-align: center; padding: 1rem 0 1.5rem; }
+  .saisen-intro .coin-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+  .saisen-intro p { font-size: 0.9rem; color: var(--text-light); line-height: 1.7; }
+  .saisen-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-bottom: 1.5rem; }
+  .saisen-btn {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 1.2rem 0.5rem;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+    box-shadow: var(--shadow);
+  }
+  .saisen-btn:hover { border-color: var(--accent); background: #fffdf5; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,160,23,0.2); }
+  .saisen-btn .coin { font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .saisen-btn .amount { font-size: 1.3rem; font-weight: bold; color: var(--primary); }
+  .saisen-btn .label { font-size: 0.75rem; color: var(--text-light); margin-top: 0.2rem; }
+  .saisen-note { background: #fff9f0; border: 1px solid var(--accent); border-radius: 8px; padding: 0.8rem 1rem; font-size: 0.8rem; color: var(--text-light); line-height: 1.6; text-align: center; }
+  .stripe-badge { display: flex; align-items: center; justify-content: center; gap: 0.4rem; margin-top: 1rem; font-size: 0.75rem; color: var(--text-light); }
+  .stripe-badge svg { width: 40px; }
+
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  @media (max-width: 480px) { header h1 { font-size: 1.5rem; } .omikuji-items { grid-template-columns: 1fr; } .support-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) {
+    header h1 { font-size: 1.5rem; }
+    .omikuji-items { grid-template-columns: 1fr; }
+    .support-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
+
 <header>
   <h1>⛩ 神社マッチング</h1>
   <p>あなたのご縁とお導きに合った神社をご紹介します</p>
@@ -105,16 +313,21 @@
     <span class="badge">おみくじ付き</span>
   </div>
 </header>
+
 <nav>
   <button class="active" onclick="showTab('matching')">🔍 マッチング</button>
   <button onclick="showTab('shrines')">⛩ 神社一覧</button>
   <button onclick="showTab('omikuji')">🎋 おみくじ</button>
+  <button onclick="showTab('saisen')">🪙 お賽銭</button>
   <button onclick="showTab('about')">💡 使い方</button>
 </nav>
+
+<!-- ========== MATCHING ========== -->
 <div id="matching" class="section active">
   <div class="card">
     <h2>⛩ あなたにぴったりの神社を探す</h2>
     <div id="matchForm">
+
       <div class="question">
         <label>1. 何をお願いしたいですか？（複数選択可）</label>
         <div class="choices">
@@ -128,6 +341,7 @@
           <button class="choice-btn" data-q="wish" data-v="厄除け" onclick="toggle(this)">🛡 厄除け</button>
         </div>
       </div>
+
       <div class="question">
         <label>2. どんな雰囲気の神社が好きですか？</label>
         <div class="choices">
@@ -137,6 +351,7 @@
           <button class="choice-btn" data-q="vibe" data-v="穴場・静か" onclick="toggle(this)">🍃 穴場・静か</button>
         </div>
       </div>
+
       <div class="question">
         <label>3. お住まいの地域は？</label>
         <div class="choices">
@@ -148,52 +363,506 @@
           <button class="choice-btn" data-q="region" data-v="全国どこでも" onclick="toggle(this)">🗾 全国</button>
         </div>
       </div>
+
       <button class="match-btn" onclick="doMatch()">✨ マッチングする</button>
     </div>
   </div>
+
   <div id="matchResults"></div>
 </div>
+
+<!-- ========== SHRINES ========== -->
 <div id="shrines" class="section">
   <input class="search-bar" type="text" placeholder="🔍 神社名・ご利益・地域で検索..." oninput="filterShrines(this.value)" id="shrineSearch">
   <div id="shrineList"></div>
 </div>
+
+<!-- ========== OMIKUJI ========== -->
 <div id="omikuji" class="section">
+  <!-- FREE tier -->
   <div class="card" style="text-align:center">
-    <h2 style="justify-content:center">🎋 デジタルおみくじ</h2>
+    <h2 style="justify-content:center">🎋 デジタルおみくじ <span class="free-label">無料</span></h2>
     <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:1.5rem">心を静めて、ボタンを押してください</p>
     <div class="omikuji-box">
       <button class="omikuji-btn" onclick="drawOmikuji()">おみくじ<br>を引く</button>
       <div class="omikuji-result" id="omikujiResult"></div>
     </div>
   </div>
+
+  <!-- PAID tier -->
+  <div class="paid-fortune-card">
+    <h3>🔮 さらに詳しく占う <span class="paid-label">有料</span></h3>
+    <p class="sub">カテゴリ・期間・方式を選んで、本格鑑定をお申し込みいただけます</p>
+
+    <div class="fortune-step">
+      <label>① 占いカテゴリ（複数選択可）</label>
+      <div class="fortune-choices">
+        <button class="fortune-choice" data-g="category" data-v="恋愛運" onclick="toggleFortune(this)">💕 恋愛運</button>
+        <button class="fortune-choice" data-g="category" data-v="仕事運" onclick="toggleFortune(this)">💼 仕事運</button>
+        <button class="fortune-choice" data-g="category" data-v="金運" onclick="toggleFortune(this)">💰 金運</button>
+        <button class="fortune-choice" data-g="category" data-v="健康運" onclick="toggleFortune(this)">🌿 健康運</button>
+        <button class="fortune-choice" data-g="category" data-v="総合運" onclick="toggleFortune(this)">✨ 総合運</button>
+      </div>
+    </div>
+
+    <div class="fortune-step">
+      <label>② 鑑定期間</label>
+      <div class="fortune-choices">
+        <button class="fortune-choice" data-g="period" data-v="今月" onclick="toggleFortune(this)">📅 今月</button>
+        <button class="fortune-choice" data-g="period" data-v="3ヶ月" onclick="toggleFortune(this)">🗓 3ヶ月</button>
+        <button class="fortune-choice" data-g="period" data-v="半年" onclick="toggleFortune(this)">🌙 半年</button>
+        <button class="fortune-choice" data-g="period" data-v="1年" onclick="toggleFortune(this)">🌟 1年</button>
+      </div>
+    </div>
+
+    <div class="fortune-step">
+      <label>③ 占い方式</label>
+      <div class="fortune-choices">
+        <button class="fortune-choice" data-g="method" data-v="タロット" onclick="toggleFortune(this)">🃏 タロット</button>
+        <button class="fortune-choice" data-g="method" data-v="数秘術" onclick="toggleFortune(this)">🔢 数秘術</button>
+        <button class="fortune-choice" data-g="method" data-v="九星気学" onclick="toggleFortune(this)">⭐ 九星気学</button>
+      </div>
+    </div>
+
+    <a id="fortunePayBtn" class="fortune-pay-btn" href="#" target="_blank" rel="noopener">
+      🔮 鑑定を申し込む（¥500）
+    </a>
+  </div>
 </div>
+
+<!-- ========== SAISEN ========== -->
+<div id="saisen" class="section">
+  <div class="card">
+    <div class="saisen-intro">
+      <div class="coin-icon">🪙</div>
+      <h2>デジタルお賽銭</h2>
+      <p style="margin-top:0.5rem;font-size:0.9rem;color:var(--text-light)">神社への感謝の気持ちをオンラインで届けましょう</p>
+    </div>
+    <div class="saisen-grid">
+      <a href="https://buy.stripe.com/PLACEHOLDER_5YEN" target="_blank" rel="noopener" class="saisen-btn">
+        <span class="coin">🪙</span>
+        <span class="amount">5円</span>
+        <span class="label">小さな感謝</span>
+      </a>
+      <a href="https://buy.stripe.com/PLACEHOLDER_10YEN" target="_blank" rel="noopener" class="saisen-btn">
+        <span class="coin">💰</span>
+        <span class="amount">10円</span>
+        <span class="label">ご縁を結ぶ</span>
+      </a>
+      <a href="https://buy.stripe.com/PLACEHOLDER_50YEN" target="_blank" rel="noopener" class="saisen-btn">
+        <span class="coin">✨</span>
+        <span class="amount">50円</span>
+        <span class="label">心を込めて</span>
+      </a>
+      <a href="https://buy.stripe.com/PLACEHOLDER_100YEN" target="_blank" rel="noopener" class="saisen-btn">
+        <span class="coin">🌸</span>
+        <span class="amount">100円</span>
+        <span class="label">特別なお礼</span>
+      </a>
+    </div>
+    <div class="saisen-note">
+      ⚠️ 現在テスト中のため、上記ボタンは仮リンクです。<br>
+      実際にお賽銭を受け付けるには、<a href="https://dashboard.stripe.com/payment-links" target="_blank" rel="noopener" style="color:var(--primary)">Stripeダッシュボード</a>でPayment Linkを作成し、URLを差し替えてください。
+    </div>
+    <div class="stripe-badge">
+      <svg viewBox="0 0 60 25" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="25" rx="4" fill="#635BFF"/><text x="8" y="17" font-family="Arial" font-size="11" fill="white" font-weight="bold">stripe</text></svg>
+      <span style="color:var(--text-light)">Stripe で安全に決済</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ABOUT ========== -->
 <div id="about" class="section">
   <div class="card about-section">
     <h2>💡 神社マッチングとは</h2>
-    <p>あなたのご縁・願い・お住まいに合わせて、全国の神社をご紹介するサービスです。</p>
+    <p>あなたのご縁・願い・お住まいに合わせて、全国の神社をご紹介するサービスです。初めて参拝する神社選びから、ご利益別のお参り計画まで、幅広くサポートします。</p>
+
     <h3>🌟 主な機能</h3>
     <div class="support-grid">
-      <div class="support-item"><div class="icon">🔍</div><h4>神社マッチング</h4><p>条件を選ぶだけで最適な神社をご提案</p></div>
-      <div class="support-item"><div class="icon">⛩</div><h4>神社一覧</h4><p>全国の主要神社の情報を掲載</p></div>
-      <div class="support-item"><div class="icon">🎋</div><h4>おみくじ</h4><p>デジタルおみくじで運勢を占う</p></div>
-      <div class="support-item"><div class="icon">🔗</div><h4>公式リンク</h4><p>神社HP・神社庁への直接リンク</p></div>
+      <div class="support-item">
+        <div class="icon">🔍</div>
+        <h4>神社マッチング</h4>
+        <p>条件を選ぶだけで最適な神社をご提案</p>
+      </div>
+      <div class="support-item">
+        <div class="icon">⛩</div>
+        <h4>神社一覧</h4>
+        <p>全国の主要神社の情報を掲載</p>
+      </div>
+      <div class="support-item">
+        <div class="icon">🎋</div>
+        <h4>おみくじ</h4>
+        <p>デジタルおみくじで運勢を占う</p>
+      </div>
+      <div class="support-item">
+        <div class="icon">🔗</div>
+        <h4>公式リンク</h4>
+        <p>神社HP・神社庁への直接リンク</p>
+      </div>
     </div>
+
     <h3>📋 ご利用にあたって</h3>
     <p>掲載情報は参考情報です。参拝前に各神社の公式サイトで最新情報をご確認ください。</p>
+    <p>このサービスは無料でご利用いただけます。</p>
   </div>
 </div>
+
 <script>
-const shrines=[{id:1,name:"明治神宮",region:"東京・関東",address:"東京都渋谷区代々木神園町1-1",wishes:["縁結び","商売繁盛","健康長寿","家内安全"],vibes:["荘厳・格式","自然豊か","アクセス良好"],desc:"明治天皇・昭憲皇太后を祭神とする神社。都心に広大な森が広がり、年間参拝者数は日本最多を誇ります。",hp:"https://www.meijijingu.or.jp/",map:"https://maps.google.com/?q=明治神宮",jinja_cho:"https://www.jinjahoncho.or.jp/"},{id:2,name:"伊勢神宮（内宮）",region:"中部・東海",address:"三重県伊勢市宇治館町1",wishes:["家内安全","縁結び","厄除け","商売繁盛"],vibes:["荘厳・格式","自然豊か","穴場・静か"],desc:"天照大御神を祀る日本最高の聖地。20年ごとの式年遷宮でも知られ、全国8万社の神社の頂点に位置します。",hp:"https://www.isejingu.or.jp/",map:"https://maps.google.com/?q=伊勢神宮内宮",jinja_cho:"https://www.jinjahoncho.or.jp/"},{id:3,name:"出雲大社",region:"全国どこでも",address:"島根県出雲市大社町杵築東195",wishes:["縁結び","家内安全","厄除け"],vibes:["荘厳・格式","自然豊か"],desc:"縁結びの神様として名高い大国主大神を祀る神社。10月は全国の神々が集まる「神在月」として知られます。",hp:"https://www.izumooyashiro.or.jp/",map:"https://maps.google.com/?q=出雲大社",jinja_cho:"https://www.jinjahoncho.or.jp/"},{id:4,name:"太宰府天満宮",region:"九州・沖縄",address:"福岡県太宰府市宰府4-7-1",wishes:["学業成就","厄除け","商売繁盛"],vibes:["荘厳・格式","アクセス良好"],desc:"学問の神様・菅原道真公を祀る全国天満宮の総本社。受験シーズンには全国から多くの学生が合格祈願に訪れます。",hp:"https://www.dazaifutenmangu.or.jp/",map:"https://maps.google.com/?q=太宰府天満宮",jinja_cho:"https://www.jinjahoncho.or.jp/"},{id:5,name:"住吉大社",region:"京都・関西",address:"大阪府大阪市住吉区住吉2-9-89",wishes:["商売繁盛","縁結び","安産祈願","家内安全"],vibes:["荘厳・格式","アクセス良好"],desc:"全国2,300社ある住吉神社の総本社。大阪を代表するパワースポットです。",hp:"https://www.sumiyoshitaisha.net/",map:"https://maps.google.com/?q=住吉大社",jinja_cho:"https://www.jinjahoncho.or.jp/"},{id:6,name:"春日大社",region:"京都・関西",address:"奈良県奈良市春日野町160",wishes:["縁結び","厄除け","家内安全","学業成就"],vibes:["荘厳・格式","自然豊か","穴場・静か"],desc:"奈良を代表する世界遺産の神社。768年に創建され、藤原氏の氏神として長く崇められてきました。",hp:"https://www.kasugataisha.or.jp/",map:"https://maps.google.com/?q=春日大社",jinja_cho:"https://www.jinjahoncho.or.jp/"},{id:7,name:"鶴岡八幡宮",region:"東京・関東",address:"神奈川県鎌倉市雪ノ下2-1-31",wishes:["縁結び","学業成就","交通安全","厄除け"],vibes:["荘厳・格式","アクセス良好","自然豊か"],desc:"鎌倉幕府の守護神。関東を代表する神社のひとつです。",hp:"https://www.hachimangu.or.jp/",map:"https://maps.google.com/?q=鶴岡八幡宮",jinja_cho:"https://www.jinjahoncho.or.jp/"},{id:8,name:"北海道神宮",region:"東北・北海道",address:"北海道札幌市中央区宮ヶ丘474",wishes:["家内安全","縁結び","商売繁盛","健康長寿"],vibes:["自然豊か","荘厳・格式","穴場・静か"],desc:"北海道の総鎮守。広大な円山公園に隣接し、四季折々の美しい自然に囲まれています。",hp:"https://www.hokkaidojingu.or.jp/",map:"https://maps.google.com/?q=北海道神宮",jinja_cho:"https://www.jinjahoncho.or.jp/"},{id:9,name:"熱田神宮",region:"中部・東海",address:"愛知県名古屋市熱田区神宮1-1-1",wishes:["厄除け","交通安全","家内安全","商売繁盛"],vibes:["荘厳・格式","自然豊か","アクセス良好"],desc:"三種の神器のひとつ・草薙神剣を祀る神社。年間参拝者は約650万人にのぼります。",hp:"https://www.atsutajingu.or.jp/",map:"https://maps.google.com/?q=熱田神宮",jinja_cho:"https://www.jinjahoncho.or.jp/"},{id:10,name:"宇佐神宮",region:"九州・沖縄",address:"大分県宇佐市南宇佐2859",wishes:["商売繁盛","縁結び","厄除け","健康長寿"],vibes:["荘厳・格式","自然豊か","穴場・静か"],desc:"全国約44,000社の八幡神社の総本社。奈良時代から続く歴史を持ちます。",hp:"https://www.usajinguu.com/",map:"https://maps.google.com/?q=宇佐神宮",jinja_cho:"https://www.jinjahoncho.or.jp/"},{id:11,name:"富士山本宮浅間大社",region:"中部・東海",address:"静岡県富士宮市宮町1-1",wishes:["縁結び","安産祈願","健康長寿","家内安全"],vibes:["荘厳・格式","自然豊か"],desc:"全国1,300社の浅間神社の総本社。富士山を御神体とします。",hp:"https://fujisan-hongu.jp/",map:"https://maps.google.com/?q=富士山本宮浅間大社",jinja_cho:"https://www.jinjahoncho.or.jp/"},{id:12,name:"諏訪大社",region:"中部・東海",address:"長野県諏訪市中洲神宮1",wishes:["縁結び","交通安全","健康長寿","商売繁盛"],vibes:["荘厳・格式","自然豊か","穴場・静か"],desc:"日本最古の神社のひとつ。7年に一度の御柱祭は日本三大奇祭のひとつです。",hp:"https://suwataisha.or.jp/",map:"https://maps.google.com/?q=諏訪大社",jinja_cho:"https://www.jinjahoncho.or.jp/"}];
-const omikujiData=[{rank:"大吉",color:"#c0392b",poem:"天高く 志を持つ者に\n必ずや 道は開けん\n焦らずに 一歩一歩を\n大切に 歩んでいこう",items:{願望:"叶う",健康:"良好",仕事:"順調",恋愛:"発展あり",金運:"上昇",旅行:"吉"}},{rank:"吉",color:"#e67e22",poem:"春風や 穏やかなれど\n力強く 根を張る木のように\n今の努力は 必ず実を結ぶ\n信じて進め",items:{願望:"概ね叶う",健康:"安定",仕事:"着実",恋愛:"良縁あり",金運:"安定",旅行:"吉"}},{rank:"中吉",color:"#f39c12",poem:"雨上がりの 虹のように\n困難の後には 喜びが待つ\n今は力を 蓄える時\n焦らず待てば 道は開く",items:{願望:"努力次第",健康:"普通",仕事:"堅実に",恋愛:"縁あり",金運:"普通",旅行:"可"}},{rank:"末吉",color:"#8e44ad",poem:"冬の木々が 葉を落とすように\n今は蓄える 大切な時\n小さな喜びを 見つけながら\n一歩ずつ 前へ進もう",items:{願望:"もう少し",健康:"注意を",仕事:"慎重に",恋愛:"焦らずに",金運:"節約を",旅行:"慎重に"}},{rank:"小吉",color:"#27ae60",poem:"小さな芽が 大きな木へ\n今の善い行いが\n未来の幸せを 作っていく\n誠実であれ",items:{願望:"徐々に",健康:"安定",仕事:"丁寧に",恋愛:"誠実に",金運:"堅実",旅行:"良し"}},{rank:"凶",color:"#7f8c8d",poem:"嵐の後に 晴れが来るように\n今の試練も やがて過ぎ去る\n神様への 感謝を忘れず\n謙虚に 日々を過ごそう",items:{願望:"我慢を",健康:"注意",仕事:"慎重に",恋愛:"急がない",金運:"節約",旅行:"控えめに"}}];
-let selections={};
-function showTab(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');event.currentTarget.classList.add('active');if(id==='shrines')renderShrines(shrines);}
-function toggle(btn){const q=btn.dataset.q,v=btn.dataset.v;if(!selections[q])selections[q]=[];if(btn.classList.contains('selected')){btn.classList.remove('selected');selections[q]=selections[q].filter(x=>x!==v);}else{btn.classList.add('selected');selections[q].push(v);}}
-function scoreShrine(s){let score=0;if(selections.wish&&selections.wish.length>0)score+=selections.wish.filter(w=>s.wishes.includes(w)).length*30;if(selections.vibe&&selections.vibe.length>0)score+=selections.vibe.filter(v=>s.vibes.includes(v)).length*20;if(selections.region&&selections.region.length>0)if(selections.region.includes(s.region)||s.region==="全国どこでも"||selections.region.includes("全国どこでも"))score+=25;return score;}
-function doMatch(){const results=shrines.map(s=>({...s,score:scoreShrine(s)})).filter(s=>s.score>0).sort((a,b)=>b.score-a.score).slice(0,5);const c=document.getElementById('matchResults');if(results.length===0){c.innerHTML='<div class="card empty"><div class="icon">⛩</div><p>条件を選択してマッチングしてみましょう</p></div>';return;}const mx=results[0].score;c.innerHTML='<div class="card"><h2>✨ マッチング結果（'+results.length+'件）</h2></div>'+results.map((s,i)=>'<div class="result-card"><span class="match-score">'+(i===0?'🥇 最適':Math.round(s.score/mx*100)+'%')+'</span><h3>⛩ '+s.name+'</h3><div class="location">📍 '+s.address+'</div><div class="tags">'+s.wishes.map(w=>'<span class="tag">'+w+'</span>').join('')+'</div><p>'+s.desc+'</p><div class="result-links"><a class="link-btn hp" href="'+s.hp+'" target="_blank" rel="noopener">🌐 公式HP</a><a class="link-btn map" href="'+s.map+'" target="_blank" rel="noopener">📍 地図</a><a class="link-btn jinja-cho" href="'+s.jinja_cho+'" target="_blank" rel="noopener">📋 神社庁</a></div></div>').join('');}
-function renderShrines(list){const c=document.getElementById('shrineList');if(!c)return;if(list.length===0){c.innerHTML='<div class="empty"><div class="icon">🔍</div><p>該当する神社が見つかりません</p></div>';return;}c.innerHTML=list.map(s=>'<div class="shrine-card"><div class="shrine-header"><h3>⛩ '+s.name+'</h3><span class="region">'+s.region+'</span></div><div class="shrine-body"><div class="tags">'+s.wishes.map(w=>'<span class="tag">'+w+'</span>').join('')+'</div><p>'+s.desc+'</p><div class="result-links"><a class="link-btn hp" href="'+s.hp+'" target="_blank" rel="noopener">🌐 公式HP</a><a class="link-btn map" href="'+s.map+'" target="_blank" rel="noopener">📍 地図</a></div></div></div>').join('');}
-function filterShrines(q){const filtered=shrines.filter(s=>s.name.includes(q)||s.region.includes(q)||s.wishes.some(w=>w.includes(q))||s.desc.includes(q));renderShrines(filtered);}
-function drawOmikuji(){const result=document.getElementById('omikujiResult');const weights=[1,3,4,3,2,2];const total=weights.reduce((a,b)=>a+b,0);let rand=Math.random()*total,idx=0;for(let i=0;i<weights.length;i++){rand-=weights[i];if(rand<=0){idx=i;break;}}const o=omikujiData[idx];result.innerHTML='<div class="omikuji-title" style="color:'+o.color+'">'+o.rank+'</div><div class="omikuji-items">'+Object.entries(o.items).map(([k,v])=>'<div class="omikuji-item"><div class="item-label">'+k+'</div><div class="item-value">'+v+'</div></div>').join('')+'</div><div class="omikuji-poem">'+o.poem.replace(/\n/g,'<br>')+'</div>';result.className='omikuji-result show';}
-document.addEventListener('DOMContentLoaded',()=>renderShrines(shrines));
+// ========== DATA ==========
+const shrines = [
+  {
+    id: 1,
+    name: "明治神宮",
+    region: "東京・関東",
+    address: "東京都渋谷区代々木神園町1-1",
+    wishes: ["縁結び", "商売繁盛", "健康長寿", "家内安全"],
+    vibes: ["荘厳・格式", "自然豊か", "アクセス良好"],
+    desc: "明治天皇・昭憲皇太后を祭神とする神社。都心に広大な森が広がり、年間参拝者数は日本最多を誇ります。",
+    hp: "https://www.meijijingu.or.jp/",
+    map: "https://maps.google.com/?q=明治神宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 2,
+    name: "伊勢神宮（内宮）",
+    region: "中部・東海",
+    address: "三重県伊勢市宇治館町1",
+    wishes: ["家内安全", "縁結び", "厄除け", "商売繁盛"],
+    vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
+    desc: "天照大御神を祀る日本最高の聖地。20年ごとの式年遷宮でも知られ、全国8万社の神社の頂点に位置します。",
+    hp: "https://www.isejingu.or.jp/",
+    map: "https://maps.google.com/?q=伊勢神宮内宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 3,
+    name: "出雲大社",
+    region: "全国どこでも",
+    address: "島根県出雲市大社町杵築東195",
+    wishes: ["縁結び", "家内安全", "厄除け"],
+    vibes: ["荘厳・格式", "自然豊か"],
+    desc: "縁結びの神様として名高い大国主大神を祀る神社。10月（神無月）は全国の神々が集まる「神在月」として知られます。",
+    hp: "https://www.izumooyashiro.or.jp/",
+    map: "https://maps.google.com/?q=出雲大社",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 4,
+    name: "太宰府天満宮",
+    region: "九州・沖縄",
+    address: "福岡県太宰府市宰府4-7-1",
+    wishes: ["学業成就", "厄除け", "商売繁盛"],
+    vibes: ["荘厳・格式", "アクセス良好"],
+    desc: "学問の神様・菅原道真公を祀る全国天満宮の総本社。受験シーズンには全国から多くの学生が合格祈願に訪れます。",
+    hp: "https://www.dazaifutenmangu.or.jp/",
+    map: "https://maps.google.com/?q=太宰府天満宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 5,
+    name: "住吉大社",
+    region: "京都・関西",
+    address: "大阪府大阪市住吉区住吉2-9-89",
+    wishes: ["商売繁盛", "縁結び", "安産祈願", "家内安全"],
+    vibes: ["荘厳・格式", "アクセス良好"],
+    desc: "全国2,300社ある住吉神社の総本社。大阪を代表するパワースポットで、厄除け・航海の神様としても知られます。",
+    hp: "https://www.sumiyoshitaisha.net/",
+    map: "https://maps.google.com/?q=住吉大社",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 6,
+    name: "春日大社",
+    region: "京都・関西",
+    address: "奈良県奈良市春日野町160",
+    wishes: ["縁結び", "厄除け", "家内安全", "学業成就"],
+    vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
+    desc: "奈良を代表する世界遺産の神社。768年に創建され、藤原氏の氏神として長く崇められてきた格式高い神社です。",
+    hp: "https://www.kasugataisha.or.jp/",
+    map: "https://maps.google.com/?q=春日大社",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 7,
+    name: "鶴岡八幡宮",
+    region: "東京・関東",
+    address: "神奈川県鎌倉市雪ノ下2-1-31",
+    wishes: ["縁結び", "学業成就", "交通安全", "厄除け"],
+    vibes: ["荘厳・格式", "アクセス良好", "自然豊か"],
+    desc: "鎌倉幕府の守護神。関東を代表する神社のひとつで、大銀杏や段葛など歴史的な見どころも多い人気スポットです。",
+    hp: "https://www.hachimangu.or.jp/",
+    map: "https://maps.google.com/?q=鶴岡八幡宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 8,
+    name: "北海道神宮",
+    region: "東北・北海道",
+    address: "北海道札幌市中央区宮ヶ丘474",
+    wishes: ["家内安全", "縁結び", "商売繁盛", "健康長寿"],
+    vibes: ["自然豊か", "荘厳・格式", "穴場・静か"],
+    desc: "北海道の総鎮守。広大な円山公園に隣接し、四季折々の美しい自然に囲まれた北海道随一のパワースポットです。",
+    hp: "https://www.hokkaidojingu.or.jp/",
+    map: "https://maps.google.com/?q=北海道神宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 9,
+    name: "熱田神宮",
+    region: "中部・東海",
+    address: "愛知県名古屋市熱田区神宮1-1-1",
+    wishes: ["厄除け", "交通安全", "家内安全", "商売繁盛"],
+    vibes: ["荘厳・格式", "自然豊か", "アクセス良好"],
+    desc: "三種の神器のひとつ・草薙神剣を祀る神社。名古屋を代表するパワースポットで、年間参拝者は約650万人にのぼります。",
+    hp: "https://www.atsutajingu.or.jp/",
+    map: "https://maps.google.com/?q=熱田神宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 10,
+    name: "宇佐神宮",
+    region: "九州・沖縄",
+    address: "大分県宇佐市南宇佐2859",
+    wishes: ["商売繁盛", "縁結び", "厄除け", "健康長寿"],
+    vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
+    desc: "全国約44,000社の八幡神社の総本社。伊勢・春日と並ぶ三大神社のひとつで、奈良時代から続く歴史を持ちます。",
+    hp: "https://www.usajinguu.com/",
+    map: "https://maps.google.com/?q=宇佐神宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 11,
+    name: "富士山本宮浅間大社",
+    region: "中部・東海",
+    address: "静岡県富士宮市宮町1-1",
+    wishes: ["縁結び", "安産祈願", "健康長寿", "家内安全"],
+    vibes: ["荘厳・格式", "自然豊か"],
+    desc: "全国1,300社の浅間神社の総本社。富士山を御神体とし、富士山登山の起点にもなっている特別な神社です。",
+    hp: "https://fujisan-hongu.jp/",
+    map: "https://maps.google.com/?q=富士山本宮浅間大社",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 12,
+    name: "諏訪大社",
+    region: "中部・東海",
+    address: "長野県諏訪市中洲神宮1",
+    wishes: ["縁結び", "交通安全", "健康長寿", "商売繁盛"],
+    vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
+    desc: "全国25,000社の諏訪神社の総本社。日本最古の神社のひとつで、7年に一度の御柱祭は日本三大奇祭のひとつです。",
+    hp: "https://suwataisha.or.jp/",
+    map: "https://maps.google.com/?q=諏訪大社",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  }
+];
+
+// ========== OMIKUJI DATA ==========
+const omikujiData = [
+  {
+    rank: "大吉", color: "#c0392b",
+    poem: "天高く 志を持つ者に\n必ずや 道は開けん\n焦らずに 一歩一歩を\n大切に 歩んでいこう",
+    items: { 願望: "叶う", 健康: "良好", 仕事: "順調", 恋愛: "発展あり", 金運: "上昇", 旅行: "吉" }
+  },
+  {
+    rank: "吉", color: "#e67e22",
+    poem: "春風や 穏やかなれど\n力強く 根を張る木のように\n今の努力は 必ず実を結ぶ\n信じて進め",
+    items: { 願望: "概ね叶う", 健康: "安定", 仕事: "着実", 恋愛: "良縁あり", 金運: "安定", 旅行: "吉" }
+  },
+  {
+    rank: "中吉", color: "#f39c12",
+    poem: "雨上がりの 虹のように\n困難の後には 喜びが待つ\n今は力を 蓄える時\n焦らず待てば 道は開く",
+    items: { 願望: "努力次第", 健康: "普通", 仕事: "堅実に", 恋愛: "縁あり", 金運: "普通", 旅行: "可" }
+  },
+  {
+    rank: "末吉", color: "#8e44ad",
+    poem: "冬の木々が 葉を落とすように\n今は蓄える 大切な時\n小さな喜びを 見つけながら\n一歩ずつ 前へ進もう",
+    items: { 願望: "もう少し", 健康: "注意を", 仕事: "慎重に", 恋愛: "焦らずに", 金運: "節約を", 旅行: "慎重に" }
+  },
+  {
+    rank: "小吉", color: "#27ae60",
+    poem: "小さな芽が 大きな木へ\n今の善い行いが\n未来の幸せを 作っていく\n誠実であれ",
+    items: { 願望: "徐々に", 健康: "安定", 仕事: "丁寧に", 恋愛: "誠実に", 金運: "堅実", 旅行: "良し" }
+  },
+  {
+    rank: "凶", color: "#7f8c8d",
+    poem: "嵐の後に 晴れが来るように\n今の試練も やがて過ぎ去る\n神様への 感謝を忘れず\n謙虚に 日々を過ごそう",
+    items: { 願望: "我慢を", 健康: "注意", 仕事: "慎重に", 恋愛: "急がない", 金運: "節約", 旅行: "控えめに" }
+  }
+];
+
+// ========== STATE ==========
+let selections = {};
+
+// ========== FUNCTIONS ==========
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (id === 'shrines') renderShrines(shrines);
+}
+
+function toggle(btn) {
+  const q = btn.dataset.q;
+  const v = btn.dataset.v;
+  if (!selections[q]) selections[q] = [];
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    selections[q] = selections[q].filter(x => x !== v);
+  } else {
+    btn.classList.add('selected');
+    selections[q].push(v);
+  }
+}
+
+function scoreShrine(shrine) {
+  let score = 0;
+  if (selections.wish && selections.wish.length > 0) {
+    const matches = selections.wish.filter(w => shrine.wishes.includes(w)).length;
+    score += matches * 30;
+  }
+  if (selections.vibe && selections.vibe.length > 0) {
+    const matches = selections.vibe.filter(v => shrine.vibes.includes(v)).length;
+    score += matches * 20;
+  }
+  if (selections.region && selections.region.length > 0) {
+    if (selections.region.includes(shrine.region) || shrine.region === "全国どこでも" || selections.region.includes("全国どこでも")) {
+      score += 25;
+    }
+  }
+  return score;
+}
+
+function doMatch() {
+  const results = shrines
+    .map(s => ({ ...s, score: scoreShrine(s) }))
+    .filter(s => s.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 5);
+
+  const container = document.getElementById('matchResults');
+
+  if (results.length === 0) {
+    container.innerHTML = `<div class="card empty"><div class="icon">⛩</div><p>条件を選択してマッチングしてみましょう</p></div>`;
+    return;
+  }
+
+  const maxScore = results[0].score;
+  container.innerHTML = `<div class="card"><h2>✨ マッチング結果（${results.length}件）</h2></div>` +
+    results.map((s, i) => {
+      const pct = Math.round((s.score / maxScore) * 100);
+      return `
+      <div class="result-card">
+        <span class="match-score">${i === 0 ? '🥇 最適' : pct + '%'}</span>
+        <h3>⛩ ${s.name}</h3>
+        <div class="location">📍 ${s.address}</div>
+        <div class="tags">${s.wishes.map(w => `<span class="tag">${w}</span>`).join('')}</div>
+        <p>${s.desc}</p>
+        <div class="result-links">
+          <a class="link-btn hp" href="${s.hp}" target="_blank" rel="noopener">🌐 公式HP</a>
+          <a class="link-btn map" href="${s.map}" target="_blank" rel="noopener">📍 地図</a>
+          <a class="link-btn jinja-cho" href="${s.jinja_cho}" target="_blank" rel="noopener">📋 神社庁</a>
+        </div>
+      </div>`;
+    }).join('');
+}
+
+function renderShrines(list) {
+  const container = document.getElementById('shrineList');
+  if (list.length === 0) {
+    container.innerHTML = `<div class="empty"><div class="icon">🔍</div><p>該当する神社が見つかりません</p></div>`;
+    return;
+  }
+  container.innerHTML = list.map(s => `
+    <div class="shrine-card">
+      <div class="shrine-header">
+        <h3>⛩ ${s.name}</h3>
+        <span class="region">${s.region}</span>
+      </div>
+      <div class="shrine-body">
+        <div class="tags">${s.wishes.map(w => `<span class="tag">${w}</span>`).join('')}</div>
+        <p>${s.desc}</p>
+        <div class="result-links">
+          <a class="link-btn hp" href="${s.hp}" target="_blank" rel="noopener">🌐 公式HP</a>
+          <a class="link-btn map" href="${s.map}" target="_blank" rel="noopener">📍 地図</a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterShrines(q) {
+  const query = q.toLowerCase();
+  const filtered = shrines.filter(s =>
+    s.name.includes(q) ||
+    s.region.toLowerCase().includes(query) ||
+    s.wishes.some(w => w.includes(q)) ||
+    s.desc.includes(q)
+  );
+  renderShrines(filtered);
+}
+
+// ========== PAID FORTUNE ==========
+let fortuneSelections = {};
+function toggleFortune(btn) {
+  const g = btn.dataset.g;
+  const v = btn.dataset.v;
+  if (g !== 'category') {
+    document.querySelectorAll(`.fortune-choice[data-g="${g}"]`).forEach(b => b.classList.remove('selected'));
+    fortuneSelections[g] = null;
+  }
+  if (!fortuneSelections[g]) fortuneSelections[g] = [];
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    fortuneSelections[g] = fortuneSelections[g].filter(x => x !== v);
+  } else {
+    btn.classList.add('selected');
+    if (g !== 'category') fortuneSelections[g] = [v];
+    else fortuneSelections[g].push(v);
+  }
+  updateFortunePayBtn();
+}
+function updateFortunePayBtn() {
+  const btn = document.getElementById('fortunePayBtn');
+  const hasCategory = fortuneSelections.category && fortuneSelections.category.length > 0;
+  const hasPeriod = fortuneSelections.period && fortuneSelections.period.length > 0;
+  const hasMethod = fortuneSelections.method && fortuneSelections.method.length > 0;
+  if (hasCategory && hasPeriod && hasMethod) {
+    btn.classList.add('visible');
+    btn.href = 'https://buy.stripe.com/PLACEHOLDER_FORTUNE_500YEN';
+  } else {
+    btn.classList.remove('visible');
+  }
+}
+
+function drawOmikuji() {
+  const result = document.getElementById('omikujiResult');
+  const weights = [1, 3, 4, 3, 2, 2];
+  const total = weights.reduce((a, b) => a + b, 0);
+  let rand = Math.random() * total;
+  let idx = 0;
+  for (let i = 0; i < weights.length; i++) {
+    rand -= weights[i];
+    if (rand <= 0) { idx = i; break; }
+  }
+  const o = omikujiData[idx];
+  const itemsHtml = Object.entries(o.items).map(([k, v]) => `
+    <div class="omikuji-item">
+      <div class="item-label">${k}</div>
+      <div class="item-value">${v}</div>
+    </div>
+  `).join('');
+
+  result.innerHTML = `
+    <div class="omikuji-title" style="color:${o.color}">${o.rank}</div>
+    <div class="omikuji-items">${itemsHtml}</div>
+    <div class="omikuji-poem">${o.poem.replace(/\n/g, '<br>')}</div>
+  `;
+  result.className = 'omikuji-result show';
+}
+
+// Init shrines on load
+document.addEventListener('DOMContentLoaded', () => renderShrines(shrines));
 </script>
 </body>
 </html>
