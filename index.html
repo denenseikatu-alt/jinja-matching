@@ -439,30 +439,29 @@
       <p style="margin-top:0.5rem;font-size:0.9rem;color:var(--text-light)">神社への感謝の気持ちをオンラインで届けましょう</p>
     </div>
     <div class="saisen-grid">
-      <a href="https://buy.stripe.com/PLACEHOLDER_5YEN" target="_blank" rel="noopener" class="saisen-btn">
+      <a href="https://buy.stripe.com/test_aFa00caNcgGL0tPbb2f3a01" target="_blank" rel="noopener" class="saisen-btn">
         <span class="coin">🪙</span>
-        <span class="amount">5円</span>
+        <span class="amount">100円</span>
         <span class="label">小さな感謝</span>
       </a>
-      <a href="https://buy.stripe.com/PLACEHOLDER_10YEN" target="_blank" rel="noopener" class="saisen-btn">
+      <a href="https://buy.stripe.com/test_28EdR208yfCHfoJ3IAf3a02" target="_blank" rel="noopener" class="saisen-btn">
         <span class="coin">💰</span>
-        <span class="amount">10円</span>
+        <span class="amount">500円</span>
         <span class="label">ご縁を結ぶ</span>
       </a>
-      <a href="https://buy.stripe.com/PLACEHOLDER_50YEN" target="_blank" rel="noopener" class="saisen-btn">
+      <a href="https://buy.stripe.com/test_6oU14gcVk8af0tP3IAf3a03" target="_blank" rel="noopener" class="saisen-btn">
         <span class="coin">✨</span>
-        <span class="amount">50円</span>
+        <span class="amount">1,000円</span>
         <span class="label">心を込めて</span>
       </a>
-      <a href="https://buy.stripe.com/PLACEHOLDER_100YEN" target="_blank" rel="noopener" class="saisen-btn">
+      <a href="https://buy.stripe.com/test_4gM3co3kKbmr90l7YQf3a04" target="_blank" rel="noopener" class="saisen-btn">
         <span class="coin">🌸</span>
-        <span class="amount">100円</span>
+        <span class="amount">5,000円</span>
         <span class="label">特別なお礼</span>
       </a>
     </div>
     <div class="saisen-note">
-      ⚠️ 現在テスト中のため、上記ボタンは仮リンクです。<br>
-      実際にお賽銭を受け付けるには、<a href="https://dashboard.stripe.com/payment-links" target="_blank" rel="noopener" style="color:var(--primary)">Stripeダッシュボード</a>でPayment Linkを作成し、URLを差し替えてください。
+      ※ テストモード中です。実際の決済は行われません。
     </div>
     <div class="stripe-badge">
       <svg viewBox="0 0 60 25" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="25" rx="4" fill="#635BFF"/><text x="8" y="17" font-family="Arial" font-size="11" fill="white" font-weight="bold">stripe</text></svg>
@@ -508,29 +507,192 @@
 </div>
 
 <script>
+// ========== DATA ==========
 const shrines = [
-  { id: 1, name: "明治神宮", region: "東京・関東", address: "東京都渋谷区代々木神園町1-1", wishes: ["縁結び", "商売繁盛", "健康長寿", "家内安全"], vibes: ["荘厳・格式", "自然豊か", "アクセス良好"], desc: "明治天皇・昭憲皇太后を祭神とする神社。都心に広大な森が広がり、年間参拝者数は日本最多を誇ります。", hp: "https://www.meijijingu.or.jp/", map: "https://maps.google.com/?q=明治神宮", jinja_cho: "https://www.jinjahoncho.or.jp/" },
-  { id: 2, name: "伊勢神宮（内宮）", region: "中部・東海", address: "三重県伊勢市宇治館町1", wishes: ["家内安全", "縁結び", "厄除け", "商売繁盛"], vibes: ["荘厳・格式", "自然豊か", "穴場・静か"], desc: "天照大御神を祀る日本最高の聖地。20年ごとの式年遷宮でも知られ、全国8万社の神社の頂点に位置します。", hp: "https://www.isejingu.or.jp/", map: "https://maps.google.com/?q=伊勢神宮内宮", jinja_cho: "https://www.jinjahoncho.or.jp/" },
-  { id: 3, name: "出雲大社", region: "全国どこでも", address: "島根県出雲市大社町杵築東195", wishes: ["縁結び", "家内安全", "厄除け"], vibes: ["荘厳・格式", "自然豊か"], desc: "縁結びの神様として名高い大国主大神を祀る神社。10月（神無月）は全国の神々が集まる「神在月」として知られます。", hp: "https://www.izumooyashiro.or.jp/", map: "https://maps.google.com/?q=出雲大社", jinja_cho: "https://www.jinjahoncho.or.jp/" },
-  { id: 4, name: "太宰府天満宮", region: "九州・沖縄", address: "福岡県太宰府市宰府4-7-1", wishes: ["学業成就", "厄除け", "商売繁盛"], vibes: ["荘厳・格式", "アクセス良好"], desc: "学問の神様・菅原道真公を祀る全国天満宮の総本社。受験シーズンには全国から多くの学生が合格祈願に訪れます。", hp: "https://www.dazaifutenmangu.or.jp/", map: "https://maps.google.com/?q=太宰府天満宮", jinja_cho: "https://www.jinjahoncho.or.jp/" },
-  { id: 5, name: "住吉大社", region: "京都・関西", address: "大阪府大阪市住吉区住吉2-9-89", wishes: ["商売繁盛", "縁結び", "安産祈願", "家内安全"], vibes: ["荘厳・格式", "アクセス良好"], desc: "全国2,300社ある住吉神社の総本社。大阪を代表するパワースポットで、厄除け・航海の神様としても知られます。", hp: "https://www.sumiyoshitaisha.net/", map: "https://maps.google.com/?q=住吉大社", jinja_cho: "https://www.jinjahoncho.or.jp/" },
-  { id: 6, name: "春日大社", region: "京都・関西", address: "奈良県奈良市春日野町160", wishes: ["縁結び", "厄除け", "家内安全", "学業成就"], vibes: ["荘厳・格式", "自然豊か", "穴場・静か"], desc: "奈良を代表する世界遺産の神社。768年に創建され、藤原氏の氏神として長く崇められてきた格式高い神社です。", hp: "https://www.kasugataisha.or.jp/", map: "https://maps.google.com/?q=春日大社", jinja_cho: "https://www.jinjahoncho.or.jp/" },
-  { id: 7, name: "鶴岡八幡宮", region: "東京・関東", address: "神奈川県鎌倉市雪ノ下2-1-31", wishes: ["縁結び", "学業成就", "交通安全", "厄除け"], vibes: ["荘厳・格式", "アクセス良好", "自然豊か"], desc: "鎌倉幕府の守護神。関東を代表する神社のひとつで、大銀杏や段葛など歴史的な見どころも多い人気スポットです。", hp: "https://www.hachimangu.or.jp/", map: "https://maps.google.com/?q=鶴岡八幡宮", jinja_cho: "https://www.jinjahoncho.or.jp/" },
-  { id: 8, name: "北海道神宮", region: "東北・北海道", address: "北海道札幌市中央区宮ヶ丘474", wishes: ["家内安全", "縁結び", "商売繁盛", "健康長寿"], vibes: ["自然豊か", "荘厳・格式", "穴場・静か"], desc: "北海道の総鎮守。広大な円山公園に隣接し、四季折々の美しい自然に囲まれた北海道随一のパワースポットです。", hp: "https://www.hokkaidojingu.or.jp/", map: "https://maps.google.com/?q=北海道神宮", jinja_cho: "https://www.jinjahoncho.or.jp/" },
-  { id: 9, name: "熱田神宮", region: "中部・東海", address: "愛知県名古屋市熱田区神宮1-1-1", wishes: ["厄除け", "交通安全", "家内安全", "商売繁盛"], vibes: ["荘厳・格式", "自然豊か", "アクセス良好"], desc: "三種の神器のひとつ・草薙神剣を祀る神社。名古屋を代表するパワースポットで、年間参拝者は約650万人にのぼります。", hp: "https://www.atsutajingu.or.jp/", map: "https://maps.google.com/?q=熱田神宮", jinja_cho: "https://www.jinjahoncho.or.jp/" },
-  { id: 10, name: "宇佐神宮", region: "九州・沖縄", address: "大分県宇佐市南宇佐2859", wishes: ["商売繁盛", "縁結び", "厄除け", "健康長寿"], vibes: ["荘厳・格式", "自然豊か", "穴場・静か"], desc: "全国約44,000社の八幡神社の総本社。伊勢・春日と並ぶ三大神社のひとつで、奈良時代から続く歴史を持ちます。", hp: "https://www.usajinguu.com/", map: "https://maps.google.com/?q=宇佐神宮", jinja_cho: "https://www.jinjahoncho.or.jp/" },
-  { id: 11, name: "富士山本宮浅間大社", region: "中部・東海", address: "静岡県富士宮市宮町1-1", wishes: ["縁結び", "安産祈願", "健康長寿", "家内安全"], vibes: ["荘厳・格式", "自然豊か"], desc: "全国1,300社の浅間神社の総本社。富士山を御神体とし、富士山登山の起点にもなっている特別な神社です。", hp: "https://fujisan-hongu.jp/", map: "https://maps.google.com/?q=富士山本宮浅間大社", jinja_cho: "https://www.jinjahoncho.or.jp/" },
-  { id: 12, name: "諏訪大社", region: "中部・東海", address: "長野県諏訪市中洲神宮1", wishes: ["縁結び", "交通安全", "健康長寿", "商売繁盛"], vibes: ["荘厳・格式", "自然豊か", "穴場・静か"], desc: "全国25,000社の諏訪神社の総本社。日本最古の神社のひとつで、7年に一度の御柱祭は日本三大奇祭のひとつです。", hp: "https://suwataisha.or.jp/", map: "https://maps.google.com/?q=諏訪大社", jinja_cho: "https://www.jinjahoncho.or.jp/" }
+  {
+    id: 1,
+    name: "明治神宮",
+    region: "東京・関東",
+    address: "東京都渋谷区代々木神園町1-1",
+    wishes: ["縁結び", "商売繁盛", "健康長寿", "家内安全"],
+    vibes: ["荘厳・格式", "自然豊か", "アクセス良好"],
+    desc: "明治天皇・昭憲皇太后を祭神とする神社。都心に広大な森が広がり、年間参拝者数は日本最多を誇ります。",
+    hp: "https://www.meijijingu.or.jp/",
+    map: "https://maps.google.com/?q=明治神宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 2,
+    name: "伊勢神宮（内宮）",
+    region: "中部・東海",
+    address: "三重県伊勢市宇治館町1",
+    wishes: ["家内安全", "縁結び", "厄除け", "商売繁盛"],
+    vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
+    desc: "天照大御神を祀る日本最高の聖地。20年ごとの式年遷宮でも知られ、全国8万社の神社の頂点に位置します。",
+    hp: "https://www.isejingu.or.jp/",
+    map: "https://maps.google.com/?q=伊勢神宮内宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 3,
+    name: "出雲大社",
+    region: "全国どこでも",
+    address: "島根県出雲市大社町杵築東195",
+    wishes: ["縁結び", "家内安全", "厄除け"],
+    vibes: ["荘厳・格式", "自然豊か"],
+    desc: "縁結びの神様として名高い大国主大神を祀る神社。10月（神無月）は全国の神々が集まる「神在月」として知られます。",
+    hp: "https://www.izumooyashiro.or.jp/",
+    map: "https://maps.google.com/?q=出雲大社",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 4,
+    name: "太宰府天満宮",
+    region: "九州・沖縄",
+    address: "福岡県太宰府市宰府4-7-1",
+    wishes: ["学業成就", "厄除け", "商売繁盛"],
+    vibes: ["荘厳・格式", "アクセス良好"],
+    desc: "学問の神様・菅原道真公を祀る全国天満宮の総本社。受験シーズンには全国から多くの学生が合格祈願に訪れます。",
+    hp: "https://www.dazaifutenmangu.or.jp/",
+    map: "https://maps.google.com/?q=太宰府天満宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 5,
+    name: "住吉大社",
+    region: "京都・関西",
+    address: "大阪府大阪市住吉区住吉2-9-89",
+    wishes: ["商売繁盛", "縁結び", "安産祈願", "家内安全"],
+    vibes: ["荘厳・格式", "アクセス良好"],
+    desc: "全国2,300社ある住吉神社の総本社。大阪を代表するパワースポットで、厄除け・航海の神様としても知られます。",
+    hp: "https://www.sumiyoshitaisha.net/",
+    map: "https://maps.google.com/?q=住吉大社",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 6,
+    name: "春日大社",
+    region: "京都・関西",
+    address: "奈良県奈良市春日野町160",
+    wishes: ["縁結び", "厄除け", "家内安全", "学業成就"],
+    vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
+    desc: "奈良を代表する世界遺産の神社。768年に創建され、藤原氏の氏神として長く崇められてきた格式高い神社です。",
+    hp: "https://www.kasugataisha.or.jp/",
+    map: "https://maps.google.com/?q=春日大社",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 7,
+    name: "鶴岡八幡宮",
+    region: "東京・関東",
+    address: "神奈川県鎌倉市雪ノ下2-1-31",
+    wishes: ["縁結び", "学業成就", "交通安全", "厄除け"],
+    vibes: ["荘厳・格式", "アクセス良好", "自然豊か"],
+    desc: "鎌倉幕府の守護神。関東を代表する神社のひとつで、大銀杏や段葛など歴史的な見どころも多い人気スポットです。",
+    hp: "https://www.hachimangu.or.jp/",
+    map: "https://maps.google.com/?q=鶴岡八幡宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 8,
+    name: "北海道神宮",
+    region: "東北・北海道",
+    address: "北海道札幌市中央区宮ヶ丘474",
+    wishes: ["家内安全", "縁結び", "商売繁盛", "健康長寿"],
+    vibes: ["自然豊か", "荘厳・格式", "穴場・静か"],
+    desc: "北海道の総鎮守。広大な円山公園に隣接し、四季折々の美しい自然に囲まれた北海道随一のパワースポットです。",
+    hp: "https://www.hokkaidojingu.or.jp/",
+    map: "https://maps.google.com/?q=北海道神宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 9,
+    name: "熱田神宮",
+    region: "中部・東海",
+    address: "愛知県名古屋市熱田区神宮1-1-1",
+    wishes: ["厄除け", "交通安全", "家内安全", "商売繁盛"],
+    vibes: ["荘厳・格式", "自然豊か", "アクセス良好"],
+    desc: "三種の神器のひとつ・草薙神剣を祀る神社。名古屋を代表するパワースポットで、年間参拝者は約650万人にのぼります。",
+    hp: "https://www.atsutajingu.or.jp/",
+    map: "https://maps.google.com/?q=熱田神宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 10,
+    name: "宇佐神宮",
+    region: "九州・沖縄",
+    address: "大分県宇佐市南宇佐2859",
+    wishes: ["商売繁盛", "縁結び", "厄除け", "健康長寿"],
+    vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
+    desc: "全国約44,000社の八幡神社の総本社。伊勢・春日と並ぶ三大神社のひとつで、奈良時代から続く歴史を持ちます。",
+    hp: "https://www.usajinguu.com/",
+    map: "https://maps.google.com/?q=宇佐神宮",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 11,
+    name: "富士山本宮浅間大社",
+    region: "中部・東海",
+    address: "静岡県富士宮市宮町1-1",
+    wishes: ["縁結び", "安産祈願", "健康長寿", "家内安全"],
+    vibes: ["荘厳・格式", "自然豊か"],
+    desc: "全国1,300社の浅間神社の総本社。富士山を御神体とし、富士山登山の起点にもなっている特別な神社です。",
+    hp: "https://fujisan-hongu.jp/",
+    map: "https://maps.google.com/?q=富士山本宮浅間大社",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  },
+  {
+    id: 12,
+    name: "諏訪大社",
+    region: "中部・東海",
+    address: "長野県諏訪市中洲神宮1",
+    wishes: ["縁結び", "交通安全", "健康長寿", "商売繁盛"],
+    vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
+    desc: "全国25,000社の諏訪神社の総本社。日本最古の神社のひとつで、7年に一度の御柱祭は日本三大奇祭のひとつです。",
+    hp: "https://suwataisha.or.jp/",
+    map: "https://maps.google.com/?q=諏訪大社",
+    jinja_cho: "https://www.jinjahoncho.or.jp/"
+  }
 ];
+
+// ========== OMIKUJI DATA ==========
 const omikujiData = [
-  { rank: "大吉", color: "#c0392b", poem: "天高く 志を持つ者に\n必ずや 道は開けん\n焦らずに 一歩一歩を\n大切に 歩んでいこう", items: { 願望: "叶う", 健康: "良好", 仕事: "順調", 恋愛: "発展あり", 金運: "上昇", 旅行: "吉" } },
-  { rank: "吉", color: "#e67e22", poem: "春風や 穏やかなれど\n力強く 根を張る木のように\n今の努力は 必ず実を結ぶ\n信じて進め", items: { 願望: "概ね叶う", 健康: "安定", 仕事: "着実", 恋愛: "良縁あり", 金運: "安定", 旅行: "吉" } },
-  { rank: "中吉", color: "#f39c12", poem: "雨上がりの 虹のように\n困難の後には 喜びが待つ\n今は力を 蓄える時\n焦らず待てば 道は開く", items: { 願望: "努力次第", 健康: "普通", 仕事: "堅実に", 恋愛: "縁あり", 金運: "普通", 旅行: "可" } },
-  { rank: "末吉", color: "#8e44ad", poem: "冬の木々が 葉を落とすように\n今は蓄える 大切な時\n小さな喜びを 見つけながら\n一歩ずつ 前へ進もう", items: { 願望: "もう少し", 健康: "注意を", 仕事: "慎重に", 恋愛: "焦らずに", 金運: "節約を", 旅行: "慎重に" } },
-  { rank: "小吉", color: "#27ae60", poem: "小さな芽が 大きな木へ\n今の善い行いが\n未来の幸せを 作っていく\n誠実であれ", items: { 願望: "徐々に", 健康: "安定", 仕事: "丁寧に", 恋愛: "誠実に", 金運: "堅実", 旅行: "良し" } },
-  { rank: "凶", color: "#7f8c8d", poem: "嵐の後に 晴れが来るように\n今の試練も やがて過ぎ去る\n神様への 感謝を忘れず\n謙虚に 日々を過ごそう", items: { 願望: "我慢を", 健康: "注意", 仕事: "慎重に", 恋愛: "急がない", 金運: "節約", 旅行: "控えめに" } }
+  {
+    rank: "大吉", color: "#c0392b",
+    poem: "天高く 志を持つ者に\n必ずや 道は開けん\n焦らずに 一歩一歩を\n大切に 歩んでいこう",
+    items: { 願望: "叶う", 健康: "良好", 仕事: "順調", 恋愛: "発展あり", 金運: "上昇", 旅行: "吉" }
+  },
+  {
+    rank: "吉", color: "#e67e22",
+    poem: "春風や 穏やかなれど\n力強く 根を張る木のように\n今の努力は 必ず実を結ぶ\n信じて進め",
+    items: { 願望: "概ね叶う", 健康: "安定", 仕事: "着実", 恋愛: "良縁あり", 金運: "安定", 旅行: "吉" }
+  },
+  {
+    rank: "中吉", color: "#f39c12",
+    poem: "雨上がりの 虹のように\n困難の後には 喜びが待つ\n今は力を 蓄える時\n焦らず待てば 道は開く",
+    items: { 願望: "努力次第", 健康: "普通", 仕事: "堅実に", 恋愛: "縁あり", 金運: "普通", 旅行: "可" }
+  },
+  {
+    rank: "末吉", color: "#8e44ad",
+    poem: "冬の木々が 葉を落とすように\n今は蓄える 大切な時\n小さな喜びを 見つけながら\n一歩ずつ 前へ進もう",
+    items: { 願望: "もう少し", 健康: "注意を", 仕事: "慎重に", 恋愛: "焦らずに", 金運: "節約を", 旅行: "慎重に" }
+  },
+  {
+    rank: "小吉", color: "#27ae60",
+    poem: "小さな芽が 大きな木へ\n今の善い行いが\n未来の幸せを 作っていく\n誠実であれ",
+    items: { 願望: "徐々に", 健康: "安定", 仕事: "丁寧に", 恋愛: "誠実に", 金運: "堅実", 旅行: "良し" }
+  },
+  {
+    rank: "凶", color: "#7f8c8d",
+    poem: "嵐の後に 晴れが来るように\n今の試練も やがて過ぎ去る\n神様への 感謝を忘れず\n謙虚に 日々を過ごそう",
+    items: { 願望: "我慢を", 健康: "注意", 仕事: "慎重に", 恋愛: "急がない", 金運: "節約", 旅行: "控えめに" }
+  }
 ];
+
+// ========== STATE ==========
 let selections = {};
+
+// ========== FUNCTIONS ==========
 function showTab(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
@@ -538,58 +700,168 @@ function showTab(id) {
   event.currentTarget.classList.add('active');
   if (id === 'shrines') renderShrines(shrines);
 }
+
 function toggle(btn) {
-  const q = btn.dataset.q, v = btn.dataset.v;
+  const q = btn.dataset.q;
+  const v = btn.dataset.v;
   if (!selections[q]) selections[q] = [];
-  if (btn.classList.contains('selected')) { btn.classList.remove('selected'); selections[q] = selections[q].filter(x => x !== v); }
-  else { btn.classList.add('selected'); selections[q].push(v); }
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    selections[q] = selections[q].filter(x => x !== v);
+  } else {
+    btn.classList.add('selected');
+    selections[q].push(v);
+  }
 }
+
 function scoreShrine(shrine) {
   let score = 0;
-  if (selections.wish?.length) score += selections.wish.filter(w => shrine.wishes.includes(w)).length * 30;
-  if (selections.vibe?.length) score += selections.vibe.filter(v => shrine.vibes.includes(v)).length * 20;
-  if (selections.region?.length && (selections.region.includes(shrine.region) || shrine.region === "全国どこでも" || selections.region.includes("全国どこでも"))) score += 25;
+  if (selections.wish && selections.wish.length > 0) {
+    const matches = selections.wish.filter(w => shrine.wishes.includes(w)).length;
+    score += matches * 30;
+  }
+  if (selections.vibe && selections.vibe.length > 0) {
+    const matches = selections.vibe.filter(v => shrine.vibes.includes(v)).length;
+    score += matches * 20;
+  }
+  if (selections.region && selections.region.length > 0) {
+    if (selections.region.includes(shrine.region) || shrine.region === "全国どこでも" || selections.region.includes("全国どこでも")) {
+      score += 25;
+    }
+  }
   return score;
 }
+
 function doMatch() {
-  const results = shrines.map(s => ({ ...s, score: scoreShrine(s) })).filter(s => s.score > 0).sort((a, b) => b.score - a.score).slice(0, 5);
+  const results = shrines
+    .map(s => ({ ...s, score: scoreShrine(s) }))
+    .filter(s => s.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 5);
+
   const container = document.getElementById('matchResults');
-  if (!results.length) { container.innerHTML = `<div class="card empty"><div class="icon">⛩</div><p>条件を選択してマッチングしてみましょう</p></div>`; return; }
+
+  if (results.length === 0) {
+    container.innerHTML = `<div class="card empty"><div class="icon">⛩</div><p>条件を選択してマッチングしてみましょう</p></div>`;
+    return;
+  }
+
   const maxScore = results[0].score;
-  container.innerHTML = `<div class="card"><h2>✨ マッチング結果（${results.length}件）</h2></div>` + results.map((s, i) => `<div class="result-card"><span class="match-score">${i === 0 ? '🥇 最適' : Math.round(s.score/maxScore*100)+'%'}</span><h3>⛩ ${s.name}</h3><div class="location">📍 ${s.address}</div><div class="tags">${s.wishes.map(w => `<span class="tag">${w}</span>`).join('')}</div><p>${s.desc}</p><div class="result-links"><a class="link-btn hp" href="${s.hp}" target="_blank" rel="noopener">🌐 公式HP</a><a class="link-btn map" href="${s.map}" target="_blank" rel="noopener">📍 地図</a><a class="link-btn jinja-cho" href="${s.jinja_cho}" target="_blank" rel="noopener">📋 神社庁</a></div></div>`).join('');
+  container.innerHTML = `<div class="card"><h2>✨ マッチング結果（${results.length}件）</h2></div>` +
+    results.map((s, i) => {
+      const pct = Math.round((s.score / maxScore) * 100);
+      return `
+      <div class="result-card">
+        <span class="match-score">${i === 0 ? '🥇 最適' : pct + '%'}</span>
+        <h3>⛩ ${s.name}</h3>
+        <div class="location">📍 ${s.address}</div>
+        <div class="tags">${s.wishes.map(w => `<span class="tag">${w}</span>`).join('')}</div>
+        <p>${s.desc}</p>
+        <div class="result-links">
+          <a class="link-btn hp" href="${s.hp}" target="_blank" rel="noopener">🌐 公式HP</a>
+          <a class="link-btn map" href="${s.map}" target="_blank" rel="noopener">📍 地図</a>
+          <a class="link-btn jinja-cho" href="${s.jinja_cho}" target="_blank" rel="noopener">📋 神社庁</a>
+        </div>
+      </div>`;
+    }).join('');
 }
+
 function renderShrines(list) {
   const container = document.getElementById('shrineList');
-  if (!list.length) { container.innerHTML = `<div class="empty"><div class="icon">🔍</div><p>該当する神社が見つかりません</p></div>`; return; }
-  container.innerHTML = list.map(s => `<div class="shrine-card"><div class="shrine-header"><h3>⛩ ${s.name}</h3><span class="region">${s.region}</span></div><div class="shrine-body"><div class="tags">${s.wishes.map(w => `<span class="tag">${w}</span>`).join('')}</div><p>${s.desc}</p><div class="result-links"><a class="link-btn hp" href="${s.hp}" target="_blank" rel="noopener">🌐 公式HP</a><a class="link-btn map" href="${s.map}" target="_blank" rel="noopener">📍 地図</a></div></div></div>`).join('');
+  if (list.length === 0) {
+    container.innerHTML = `<div class="empty"><div class="icon">🔍</div><p>該当する神社が見つかりません</p></div>`;
+    return;
+  }
+  container.innerHTML = list.map(s => `
+    <div class="shrine-card">
+      <div class="shrine-header">
+        <h3>⛩ ${s.name}</h3>
+        <span class="region">${s.region}</span>
+      </div>
+      <div class="shrine-body">
+        <div class="tags">${s.wishes.map(w => `<span class="tag">${w}</span>`).join('')}</div>
+        <p>${s.desc}</p>
+        <div class="result-links">
+          <a class="link-btn hp" href="${s.hp}" target="_blank" rel="noopener">🌐 公式HP</a>
+          <a class="link-btn map" href="${s.map}" target="_blank" rel="noopener">📍 地図</a>
+        </div>
+      </div>
+    </div>
+  `).join('');
 }
+
 function filterShrines(q) {
-  renderShrines(shrines.filter(s => s.name.includes(q) || s.region.toLowerCase().includes(q.toLowerCase()) || s.wishes.some(w => w.includes(q)) || s.desc.includes(q)));
+  const query = q.toLowerCase();
+  const filtered = shrines.filter(s =>
+    s.name.includes(q) ||
+    s.region.toLowerCase().includes(query) ||
+    s.wishes.some(w => w.includes(q)) ||
+    s.desc.includes(q)
+  );
+  renderShrines(filtered);
 }
+
+// ========== PAID FORTUNE ==========
 let fortuneSelections = {};
 function toggleFortune(btn) {
-  const g = btn.dataset.g, v = btn.dataset.v;
-  if (g !== 'category') { document.querySelectorAll(`.fortune-choice[data-g="${g}"]`).forEach(b => b.classList.remove('selected')); fortuneSelections[g] = null; }
+  const g = btn.dataset.g;
+  const v = btn.dataset.v;
+  // single-select per group (except category which allows multi)
+  if (g !== 'category') {
+    document.querySelectorAll(`.fortune-choice[data-g="${g}"]`).forEach(b => b.classList.remove('selected'));
+    fortuneSelections[g] = null;
+  }
   if (!fortuneSelections[g]) fortuneSelections[g] = [];
-  if (btn.classList.contains('selected')) { btn.classList.remove('selected'); fortuneSelections[g] = fortuneSelections[g].filter(x => x !== v); }
-  else { btn.classList.add('selected'); if (g !== 'category') fortuneSelections[g] = [v]; else fortuneSelections[g].push(v); }
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    fortuneSelections[g] = fortuneSelections[g].filter(x => x !== v);
+  } else {
+    btn.classList.add('selected');
+    if (g !== 'category') fortuneSelections[g] = [v];
+    else fortuneSelections[g].push(v);
+  }
   updateFortunePayBtn();
 }
 function updateFortunePayBtn() {
   const btn = document.getElementById('fortunePayBtn');
-  const ok = fortuneSelections.category?.length && fortuneSelections.period?.length && fortuneSelections.method?.length;
-  if (ok) { btn.classList.add('visible'); btn.href = 'https://buy.stripe.com/test_dRm7sEcVkbmr90ldjaf3a00'; }
-  else btn.classList.remove('visible');
+  const hasCategory = fortuneSelections.category && fortuneSelections.category.length > 0;
+  const hasPeriod = fortuneSelections.period && fortuneSelections.period.length > 0;
+  const hasMethod = fortuneSelections.method && fortuneSelections.method.length > 0;
+  if (hasCategory && hasPeriod && hasMethod) {
+    btn.classList.add('visible');
+    btn.href = 'https://buy.stripe.com/test_dRm7sEcVkbmr90ldjaf3a00';
+  } else {
+    btn.classList.remove('visible');
+  }
 }
+
 function drawOmikuji() {
   const result = document.getElementById('omikujiResult');
-  const weights = [1, 3, 4, 3, 2, 2], total = weights.reduce((a, b) => a + b, 0);
-  let rand = Math.random() * total, idx = 0;
-  for (let i = 0; i < weights.length; i++) { rand -= weights[i]; if (rand <= 0) { idx = i; break; } }
+  const weights = [1, 3, 4, 3, 2, 2];
+  const total = weights.reduce((a, b) => a + b, 0);
+  let rand = Math.random() * total;
+  let idx = 0;
+  for (let i = 0; i < weights.length; i++) {
+    rand -= weights[i];
+    if (rand <= 0) { idx = i; break; }
+  }
   const o = omikujiData[idx];
-  result.innerHTML = `<div class="omikuji-title" style="color:${o.color}">${o.rank}</div><div class="omikuji-items">${Object.entries(o.items).map(([k,v]) => `<div class="omikuji-item"><div class="item-label">${k}</div><div class="item-value">${v}</div></div>`).join('')}</div><div class="omikuji-poem">${o.poem.replace(/\n/g,'<br>')}</div>`;
+  const itemsHtml = Object.entries(o.items).map(([k, v]) => `
+    <div class="omikuji-item">
+      <div class="item-label">${k}</div>
+      <div class="item-value">${v}</div>
+    </div>
+  `).join('');
+
+  result.innerHTML = `
+    <div class="omikuji-title" style="color:${o.color}">${o.rank}</div>
+    <div class="omikuji-items">${itemsHtml}</div>
+    <div class="omikuji-poem">${o.poem.replace(/\n/g, '<br>')}</div>
+  `;
   result.className = 'omikuji-result show';
 }
+
+// Init shrines on load
 document.addEventListener('DOMContentLoaded', () => renderShrines(shrines));
 </script>
 </body>
