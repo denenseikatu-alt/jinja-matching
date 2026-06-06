@@ -303,6 +303,22 @@
   .stripe-badge { display: flex; align-items: center; justify-content: center; gap: 0.4rem; margin-top: 1rem; font-size: 0.75rem; color: var(--text-light); }
   .stripe-badge svg { width: 40px; }
 
+  .region-select {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #fff;
+    color: var(--text);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .region-select:focus { border-color: var(--primary); }
+  .region-note { font-size: 0.78rem; color: var(--text-light); margin-top: 0.5rem; line-height: 1.5; }
+
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   @media (max-width: 480px) {
     header h1 { font-size: 1.5rem; }
@@ -362,15 +378,74 @@
       </div>
 
       <div class="question">
-        <label>3. お住まいの地域は？</label>
-        <div class="choices">
-          <button class="choice-btn" data-q="region" data-v="東京・関東" onclick="toggle(this)">🗼 東京・関東</button>
-          <button class="choice-btn" data-q="region" data-v="京都・関西" onclick="toggle(this)">🦌 京都・関西</button>
-          <button class="choice-btn" data-q="region" data-v="東北・北海道" onclick="toggle(this)">🌸 東北・北海道</button>
-          <button class="choice-btn" data-q="region" data-v="中部・東海" onclick="toggle(this)">🗻 中部・東海</button>
-          <button class="choice-btn" data-q="region" data-v="九州・沖縄" onclick="toggle(this)">🌺 九州・沖縄</button>
-          <button class="choice-btn" data-q="region" data-v="全国どこでも" onclick="toggle(this)">🗾 全国</button>
-        </div>
+        <label>3. お住まいの都道府県は？</label>
+        <select id="regionSelect" class="region-select" onchange="selectRegion(this.value)">
+          <option value="">-- 都道府県を選んでください --</option>
+          <optgroup label="北海道">
+            <option value="北海道">北海道</option>
+          </optgroup>
+          <optgroup label="東北">
+            <option value="青森県">青森県</option>
+            <option value="岩手県">岩手県</option>
+            <option value="宮城県">宮城県</option>
+            <option value="秋田県">秋田県</option>
+            <option value="山形県">山形県</option>
+            <option value="福島県">福島県</option>
+          </optgroup>
+          <optgroup label="関東">
+            <option value="茨城県">茨城県</option>
+            <option value="栃木県">栃木県</option>
+            <option value="群馬県">群馬県</option>
+            <option value="埼玉県">埼玉県</option>
+            <option value="千葉県">千葉県</option>
+            <option value="東京都">東京都</option>
+            <option value="神奈川県">神奈川県</option>
+          </optgroup>
+          <optgroup label="中部">
+            <option value="新潟県">新潟県</option>
+            <option value="富山県">富山県</option>
+            <option value="石川県">石川県</option>
+            <option value="福井県">福井県</option>
+            <option value="山梨県">山梨県</option>
+            <option value="長野県">長野県</option>
+            <option value="岐阜県">岐阜県</option>
+            <option value="静岡県">静岡県</option>
+            <option value="愛知県">愛知県</option>
+          </optgroup>
+          <optgroup label="近畿">
+            <option value="三重県">三重県</option>
+            <option value="滋賀県">滋賀県</option>
+            <option value="京都府">京都府</option>
+            <option value="大阪府">大阪府</option>
+            <option value="兵庫県">兵庫県</option>
+            <option value="奈良県">奈良県</option>
+            <option value="和歌山県">和歌山県</option>
+          </optgroup>
+          <optgroup label="中国">
+            <option value="鳥取県">鳥取県</option>
+            <option value="島根県">島根県</option>
+            <option value="岡山県">岡山県</option>
+            <option value="広島県">広島県</option>
+            <option value="山口県">山口県</option>
+          </optgroup>
+          <optgroup label="四国">
+            <option value="徳島県">徳島県</option>
+            <option value="香川県">香川県</option>
+            <option value="愛媛県">愛媛県</option>
+            <option value="高知県">高知県</option>
+          </optgroup>
+          <optgroup label="九州・沖縄">
+            <option value="福岡県">福岡県</option>
+            <option value="佐賀県">佐賀県</option>
+            <option value="長崎県">長崎県</option>
+            <option value="熊本県">熊本県</option>
+            <option value="大分県">大分県</option>
+            <option value="宮崎県">宮崎県</option>
+            <option value="鹿児島県">鹿児島県</option>
+            <option value="沖縄県">沖縄県</option>
+          </optgroup>
+        </select>
+        <p class="region-note">※ お住まいの都道府県の神社を優先してご提案します。登録神社が少ない場合は近隣地域も含みます。</p>
       </div>
 
       <button class="match-btn" onclick="doMatch()">✨ マッチングする</button>
@@ -522,6 +597,7 @@ const shrines = [
     id: 1,
     name: "明治神宮",
     region: "東京・関東",
+    prefecture: "東京都",
     address: "東京都渋谷区代々木神園町1-1",
     wishes: ["縁結び", "商売繁盛", "健康長寿", "家内安全"],
     vibes: ["荘厳・格式", "自然豊か", "アクセス良好"],
@@ -534,6 +610,7 @@ const shrines = [
     id: 2,
     name: "伊勢神宮（内宮）",
     region: "中部・東海",
+    prefecture: "三重県",
     address: "三重県伊勢市宇治館町1",
     wishes: ["家内安全", "縁結び", "厄除け", "商売繁盛"],
     vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
@@ -546,6 +623,7 @@ const shrines = [
     id: 3,
     name: "出雲大社",
     region: "全国どこでも",
+    prefecture: "島根県",
     address: "島根県出雲市大社町杵築東195",
     wishes: ["縁結び", "家内安全", "厄除け"],
     vibes: ["荘厳・格式", "自然豊か"],
@@ -558,6 +636,7 @@ const shrines = [
     id: 4,
     name: "太宰府天満宮",
     region: "九州・沖縄",
+    prefecture: "福岡県",
     address: "福岡県太宰府市宰府4-7-1",
     wishes: ["学業成就", "厄除け", "商売繁盛"],
     vibes: ["荘厳・格式", "アクセス良好"],
@@ -570,6 +649,7 @@ const shrines = [
     id: 5,
     name: "住吉大社",
     region: "京都・関西",
+    prefecture: "大阪府",
     address: "大阪府大阪市住吉区住吉2-9-89",
     wishes: ["商売繁盛", "縁結び", "安産祈願", "家内安全"],
     vibes: ["荘厳・格式", "アクセス良好"],
@@ -582,6 +662,7 @@ const shrines = [
     id: 6,
     name: "春日大社",
     region: "京都・関西",
+    prefecture: "奈良県",
     address: "奈良県奈良市春日野町160",
     wishes: ["縁結び", "厄除け", "家内安全", "学業成就"],
     vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
@@ -594,6 +675,7 @@ const shrines = [
     id: 7,
     name: "鶴岡八幡宮",
     region: "東京・関東",
+    prefecture: "神奈川県",
     address: "神奈川県鎌倉市雪ノ下2-1-31",
     wishes: ["縁結び", "学業成就", "交通安全", "厄除け"],
     vibes: ["荘厳・格式", "アクセス良好", "自然豊か"],
@@ -606,6 +688,7 @@ const shrines = [
     id: 8,
     name: "北海道神宮",
     region: "東北・北海道",
+    prefecture: "北海道",
     address: "北海道札幌市中央区宮ヶ丘474",
     wishes: ["家内安全", "縁結び", "商売繁盛", "健康長寿"],
     vibes: ["自然豊か", "荘厳・格式", "穴場・静か"],
@@ -618,6 +701,7 @@ const shrines = [
     id: 9,
     name: "熱田神宮",
     region: "中部・東海",
+    prefecture: "愛知県",
     address: "愛知県名古屋市熱田区神宮1-1-1",
     wishes: ["厄除け", "交通安全", "家内安全", "商売繁盛"],
     vibes: ["荘厳・格式", "自然豊か", "アクセス良好"],
@@ -630,6 +714,7 @@ const shrines = [
     id: 10,
     name: "宇佐神宮",
     region: "九州・沖縄",
+    prefecture: "大分県",
     address: "大分県宇佐市南宇佐2859",
     wishes: ["商売繁盛", "縁結び", "厄除け", "健康長寿"],
     vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
@@ -642,6 +727,7 @@ const shrines = [
     id: 11,
     name: "富士山本宮浅間大社",
     region: "中部・東海",
+    prefecture: "静岡県",
     address: "静岡県富士宮市宮町1-1",
     wishes: ["縁結び", "安産祈願", "健康長寿", "家内安全"],
     vibes: ["荘厳・格式", "自然豊か"],
@@ -654,6 +740,7 @@ const shrines = [
     id: 12,
     name: "諏訪大社",
     region: "中部・東海",
+    prefecture: "長野県",
     address: "長野県諏訪市中洲神宮1",
     wishes: ["縁結び", "交通安全", "健康長寿", "商売繁盛"],
     vibes: ["荘厳・格式", "自然豊か", "穴場・静か"],
@@ -698,6 +785,26 @@ const omikujiData = [
   }
 ];
 
+// ========== PREFECTURE → BROAD REGION MAP ==========
+const prefToRegion = {
+  '北海道': '東北・北海道',
+  '青森県': '東北・北海道', '岩手県': '東北・北海道', '宮城県': '東北・北海道',
+  '秋田県': '東北・北海道', '山形県': '東北・北海道', '福島県': '東北・北海道',
+  '茨城県': '東京・関東', '栃木県': '東京・関東', '群馬県': '東京・関東',
+  '埼玉県': '東京・関東', '千葉県': '東京・関東', '東京都': '東京・関東', '神奈川県': '東京・関東',
+  '新潟県': '中部・東海', '富山県': '中部・東海', '石川県': '中部・東海',
+  '福井県': '中部・東海', '山梨県': '中部・東海', '長野県': '中部・東海',
+  '岐阜県': '中部・東海', '静岡県': '中部・東海', '愛知県': '中部・東海', '三重県': '中部・東海',
+  '滋賀県': '京都・関西', '京都府': '京都・関西', '大阪府': '京都・関西',
+  '兵庫県': '京都・関西', '奈良県': '京都・関西', '和歌山県': '京都・関西',
+  '鳥取県': '京都・関西', '島根県': '京都・関西', '岡山県': '京都・関西',
+  '広島県': '京都・関西', '山口県': '京都・関西',
+  '徳島県': '京都・関西', '香川県': '京都・関西', '愛媛県': '京都・関西', '高知県': '京都・関西',
+  '福岡県': '九州・沖縄', '佐賀県': '九州・沖縄', '長崎県': '九州・沖縄',
+  '熊本県': '九州・沖縄', '大分県': '九州・沖縄', '宮崎県': '九州・沖縄',
+  '鹿児島県': '九州・沖縄', '沖縄県': '九州・沖縄',
+};
+
 // ========== STATE ==========
 let selections = {};
 
@@ -723,6 +830,10 @@ function toggle(btn) {
   }
 }
 
+function selectRegion(value) {
+  selections.region = value ? [value] : [];
+}
+
 function scoreShrine(shrine) {
   let score = 0;
   if (selections.wish && selections.wish.length > 0) {
@@ -734,21 +845,47 @@ function scoreShrine(shrine) {
     score += matches * 20;
   }
   if (selections.region && selections.region.length > 0) {
-    if (selections.region.includes(shrine.region) || shrine.region === "全国どこでも" || selections.region.includes("全国どこでも")) {
-      score += 25;
+    const selectedPref = selections.region[0];
+    if (shrine.region === '全国どこでも') {
+      score += 15; // 全国的に重要な神社
+    } else if (shrine.prefecture === selectedPref) {
+      score += 30; // 同一都道府県
+    } else {
+      const shrineRegion = prefToRegion[shrine.prefecture] || shrine.region;
+      const selectedRegion = prefToRegion[selectedPref];
+      if (selectedRegion && shrineRegion === selectedRegion) {
+        score += 10; // 同一広域エリア（近隣フォールバック）
+      }
     }
   }
   return score;
 }
 
 function doMatch() {
-  const regionSelected = selections.region && selections.region.length > 0;
-  const results = shrines
-    .filter(s => {
-      if (!regionSelected) return true;
-      if (selections.region.includes('全国どこでも')) return true;
-      return selections.region.includes(s.region) || s.region === '全国どこでも';
-    })
+  const prefectureSelected = selections.region && selections.region.length > 0;
+  const selectedPref = prefectureSelected ? selections.region[0] : null;
+  const selectedBroadRegion = selectedPref ? prefToRegion[selectedPref] : null;
+
+  // 候補神社を絞り込む（都道府県一致 + 全国どこでも）
+  let pool = shrines;
+  let usedFallback = false;
+  if (prefectureSelected) {
+    pool = shrines.filter(s =>
+      s.region === '全国どこでも' || s.prefecture === selectedPref
+    );
+    // 同一都道府県の神社が2件未満なら同一広域エリアも含める
+    const exactCount = pool.filter(s => s.prefecture === selectedPref).length;
+    if (exactCount < 2 && selectedBroadRegion) {
+      pool = shrines.filter(s =>
+        s.region === '全国どこでも' ||
+        s.prefecture === selectedPref ||
+        (prefToRegion[s.prefecture] || s.region) === selectedBroadRegion
+      );
+      usedFallback = exactCount === 0 || pool.some(s => s.prefecture !== selectedPref && s.region !== '全国どこでも');
+    }
+  }
+
+  const results = pool
     .map(s => ({ ...s, score: scoreShrine(s) }))
     .filter(s => s.score > 0)
     .sort((a, b) => b.score - a.score)
@@ -761,8 +898,12 @@ function doMatch() {
     return;
   }
 
+  const fallbackNote = usedFallback
+    ? `<p style="font-size:0.8rem;color:var(--text-light);margin-bottom:0.5rem">※ ${selectedPref}の登録神社が少ないため、近隣エリアの神社も含めてご紹介しています。</p>`
+    : '';
+
   const maxScore = results[0].score;
-  container.innerHTML = `<div class="card"><h2>✨ マッチング結果（${results.length}件）</h2></div>` +
+  container.innerHTML = `<div class="card"><h2>✨ マッチング結果（${results.length}件）</h2>${fallbackNote}</div>` +
     results.map((s, i) => {
       const pct = Math.round((s.score / maxScore) * 100);
       return `
@@ -791,7 +932,7 @@ function renderShrines(list) {
     <div class="shrine-card">
       <div class="shrine-header">
         <h3>⛩ ${s.name}</h3>
-        <span class="region">${s.region}</span>
+        <span class="region">${s.prefecture || s.region}</span>
       </div>
       <div class="shrine-body">
         <div class="tags">${s.wishes.map(w => `<span class="tag">${w}</span>`).join('')}</div>
