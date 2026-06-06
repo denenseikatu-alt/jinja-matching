@@ -742,7 +742,13 @@ function scoreShrine(shrine) {
 }
 
 function doMatch() {
+  const regionSelected = selections.region && selections.region.length > 0;
   const results = shrines
+    .filter(s => {
+      if (!regionSelected) return true;
+      if (selections.region.includes('全国どこでも')) return true;
+      return selections.region.includes(s.region) || s.region === '全国どこでも';
+    })
     .map(s => ({ ...s, score: scoreShrine(s) }))
     .filter(s => s.score > 0)
     .sort((a, b) => b.score - a.score)
