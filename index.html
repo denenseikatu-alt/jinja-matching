@@ -1395,15 +1395,15 @@ function doMatch() {
     pool = shrines.filter(s =>
       s.region === '全国どこでも' || s.prefecture === selectedPref
     );
-    // 同一都道府県の神社が2件未満なら同一広域エリアも含める
+    // 同一都道府県の神社がゼロの場合のみ、同一広域エリアも含める
     const exactCount = pool.filter(s => s.prefecture === selectedPref).length;
-    if (exactCount < 2 && selectedBroadRegion) {
+    if (exactCount === 0 && selectedBroadRegion) {
       pool = shrines.filter(s =>
         s.region === '全国どこでも' ||
         s.prefecture === selectedPref ||
         (prefToRegion[s.prefecture] || s.region) === selectedBroadRegion
       );
-      usedFallback = exactCount === 0 || pool.some(s => s.prefecture !== selectedPref && s.region !== '全国どこでも');
+      usedFallback = true;
     }
   }
 
