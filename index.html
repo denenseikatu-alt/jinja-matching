@@ -1756,14 +1756,28 @@ function scoreShrine(shrine) {
 }
 
 function doMatch() {
+  const wishSelected = selections.wish && selections.wish.length > 0;
   const prefectureSelected = selections.region && selections.region.length > 0;
   const selectedPref = prefectureSelected ? selections.region[0] : null;
 
-  // 選択した都道府県の神社のみに厳密に絞る
+  // 願い事が選択されている場合、その願い事を「得意とする」神社のみを対象にする
   let pool = shrines;
-  const usedFallback = false;
+  if (wishSelected) {
+    pool = pool.filter(s => selections.wish.some(w => s.wishes.includes(w)));
+  }
+
+  // 地域で絞り込み（同一都道府県 → なければ近隣エリア → なければ全国）
+  let usedFallback = false;
   if (prefectureSelected) {
-    pool = shrines.filter(s => s.prefecture === selectedPref);
+    const local = pool.filter(s => s.prefecture === selectedPref);
+    if (local.length > 0) {
+      pool = local;
+    } else {
+      const selectedRegion = prefToRegion[selectedPref];
+      const regional = pool.filter(s => (prefToRegion[s.prefecture] || s.region) === selectedRegion);
+      pool = regional.length > 0 ? regional : pool;
+      usedFallback = true;
+    }
   }
 
   const results = pool
@@ -1775,12 +1789,15 @@ function doMatch() {
   const container = document.getElementById('matchResults');
 
   if (results.length === 0) {
-    container.innerHTML = `<div class="card empty"><div class="icon">⛩</div><p>条件を選択してマッチングしてみましょう</p></div>`;
+    const msg = wishSelected
+      ? `選択された願い事を得意とする神社が見つかりませんでした。願い事や地域の条件を変えてお試しください。`
+      : `条件を選択してマッチングしてみましょう`;
+    container.innerHTML = `<div class="card empty"><div class="icon">⛩</div><p>${msg}</p></div>`;
     return;
   }
 
   const fallbackNote = usedFallback
-    ? `<p style="font-size:0.8rem;color:var(--text-light);margin-bottom:0.5rem">※ ${selectedPref}の登録神社が少ないため、近隣エリアの神社も含めてご紹介しています。</p>`
+    ? `<p style="font-size:0.8rem;color:var(--text-light);margin-bottom:0.5rem">※ ${selectedPref}には該当する神社が少ないため、近隣エリアの神社も含めてご紹介しています。</p>`
     : '';
 
   const maxScore = results[0].score;
