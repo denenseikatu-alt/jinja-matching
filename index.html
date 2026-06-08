@@ -594,7 +594,7 @@
   <!-- PAID tier -->
   <div class="paid-fortune-card">
     <h3>🔮 さらに詳しく占う <span class="paid-label">有料</span></h3>
-    <p class="sub">カテゴリ・期間・方式を選んで、本格鑑定をお申し込みいただけます</p>
+    <p class="sub">カテゴリ・期間を選んで、本格鑑定をお申し込みいただけます</p>
 
     <div class="fortune-step">
       <label>① 占いカテゴリ（複数選択可）</label>
@@ -614,15 +614,6 @@
         <button class="fortune-choice" data-g="period" data-v="3ヶ月" onclick="toggleFortune(this)">🗓 3ヶ月</button>
         <button class="fortune-choice" data-g="period" data-v="半年" onclick="toggleFortune(this)">🌙 半年</button>
         <button class="fortune-choice" data-g="period" data-v="1年" onclick="toggleFortune(this)">🌟 1年</button>
-      </div>
-    </div>
-
-    <div class="fortune-step">
-      <label>③ 占い方式</label>
-      <div class="fortune-choices">
-        <button class="fortune-choice" data-g="method" data-v="タロット" onclick="toggleFortune(this)">🃏 タロット</button>
-        <button class="fortune-choice" data-g="method" data-v="数秘術" onclick="toggleFortune(this)">🔢 数秘術</button>
-        <button class="fortune-choice" data-g="method" data-v="九星気学" onclick="toggleFortune(this)">⭐ 九星気学</button>
       </div>
     </div>
 
@@ -2000,8 +1991,7 @@ function updateFortunePayBtn() {
   const btn = document.getElementById('fortunePayBtn');
   const hasCategory = fortuneSelections.category && fortuneSelections.category.length > 0;
   const hasPeriod = fortuneSelections.period && fortuneSelections.period.length > 0;
-  const hasMethod = fortuneSelections.method && fortuneSelections.method.length > 0;
-  if (hasCategory && hasPeriod && hasMethod) {
+  if (hasCategory && hasPeriod) {
     btn.classList.add('visible');
     btn.href = 'https://buy.stripe.com/6oU14gcVk8af0tP3IAf3a03';
   } else {
