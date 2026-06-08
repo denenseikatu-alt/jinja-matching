@@ -368,10 +368,80 @@
   .region-note { font-size: 0.78rem; color: var(--text-light); margin-top: 0.5rem; line-height: 1.5; }
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ===== FREE FORTUNE (開運鑑定) ===== */
+  .free-fortune-btn {
+    display: block; width: 100%; margin-top: 0.6rem;
+    padding: 0.7rem 1rem; border: 2px solid var(--accent);
+    border-radius: 8px; background: linear-gradient(135deg, #fffdf5, #fff4d6);
+    color: var(--primary); font-size: 0.9rem; font-weight: 700;
+    font-family: inherit; cursor: pointer; letter-spacing: 0.03em;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .free-fortune-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(212,160,23,0.35); }
+  .free-fortune-btn:active { transform: translateY(0); }
+
+  .fortune-modal {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: rgba(44,24,16,0.55); padding: 1rem;
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+  }
+  .fortune-modal.open { display: flex; align-items: flex-start; justify-content: center; }
+  .fortune-modal-inner {
+    background: var(--card-bg); border-radius: 16px; max-width: 480px; width: 100%;
+    margin: 2rem auto; padding: 1.6rem 1.4rem 1.8rem; box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    border: 1px solid var(--border); animation: fadeIn 0.35s ease;
+  }
+  .ff-close { float: right; background: none; border: none; font-size: 1.4rem; color: var(--text-light); cursor: pointer; line-height: 1; }
+  .ff-head { text-align: center; margin-bottom: 1.2rem; }
+  .ff-head .ff-shrine { font-size: 1.15rem; color: var(--primary); font-weight: 700; margin-top: 0.2rem; }
+  .ff-head .ff-sub { font-size: 0.8rem; color: var(--text-light); margin-top: 0.3rem; }
+  .ff-field { margin-bottom: 1rem; }
+  .ff-field label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+  .ff-field input, .ff-field select {
+    width: 100%; padding: 0.65rem 0.8rem; border: 2px solid var(--border);
+    border-radius: 8px; font-size: 0.95rem; font-family: inherit; background: #fff; color: var(--text); outline: none;
+  }
+  .ff-field input:focus, .ff-field select:focus { border-color: var(--primary); }
+  .ff-dob { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0.5rem; }
+  .ff-go {
+    width: 100%; margin-top: 0.4rem; padding: 0.85rem; border: none; border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff; font-size: 1rem; font-weight: 700; font-family: inherit; cursor: pointer; letter-spacing: 0.05em;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .ff-go:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(139,0,0,0.4); }
+  .ff-err { color: var(--primary-light); font-size: 0.82rem; margin-top: 0.5rem; text-align: center; min-height: 1.1em; }
+
+  .ff-result { margin-top: 1.4rem; animation: fadeIn 0.5s ease; }
+  .ff-result .ff-greet { text-align: center; font-size: 0.9rem; color: var(--text-light); margin-bottom: 0.3rem; }
+  .ff-result .ff-overall { text-align: center; margin-bottom: 1rem; }
+  .ff-result .ff-overall .ff-label { font-size: 0.8rem; color: var(--text-light); }
+  .ff-result .ff-overall .ff-stars { font-size: 1.5rem; color: var(--accent); letter-spacing: 0.1em; margin: 0.2rem 0; }
+  .ff-result .ff-overall .ff-stars .dim { color: var(--border); }
+  .ff-result .ff-overall .ff-msg { font-size: 0.95rem; color: var(--primary); font-weight: 700; }
+  .ff-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; }
+  .ff-cat { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 0.6rem 0.7rem; }
+  .ff-cat .c-name { font-size: 0.78rem; color: var(--text-light); }
+  .ff-cat .c-stars { font-size: 0.85rem; color: var(--accent); letter-spacing: 0.05em; }
+  .ff-cat .c-stars .dim { color: var(--border); }
+  .ff-cat .c-text { font-size: 0.78rem; color: var(--text); line-height: 1.5; margin-top: 0.25rem; }
+  .ff-lucky { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-bottom: 1rem; }
+  .ff-lucky .lk { background: linear-gradient(135deg,#fffdf5,#fff4d6); border: 1px solid var(--accent); border-radius: 10px; padding: 0.55rem 0.3rem; text-align: center; }
+  .ff-lucky .lk .lk-label { font-size: 0.68rem; color: var(--text-light); }
+  .ff-lucky .lk .lk-val { font-size: 0.95rem; color: var(--primary); font-weight: 700; margin-top: 0.15rem; }
+  .ff-shrine-tie { background: #fff9f0; border-left: 3px solid var(--primary); border-radius: 6px; padding: 0.7rem 0.9rem; font-size: 0.83rem; color: var(--text); line-height: 1.65; margin-bottom: 1rem; }
+  .ff-action { background: linear-gradient(135deg,#fffdf5,#fff9e6); border: 1px solid var(--accent); border-radius: 10px; padding: 0.7rem 0.9rem; font-size: 0.83rem; color: var(--text); line-height: 1.6; margin-bottom: 1rem; }
+  .ff-action b { color: var(--primary); }
+  .ff-again { width: 100%; padding: 0.75rem; border: 2px solid var(--accent); border-radius: 10px; background: #fff; color: var(--primary); font-size: 0.92rem; font-weight: 700; font-family: inherit; cursor: pointer; }
+  .ff-again:hover { background: #fff9e6; }
+  .ff-disclaimer { font-size: 0.72rem; color: var(--text-light); text-align: center; margin-top: 0.9rem; line-height: 1.5; }
+
   @media (max-width: 480px) {
     header h1 { font-size: 1.5rem; }
     .omikuji-items { grid-template-columns: 1fr; }
     .support-grid { grid-template-columns: 1fr; }
+    .ff-cats { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -1864,6 +1934,7 @@ function doMatch() {
           <a class="link-btn map" href="${s.map}" target="_blank" rel="noopener">📍 地図</a>
           <a class="link-btn jinja-cho" href="${s.jinja_cho}" target="_blank" rel="noopener">📋 神社庁</a>
         </div>
+        <button class="free-fortune-btn" onclick="openFortune(${s.id})">🔮 この神社で開運鑑定（無料）</button>
       </div>`;
     }).join('');
 }
@@ -1966,6 +2037,198 @@ function drawOmikuji() {
 
 // Init shrines on load
 document.addEventListener('DOMContentLoaded', () => renderShrines(shrines));
+</script>
+
+<!-- ========== FREE FORTUNE MODAL (開運鑑定) ========== -->
+<div class="fortune-modal" id="fortuneModal" onclick="if(event.target===this)closeFortune()">
+  <div class="fortune-modal-inner">
+    <button class="ff-close" onclick="closeFortune()" aria-label="閉じる">×</button>
+    <div class="ff-head">
+      <div style="font-size:1.6rem">🔮</div>
+      <div>開運鑑定 <span class="free-label">無料</span></div>
+      <div class="ff-shrine" id="ffShrineName">―</div>
+      <div class="ff-sub">お名前と生年月日から、この神社のご利益に合わせた今のあなたの運勢をお伝えします</div>
+    </div>
+
+    <div id="ffForm">
+      <div class="ff-field">
+        <label>お名前（ニックネーム可）</label>
+        <input type="text" id="ffName" maxlength="20" placeholder="例：はなこ" autocomplete="off">
+      </div>
+      <div class="ff-field">
+        <label>生年月日</label>
+        <div class="ff-dob">
+          <select id="ffYear"></select>
+          <select id="ffMonth"></select>
+          <select id="ffDay"></select>
+        </div>
+      </div>
+      <button class="ff-go" onclick="runFortune()">✨ 鑑定する</button>
+      <div class="ff-err" id="ffErr"></div>
+    </div>
+
+    <div id="ffResult"></div>
+  </div>
+</div>
+
+<script>
+// ========== FREE FORTUNE ENGINE ==========
+let ffShrine = null;
+
+// populate date selects once
+(function initDob(){
+  const y = document.getElementById('ffYear');
+  const m = document.getElementById('ffMonth');
+  const d = document.getElementById('ffDay');
+  y.innerHTML = '<option value="">年</option>';
+  const nowY = new Date().getFullYear();
+  for (let i = nowY; i >= 1925; i--) y.innerHTML += `<option value="${i}">${i}年</option>`;
+  m.innerHTML = '<option value="">月</option>';
+  for (let i = 1; i <= 12; i++) m.innerHTML += `<option value="${i}">${i}月</option>`;
+  d.innerHTML = '<option value="">日</option>';
+  for (let i = 1; i <= 31; i++) d.innerHTML += `<option value="${i}">${i}日</option>`;
+})();
+
+function openFortune(shrineId){
+  ffShrine = shrines.find(s => s.id === shrineId) || null;
+  document.getElementById('ffShrineName').textContent = ffShrine ? '⛩ ' + ffShrine.name : '―';
+  document.getElementById('ffResult').innerHTML = '';
+  document.getElementById('ffForm').style.display = 'block';
+  document.getElementById('ffErr').textContent = '';
+  document.getElementById('fortuneModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeFortune(){
+  document.getElementById('fortuneModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// deterministic hash from a string
+function ffHash(str){
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return (h >>> 0);
+}
+// seeded PRNG (mulberry32)
+function ffRng(seed){
+  return function(){
+    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function ffStars(n){ // n: 1-5
+  let s = '';
+  for (let i = 0; i < 5; i++) s += i < n ? '★' : '<span class="dim">★</span>';
+  return s;
+}
+// numerology life-path (1-9, 11,22,33 reduced to 1-9 for simplicity)
+function lifePath(y,m,d){
+  let sum = String(y)+String(m)+String(d);
+  let n = sum.split('').reduce((a,c)=>a+(+c),0);
+  while (n > 9) n = String(n).split('').reduce((a,c)=>a+(+c),0);
+  return n || 9;
+}
+
+const FF = {
+  colors: ['朱色','白','金色','藍色','若草色','紫紺','桜色','山吹色','瑠璃色','銀鼠'],
+  dirs: ['東','西','南','北','東南','南西','北東','北西'],
+  pathTraits: {
+    1:'自ら道を切り拓く先導者',2:'人と人を結ぶ調和の人',3:'場を明るくする表現者',
+    4:'こつこつ積み上げる堅実家',5:'変化を楽しむ自由人',6:'まわりを支える世話役',
+    7:'物事の本質を見抜く探究者',8:'現実を動かす実力者',9:'広く慈しむ博愛の人'
+  },
+  cats: [
+    {key:'恋愛運', good:['新しい出会いの予感。心を開くほど良縁が近づきます。','すれ違いが解け、信頼が深まる流れ。','素直な一言が関係を前進させます。'],
+      mid:['焦らず相手のペースを尊重して。','小さな気遣いが効いてくる時期。','受け身より、半歩こちらから。']},
+    {key:'仕事運', good:['努力が認められ、評価が形になる好機。','新しい役割があなたを成長させます。','チームの要として頼られる流れ。'],
+      mid:['基礎を固め直すと後で効きます。','一点集中で雑念を手放して。','報連相を丁寧にすると吉。']},
+    {key:'金運', good:['思わぬ臨時の入りに恵まれそう。','学びへの投資が将来の実りに。','人との縁がお金の縁を運びます。'],
+      mid:['衝動買いは一呼吸おいて。','固定費を見直すと流れが整います。','貸し借りは記録を明確に。']},
+    {key:'健康運', good:['心身が軽く、行動力が湧く時期。','早寝早起きが運気を底上げ。','自然の中を歩くと活力が戻ります。'],
+      mid:['首・肩を温めて巡りを整えて。','水分と休息を意識的に。','頑張りすぎに注意、緩める勇気を。']}
+  ],
+  actions: [
+    'お参りの前に手水で心を清め、願い事は一つに絞って具体的に唱えましょう。',
+    '朝日を浴びて深呼吸を3回。今日の小さな目標を声に出すと運気が整います。',
+    '感謝を一つ書き出してから出かけると、良いご縁を引き寄せます。',
+    '財布や鞄の中を整理して。不要を手放すと新しい巡りが入ってきます。',
+    '白湯を一杯飲んで身体を温め、背筋を伸ばして一日を始めましょう。'
+  ]
+};
+
+function runFortune(){
+  const name = document.getElementById('ffName').value.trim();
+  const y = +document.getElementById('ffYear').value;
+  const m = +document.getElementById('ffMonth').value;
+  const d = +document.getElementById('ffDay').value;
+  const err = document.getElementById('ffErr');
+  if (!name){ err.textContent = 'お名前を入力してください'; return; }
+  if (!y || !m || !d){ err.textContent = '生年月日を選択してください'; return; }
+  err.textContent = '';
+  renderFortune(name, y, m, d);
+}
+
+function renderFortune(name, y, m, d){
+  const lp = lifePath(y,m,d);
+  // base seed: stable per person+shrine; draw seed: changes each draw
+  const base = ffHash(name + '|' + y + '-' + m + '-' + d + '|' + (ffShrine? ffShrine.id : 0));
+  const drawSeed = (base ^ Date.now() ^ Math.floor(Math.random()*1e9)) >>> 0;
+  const rnd = ffRng(drawSeed);
+
+  const overall = 2 + Math.floor(rnd()*4); // 2-5
+  const overallMsg = ['','','まずまずの追い風','良い流れが来ています','絶好調の予感','大開運のとき'][overall];
+
+  // shrine wish tie-in
+  const wishes = (ffShrine && ffShrine.wishes) ? ffShrine.wishes : ['開運'];
+  const topWish = wishes[Math.floor(rnd()*wishes.length)];
+
+  const cats = FF.cats.map(c => {
+    const sc = 2 + Math.floor(rnd()*4);
+    const pool = sc >= 4 ? c.good : c.mid;
+    return { name:c.key, score:sc, text: pool[Math.floor(rnd()*pool.length)] };
+  });
+
+  const luckyColor = FF.colors[Math.floor(rnd()*FF.colors.length)];
+  const luckyDir = FF.dirs[Math.floor(rnd()*FF.dirs.length)];
+  const luckyNum = 1 + Math.floor(rnd()*9);
+  const action = FF.actions[Math.floor(rnd()*FF.actions.length)];
+  const trait = FF.pathTraits[lp];
+
+  const catsHtml = cats.map(c => `
+    <div class="ff-cat">
+      <div class="c-name">${c.name}</div>
+      <div class="c-stars">${ffStars(c.score)}</div>
+      <div class="c-text">${c.text}</div>
+    </div>`).join('');
+
+  const shrineName = ffShrine ? ffShrine.name : 'この神社';
+  const tie = `<div class="ff-shrine-tie">あなたは数命数 <b>${lp}</b>、「${trait}」の星のもとに生まれています。`
+    + `${shrineName}は<b>「${topWish}」</b>のご利益で知られる神社。`
+    + `今のあなたの願いと特に響き合うご縁です。落ち着いた気持ちで参拝すると、その力を受け取りやすいでしょう。</div>`;
+
+  document.getElementById('ffForm').style.display = 'none';
+  document.getElementById('ffResult').innerHTML = `
+    <div class="ff-result">
+      <div class="ff-greet">${name} さんへの、今このときの鑑定</div>
+      <div class="ff-overall">
+        <div class="ff-label">総合運</div>
+        <div class="ff-stars">${ffStars(overall)}</div>
+        <div class="ff-msg">${overallMsg}</div>
+      </div>
+      ${tie}
+      <div class="ff-cats">${catsHtml}</div>
+      <div class="ff-lucky">
+        <div class="lk"><div class="lk-label">ラッキーカラー</div><div class="lk-val">${luckyColor}</div></div>
+        <div class="lk"><div class="lk-label">ラッキー方位</div><div class="lk-val">${luckyDir}</div></div>
+        <div class="lk"><div class="lk-label">ラッキーナンバー</div><div class="lk-val">${luckyNum}</div></div>
+      </div>
+      <div class="ff-action"><b>今日の開運アクション</b><br>${action}</div>
+      <button class="ff-again" onclick="renderFortune(${JSON.stringify(name)}, ${y}, ${m}, ${d})">🔮 もう一度占う</button>
+      <div class="ff-disclaimer">※ 本鑑定はエンターテインメント目的のものです。入力情報はこの端末内でのみ使用し、どこにも送信・保存されません。</div>
+    </div>`;
+}
 </script>
 </body>
 </html>
