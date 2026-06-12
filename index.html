@@ -61,53 +61,159 @@
   gtag('config', 'G-DJ27SJ9W6G');
 </script>
 <title>神社マッチング | あなたにぴったりの神社を見つける</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --primary: #8B0000;
-    --primary-light: #c0392b;
-    --accent: #d4a017;
-    --bg: #fdf6ec;
-    --card-bg: #fff9f0;
-    --text: #2c1810;
-    --text-light: #6b4c3b;
-    --border: #e8d5c0;
-    --shadow: 0 4px 20px rgba(139,0,0,0.08);
+    --primary: #7c0d15;
+    --primary-light: #b0342a;
+    --accent: #c9a227;
+    --accent-light: #e7cd7a;
+    --bg: #efe7d6;
+    --card-bg: rgba(255,253,247,0.93);
+    --text: #221511;
+    --text-light: #5c463b;
+    --border: #d9c6a6;
+    --forest: #2c5446;
+    --shadow: 0 12px 40px rgba(60,28,18,0.14);
+    --serif: 'Shippori Mincho', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
-  /* Header */
-  header {
-    background: linear-gradient(135deg, #4a0e0e 0%, #8B0000 60%, #a52a2a 100%);
-    color: #fff;
-    text-align: center;
-    padding: 2rem 1rem 3rem;
+  body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
     position: relative;
+    overflow-x: hidden;
+  }
+  /* Atmospheric layered background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background:
+      radial-gradient(120% 90% at 50% -10%, rgba(201,162,39,0.18) 0%, rgba(201,162,39,0) 45%),
+      linear-gradient(180deg, #1d1410 0%, #3a241b 22%, #6b4530 48%, #a07a4e 72%, #cdb487 100%);
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: -20% -20% -20% -20%;
+    z-index: -2;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      105deg,
+      rgba(255,238,190,0) 0px,
+      rgba(255,238,190,0.05) 2px,
+      rgba(255,238,190,0.11) 5px,
+      rgba(255,238,190,0) 14px,
+      rgba(255,238,190,0) 46px
+    );
+    -webkit-mask-image: radial-gradient(70% 60% at 50% 0%, #000 0%, rgba(0,0,0,0.25) 55%, transparent 80%);
+    mask-image: radial-gradient(70% 60% at 50% 0%, #000 0%, rgba(0,0,0,0.25) 55%, transparent 80%);
+    animation: rayDrift 26s ease-in-out infinite alternate;
+  }
+  @keyframes rayDrift {
+    0%   { transform: translateX(-2%) rotate(-0.6deg); opacity: 0.75; }
+    100% { transform: translateX(2%) rotate(0.6deg); opacity: 1; }
+  }
+  /* Reiki (spirit) light motes drifting upward */
+  .reiki {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
     overflow: hidden;
   }
-  header::before {
-    content: '⛩';
+  .reiki span {
     position: absolute;
-    font-size: 12rem;
-    opacity: 0.06;
-    top: -2rem;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,244,206,0.95) 0%, rgba(231,205,122,0.5) 40%, rgba(231,205,122,0) 72%);
+    filter: blur(0.4px);
+    animation-name: rise;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    opacity: 0;
   }
-  header h1 { font-size: 2rem; letter-spacing: 0.1em; position: relative; }
-  header p { margin-top: 0.5rem; opacity: 0.85; font-size: 0.95rem; position: relative; }
-  .header-badges { margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; position: relative; }
-  .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.8rem; }
+  @keyframes rise {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    10%  { opacity: 0.9; }
+    85%  { opacity: 0.7; }
+    100% { transform: translateY(-108vh) translateX(var(--dx, 0px)); opacity: 0; }
+  }
+
+  /* Header / Hero */
+  header {
+    color: #fff;
+    text-align: center;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .hero-art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  .hero-art svg { width: 100%; height: 100%; display: block; }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 2rem 1rem 2.4rem;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(20,12,8,0) 0%, rgba(20,12,8,0.45) 70%, rgba(20,12,8,0.7) 100%);
+  }
+  header h1 {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: 2.5rem;
+    letter-spacing: 0.12em;
+    color: #fff;
+    text-shadow: 0 0 18px rgba(231,205,122,0.65), 0 2px 6px rgba(0,0,0,0.6);
+  }
+  .tagline {
+    font-family: var(--serif);
+    margin-top: 0.7rem;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    color: #f3e6c8;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.6);
+  }
+  .header-badges { margin-top: 1.1rem; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; position: relative; }
+  .badge {
+    background: rgba(40,20,12,0.4);
+    border: 1px solid rgba(231,205,122,0.5);
+    color: #f3e6c8;
+    border-radius: 20px;
+    padding: 0.28rem 0.8rem;
+    font-size: 0.8rem;
+    backdrop-filter: blur(2px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body::after { animation: none; }
+    .reiki span { animation: none; display: none; }
+  }
 
   /* Nav tabs */
   nav {
-    background: #fff;
+    background: rgba(247,241,228,0.96);
+    backdrop-filter: blur(6px);
     display: flex;
-    border-bottom: 2px solid var(--border);
+    border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 3px 14px rgba(60,28,18,0.12);
   }
   nav button {
     flex: 1;
@@ -121,8 +227,8 @@
     transition: all 0.2s;
     font-family: inherit;
   }
-  nav button.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: bold; }
-  nav button:hover { background: #fff5f5; }
+  nav button.active { color: var(--primary); border-bottom-color: var(--accent); font-weight: bold; }
+  nav button:hover { background: rgba(201,162,39,0.1); }
 
   /* Sections */
   .section { display: none; padding: 1.5rem 1rem; max-width: 700px; margin: 0 auto; }
@@ -132,12 +238,13 @@
   .card {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 1.5rem;
     margin-bottom: 1rem;
     box-shadow: var(--shadow);
+    backdrop-filter: blur(3px);
   }
-  .card h2 { font-size: 1.1rem; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .card h2 { font-family: var(--serif); font-weight: 700; font-size: 1.2rem; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
 
   /* Matching form */
   .question { margin-bottom: 1.2rem; }
@@ -447,13 +554,87 @@
 </head>
 <body>
 
+<div class="reiki" aria-hidden="true"><span style="left:74%;width:10.2px;height:10.2px;animation-duration:26.1s;animation-delay:-7.7s;--dx:-10px"></span><span style="left:31%;width:7.2px;height:7.2px;animation-duration:11.6s;animation-delay:-3.5s;--dx:6px"></span><span style="left:59%;width:9.6px;height:9.6px;animation-duration:21.4s;animation-delay:-17.9s;--dx:4px"></span><span style="left:34%;width:10.2px;height:10.2px;animation-duration:16.3s;animation-delay:-15.2s;--dx:1px"></span><span style="left:75%;width:8.7px;height:8.7px;animation-duration:17.0s;animation-delay:-12.1s;--dx:-18px"></span><span style="left:15%;width:4.7px;height:4.7px;animation-duration:15.9s;animation-delay:-15.3s;--dx:-10px"></span><span style="left:93%;width:7.4px;height:7.4px;animation-duration:18.8s;animation-delay:-3.9s;--dx:-5px"></span><span style="left:12%;width:5.9px;height:5.9px;animation-duration:26.6s;animation-delay:-13.9s;--dx:13px"></span><span style="left:97%;width:6.6px;height:6.6px;animation-duration:21.9s;animation-delay:-8.3s;--dx:14px"></span><span style="left:62%;width:9.4px;height:9.4px;animation-duration:16.5s;animation-delay:-10.9s;--dx:-0px"></span><span style="left:1%;width:10.9px;height:10.9px;animation-duration:23.2s;animation-delay:-11.2s;--dx:2px"></span><span style="left:96%;width:8.3px;height:8.3px;animation-duration:22.0s;animation-delay:-12.1s;--dx:14px"></span><span style="left:65%;width:10.2px;height:10.2px;animation-duration:19.3s;animation-delay:-12.6s;--dx:-5px"></span><span style="left:73%;width:6.2px;height:6.2px;animation-duration:11.7s;animation-delay:-8.0s;--dx:-9px"></span><span style="left:70%;width:6.3px;height:6.3px;animation-duration:22.3s;animation-delay:-17.5s;--dx:17px"></span><span style="left:89%;width:9.7px;height:9.7px;animation-duration:16.0s;animation-delay:-6.6s;--dx:17px"></span></div>
+
 <header>
-  <h1>⛩ 神社マッチング</h1>
-  <p>あなたのご縁とお導きに合った神社をご紹介します</p>
-  <div class="header-badges">
-    <span class="badge">神社534社掲載</span>
-    <span class="badge">無料でご利用</span>
-    <span class="badge">おみくじ付き</span>
+  <div class="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 1600 540" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a1340"/>
+          <stop offset="34%" stop-color="#4a1730"/>
+          <stop offset="62%" stop-color="#8e2b22"/>
+          <stop offset="82%" stop-color="#c9742a"/>
+          <stop offset="100%" stop-color="#e7cd7a"/>
+        </linearGradient>
+        <radialGradient id="sun" cx="50%" cy="78%" r="46%">
+          <stop offset="0%" stop-color="#fff6da" stop-opacity="0.95"/>
+          <stop offset="30%" stop-color="#ffe6a6" stop-opacity="0.7"/>
+          <stop offset="65%" stop-color="#f0b860" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#f0b860" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fff3c8" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#fff3c8" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="mtnFar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5a3a52"/>
+          <stop offset="100%" stop-color="#7a4a4a"/>
+        </linearGradient>
+        <linearGradient id="mtnMid" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3c3450"/>
+          <stop offset="100%" stop-color="#553b46"/>
+        </linearGradient>
+        <linearGradient id="toriiG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a0d0c"/>
+          <stop offset="100%" stop-color="#2a1412"/>
+        </linearGradient>
+      </defs>
+      <!-- sky -->
+      <rect x="0" y="0" width="1600" height="540" fill="url(#sky)"/>
+      <!-- sun glow -->
+      <circle cx="800" cy="420" r="520" fill="url(#sun)"/>
+      <!-- god rays -->
+      <g opacity="0.55">
+        <polygon points="800,420 700,-40 760,-40" fill="url(#ray)"/>
+        <polygon points="800,420 860,-40 920,-40" fill="url(#ray)"/>
+        <polygon points="800,420 540,-20 600,-40" fill="url(#ray)"/>
+        <polygon points="800,420 1020,-40 1080,-20" fill="url(#ray)"/>
+        <polygon points="800,420 380,40 430,-20" fill="url(#ray)"/>
+        <polygon points="800,420 1180,-20 1230,40" fill="url(#ray)"/>
+      </g>
+      <!-- distant mountains -->
+      <path d="M0,360 L180,250 L360,330 L520,235 L700,320 L860,250 L1040,330 L1220,245 L1420,330 L1600,260 L1600,540 L0,540 Z" fill="url(#mtnFar)" opacity="0.7"/>
+      <!-- mist band 1 -->
+      <rect x="0" y="320" width="1600" height="70" fill="#e7cd7a" opacity="0.16"/>
+      <!-- mid mountains -->
+      <path d="M0,420 L220,320 L420,410 L620,310 L820,405 L1020,315 L1240,410 L1440,325 L1600,400 L1600,540 L0,540 Z" fill="url(#mtnMid)" opacity="0.85"/>
+      <!-- mist band 2 -->
+      <rect x="0" y="400" width="1600" height="60" fill="#f3e6c8" opacity="0.2"/>
+      <!-- forest back -->
+      <path d="M0,540 L0,486 L-62,486 L0,415 L62,486 L38,486 L100,430 L162,486 L138,486 L200,418 L262,486 L238,486 L300,395 L362,486 L338,486 L400,411 L462,486 L438,486 L500,418 L562,486 L538,486 L600,401 L662,486 L638,486 L700,398 L762,486 L738,486 L800,442 L862,486 L838,486 L900,394 L962,486 L938,486 L1000,435 L1062,486 L1038,486 L1100,436 L1162,486 L1138,486 L1200,394 L1262,486 L1238,486 L1300,443 L1362,486 L1338,486 L1400,426 L1462,486 L1438,486 L1500,444 L1562,486 L1538,486 L1600,442 L1662,486 L1600,486 L1600,540 Z" fill="#23433a" opacity="0.92"/>
+      <!-- torii silhouette -->
+      <g fill="url(#toriiG)">
+        <rect x="690" y="300" width="26" height="180"/>
+        <rect x="884" y="300" width="26" height="180"/>
+        <rect x="676" y="318" width="248" height="14"/>
+        <path d="M654,300 q146,-30 292,0 l0,16 q-146,-26 -292,0 Z"/>
+        <rect x="744" y="332" width="112" height="13"/>
+      </g>
+      <!-- gold top highlight on kasagi -->
+      <path d="M654,300 q146,-30 292,0 l0,4 q-146,-28 -292,0 Z" fill="#e7cd7a" opacity="0.5"/>
+      <!-- forest front -->
+      <path d="M0,540 L0,508 L-50,508 L0,390 L50,508 L30,508 L80,406 L130,508 L110,508 L160,412 L210,508 L190,508 L240,423 L290,508 L270,508 L320,397 L370,508 L350,508 L400,382 L450,508 L430,508 L480,447 L530,508 L510,508 L560,380 L610,508 L590,508 L640,398 L690,508 L670,508 L720,413 L770,508 L750,508 L800,397 L850,508 L830,508 L880,393 L930,508 L910,508 L960,431 L1010,508 L990,508 L1040,415 L1090,508 L1070,508 L1120,429 L1170,508 L1150,508 L1200,406 L1250,508 L1230,508 L1280,380 L1330,508 L1310,508 L1360,427 L1410,508 L1390,508 L1440,412 L1490,508 L1470,508 L1520,379 L1570,508 L1550,508 L1600,417 L1650,508 L1600,508 L1600,540 Z" fill="#162b25"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <h1>⛩ 神社マッチング</h1>
+    <p class="tagline">あなたのご縁とお導きに合った神社をご紹介します</p>
+    <div class="header-badges">
+      <span class="badge">神社534社掲載</span>
+      <span class="badge">無料でご利用</span>
+      <span class="badge">おみくじ付き</span>
+    </div>
   </div>
 </header>
 
