@@ -2398,5 +2398,82 @@ function renderFortune(name, y, m, d){
     </div>`;
 }
 </script>
+<!-- 独自アナリティクス計測タグ -->
+<script>
+(function () {
+  var GAS_URL = 'https://script.google.com/macros/s/AKfycbz4Cr7zzSze-qy5nIOsf7IsOb9gpoydrvpWs_N-yp3Y7epBrgTA9Xjyp7n1FFt-QgYm/exec';
+  var SITE = 'jinja';
+  var start = Date.now(), maxScroll = 0, leaveSent = false, isNew = 0;
+  var VID = 'noid';
+  try {
+    VID = localStorage.getItem('_da_vid');
+    if (!VID) {
+      VID = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+      localStorage.setItem('_da_vid', VID);
+      isNew = 1;
+    }
+  } catch (e) {}
+  var ua = navigator.userAgent;
+  var device = /iPad|Android(?!.*Mobile)/i.test(ua) ? 'tablet'
+             : /Mobile|iPhone|Android/i.test(ua) ? 'mobile' : 'pc';
+  var os = /Windows/i.test(ua) ? 'Windows'
+         : /iPhone|iPad/i.test(ua) ? 'iOS'
+         : /Mac OS X/i.test(ua) ? 'macOS'
+         : /Android/i.test(ua) ? 'Android' : 'other';
+  var browser = /Edg\//.test(ua) ? 'Edge'
+              : /Chrome\//.test(ua) ? 'Chrome'
+              : /Safari\//.test(ua) ? 'Safari'
+              : /Firefox\//.test(ua) ? 'Firefox' : 'other';
+  function send(data) {
+    data.site = SITE;
+    data.page = location.pathname + location.search;
+    data.title = document.title;
+    data.visitor = VID;
+    data.isNew = isNew;
+    data.device = device;
+    data.os = os;
+    data.browser = browser;
+    data.screen = screen.width + 'x' + screen.height;
+    data.referrer = (document.referrer &&
+      document.referrer.indexOf(location.hostname) === -1) ? document.referrer : '';
+    var body = JSON.stringify(data);
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(GAS_URL, body);
+    } else {
+      var x = new XMLHttpRequest();
+      x.open('POST', GAS_URL, true);
+      x.send(body);
+    }
+  }
+  send({ event: 'pv' });
+  addEventListener('scroll', function () {
+    var h = document.documentElement.scrollHeight - innerHeight;
+    if (h > 0) {
+      var p = Math.round((scrollY / h) * 100);
+      if (p > maxScroll) maxScroll = Math.min(p, 100);
+    }
+  }, { passive: true });
+  function leave() {
+    if (leaveSent) return;
+    leaveSent = true;
+    send({
+      event: 'leave',
+      duration: Math.round((Date.now() - start) / 1000),
+      scroll: maxScroll
+    });
+  }
+  addEventListener('pagehide', leave);
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') leave();
+  });
+  document.addEventListener('click', function (ev) {
+    var el = ev.target;
+    var a = el.closest ? el.closest('a[href]') : null;
+    if (a && a.host && a.host !== location.host) {
+      send({ event: 'click', clickUrl: a.href });
+    }
+  }, true);
+})();
+</script>
 </body>
 </html>
