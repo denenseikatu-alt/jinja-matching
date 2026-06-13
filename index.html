@@ -798,8 +798,8 @@
       </div>
     </div>
 
-    <a id="fortunePayBtn" class="fortune-pay-btn" href="#" target="_blank" rel="noopener">
-      🔮 鑑定を申し込む（¥500）
+    <a id="fortunePayBtn" class="fortune-pay-btn" href="javascript:void(0)" onclick="return payGuard(event)">
+      🛠 鑑定を申し込む（準備中）
     </a>
   </div>
 </div>
@@ -813,30 +813,29 @@
       <p style="margin-top:0.5rem;font-size:0.9rem;color:var(--text-light)">神社への感謝の気持ちをオンラインで届けましょう</p>
     </div>
     <div class="saisen-grid">
-      <a href="https://buy.stripe.com/dRm7sEcVkbmr90ldjaf3a00" target="_blank" rel="noopener" class="saisen-btn">
+      <a href="javascript:void(0)" onclick="return payGuard(event)" data-pay="https://buy.stripe.com/dRm7sEcVkbmr90ldjaf3a00" class="saisen-btn">
         <span class="coin">🪙</span>
         <span class="amount">100円</span>
         <span class="label">小さな感謝</span>
       </a>
-      <a href="https://buy.stripe.com/aFa00caNcgGL0tPbb2f3a01" target="_blank" rel="noopener" class="saisen-btn">
+      <a href="javascript:void(0)" onclick="return payGuard(event)" data-pay="https://buy.stripe.com/aFa00caNcgGL0tPbb2f3a01" class="saisen-btn">
         <span class="coin">💰</span>
         <span class="amount">500円</span>
         <span class="label">ご縁を結ぶ</span>
       </a>
-      <a href="https://buy.stripe.com/4gM3co3kKbmr90l7YQf3a04" target="_blank" rel="noopener" class="saisen-btn">
+      <a href="javascript:void(0)" onclick="return payGuard(event)" data-pay="https://buy.stripe.com/4gM3co3kKbmr90l7YQf3a04" class="saisen-btn">
         <span class="coin">✨</span>
         <span class="amount">1,000円</span>
         <span class="label">心を込めて</span>
       </a>
-      <a href="https://buy.stripe.com/6oU3co3kK2PV0tP2Ewf3a05" target="_blank" rel="noopener" class="saisen-btn">
+      <a href="javascript:void(0)" onclick="return payGuard(event)" data-pay="https://buy.stripe.com/6oU3co3kK2PV0tP2Ewf3a05" class="saisen-btn">
         <span class="coin">🌸</span>
         <span class="amount">5,000円</span>
         <span class="label">特別なお礼</span>
       </a>
     </div>
     <div class="stripe-badge">
-      <svg viewBox="0 0 60 25" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="25" rx="4" fill="#635BFF"/><text x="8" y="17" font-family="Arial" font-size="11" fill="white" font-weight="bold">stripe</text></svg>
-      <span style="color:var(--text-light)">Stripe で安全に決済</span>
+      <span style="color:var(--text-light)">🛠 決済システムを準備中です（近日公開予定）</span>
     </div>
   </div>
 </div>
@@ -2165,13 +2164,25 @@ function toggleFortune(btn) {
   }
   updateFortunePayBtn();
 }
+// ⚠️ Stripeは占いを禁止業種としているため決済を一時停止中。
+//    KOMOJUの決済リンクが用意できたら PAYMENT_DISABLED=false にし、各リンクを差し替える。
+const PAYMENT_DISABLED = true;
+function payGuard(e) {
+  if (PAYMENT_DISABLED) {
+    if (e) e.preventDefault();
+    alert('🛠 決済システムを準備中です。\n近日公開予定ですので、もうしばらくお待ちください。');
+    return false;
+  }
+  return true;
+}
 function updateFortunePayBtn() {
   const btn = document.getElementById('fortunePayBtn');
   const hasCategory = fortuneSelections.category && fortuneSelections.category.length > 0;
   const hasPeriod = fortuneSelections.period && fortuneSelections.period.length > 0;
   if (hasCategory && hasPeriod) {
     btn.classList.add('visible');
-    btn.href = 'https://buy.stripe.com/6oU14gcVk8af0tP3IAf3a03';
+    // 決済停止中はリンク遷移しない（payGuardがクリックを止める）。再開時はKOMOJUのURLを設定。
+    btn.href = PAYMENT_DISABLED ? 'javascript:void(0)' : '';
   } else {
     btn.classList.remove('visible');
   }
