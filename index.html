@@ -454,6 +454,11 @@
   .saisen-btn .coin { font-size: 1.8rem; margin-bottom: 0.3rem; }
   .saisen-btn .amount { font-size: 1.3rem; font-weight: bold; color: var(--primary); }
   .saisen-btn .label { font-size: 0.75rem; color: var(--text-light); margin-top: 0.2rem; }
+  .saisen-grid.single { grid-template-columns: 1fr; }
+  .saisen-grid.single .saisen-btn { padding: 1.7rem 1rem; border-color: var(--accent); background: #fffdf5; }
+  .saisen-grid.single .saisen-btn .coin { font-size: 2.2rem; }
+  .saisen-grid.single .saisen-btn .amount { font-size: 1.45rem; }
+  .saisen-grid.single .saisen-btn .label { font-size: 0.85rem; margin-top: 0.35rem; }
   .saisen-note { background: #fff9f0; border: 1px solid var(--accent); border-radius: 8px; padding: 0.8rem 1rem; font-size: 0.8rem; color: var(--text-light); line-height: 1.6; text-align: center; }
   .stripe-badge { display: flex; align-items: center; justify-content: center; gap: 0.4rem; margin-top: 1rem; font-size: 0.75rem; color: var(--text-light); }
   .stripe-badge svg { width: 40px; }
@@ -798,9 +803,10 @@
       </div>
     </div>
 
-    <a id="fortunePayBtn" class="fortune-pay-btn" href="javascript:void(0)" onclick="return payGuard(event)">
-      🛠 鑑定を申し込む（準備中）
+    <a id="fortunePayBtn" class="fortune-pay-btn" href="javascript:void(0)" onclick="payHonkaku(); return false;">
+      鑑定を申し込む &nbsp;¥1,000
     </a>
+    <p style="text-align:center;font-size:0.78rem;color:var(--text-light);margin-top:0.7rem;line-height:1.6">🔐 STORESで安全に決済。<br>ご購入後、ご案内に沿ってお名前・生年月日・カテゴリ・期間をお送りください。</p>
   </div>
 </div>
 
@@ -812,30 +818,15 @@
       <h2>デジタルお賽銭</h2>
       <p style="margin-top:0.5rem;font-size:0.9rem;color:var(--text-light)">神社への感謝の気持ちをオンラインで届けましょう</p>
     </div>
-    <div class="saisen-grid">
-      <a href="javascript:void(0)" onclick="return payGuard(event)" data-pay="https://buy.stripe.com/dRm7sEcVkbmr90ldjaf3a00" class="saisen-btn">
+    <div class="saisen-grid single">
+      <a href="javascript:void(0)" onclick="payOsaisen(); return false;" class="saisen-btn">
         <span class="coin">🪙</span>
-        <span class="amount">100円</span>
-        <span class="label">小さな感謝</span>
-      </a>
-      <a href="javascript:void(0)" onclick="return payGuard(event)" data-pay="https://buy.stripe.com/aFa00caNcgGL0tPbb2f3a01" class="saisen-btn">
-        <span class="coin">💰</span>
-        <span class="amount">500円</span>
-        <span class="label">ご縁を結ぶ</span>
-      </a>
-      <a href="javascript:void(0)" onclick="return payGuard(event)" data-pay="https://buy.stripe.com/4gM3co3kKbmr90l7YQf3a04" class="saisen-btn">
-        <span class="coin">✨</span>
-        <span class="amount">1,000円</span>
-        <span class="label">心を込めて</span>
-      </a>
-      <a href="javascript:void(0)" onclick="return payGuard(event)" data-pay="https://buy.stripe.com/6oU3co3kK2PV0tP2Ewf3a05" class="saisen-btn">
-        <span class="coin">🌸</span>
-        <span class="amount">5,000円</span>
-        <span class="label">特別なお礼</span>
+        <span class="amount">お気持ちの金額で奉納する</span>
+        <span class="label">100円 × 個数 でご自由に（例：5個で500円・10個で1,000円）</span>
       </a>
     </div>
     <div class="stripe-badge">
-      <span style="color:var(--text-light)">🛠 決済システムを準備中です（近日公開予定）</span>
+      <span style="color:var(--text-light)">🔐 STORESで安全に決済。購入時に「個数」を選んで金額を調整できます</span>
     </div>
   </div>
 </div>
@@ -2164,25 +2155,26 @@ function toggleFortune(btn) {
   }
   updateFortunePayBtn();
 }
-// ⚠️ Stripeは占いを禁止業種としているため決済を一時停止中。
-//    KOMOJUの決済リンクが用意できたら PAYMENT_DISABLED=false にし、各リンクを差し替える。
-const PAYMENT_DISABLED = true;
-function payGuard(e) {
-  if (PAYMENT_DISABLED) {
-    if (e) e.preventDefault();
-    alert('🛠 決済システムを準備中です。\n近日公開予定ですので、もうしばらくお待ちください。');
-    return false;
-  }
-  return true;
+// 💳 決済はSTORESに移行（占いはStripeの禁止業種のため）。
+//    各商品ページ（個人運営・占い対応）へ遷移する。
+const PAY = {
+  // デジタルお賽銭（100円 × 個数で金額自由）
+  OSAISEN_LINK: 'https://u5btoqwywc8ql2lhulvn.stores.jp/items/6a2e368fb0a302ed3068aab5',
+  // 神社マッチング 本格鑑定（カテゴリ・期間オーダーメイド ¥1,000）
+  HONKAKU_LINK: 'https://u5btoqwywc8ql2lhulvn.stores.jp/items/6a2e35a413b903e44ae5b6d2',
+};
+function openPay(url) {
+  if (url) { window.open(url, '_blank', 'noopener'); }
 }
+// インラインonclickから確実に呼べるよう関数宣言で公開（const PAY をクロージャで参照）
+function payOsaisen() { openPay(PAY.OSAISEN_LINK); }
+function payHonkaku() { openPay(PAY.HONKAKU_LINK); }
 function updateFortunePayBtn() {
   const btn = document.getElementById('fortunePayBtn');
   const hasCategory = fortuneSelections.category && fortuneSelections.category.length > 0;
   const hasPeriod = fortuneSelections.period && fortuneSelections.period.length > 0;
   if (hasCategory && hasPeriod) {
     btn.classList.add('visible');
-    // 決済停止中はリンク遷移しない（payGuardがクリックを止める）。再開時はKOMOJUのURLを設定。
-    btn.href = PAYMENT_DISABLED ? 'javascript:void(0)' : '';
   } else {
     btn.classList.remove('visible');
   }
