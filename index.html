@@ -52,13 +52,29 @@
   ]
 }
 </script>
+<!-- 計測オプトアウト判定 -->
+<script>
+(function(){
+  var msg = '';
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('optout') === '1') { localStorage.setItem('_da_optout','1'); msg = '✅ この端末（このブラウザ）を計測から除外しました。アクセスは記録されません。'; }
+    else if (q.get('optout') === '0') { localStorage.removeItem('_da_optout'); msg = '計測除外を解除しました。この端末のアクセスは通常どおり記録されます。'; }
+  } catch(e){}
+  var optedOut = false;
+  try { optedOut = localStorage.getItem('_da_optout') === '1'; } catch(e){}
+  window.__DA_OPTOUT__ = optedOut;
+  if (optedOut) { window['ga-disable-G-DJ27SJ9W6G'] = true; }
+  if (msg) { window.addEventListener('DOMContentLoaded', function(){ alert(msg); }); }
+})();
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DJ27SJ9W6G"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-DJ27SJ9W6G');
+  if (!window.__DA_OPTOUT__) { gtag('config', 'G-DJ27SJ9W6G'); }
 </script>
 <title>神社マッチング | あなたにぴったりの神社を見つける</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2404,6 +2420,7 @@ function renderFortune(name, y, m, d){
 <!-- 独自アナリティクス計測タグ -->
 <script>
 (function () {
+  if (window.__DA_OPTOUT__) return;
   var GAS_URL = 'https://script.google.com/macros/s/AKfycbz4Cr7zzSze-qy5nIOsf7IsOb9gpoydrvpWs_N-yp3Y7epBrgTA9Xjyp7n1FFt-QgYm/exec';
   var SITE = 'jinja';
   var start = Date.now(), maxScroll = 0, leaveSent = false, isNew = 0;
