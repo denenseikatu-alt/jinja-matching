@@ -129,16 +129,18 @@
     --coral-deep: #e2654a;
     --accent: #c9a24c;         /* 金 */
     --accent-light: #e3c97f;
-    --bg: #fdf6ef;             /* クリーム */
-    --bg-soft: #fbeee6;
-    --pink: #fce9e2;           /* 淡いピンク面 */
-    --pink-2: #fbf2ec;
+    --bg: #fffaf8;             /* ほぼ白のクリーム */
+    --hero-bg: #fffaf8;
+    --bg-soft: #fdf4f0;
+    --pink: #fdede7;           /* 淡いピンク面 */
+    --pink-2: #fdf5f1;
+    --pink-soft: #fbeae3;
     --card-bg: #ffffff;
-    --text: #4d3d31;           /* 温かみのある茶 */
-    --text-light: #8c7a69;
-    --border: #f0e1d5;         /* やわらかい縁 */
+    --text: #5a4a3e;           /* 温かみのある茶 */
+    --text-light: #9c8b7c;
+    --border: #f3e7df;         /* やわらかい縁 */
     --forest: #6fa089;
-    --shadow: 0 14px 38px rgba(170,120,90,0.16);
+    --shadow: 0 14px 38px rgba(190,150,120,0.13);
     --serif: 'Shippori Mincho', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -158,9 +160,9 @@
     inset: 0;
     z-index: -3;
     background:
-      radial-gradient(90% 60% at 50% -8%, rgba(236,138,110,0.16) 0%, rgba(236,138,110,0) 55%),
-      radial-gradient(70% 50% at 100% 12%, rgba(201,162,76,0.10) 0%, rgba(201,162,76,0) 60%),
-      linear-gradient(180deg, #fdf6ef 0%, #fbeee6 60%, #faf3ec 100%);
+      radial-gradient(90% 55% at 50% -10%, rgba(236,138,110,0.08) 0%, rgba(236,138,110,0) 55%),
+      radial-gradient(60% 45% at 100% 10%, rgba(201,162,76,0.05) 0%, rgba(201,162,76,0) 60%),
+      linear-gradient(180deg, #fffaf8 0%, #fdf5f1 100%);
   }
   body::after { content: none; }
   /* Sakura petals drifting (subtle) */
@@ -224,60 +226,76 @@
   /* ===== Hero ===== */
   header.hero {
     position: relative; overflow: hidden;
-    background: linear-gradient(165deg, #fdf0e9 0%, #fbe4da 52%, #f6d7cc 100%);
+    background: var(--hero-bg);
   }
   .hero-inner {
     position: relative; z-index: 2;
-    max-width: 1080px; margin: 0 auto;
-    display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: 24px;
-    padding: 54px 22px 60px;
+    max-width: 1180px; margin: 0 auto;
+    display: flex; align-items: center; min-height: 540px;
+    padding: 56px 22px;
   }
-  .hero-copy { position: relative; z-index: 3; }
+  .hero-copy { position: relative; z-index: 3; max-width: 540px; }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 7px;
-    font-size: 0.82rem; letter-spacing: 0.08em; color: var(--coral-deep);
-    background: rgba(255,255,255,0.6); border: 1px solid rgba(226,101,74,0.25);
-    padding: 5px 14px; border-radius: 999px; margin-bottom: 18px;
+    font-size: 0.8rem; letter-spacing: 0.06em; color: var(--coral-deep);
+    background: #fff; border: 1px solid var(--pink-soft);
+    padding: 6px 15px; border-radius: 999px; margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(226,101,74,0.08);
   }
   header.hero h1 {
     font-family: var(--serif); font-weight: 800;
-    font-size: clamp(1.9rem, 5.4vw, 2.9rem); line-height: 1.42; letter-spacing: 0.04em;
-    color: #4a382c;
+    font-size: clamp(1.95rem, 5vw, 2.95rem); line-height: 1.46; letter-spacing: 0.03em;
+    color: #54423a;
   }
   header.hero h1 .hl {
     color: var(--coral-deep);
-    background: linear-gradient(transparent 64%, rgba(236,138,110,0.28) 64%);
+    background: linear-gradient(transparent 66%, rgba(236,138,110,0.24) 66%);
     padding: 0 0.06em;
   }
   .hero-lead {
-    margin-top: 18px; font-size: 0.96rem; line-height: 1.95; color: #6f5d4d; max-width: 30em;
+    margin-top: 20px; font-size: 0.95rem; line-height: 2; color: var(--text-light); max-width: 29em;
   }
   .hero-cta {
-    display: inline-flex; align-items: center; gap: 10px; margin-top: 26px;
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 28px;
     background: linear-gradient(135deg, var(--coral), var(--coral-deep));
-    color: #fff; padding: 15px 34px; border-radius: 999px;
-    font-size: 1.02rem; font-weight: 700; letter-spacing: 0.04em;
+    color: #fff; padding: 15px 36px; border-radius: 999px;
+    font-size: 1.02rem; font-weight: 700; letter-spacing: 0.03em;
     text-decoration: none; border: none; cursor: pointer; font-family: inherit;
-    box-shadow: 0 12px 28px rgba(226,101,74,0.36);
+    box-shadow: 0 12px 28px rgba(226,101,74,0.32);
     transition: transform 0.15s, box-shadow 0.2s;
   }
-  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(226,101,74,0.46); }
+  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(226,101,74,0.44); }
   .hero-feats {
-    display: flex; gap: 20px; flex-wrap: wrap; margin-top: 30px;
+    display: flex; gap: 26px; flex-wrap: wrap; margin-top: 34px;
   }
-  .hero-feat { display: flex; align-items: center; gap: 9px; font-size: 0.82rem; color: #6f5d4d; }
+  .hero-feat { display: flex; align-items: center; gap: 9px; font-size: 0.8rem; color: var(--text); }
   .hero-feat .fi {
-    width: 34px; height: 34px; border-radius: 50%;
-    background: #fff; border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center; font-size: 1rem;
-    box-shadow: 0 4px 10px rgba(170,120,90,0.12);
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #fff; border: 1px solid var(--pink-soft);
+    display: flex; align-items: center; justify-content: center; font-size: 1.02rem;
+    box-shadow: 0 5px 12px rgba(226,101,74,0.12);
   }
-  .hero-visual { position: relative; z-index: 1; align-self: stretch; min-height: 240px; }
-  .hero-visual svg { width: 100%; height: 100%; display: block; }
-  @media (max-width: 720px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 8px; padding: 34px 20px 40px; text-align: left; }
-    .hero-visual { position: absolute; inset: 0; opacity: 0.5; z-index: 0; }
-    .hero-copy { z-index: 3; }
+  /* Full-bleed torii photo on the right with white fade into the copy */
+  .hero-photo {
+    position: absolute; top: 0; right: 0; bottom: 0;
+    width: 50vw; max-width: 780px; z-index: 1;
+    background-image: url('https://images.unsplash.com/photo-1721578686066-4d0a69ee1218?w=1100&q=80&auto=format&fit=crop');
+    background-size: cover; background-position: center 32%; background-repeat: no-repeat;
+  }
+  .hero-photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to right, var(--hero-bg) 0%, rgba(255,250,248,0.55) 20%, rgba(255,250,248,0) 46%);
+  }
+  @media (max-width: 860px) {
+    .hero-inner { flex-direction: column; min-height: 0; padding: 28px 20px 36px; align-items: stretch; }
+    .hero-photo {
+      position: relative; width: 100%; max-width: none; height: 230px;
+      border-radius: 18px; order: -1; margin-bottom: 26px;
+      background-position: center 30%;
+      box-shadow: 0 14px 34px rgba(190,140,110,0.22);
+    }
+    .hero-photo::after { background: linear-gradient(to top, rgba(255,250,248,0.25), rgba(255,250,248,0)); }
+    .hero-copy { max-width: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -645,90 +663,119 @@
   }
   .lp-sub { margin-top: 12px; font-size: 0.92rem; color: var(--text-light); line-height: 1.9; }
 
+  /* line-art illustration helpers */
+  .ico-circle {
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 36%, #fff 0%, var(--pink) 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ico-circle svg { width: 56%; height: 56%; }
+  svg.line { fill: none; stroke: var(--coral-deep); stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; }
+  svg.line .soft { stroke: var(--coral); opacity: 0.5; }
+  svg.line .dot { fill: var(--coral-deep); stroke: none; }
+
   /* とは — 3 step cards */
-  .intro-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+  .intro-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
   .intro-card {
-    background: #fff; border: 1px solid var(--border); border-radius: 20px;
-    padding: 30px 22px 26px; text-align: center; position: relative;
+    background: #fff; border: 1px solid var(--border); border-radius: 22px;
+    padding: 32px 24px 28px; text-align: center; position: relative;
     box-shadow: var(--shadow);
   }
-  .intro-card .num {
-    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-    width: 30px; height: 30px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--coral), var(--coral-deep)); color: #fff;
-    font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 5px 12px rgba(226,101,74,0.34);
-  }
   .intro-card .ill {
-    width: 96px; height: 96px; margin: 6px auto 16px; border-radius: 50%;
-    background: radial-gradient(circle at 50% 38%, #fff 0%, var(--pink) 100%);
-    display: flex; align-items: center; justify-content: center; font-size: 2.6rem;
+    width: 104px; height: 104px; margin: 0 auto 18px;
   }
-  .intro-card h3 { font-family: var(--serif); font-size: 1.06rem; color: var(--primary); margin-bottom: 8px; }
+  .intro-card .step {
+    display: inline-block; margin-bottom: 10px;
+    background: linear-gradient(135deg, var(--coral), var(--coral-deep)); color: #fff;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+    padding: 4px 13px; border-radius: 999px;
+    box-shadow: 0 5px 12px rgba(226,101,74,0.26);
+  }
+  .intro-card h3 { font-family: var(--serif); font-size: 1.08rem; color: var(--primary); margin-bottom: 9px; }
   .intro-card p { font-size: 0.85rem; color: var(--text-light); line-height: 1.85; }
 
   /* おすすめ — circular chips */
-  .reco-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 26px 30px; }
-  .reco-item { width: 132px; text-align: center; }
+  .reco-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px 32px; }
+  .reco-item { width: 130px; text-align: center; }
   .reco-item .ic {
-    width: 78px; height: 78px; margin: 0 auto 12px; border-radius: 50%;
-    background: linear-gradient(160deg, #fff, var(--pink));
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center; font-size: 2rem;
-    box-shadow: 0 8px 18px rgba(170,120,90,0.12);
+    width: 84px; height: 84px; margin: 0 auto 14px;
+    border: 1px solid var(--pink-soft);
+    box-shadow: 0 8px 20px rgba(226,101,74,0.10);
   }
   .reco-item p { font-size: 0.82rem; color: var(--text); line-height: 1.7; }
 
   /* 流れ — 4 steps */
-  .flow-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
-  .flow-step { text-align: center; position: relative; padding-top: 8px; }
+  .flow-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+  .flow-step { text-align: center; position: relative; }
+  .flow-step .ic2 { width: 78px; height: 78px; margin: 0 auto 6px; }
   .flow-step .badge2 {
-    width: 40px; height: 40px; margin: 0 auto 12px; border-radius: 50%;
-    background: #fff; border: 2px solid var(--coral); color: var(--coral-deep);
-    font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 6px 14px rgba(226,101,74,0.18);
+    width: 34px; height: 34px; margin: 0 auto 12px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--coral), var(--coral-deep)); color: #fff;
+    font-size: 0.86rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 14px rgba(226,101,74,0.26);
   }
-  .flow-step .ic2 { font-size: 1.9rem; margin-bottom: 8px; }
-  .flow-step h4 { font-size: 0.92rem; color: var(--primary); margin-bottom: 6px; }
+  .flow-step h3 { font-size: 0.94rem; color: var(--primary); margin-bottom: 6px; }
   .flow-step p { font-size: 0.8rem; color: var(--text-light); line-height: 1.75; }
 
   /* CTA band */
   .cta-band {
     position: relative; overflow: hidden;
-    background: linear-gradient(135deg, #f4a58c 0%, #ec8a6e 45%, #e2654a 100%);
-    text-align: center; color: #fff; padding: 52px 22px;
+    background: linear-gradient(120deg, #fbe0d6 0%, #f8d3c6 50%, #f4c4b4 100%);
+    color: #6b4a3c; padding: 50px 22px;
   }
+  .cta-band-in {
+    max-width: 980px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 28px;
+  }
+  .cta-band-copy { text-align: left; }
+  .cta-band .cta-eyebrow { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--coral-deep); margin-bottom: 8px; }
   .cta-band h2 {
     font-family: var(--serif); font-weight: 700;
-    font-size: clamp(1.3rem, 4vw, 1.85rem); letter-spacing: 0.05em; margin-bottom: 10px;
-    text-shadow: 0 2px 10px rgba(150,50,30,0.25);
+    font-size: clamp(1.3rem, 4vw, 1.9rem); letter-spacing: 0.04em; margin-bottom: 22px; color: #5a3f33;
   }
-  .cta-band p { font-size: 0.92rem; opacity: 0.96; margin-bottom: 24px; }
   .cta-band .cta-white {
     display: inline-flex; align-items: center; gap: 9px;
-    background: #fff; color: var(--coral-deep);
+    background: linear-gradient(135deg, var(--coral), var(--coral-deep)); color: #fff;
     padding: 15px 38px; border-radius: 999px; font-size: 1.02rem; font-weight: 700;
-    text-decoration: none; border: none; cursor: pointer; font-family: inherit; letter-spacing: 0.04em;
-    box-shadow: 0 12px 28px rgba(150,50,30,0.3);
+    text-decoration: none; border: none; cursor: pointer; font-family: inherit; letter-spacing: 0.03em;
+    box-shadow: 0 12px 28px rgba(226,101,74,0.34);
     transition: transform 0.15s, box-shadow 0.2s;
   }
-  .cta-band .cta-white:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(150,50,30,0.4); }
+  .cta-band .cta-white:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(226,101,74,0.46); }
+  /* phone mockup */
+  .cta-phone {
+    flex: 0 0 auto; width: 150px; height: 296px; border-radius: 28px;
+    background: #fff; border: 7px solid #4a3a32; position: relative;
+    box-shadow: 0 22px 44px rgba(150,90,70,0.3); overflow: hidden;
+  }
+  .cta-phone::before {
+    content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 54px; height: 16px; background: #4a3a32; border-radius: 0 0 12px 12px; z-index: 2;
+  }
+  .cta-phone .scr {
+    position: absolute; inset: 0; padding: 24px 14px 14px;
+    background: linear-gradient(180deg, #fff 0%, var(--pink-2) 100%);
+    display: flex; flex-direction: column; gap: 9px;
+  }
+  .cta-phone .scr .ph-t { height: 9px; width: 64%; border-radius: 6px; background: var(--coral); margin: 4px auto 6px; }
+  .cta-phone .scr .ph-c { height: 30px; border-radius: 9px; background: #fff; border: 1px solid var(--pink-soft); }
+  .cta-phone .scr .ph-b { margin-top: auto; height: 30px; border-radius: 999px; background: linear-gradient(135deg, var(--coral), var(--coral-deep)); }
 
   /* testimonials */
-  .voice-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+  .voice-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
   .voice-card {
-    background: #fff; border: 1px solid var(--border); border-radius: 18px;
-    padding: 24px 20px; box-shadow: var(--shadow);
+    background: #fff; border: 1px solid var(--border); border-radius: 20px;
+    padding: 26px 22px; box-shadow: var(--shadow);
   }
-  .voice-card .vh { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
+  .voice-card .vh { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
   .voice-card .av {
-    width: 44px; height: 44px; border-radius: 50%; flex: 0 0 auto;
-    background: linear-gradient(160deg, var(--pink), #fff); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+    width: 52px; height: 52px; flex: 0 0 auto;
+    border: 1px solid var(--pink-soft);
   }
-  .voice-card .vt { font-size: 0.84rem; font-weight: 700; color: var(--primary); line-height: 1.5; }
-  .voice-card .vstars { color: var(--accent); font-size: 0.78rem; letter-spacing: 0.08em; }
-  .voice-card p { font-size: 0.82rem; color: var(--text-light); line-height: 1.85; }
+  .voice-card .vt { font-size: 0.92rem; font-weight: 700; color: var(--primary); line-height: 1.4; }
+  .voice-card .vstars { color: var(--accent); font-size: 0.8rem; letter-spacing: 0.12em; margin-top: 3px; }
+  .voice-card p { font-size: 0.83rem; color: var(--text-light); line-height: 1.9; }
+  .voice-card .vname { margin-top: 14px; font-size: 0.78rem; color: var(--text-light); text-align: right; }
 
   /* tool wrapper heading */
   .tool-wrap { padding-top: 34px; }
@@ -736,8 +783,10 @@
 
   @media (max-width: 860px) {
     .intro-cards { grid-template-columns: 1fr; gap: 26px; }
-    .flow-grid { grid-template-columns: repeat(2,1fr); gap: 24px 14px; }
+    .flow-grid { grid-template-columns: repeat(2,1fr); gap: 28px 14px; }
     .voice-grid { grid-template-columns: 1fr; }
+    .cta-band-in { flex-direction: column; text-align: center; gap: 26px; }
+    .cta-band-copy { text-align: center; }
   }
   @media (max-width: 480px) {
     header.hero h1 { font-size: 1.7rem; }
@@ -748,16 +797,17 @@
     .reco-item { width: 44%; }
   }
 
-  /* footer */
+  /* footer (light) */
   footer {
-    background: linear-gradient(135deg, var(--coral), var(--coral-deep));
-    color: #fff; text-align: center; padding: 38px 18px 34px;
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    color: var(--text-light); text-align: center; padding: 36px 18px 30px;
     margin-top: 0; font-size: 0.85rem; line-height: 2.1;
   }
-  footer .footer-brand { font-family: var(--serif); font-size: 1.05rem; margin-bottom: 14px; }
-  footer .footer-sites { font-size: 0.8rem; opacity: 0.96; }
-  footer .footer-sites span { opacity: 0.8; }
-  footer .footer-sites a { color: #fff; margin: 0 .4em; text-decoration: underline; text-underline-offset: 3px; }
+  footer .footer-brand { font-family: var(--serif); font-size: 1.05rem; color: var(--primary); margin-bottom: 12px; }
+  footer .footer-sites { font-size: 0.8rem; }
+  footer .footer-sites a { color: var(--coral-deep); margin: 0 .4em; text-decoration: none; }
+  footer .footer-sites a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -777,130 +827,19 @@
 </header>
 
 <header class="hero" id="top">
-  <div class="hero-art old-hide" aria-hidden="true" style="display:none">
-    <svg viewBox="0 0 1600 540" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#1a1340"/>
-          <stop offset="34%" stop-color="#4a1730"/>
-          <stop offset="62%" stop-color="#8e2b22"/>
-          <stop offset="82%" stop-color="#c9742a"/>
-          <stop offset="100%" stop-color="#e7cd7a"/>
-        </linearGradient>
-        <radialGradient id="sun" cx="50%" cy="78%" r="46%">
-          <stop offset="0%" stop-color="#fff6da" stop-opacity="0.95"/>
-          <stop offset="30%" stop-color="#ffe6a6" stop-opacity="0.7"/>
-          <stop offset="65%" stop-color="#f0b860" stop-opacity="0.25"/>
-          <stop offset="100%" stop-color="#f0b860" stop-opacity="0"/>
-        </radialGradient>
-        <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#fff3c8" stop-opacity="0.5"/>
-          <stop offset="100%" stop-color="#fff3c8" stop-opacity="0"/>
-        </linearGradient>
-        <linearGradient id="mtnFar" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#5a3a52"/>
-          <stop offset="100%" stop-color="#7a4a4a"/>
-        </linearGradient>
-        <linearGradient id="mtnMid" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#3c3450"/>
-          <stop offset="100%" stop-color="#553b46"/>
-        </linearGradient>
-        <linearGradient id="toriiG" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#1a0d0c"/>
-          <stop offset="100%" stop-color="#2a1412"/>
-        </linearGradient>
-      </defs>
-      <!-- sky -->
-      <rect x="0" y="0" width="1600" height="540" fill="url(#sky)"/>
-      <!-- sun glow -->
-      <circle cx="800" cy="420" r="520" fill="url(#sun)"/>
-      <!-- god rays -->
-      <g opacity="0.55">
-        <polygon points="800,420 700,-40 760,-40" fill="url(#ray)"/>
-        <polygon points="800,420 860,-40 920,-40" fill="url(#ray)"/>
-        <polygon points="800,420 540,-20 600,-40" fill="url(#ray)"/>
-        <polygon points="800,420 1020,-40 1080,-20" fill="url(#ray)"/>
-        <polygon points="800,420 380,40 430,-20" fill="url(#ray)"/>
-        <polygon points="800,420 1180,-20 1230,40" fill="url(#ray)"/>
-      </g>
-      <!-- distant mountains -->
-      <path d="M0,360 L180,250 L360,330 L520,235 L700,320 L860,250 L1040,330 L1220,245 L1420,330 L1600,260 L1600,540 L0,540 Z" fill="url(#mtnFar)" opacity="0.7"/>
-      <!-- mist band 1 -->
-      <rect x="0" y="320" width="1600" height="70" fill="#e7cd7a" opacity="0.16"/>
-      <!-- mid mountains -->
-      <path d="M0,420 L220,320 L420,410 L620,310 L820,405 L1020,315 L1240,410 L1440,325 L1600,400 L1600,540 L0,540 Z" fill="url(#mtnMid)" opacity="0.85"/>
-      <!-- mist band 2 -->
-      <rect x="0" y="400" width="1600" height="60" fill="#f3e6c8" opacity="0.2"/>
-      <!-- forest back -->
-      <path d="M0,540 L0,486 L-62,486 L0,415 L62,486 L38,486 L100,430 L162,486 L138,486 L200,418 L262,486 L238,486 L300,395 L362,486 L338,486 L400,411 L462,486 L438,486 L500,418 L562,486 L538,486 L600,401 L662,486 L638,486 L700,398 L762,486 L738,486 L800,442 L862,486 L838,486 L900,394 L962,486 L938,486 L1000,435 L1062,486 L1038,486 L1100,436 L1162,486 L1138,486 L1200,394 L1262,486 L1238,486 L1300,443 L1362,486 L1338,486 L1400,426 L1462,486 L1438,486 L1500,444 L1562,486 L1538,486 L1600,442 L1662,486 L1600,486 L1600,540 Z" fill="#23433a" opacity="0.92"/>
-      <!-- torii silhouette -->
-      <g fill="url(#toriiG)">
-        <rect x="690" y="300" width="26" height="180"/>
-        <rect x="884" y="300" width="26" height="180"/>
-        <rect x="676" y="318" width="248" height="14"/>
-        <path d="M654,300 q146,-30 292,0 l0,16 q-146,-26 -292,0 Z"/>
-        <rect x="744" y="332" width="112" height="13"/>
-      </g>
-      <!-- gold top highlight on kasagi -->
-      <path d="M654,300 q146,-30 292,0 l0,4 q-146,-28 -292,0 Z" fill="#e7cd7a" opacity="0.5"/>
-      <!-- forest front -->
-      <path d="M0,540 L0,508 L-50,508 L0,390 L50,508 L30,508 L80,406 L130,508 L110,508 L160,412 L210,508 L190,508 L240,423 L290,508 L270,508 L320,397 L370,508 L350,508 L400,382 L450,508 L430,508 L480,447 L530,508 L510,508 L560,380 L610,508 L590,508 L640,398 L690,508 L670,508 L720,413 L770,508 L750,508 L800,397 L850,508 L830,508 L880,393 L930,508 L910,508 L960,431 L1010,508 L990,508 L1040,415 L1090,508 L1070,508 L1120,429 L1170,508 L1150,508 L1200,406 L1250,508 L1230,508 L1280,380 L1330,508 L1310,508 L1360,427 L1410,508 L1390,508 L1440,412 L1490,508 L1470,508 L1520,379 L1570,508 L1550,508 L1600,417 L1650,508 L1600,508 L1600,540 Z" fill="#162b25"/>
-    </svg>
-  </div>
   <div class="hero-inner">
     <div class="hero-copy">
       <span class="eyebrow">あなたの想いに寄り添う神社が見つかる</span>
-      <h1>あなたにぴったりの<span class="hl">神社</span>と<br>出会えるマッチング</h1>
+      <h1>あなたにぴったりの<br><span class="hl">神社</span>と出会える</h1>
       <p class="hero-lead">願いごと・ご利益・神社の特徴から、AIがあなたに最適な神社をご提案。全国534社の中から、心を寄せられる一社をお探しします。</p>
-      <div class="hero-cta">
-        <a class="site-cta" href="#tool" onclick="document.getElementById('navMatching').click();document.getElementById('tool').scrollIntoView({behavior:'smooth'});return false;">⚡ 無料で神社診断を始める</a>
-      </div>
+      <a class="hero-cta" href="#tool" onclick="document.getElementById('navMatching').click();document.getElementById('tool').scrollIntoView({behavior:'smooth'});return false;">今すぐ診断してみる →</a>
       <div class="hero-feats">
         <div class="hero-feat"><span class="fi">⛩</span><span>534社から最適マッチング</span></div>
         <div class="hero-feat"><span class="fi">🍀</span><span>ご利益・神社の特徴で診断</span></div>
         <div class="hero-feat"><span class="fi">⏱</span><span>診断はわずか1分で完了</span></div>
       </div>
     </div>
-    <div class="hero-visual" aria-hidden="true">
-      <svg viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="hvGlow" cx="50%" cy="42%" r="60%">
-            <stop offset="0%" stop-color="#fff3e6"/>
-            <stop offset="55%" stop-color="#fce0d2"/>
-            <stop offset="100%" stop-color="#f7cbb8"/>
-          </radialGradient>
-          <linearGradient id="hvTorii" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#e2654a"/>
-            <stop offset="100%" stop-color="#c9402b"/>
-          </linearGradient>
-        </defs>
-        <circle cx="210" cy="170" r="160" fill="url(#hvGlow)"/>
-        <g opacity="0.5" stroke="#f0c089" stroke-width="3" stroke-linecap="round">
-          <line x1="210" y1="20" x2="210" y2="48"/>
-          <line x1="120" y1="50" x2="135" y2="74"/>
-          <line x1="300" y1="50" x2="285" y2="74"/>
-          <line x1="60" y1="130" x2="86" y2="142"/>
-          <line x1="360" y1="130" x2="334" y2="142"/>
-        </g>
-        <g fill="url(#hvTorii)">
-          <rect x="118" y="150" width="22" height="170" rx="4"/>
-          <rect x="280" y="150" width="22" height="170" rx="4"/>
-          <path d="M92,150 q118,-26 236,0 l0,22 q-118,-22 -236,0 Z"/>
-          <rect x="104" y="186" width="212" height="16" rx="4"/>
-          <rect x="170" y="202" width="80" height="13" rx="3"/>
-        </g>
-        <path d="M92,150 q118,-26 236,0 l0,6 q-118,-22 -236,0 Z" fill="#f0c089"/>
-        <g fill="#6fa089" opacity="0.9">
-          <ellipse cx="98" cy="322" rx="44" ry="16"/>
-          <ellipse cx="322" cy="322" rx="44" ry="16"/>
-        </g>
-        <g fill="#fce9e2">
-          <circle cx="150" cy="92" r="6"/>
-          <circle cx="270" cy="100" r="5"/>
-          <circle cx="318" cy="200" r="5"/>
-        </g>
-      </svg>
-    </div>
+    <div class="hero-photo" role="img" aria-label="水面に立つ朱色の大鳥居"></div>
   </div>
 </header>
 
@@ -913,20 +852,42 @@
   </div>
   <div class="intro-cards">
     <div class="intro-card">
-      <span class="num">1</span>
-      <div class="ill">📝</div>
+      <div class="ill ico-circle">
+        <svg class="line" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M14 14h36a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4H30l-9 8v-8h-7a4 4 0 0 1-4-4V18a4 4 0 0 1 4-4Z"/>
+          <path d="M27 24.5a5 5 0 0 1 9.6 2.1c0 3.2-4.1 3.4-4.1 6.4"/>
+          <circle class="dot" cx="32.4" cy="37" r="1.6"/>
+        </svg>
+      </div>
+      <span class="step">STEP 1</span>
       <h3>質問に答える</h3>
       <p>叶えたい願いごとや、大切にしたいご利益をいくつか選ぶだけ。所要時間は約1分です。</p>
     </div>
     <div class="intro-card">
-      <span class="num">2</span>
-      <div class="ill">✨</div>
+      <div class="ill ico-circle">
+        <svg class="line" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="22" y="9" width="20" height="42" rx="5"/>
+          <line x1="29" y1="14.5" x2="35" y2="14.5"/>
+          <circle class="dot" cx="32" cy="46" r="1.7"/>
+          <path d="M32 21.5l2.6 5.4 5.4 2.6-5.4 2.6L32 37.5l-2.6-5.4-5.4-2.6 5.4-2.6Z"/>
+        </svg>
+      </div>
+      <span class="step">STEP 2</span>
       <h3>AIが診断</h3>
       <p>全国534社のデータから、あなたの想いに最も合う神社をAIが丁寧にマッチングします。</p>
     </div>
     <div class="intro-card">
-      <span class="num">3</span>
-      <div class="ill">⛩</div>
+      <div class="ill ico-circle">
+        <svg class="line" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M10 19q22-7 44 0"/>
+          <line x1="14" y1="26" x2="50" y2="26"/>
+          <line x1="20.5" y1="19" x2="20.5" y2="52"/>
+          <line x1="43.5" y1="19" x2="43.5" y2="52"/>
+          <line x1="28" y1="26" x2="28" y2="32"/>
+          <line x1="36" y1="26" x2="36" y2="32"/>
+        </svg>
+      </div>
+      <span class="step">STEP 3</span>
       <h3>神社をご提案</h3>
       <p>おすすめの神社とそのご利益・特徴をご紹介。次の参拝先がきっと見つかります。</p>
     </div>
@@ -940,11 +901,26 @@
     <h2 class="lp-title">こんなお悩み、ありませんか？</h2>
   </div>
   <div class="reco-grid">
-    <div class="reco-item"><span class="ic2">💕</span><p>良いご縁に<br>恵まれたい</p></div>
-    <div class="reco-item"><span class="ic2">🌸</span><p>自分に合う<br>神社を知りたい</p></div>
-    <div class="reco-item"><span class="ic2">🙏</span><p>願いを<br>叶えたい</p></div>
-    <div class="reco-item"><span class="ic2">🗺</span><p>旅先の参拝先を<br>探している</p></div>
-    <div class="reco-item"><span class="ic2">🍀</span><p>運気を<br>上げたい</p></div>
+    <div class="reco-item">
+      <div class="ic ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 39S8 30 8 19.5A8 8 0 0 1 24 16a8 8 0 0 1 16 3.5C40 30 24 39 24 39Z"/></svg></div>
+      <p>良いご縁に<br>恵まれたい</p>
+    </div>
+    <div class="reco-item">
+      <div class="ic ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="17" r="7"/><path d="M11 39a13 13 0 0 1 26 0"/></svg></div>
+      <p>自分に合う<br>神社を知りたい</p>
+    </div>
+    <div class="reco-item">
+      <div class="ic ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 7l4.6 9.9 10.9 1.6-7.9 7.6 1.9 10.8L24 31.8 14.6 36.9l1.9-10.8-7.9-7.6 10.9-1.6Z"/></svg></div>
+      <p>願いごとを<br>叶えたい</p>
+    </div>
+    <div class="reco-item">
+      <div class="ic ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 42s13-12 13-21a13 13 0 0 0-26 0c0 9 13 21 13 21Z"/><circle cx="24" cy="20" r="5"/></svg></div>
+      <p>旅先の参拝先を<br>探している</p>
+    </div>
+    <div class="reco-item">
+      <div class="ic ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8l3.4 10.2L38 18.6l-8.3 6.8 2.9 10.6L24 30.4 15.4 36l2.9-10.6L10 18.6l10.6-.4Z"/></svg></div>
+      <p>運気を<br>上げたい</p>
+    </div>
   </div>
 </section>
 
@@ -955,18 +931,51 @@
     <h2 class="lp-title">かんたん4ステップ</h2>
   </div>
   <div class="flow-grid">
-    <div class="flow-step"><span class="badge2">STEP 1</span><span class="ic2">🔍</span><h3>診断を始める</h3><p>「神社診断を始める」ボタンをタップ。</p></div>
-    <div class="flow-step"><span class="badge2">STEP 2</span><span class="ic2">✅</span><h3>質問に回答</h3><p>願いごとや希望のご利益を選択。</p></div>
-    <div class="flow-step"><span class="badge2">STEP 3</span><span class="ic2">⛩</span><h3>結果を見る</h3><p>おすすめの神社が表示されます。</p></div>
-    <div class="flow-step"><span class="badge2">STEP 4</span><span class="ic2">🎋</span><h3>おみくじも</h3><p>おみくじやお賽銭機能もお楽しみ。</p></div>
+    <div class="flow-step">
+      <div class="ic2 ico-circle"><svg class="line" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="9" width="20" height="42" rx="5"/><line x1="29" y1="14.5" x2="35" y2="14.5"/><circle class="dot" cx="32" cy="46" r="1.7"/></svg></div>
+      <span class="badge2">1</span>
+      <h3>無料で診断スタート</h3>
+      <p>ボタンを押すだけ。会員登録は不要です。</p>
+    </div>
+    <div class="flow-step">
+      <div class="ic2 ico-circle"><svg class="line" viewBox="0 0 64 64" aria-hidden="true"><rect x="16" y="13" width="32" height="39" rx="5"/><rect x="24" y="9" width="16" height="9" rx="3"/><path d="M22 30l4 4 7-8"/><line x1="22" y1="42" x2="42" y2="42"/></svg></div>
+      <span class="badge2">2</span>
+      <h3>質問に回答（数分）</h3>
+      <p>願いごとや希望のご利益を選択。</p>
+    </div>
+    <div class="flow-step">
+      <div class="ic2 ico-circle"><svg class="line" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 20l2.8 5.8 5.8 2.8-5.8 2.8L32 37.2l-2.8-5.8-5.8-2.8 5.8-2.8Z"/><circle class="dot" cx="46" cy="18" r="1.8"/><circle class="dot" cx="20" cy="44" r="1.8"/></svg></div>
+      <span class="badge2">3</span>
+      <h3>AIがマッチング</h3>
+      <p>あなたに最適な神社を診断します。</p>
+    </div>
+    <div class="flow-step">
+      <div class="ic2 ico-circle"><svg class="line" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 19q22-7 44 0"/><line x1="14" y1="26" x2="50" y2="26"/><line x1="20.5" y1="19" x2="20.5" y2="52"/><line x1="43.5" y1="19" x2="43.5" y2="52"/><line x1="28" y1="26" x2="28" y2="32"/><line x1="36" y1="26" x2="36" y2="32"/></svg></div>
+      <span class="badge2">4</span>
+      <h3>結果を受け取る</h3>
+      <p>神社のご利益や特徴をご紹介します。</p>
+    </div>
   </div>
 </section>
 
 <!-- ========== CTAバンド ========== -->
 <section class="cta-band">
-  <h2>まずは無料で診断してみましょう</h2>
-  <p>あなたのご縁を結ぶ一社が、きっと見つかります。</p>
-  <a class="cta-white" href="#tool" onclick="document.getElementById('navMatching').click();document.getElementById('tool').scrollIntoView({behavior:'smooth'});return false;">⚡ 神社診断を始める</a>
+  <div class="cta-band-in">
+    <div class="cta-band-copy">
+      <div class="cta-eyebrow">あなたのご縁を結ぶ一社が、きっと見つかります</div>
+      <h2>まずは無料で<br>診断してみましょう</h2>
+      <a class="cta-white" href="#tool" onclick="document.getElementById('navMatching').click();document.getElementById('tool').scrollIntoView({behavior:'smooth'});return false;">今すぐ診断してみる →</a>
+    </div>
+    <div class="cta-phone" aria-hidden="true">
+      <div class="scr">
+        <div class="ph-t"></div>
+        <div class="ph-c"></div>
+        <div class="ph-c"></div>
+        <div class="ph-c"></div>
+        <div class="ph-b"></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <div id="tool" class="tool-wrap">
@@ -1236,23 +1245,41 @@
 <section class="lp lp-soft" id="voice">
   <div class="lp-head">
     <span class="lp-eyebrow">お客様の声</span>
-    <h2 class="lp-title">ご利用いただいた方の声</h2>
+    <h2 class="lp-title">多くの方にご利用いただいています</h2>
   </div>
   <div class="voice-grid">
     <div class="voice-card">
-      <div class="vstars">★★★★★</div>
-      <p class="vt">「自分では知らなかった近くの神社を教えてもらえました。実際に参拝したら、とても落ち着く場所で大満足です。」</p>
-      <div class="av">🌸 30代・女性</div>
+      <div class="vh">
+        <div class="av ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="17" r="7"/><path d="M11 39a13 13 0 0 1 26 0"/></svg></div>
+        <div>
+          <div class="vt">自分に合う神社に出会えました</div>
+          <div class="vstars">★★★★★</div>
+        </div>
+      </div>
+      <p>自分では知らなかった近くの神社を教えてもらえました。実際に参拝したら、とても落ち着く場所で大満足です。</p>
+      <div class="vname">— 30代・女性</div>
     </div>
     <div class="voice-card">
-      <div class="vstars">★★★★★</div>
-      <p class="vt">「縁結びで診断したら、ぴったりの神社が見つかりました。質問もかんたんで、あっという間に結果が出ました。」</p>
-      <div class="av">💕 20代・女性</div>
+      <div class="vh">
+        <div class="av ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="17" r="7"/><path d="M11 39a13 13 0 0 1 26 0"/></svg></div>
+        <div>
+          <div class="vt">理想のご縁が見つかりました</div>
+          <div class="vstars">★★★★★</div>
+        </div>
+      </div>
+      <p>縁結びで診断したら、ぴったりの神社が見つかりました。質問もかんたんで、あっという間に結果が出ました。</p>
+      <div class="vname">— 20代・女性</div>
     </div>
     <div class="voice-card">
-      <div class="vstars">★★★★★</div>
-      <p class="vt">「旅行先で参拝する神社を探すのに便利。おみくじ機能も楽しくて、家族みんなで使っています。」</p>
-      <div class="av">🍀 40代・男性</div>
+      <div class="vh">
+        <div class="av ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="17" r="7"/><path d="M11 39a13 13 0 0 1 26 0"/></svg></div>
+        <div>
+          <div class="vt">旅行先の参拝に便利でした</div>
+          <div class="vstars">★★★★★</div>
+        </div>
+      </div>
+      <p>旅行先で参拝する神社を探すのに便利。おみくじ機能も楽しくて、家族みんなで使っています。</p>
+      <div class="vname">— 40代・男性</div>
     </div>
   </div>
 </section>
