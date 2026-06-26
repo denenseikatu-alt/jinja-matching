@@ -223,79 +223,82 @@
   .site-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(226,101,74,0.42); }
   @media (max-width: 720px) { .site-nav { display: none; } }
 
-  /* ===== Hero ===== */
+  /* ===== Hero (full-bleed shrine photo) ===== */
   header.hero {
     position: relative; overflow: hidden;
-    background: var(--hero-bg);
+    background:
+      linear-gradient(100deg, rgba(255,250,248,0.97) 0%, rgba(255,250,248,0.9) 24%, rgba(255,250,248,0.58) 48%, rgba(255,250,248,0.14) 70%, rgba(255,250,248,0) 100%),
+      url('https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1600&q=80&auto=format&fit=crop') center 30% / cover no-repeat;
   }
   .hero-inner {
     position: relative; z-index: 2;
     max-width: 1180px; margin: 0 auto;
-    display: flex; align-items: center; min-height: 540px;
-    padding: 56px 22px;
+    min-height: 560px;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 72px 24px 24px;
   }
-  .hero-copy { position: relative; z-index: 3; max-width: 540px; }
+  .hero-copy { position: relative; z-index: 3; max-width: 560px; }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 7px;
-    font-size: 0.8rem; letter-spacing: 0.06em; color: var(--coral-deep);
-    background: #fff; border: 1px solid var(--pink-soft);
-    padding: 6px 15px; border-radius: 999px; margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(226,101,74,0.08);
+    font-size: 0.8rem; letter-spacing: 0.05em; color: var(--coral-deep);
+    background: rgba(255,255,255,0.92); border: 1px solid var(--pink-soft);
+    padding: 6px 16px; border-radius: 999px; margin-bottom: 22px;
+    box-shadow: 0 4px 14px rgba(226,101,74,0.12);
   }
+  .eyebrow::before { content: '⛩'; font-size: 0.86rem; }
   header.hero h1 {
     font-family: var(--serif); font-weight: 800;
-    font-size: clamp(1.95rem, 5vw, 2.95rem); line-height: 1.46; letter-spacing: 0.03em;
-    color: #54423a;
+    font-size: clamp(2rem, 5.4vw, 3.1rem); line-height: 1.42; letter-spacing: 0.03em;
+    color: #46352b; text-shadow: 0 1px 12px rgba(255,250,248,0.6);
   }
   header.hero h1 .hl {
     color: var(--coral-deep);
-    background: linear-gradient(transparent 66%, rgba(236,138,110,0.24) 66%);
+    background: linear-gradient(transparent 64%, rgba(236,138,110,0.28) 64%);
     padding: 0 0.06em;
   }
   .hero-lead {
-    margin-top: 20px; font-size: 0.95rem; line-height: 2; color: var(--text-light); max-width: 29em;
+    margin-top: 22px; font-size: 0.96rem; line-height: 2; color: var(--text); max-width: 27em;
+    text-shadow: 0 1px 8px rgba(255,250,248,0.7);
   }
   .hero-cta {
-    display: inline-flex; align-items: center; gap: 10px; margin-top: 28px;
+    display: inline-flex; align-items: center; gap: 11px; margin-top: 28px;
     background: linear-gradient(135deg, var(--coral), var(--coral-deep));
-    color: #fff; padding: 15px 36px; border-radius: 999px;
-    font-size: 1.02rem; font-weight: 700; letter-spacing: 0.03em;
+    color: #fff; padding: 16px 38px 16px 20px; border-radius: 999px;
+    font-size: 1.04rem; font-weight: 700; letter-spacing: 0.03em;
     text-decoration: none; border: none; cursor: pointer; font-family: inherit;
-    box-shadow: 0 12px 28px rgba(226,101,74,0.32);
+    box-shadow: 0 14px 30px rgba(226,101,74,0.36);
     transition: transform 0.15s, box-shadow 0.2s;
   }
-  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(226,101,74,0.44); }
-  .hero-feats {
-    display: flex; gap: 26px; flex-wrap: wrap; margin-top: 34px;
+  .hero-cta .free {
+    background: #fff; color: var(--coral-deep); font-size: 0.7rem; font-weight: 800;
+    padding: 4px 10px; border-radius: 999px; letter-spacing: 0.04em;
   }
-  .hero-feat { display: flex; align-items: center; gap: 9px; font-size: 0.8rem; color: var(--text); }
-  .hero-feat .fi {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: #fff; border: 1px solid var(--pink-soft);
-    display: flex; align-items: center; justify-content: center; font-size: 1.02rem;
-    box-shadow: 0 5px 12px rgba(226,101,74,0.12);
+  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(226,101,74,0.48); }
+  /* feature pills along the bottom of the hero */
+  .hero-pills {
+    position: relative; z-index: 2;
+    max-width: 1180px; margin: 0 auto; padding: 0 24px 30px;
+    display: flex; flex-wrap: wrap; gap: 12px;
   }
-  /* Full-bleed torii photo on the right with white fade into the copy */
-  .hero-photo {
-    position: absolute; top: 0; right: 0; bottom: 0;
-    width: 50vw; max-width: 780px; z-index: 1;
-    background-image: url('https://images.unsplash.com/photo-1721578686066-4d0a69ee1218?w=1100&q=80&auto=format&fit=crop');
-    background-size: cover; background-position: center 32%; background-repeat: no-repeat;
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: rgba(255,255,255,0.92); border: 1px solid var(--pink-soft);
+    padding: 9px 18px; border-radius: 999px; font-size: 0.82rem; color: var(--text);
+    box-shadow: 0 6px 16px rgba(190,140,110,0.14); backdrop-filter: blur(4px);
   }
-  .hero-photo::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to right, var(--hero-bg) 0%, rgba(255,250,248,0.55) 20%, rgba(255,250,248,0) 46%);
+  .hero-pill::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto;
+    background: linear-gradient(135deg, var(--coral), var(--coral-deep));
   }
   @media (max-width: 860px) {
-    .hero-inner { flex-direction: column; min-height: 0; padding: 28px 20px 36px; align-items: stretch; }
-    .hero-photo {
-      position: relative; width: 100%; max-width: none; height: 230px;
-      border-radius: 18px; order: -1; margin-bottom: 26px;
-      background-position: center 30%;
-      box-shadow: 0 14px 34px rgba(190,140,110,0.22);
+    header.hero {
+      background:
+        linear-gradient(180deg, rgba(255,250,248,0.82) 0%, rgba(255,250,248,0.5) 42%, rgba(255,250,248,0.82) 100%),
+        url('https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1100&q=80&auto=format&fit=crop') center 30% / cover no-repeat;
     }
-    .hero-photo::after { background: linear-gradient(to top, rgba(255,250,248,0.25), rgba(255,250,248,0)); }
+    .hero-inner { min-height: 420px; padding: 52px 20px 16px; }
     .hero-copy { max-width: none; }
+    .hero-pills { padding: 0 20px 26px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -670,6 +673,8 @@
     display: flex; align-items: center; justify-content: center;
   }
   .ico-circle svg { width: 56%; height: 56%; }
+  .ico-circle img { width: 80%; height: 80%; object-fit: contain; }
+  .reco-item .ic img, .flow-step .ic2 img { width: 86%; height: 86%; }
   svg.line { fill: none; stroke: var(--coral-deep); stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; }
   svg.line .soft { stroke: var(--coral); opacity: 0.5; }
   svg.line .dot { fill: var(--coral-deep); stroke: none; }
@@ -753,29 +758,39 @@
     width: 54px; height: 16px; background: #4a3a32; border-radius: 0 0 12px 12px; z-index: 2;
   }
   .cta-phone .scr {
-    position: absolute; inset: 0; padding: 24px 14px 14px;
-    background: linear-gradient(180deg, #fff 0%, var(--pink-2) 100%);
-    display: flex; flex-direction: column; gap: 9px;
+    position: absolute; inset: 0; padding: 24px 12px 13px;
+    background: linear-gradient(180deg, #fff6f2 0%, #fde6de 100%);
+    display: flex; flex-direction: column; gap: 6px;
   }
-  .cta-phone .scr .ph-t { height: 9px; width: 64%; border-radius: 6px; background: var(--coral); margin: 4px auto 6px; }
-  .cta-phone .scr .ph-c { height: 30px; border-radius: 9px; background: #fff; border: 1px solid var(--pink-soft); }
-  .cta-phone .scr .ph-b { margin-top: auto; height: 30px; border-radius: 999px; background: linear-gradient(135deg, var(--coral), var(--coral-deep)); }
+  .cta-phone .ph-head {
+    font-size: 0.6rem; font-weight: 700; color: var(--coral-deep); text-align: center;
+    padding: 2px 0 7px; letter-spacing: 0.03em; border-bottom: 1px solid var(--pink-soft); margin-bottom: 4px;
+  }
+  .cta-phone .ph-q { display: flex; align-items: center; gap: 6px; font-size: 0.61rem; font-weight: 700; color: #5a3f33; margin-bottom: 3px; }
+  .cta-phone .ph-num { background: linear-gradient(135deg, var(--coral), var(--coral-deep)); color: #fff; font-size: 0.54rem; padding: 2px 5px; border-radius: 5px; flex: 0 0 auto; }
+  .cta-phone .ph-opt { font-size: 0.6rem; color: var(--text); background: #fff; border: 1px solid var(--pink-soft); border-radius: 8px; padding: 6px 8px; }
+  .cta-phone .ph-opt.sel { border-color: var(--coral); background: #fff1ec; color: var(--coral-deep); font-weight: 700; }
+  .cta-phone .ph-b { margin-top: auto; font-size: 0.62rem; font-weight: 700; color: #fff; text-align: center; padding: 8px; border-radius: 999px; background: linear-gradient(135deg, var(--coral), var(--coral-deep)); }
 
   /* testimonials */
   .voice-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
   .voice-card {
     background: #fff; border: 1px solid var(--border); border-radius: 20px;
     padding: 26px 22px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
   }
-  .voice-card .vh { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-  .voice-card .av {
-    width: 52px; height: 52px; flex: 0 0 auto;
-    border: 1px solid var(--pink-soft);
-  }
-  .voice-card .vt { font-size: 0.92rem; font-weight: 700; color: var(--primary); line-height: 1.4; }
-  .voice-card .vstars { color: var(--accent); font-size: 0.8rem; letter-spacing: 0.12em; margin-top: 3px; }
+  .voice-card .vt { font-size: 0.95rem; font-weight: 700; color: var(--primary); line-height: 1.5; margin-bottom: 10px; }
+  .voice-card .vstars { color: var(--accent); font-size: 0.8rem; letter-spacing: 0.12em; margin-bottom: 8px; }
   .voice-card p { font-size: 0.83rem; color: var(--text-light); line-height: 1.9; }
-  .voice-card .vname { margin-top: 14px; font-size: 0.78rem; color: var(--text-light); text-align: right; }
+  .voice-card .vf { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+  .voice-card .av {
+    width: 46px; height: 46px; flex: 0 0 auto; border-radius: 50%;
+    background: radial-gradient(circle at 50% 36%, #ffe7df 0%, #f6c2b3 100%);
+    border: 1px solid var(--pink-soft); overflow: hidden;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .voice-card .av svg { width: 74%; height: 74%; fill: #fff; opacity: 0.9; }
+  .voice-card .vname { font-size: 0.78rem; color: var(--text-light); }
 
   /* tool wrapper heading */
   .tool-wrap { padding-top: 34px; }
@@ -826,20 +841,19 @@
   </div>
 </header>
 
-<header class="hero" id="top">
+<header class="hero" id="top" role="img" aria-label="緑に囲まれた朱色の神社">
   <div class="hero-inner">
     <div class="hero-copy">
       <span class="eyebrow">あなたの想いに寄り添う神社が見つかる</span>
       <h1>あなたにぴったりの<br><span class="hl">神社</span>と出会える</h1>
-      <p class="hero-lead">願いごと・ご利益・神社の特徴から、あなたに最適な神社をご提案。全国534社の中から、心を寄せられる一社をお探しします。</p>
-      <a class="hero-cta" href="#tool" onclick="document.getElementById('navMatching').click();document.getElementById('tool').scrollIntoView({behavior:'smooth'});return false;">今すぐ診断してみる →</a>
-      <div class="hero-feats">
-        <div class="hero-feat"><span class="fi">⛩</span><span>534社から最適マッチング</span></div>
-        <div class="hero-feat"><span class="fi">🍀</span><span>ご利益・神社の特徴で診断</span></div>
-        <div class="hero-feat"><span class="fi">⏱</span><span>診断はわずか1分で完了</span></div>
-      </div>
+      <p class="hero-lead">神社マッチングは、あなたの願いや大切にしている価値観から、相性の良い神社をご提案するサービスです。</p>
+      <a class="hero-cta" href="#tool" onclick="document.getElementById('navMatching').click();document.getElementById('tool').scrollIntoView({behavior:'smooth'});return false;"><span class="free">無料</span>今すぐ診断してみる →</a>
     </div>
-    <div class="hero-photo" role="img" aria-label="水面に立つ朱色の大鳥居"></div>
+  </div>
+  <div class="hero-pills">
+    <span class="hero-pill">価値観に基づくマッチング</span>
+    <span class="hero-pill">全国の神社からご提案</span>
+    <span class="hero-pill">診断はたったの2分で完了</span>
   </div>
 </header>
 
@@ -852,41 +866,19 @@
   </div>
   <div class="intro-cards">
     <div class="intro-card">
-      <div class="ill ico-circle">
-        <svg class="line" viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M14 14h36a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4H30l-9 8v-8h-7a4 4 0 0 1-4-4V18a4 4 0 0 1 4-4Z"/>
-          <path d="M27 24.5a5 5 0 0 1 9.6 2.1c0 3.2-4.1 3.4-4.1 6.4"/>
-          <circle class="dot" cx="32.4" cy="37" r="1.6"/>
-        </svg>
-      </div>
+      <div class="ill ico-circle"><img src="assets/intro1.png" alt="" loading="lazy"></div>
       <span class="step">STEP 1</span>
       <h3>質問に答える</h3>
       <p>叶えたい願いごとや、大切にしたいご利益をいくつか選ぶだけ。所要時間は約1分です。</p>
     </div>
     <div class="intro-card">
-      <div class="ill ico-circle">
-        <svg class="line" viewBox="0 0 64 64" aria-hidden="true">
-          <rect x="22" y="9" width="20" height="42" rx="5"/>
-          <line x1="29" y1="14.5" x2="35" y2="14.5"/>
-          <circle class="dot" cx="32" cy="46" r="1.7"/>
-          <path d="M32 21.5l2.6 5.4 5.4 2.6-5.4 2.6L32 37.5l-2.6-5.4-5.4-2.6 5.4-2.6Z"/>
-        </svg>
-      </div>
+      <div class="ill ico-circle"><img src="assets/intro2.png" alt="" loading="lazy"></div>
       <span class="step">STEP 2</span>
       <h3>しっかり診断</h3>
       <p>全国534社のデータから、あなたの想いに最も合う神社を丁寧にマッチングします。</p>
     </div>
     <div class="intro-card">
-      <div class="ill ico-circle">
-        <svg class="line" viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M10 19q22-7 44 0"/>
-          <line x1="14" y1="26" x2="50" y2="26"/>
-          <line x1="20.5" y1="19" x2="20.5" y2="52"/>
-          <line x1="43.5" y1="19" x2="43.5" y2="52"/>
-          <line x1="28" y1="26" x2="28" y2="32"/>
-          <line x1="36" y1="26" x2="36" y2="32"/>
-        </svg>
-      </div>
+      <div class="ill ico-circle"><img src="assets/intro3.png" alt="" loading="lazy"></div>
       <span class="step">STEP 3</span>
       <h3>神社をご提案</h3>
       <p>おすすめの神社とそのご利益・特徴をご紹介。次の参拝先がきっと見つかります。</p>
@@ -897,29 +889,29 @@
 <!-- ========== こんな方におすすめ ========== -->
 <section class="lp lp-soft">
   <div class="lp-head">
-    <span class="lp-eyebrow">こんな方におすすめ</span>
-    <h2 class="lp-title">こんなお悩み、ありませんか？</h2>
+    <span class="lp-eyebrow">おすすめ</span>
+    <h2 class="lp-title">こんな方におすすめ</h2>
   </div>
   <div class="reco-grid">
     <div class="reco-item">
-      <div class="ic ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 39S8 30 8 19.5A8 8 0 0 1 24 16a8 8 0 0 1 16 3.5C40 30 24 39 24 39Z"/></svg></div>
-      <p>良いご縁に<br>恵まれたい</p>
+      <div class="ic ico-circle"><img src="assets/os1.png" alt="" loading="lazy"></div>
+      <p>自分に合う神社を<br>見つけたい</p>
     </div>
     <div class="reco-item">
-      <div class="ic ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="17" r="7"/><path d="M11 39a13 13 0 0 1 26 0"/></svg></div>
-      <p>自分に合う<br>神社を知りたい</p>
+      <div class="ic ico-circle"><img src="assets/os2.png" alt="" loading="lazy"></div>
+      <p>願いごとに合った<br>神社に参拝したい</p>
     </div>
     <div class="reco-item">
-      <div class="ic ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 7l4.6 9.9 10.9 1.6-7.9 7.6 1.9 10.8L24 31.8 14.6 36.9l1.9-10.8-7.9-7.6 10.9-1.6Z"/></svg></div>
-      <p>願いごとを<br>叶えたい</p>
+      <div class="ic ico-circle"><img src="assets/os3.png" alt="" loading="lazy"></div>
+      <p>旅行やお出かけ先で<br>神社を知りたい</p>
     </div>
     <div class="reco-item">
-      <div class="ic ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 42s13-12 13-21a13 13 0 0 0-26 0c0 9 13 21 13 21Z"/><circle cx="24" cy="20" r="5"/></svg></div>
-      <p>旅先の参拝先を<br>探している</p>
+      <div class="ic ico-circle"><img src="assets/os4.png" alt="" loading="lazy"></div>
+      <p>初めての参拝で<br>不安がある</p>
     </div>
     <div class="reco-item">
-      <div class="ic ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8l3.4 10.2L38 18.6l-8.3 6.8 2.9 10.6L24 30.4 15.4 36l2.9-10.6L10 18.6l10.6-.4Z"/></svg></div>
-      <p>運気を<br>上げたい</p>
+      <div class="ic ico-circle"><img src="assets/os5.png" alt="" loading="lazy"></div>
+      <p>心のよりどころを<br>見つけたい</p>
     </div>
   </div>
 </section>
@@ -927,30 +919,30 @@
 <!-- ========== ご利用の流れ ========== -->
 <section class="lp" id="flow">
   <div class="lp-head">
-    <span class="lp-eyebrow">ご利用の流れ</span>
-    <h2 class="lp-title">かんたん4ステップ</h2>
+    <span class="lp-eyebrow">STEP</span>
+    <h2 class="lp-title">ご利用の流れ</h2>
   </div>
   <div class="flow-grid">
     <div class="flow-step">
-      <div class="ic2 ico-circle"><svg class="line" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="9" width="20" height="42" rx="5"/><line x1="29" y1="14.5" x2="35" y2="14.5"/><circle class="dot" cx="32" cy="46" r="1.7"/></svg></div>
+      <div class="ic2 ico-circle"><img src="assets/fl1.png" alt="" loading="lazy"></div>
       <span class="badge2">1</span>
       <h3>無料で診断スタート</h3>
       <p>ボタンを押すだけ。会員登録は不要です。</p>
     </div>
     <div class="flow-step">
-      <div class="ic2 ico-circle"><svg class="line" viewBox="0 0 64 64" aria-hidden="true"><rect x="16" y="13" width="32" height="39" rx="5"/><rect x="24" y="9" width="16" height="9" rx="3"/><path d="M22 30l4 4 7-8"/><line x1="22" y1="42" x2="42" y2="42"/></svg></div>
+      <div class="ic2 ico-circle"><img src="assets/fl2.png" alt="" loading="lazy"></div>
       <span class="badge2">2</span>
-      <h3>質問に回答（数分）</h3>
+      <h3>質問に回答（約30秒）</h3>
       <p>願いごとや希望のご利益を選択。</p>
     </div>
     <div class="flow-step">
-      <div class="ic2 ico-circle"><svg class="line" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 20l2.8 5.8 5.8 2.8-5.8 2.8L32 37.2l-2.8-5.8-5.8-2.8 5.8-2.8Z"/><circle class="dot" cx="46" cy="18" r="1.8"/><circle class="dot" cx="20" cy="44" r="1.8"/></svg></div>
+      <div class="ic2 ico-circle"><img src="assets/fl3.png" alt="" loading="lazy"></div>
       <span class="badge2">3</span>
       <h3>ぴったりをマッチング</h3>
       <p>あなたに最適な神社を診断します。</p>
     </div>
     <div class="flow-step">
-      <div class="ic2 ico-circle"><svg class="line" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 19q22-7 44 0"/><line x1="14" y1="26" x2="50" y2="26"/><line x1="20.5" y1="19" x2="20.5" y2="52"/><line x1="43.5" y1="19" x2="43.5" y2="52"/><line x1="28" y1="26" x2="28" y2="32"/><line x1="36" y1="26" x2="36" y2="32"/></svg></div>
+      <div class="ic2 ico-circle"><img src="assets/fl4.png" alt="" loading="lazy"></div>
       <span class="badge2">4</span>
       <h3>結果を受け取る</h3>
       <p>神社のご利益や特徴をご紹介します。</p>
@@ -968,11 +960,13 @@
     </div>
     <div class="cta-phone" aria-hidden="true">
       <div class="scr">
-        <div class="ph-t"></div>
-        <div class="ph-c"></div>
-        <div class="ph-c"></div>
-        <div class="ph-c"></div>
-        <div class="ph-b"></div>
+        <div class="ph-head">⛩ 神社マッチング</div>
+        <div class="ph-q"><span class="ph-num">01</span>あなたの願いごとは？</div>
+        <div class="ph-opt">恋愛・縁結び</div>
+        <div class="ph-opt sel">金運・商売繁盛</div>
+        <div class="ph-opt">健康・厄除け</div>
+        <div class="ph-opt">学業・合格祈願</div>
+        <div class="ph-b">次へ進む →</div>
       </div>
     </div>
   </div>
@@ -1249,37 +1243,31 @@
   </div>
   <div class="voice-grid">
     <div class="voice-card">
-      <div class="vh">
-        <div class="av ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="17" r="7"/><path d="M11 39a13 13 0 0 1 26 0"/></svg></div>
-        <div>
-          <div class="vt">自分に合う神社に出会えました</div>
-          <div class="vstars">★★★★★</div>
-        </div>
+      <div class="vt">自分に合う神社に出会えました</div>
+      <div class="vstars">★★★★★</div>
+      <p>価値観から診断してくれるので、今の自分にぴったりの神社に出会えました。参拝して心が軽くなりました。</p>
+      <div class="vf">
+        <div class="av"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="18" r="8"/><path d="M9 42a15 15 0 0 1 30 0Z"/></svg></div>
+        <div class="vname">30代・女性</div>
       </div>
-      <p>自分では知らなかった近くの神社を教えてもらえました。実際に参拝したら、とても落ち着く場所で大満足です。</p>
-      <div class="vname">— 30代・女性</div>
     </div>
     <div class="voice-card">
-      <div class="vh">
-        <div class="av ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="17" r="7"/><path d="M11 39a13 13 0 0 1 26 0"/></svg></div>
-        <div>
-          <div class="vt">理想のご縁が見つかりました</div>
-          <div class="vstars">★★★★★</div>
-        </div>
+      <div class="vt">旅行の計画に役立ちました</div>
+      <div class="vstars">★★★★★</div>
+      <p>旅行先の神社を知れるので使ってみました。観光と一緒に参拝もできて、素敵な時間になりました。</p>
+      <div class="vf">
+        <div class="av"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="18" r="8"/><path d="M9 42a15 15 0 0 1 30 0Z"/></svg></div>
+        <div class="vname">20代・男性</div>
       </div>
-      <p>縁結びで診断したら、ぴったりの神社が見つかりました。質問もかんたんで、あっという間に結果が出ました。</p>
-      <div class="vname">— 20代・女性</div>
     </div>
     <div class="voice-card">
-      <div class="vh">
-        <div class="av ico-circle"><svg class="line" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="17" r="7"/><path d="M11 39a13 13 0 0 1 26 0"/></svg></div>
-        <div>
-          <div class="vt">旅行先の参拝に便利でした</div>
-          <div class="vstars">★★★★★</div>
-        </div>
+      <div class="vt">初めてでも安心でした</div>
+      <div class="vstars">★★★★★</div>
+      <p>初めての参拝で不安でしたが、おすすめの参拝方法も教えてもらえて、安心して行けました。</p>
+      <div class="vf">
+        <div class="av"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="18" r="8"/><path d="M9 42a15 15 0 0 1 30 0Z"/></svg></div>
+        <div class="vname">40代・女性</div>
       </div>
-      <p>旅行先で参拝する神社を探すのに便利。おみくじ機能も楽しくて、家族みんなで使っています。</p>
-      <div class="vname">— 40代・男性</div>
     </div>
   </div>
 </section>
