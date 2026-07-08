@@ -1109,6 +1109,18 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
   </div>
 
   <div id="matchResults"></div>
+  <div id="matchCta" style="display:none;margin-top:1.2rem">
+    <div class="card" style="text-align:center;border:2px solid var(--accent);background:linear-gradient(135deg,#fffdf5,#fff9e6)">
+      <p style="font-weight:700;margin-bottom:.3rem"><span id="matchCtaWish">あなた</span>の運勢を、さらに詳しく</p>
+      <p style="font-size:.85rem;color:var(--text-light);margin-bottom:.9rem">神社との相性に加えて、カテゴリ・期間を選べる詳細診断レポート（¥1,000）もご用意しています。</p>
+      <a class="match-btn" href="javascript:void(0)" onclick="gotoPaidDiagnosis('match');return false;" style="display:inline-block;text-decoration:none">🔮 詳細診断レポートを見る ¥1,000</a>
+      <div style="margin-top:1rem;font-size:.85rem">
+        <span style="color:var(--text-light)">結果をシェア：</span>
+        <a class="link-btn" href="javascript:void(0)" onclick="return doShare('x')" style="margin:0 .3em">𝕏 ポスト</a>
+        <a class="link-btn" href="javascript:void(0)" onclick="return doShare('line')" style="margin:0 .3em">LINE で送る</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ========== SHRINES ========== -->
@@ -1126,11 +1138,15 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
     <div class="omikuji-box">
       <button class="omikuji-btn" onclick="drawOmikuji()">診断カード<br>を引く</button>
       <div class="omikuji-result" id="omikujiResult"></div>
+      <div id="omikujiCta" style="display:none;margin-top:1rem">
+        <a href="javascript:void(0)" onclick="gotoPaidDiagnosis('omikuji');return false;" style="display:inline-block;margin:.3em;font-size:.85rem;color:var(--accent);font-weight:600;text-decoration:none">🔮 有料の詳細診断レポートでさらに深く（¥1,000）</a>
+        <a href="javascript:void(0)" onclick="gotoSaisenCta();return false;" style="display:inline-block;margin:.3em;font-size:.85rem;color:var(--text-light);text-decoration:none">🪙 お賽銭で感謝を納める</a>
+      </div>
     </div>
   </div>
 
   <!-- PAID tier -->
-  <div class="paid-fortune-card">
+  <div class="paid-fortune-card" id="paid-diagnosis">
     <h3>🔮 さらに詳しく診断する <span class="paid-label">有料</span></h3>
     <p class="sub">カテゴリ・期間を選んで、詳細診断レポートをお申し込みいただけます</p>
 
@@ -2517,6 +2533,7 @@ function doMatch() {
       ? `選択された願い事を得意とする神社が見つかりませんでした。願い事や地域の条件を変えてお試しください。`
       : `条件を選択してマッチングしてみましょう`;
     container.innerHTML = `<div class="card empty"><div class="icon">⛩</div><p>${msg}</p></div>`;
+    var _mc0=document.getElementById('matchCta'); if(_mc0) _mc0.style.display='none';
     return;
   }
 
@@ -2543,6 +2560,9 @@ function doMatch() {
         <button class="free-fortune-btn" onclick="openFortune(${s.id})">🔮 この神社で相性診断（無料）</button>
       </div>`;
     }).join('');
+  lastMatch = { wish:(selections.wish||[]).join('・'), top: results[0] ? results[0].name : '' };
+  var _mc=document.getElementById('matchCta');
+  if(_mc){ var _w=document.getElementById('matchCtaWish'); if(_w) _w.textContent=lastMatch.wish||'あなた'; _mc.style.display='block'; }
 }
 
 function renderShrines(list) {
@@ -2612,11 +2632,41 @@ const PAY = {
   HONKAKU_LINK: 'https://u5btoqwywc8ql2lhulvn.stores.jp/items/6a2e35a413b903e44ae5b6d2',
 };
 function openPay(url) {
-  if (url) { window.open(url, '_blank', 'noopener'); }
+  if (url) {
+    try { if (typeof gtag === 'function') gtag('event', 'exit_click', { link_url: url, link_domain: 'stores.jp', cta_type: 'paid_diagnosis' }); } catch (e) {}
+    window.open(url, '_blank', 'noopener');
+  }
 }
 // インラインonclickから確実に呼べるよう関数宣言で公開（const PAY をクロージャで参照）
 function payOsaisen() { openPay(PAY.OSAISEN_LINK); }
 function payHonkaku() { openPay(PAY.HONKAKU_LINK); }
+
+// ===== 無料診断 → 有料診断への導線（A-1） =====
+var lastMatch = { wish: '', top: '' };
+function gotoPaidDiagnosis(source) {
+  try { if (typeof gtag === 'function') gtag('event', 'cta_click', { cta_type: 'paid_diagnosis', cta_source: source || 'unknown' }); } catch (e) {}
+  var el = document.getElementById('paid-diagnosis');
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+}
+function gotoSaisenCta() {
+  try { if (typeof gtag === 'function') gtag('event', 'cta_click', { cta_type: 'saisen', cta_source: 'omikuji' }); } catch (e) {}
+  payOsaisen();
+}
+function doShare(platform) {
+  var url = 'https://denenseikatu-alt.github.io/jinja-matching/';
+  var text = lastMatch.wish
+    ? '「' + lastMatch.wish + '」にご利益のある神社を診断しました⛩ #神社マッチング'
+    : '神社との相性を無料診断しました⛩ #神社マッチング';
+  try { if (typeof gtag === 'function') gtag('event', 'share', { method: platform, content_type: 'match_result' }); } catch (e) {}
+  var share;
+  if (platform === 'line') {
+    share = 'https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text);
+  } else {
+    share = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
+  }
+  window.open(share, '_blank', 'noopener');
+  return false;
+}
 function updateFortunePayBtn() {
   const btn = document.getElementById('fortunePayBtn');
   const hasCategory = fortuneSelections.category && fortuneSelections.category.length > 0;
@@ -2652,6 +2702,8 @@ function drawOmikuji() {
     <div class="omikuji-poem">${o.poem.replace(/\n/g, '<br>')}</div>
   `;
   result.className = 'omikuji-result show';
+  var _oc = document.getElementById('omikujiCta');
+  if (_oc) _oc.style.display = 'block';
 }
 
 // Init shrines on load
