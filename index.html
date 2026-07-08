@@ -1314,6 +1314,14 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
   </div>
 </section>
 
+<!-- NOTE_SLOT:start (hidden until NOTE_URL set; run scripts/set_note_url.py to activate) -->
+<div data-note-slot style="display:none;box-sizing:border-box;max-width:680px;margin:28px auto;padding:16px 18px;border:1px solid #e6e0d6;border-radius:14px;background:#faf8f4;text-align:center">
+  <p style="font-size:12px;color:#8a7f70;margin:0 0 6px;font-weight:700;letter-spacing:.04em">読み物マガジン</p>
+  <p style="font-size:13.5px;color:#6b6357;margin:0 0 12px;line-height:1.6">note で、暮らしと健康の読み物を配信しています。</p>
+  <a data-note-link href="#" target="_blank" rel="noopener" style="display:inline-block;background:#41b883;color:#fff;text-decoration:none;padding:10px 26px;border-radius:999px;font-weight:700;font-size:14px">note を読む →</a>
+</div>
+<script>/* NOTE_SLOT:config */(function(){var NOTE_URL="";if(!NOTE_URL)return;var s=document.querySelector('[data-note-slot]');if(!s)return;var a=s.querySelector('[data-note-link]');if(a)a.href=NOTE_URL;s.style.display='block';})();</script>
+<!-- NOTE_SLOT:end -->
 <footer>
   <div class="footer-brand">⛩ 神社マッチング — あなたにぴったりの神社を無料診断</div>
   <p style="margin:8px 0 4px"><a href="/jinja-matching/column/" style="color:var(--accent);font-weight:600">神社と神道のコラム一覧 →</a></p>
