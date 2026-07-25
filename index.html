@@ -976,7 +976,7 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
     <div id="matchForm">
 
       <div class="question">
-        <label>1. 何をお願いしたいですか？（複数選択可）</label>
+        <label for="regionSelect">1. 何をお願いしたいですか？（複数選択可）</label>
         <div class="choices">
           <button class="choice-btn" data-q="wish" data-v="縁結び" onclick="toggle(this)">💕 縁結び</button>
           <button class="choice-btn" data-q="wish" data-v="学業成就" onclick="toggle(this)">📚 学業成就</button>
@@ -1117,7 +1117,7 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
     <p class="sub">カテゴリ・期間を選んで、詳細診断レポートをお申し込みいただけます</p>
 
     <div class="fortune-step">
-      <label>① 診断カテゴリ（複数選択可）</label>
+      <label for="ffName">① 診断カテゴリ（複数選択可）</label>
       <div class="fortune-choices">
         <button class="fortune-choice" data-g="category" data-v="恋愛運" onclick="toggleFortune(this)">💕 恋愛運</button>
         <button class="fortune-choice" data-g="category" data-v="仕事運" onclick="toggleFortune(this)">💼 仕事運</button>
@@ -2692,9 +2692,9 @@ document.addEventListener('DOMContentLoaded', () => renderShrines(shrines));
       <div class="ff-field">
         <label>生年月日</label>
         <div class="ff-dob">
-          <select id="ffYear"></select>
-          <select id="ffMonth"></select>
-          <select id="ffDay"></select>
+          <select id="ffYear" aria-label="生年（年）"></select>
+          <select id="ffMonth" aria-label="生月（月）"></select>
+          <select id="ffDay" aria-label="生日（日）"></select>
         </div>
       </div>
       <button class="ff-go" onclick="runFortune()">✨ 診断する</button>
