@@ -2501,6 +2501,7 @@ function doMatch() {
     : '';
 
   const maxScore = results[0].score;
+  try { if (typeof gtag === 'function') gtag('event', 'diagnose_complete', { content_id: 'jinja_matching', content_type: 'diagnosis', hits: results.length }); } catch (e) {}
   container.innerHTML = `<div class="card"><h2>✨ マッチング結果（${results.length}件）</h2>${fallbackNote}</div>` +
     results.map((s, i) => {
       const pct = Math.round((s.score / maxScore) * 100);
@@ -2656,6 +2657,7 @@ function drawOmikuji() {
     </div>
   `).join('');
 
+  try { if (typeof gtag === 'function') gtag('event', 'diagnose_complete', { content_id: 'omikuji', content_type: 'fortune' }); } catch (e) {}
   result.innerHTML = `
     <div class="omikuji-title" style="color:${o.color}">${o.rank}</div>
     <div class="omikuji-items">${itemsHtml}</div>
@@ -2841,6 +2843,7 @@ function renderFortune(name, y, m, d){
     + `今のあなたの願いと特に響き合うご縁です。落ち着いた気持ちで参拝すると、その力を受け取りやすいでしょう。</div>`;
 
   document.getElementById('ffForm').style.display = 'none';
+  try { if (typeof gtag === 'function') gtag('event', 'diagnose_complete', { content_id: 'today_card', content_type: 'diagnosis' }); } catch (e) {}
   document.getElementById('ffResult').innerHTML = `
     <div class="ff-result">
       <div class="ff-greet">${name} さんへの、今このときの診断</div>
