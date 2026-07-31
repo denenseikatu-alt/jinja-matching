@@ -1077,9 +1077,8 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
   <div id="matchResults"></div>
   <div id="matchCta" style="display:none;margin-top:1.2rem">
     <div class="card" style="text-align:center;border:2px solid var(--accent);background:linear-gradient(135deg,#fffdf5,#fff9e6)">
-      <p style="font-weight:700;margin-bottom:.3rem"><span id="matchCtaWish">あなた</span>の運勢を、さらに詳しく</p>
-      <p style="font-size:.85rem;color:var(--text-light);margin-bottom:.9rem">神社との相性に加えて、カテゴリ・期間を選べる詳細診断レポート（¥1,000）もご用意しています。</p>
-      <a class="match-btn" href="javascript:void(0)" onclick="gotoPaidDiagnosis('match');return false;" style="display:inline-block;text-decoration:none">🔮 詳細診断レポートを見る ¥1,000</a>
+      <p style="font-weight:700;margin-bottom:.3rem"><span id="matchCtaWish">あなた</span>にご縁のある神社が見つかりました</p>
+      <p style="font-size:.85rem;color:var(--text-light);margin-bottom:.9rem">診断・神社一覧・今日の診断カードは、すべて無料でご利用いただけます。</p>
       <div style="margin-top:1rem;font-size:.85rem">
         <span style="color:var(--text-light)">結果をシェア：</span>
         <a class="link-btn" href="javascript:void(0)" onclick="return doShare('x')" style="margin:0 .3em">𝕏 ポスト</a>
@@ -1105,52 +1104,12 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
       <button class="omikuji-btn" onclick="drawOmikuji()">診断カード<br>を引く</button>
       <div class="omikuji-result" id="omikujiResult"></div>
       <div id="omikujiCta" style="display:none;margin-top:1rem">
-        <a href="javascript:void(0)" onclick="gotoPaidDiagnosis('omikuji');return false;" style="display:inline-block;margin:.3em;font-size:.85rem;color:var(--accent);font-weight:600;text-decoration:none">🔮 有料の詳細診断レポートでさらに深く（¥1,000）</a>
         <a href="javascript:void(0)" onclick="gotoSaisenCta();return false;" style="display:inline-block;margin:.3em;font-size:.85rem;color:var(--text-light);text-decoration:none">🤝 サイトを応援する（任意）</a>
       </div>
     </div>
   </div>
 
-  <!-- PAID tier -->
-  <div class="paid-fortune-card" id="paid-diagnosis">
-    <h3>🔮 さらに詳しく診断する <span class="paid-label">有料</span></h3>
-    <p class="sub">カテゴリ・期間を選んで、詳細診断レポートをお申し込みいただけます</p>
-
-    <div class="fortune-step">
-      <label for="ffName">① 診断カテゴリ（複数選択可）</label>
-      <div class="fortune-choices">
-        <button class="fortune-choice" data-g="category" data-v="恋愛運" onclick="toggleFortune(this)">💕 恋愛運</button>
-        <button class="fortune-choice" data-g="category" data-v="仕事運" onclick="toggleFortune(this)">💼 仕事運</button>
-        <button class="fortune-choice" data-g="category" data-v="金運" onclick="toggleFortune(this)">💰 金運</button>
-        <button class="fortune-choice" data-g="category" data-v="健康運" onclick="toggleFortune(this)">🌿 健康運</button>
-        <button class="fortune-choice" data-g="category" data-v="総合運" onclick="toggleFortune(this)">✨ 総合運</button>
-      </div>
-    </div>
-
-    <div class="fortune-step">
-      <label>② 診断期間</label>
-      <div class="fortune-choices">
-        <button class="fortune-choice" data-g="period" data-v="今月" onclick="toggleFortune(this)">📅 今月</button>
-        <button class="fortune-choice" data-g="period" data-v="3ヶ月" onclick="toggleFortune(this)">🗓 3ヶ月</button>
-        <button class="fortune-choice" data-g="period" data-v="半年" onclick="toggleFortune(this)">🌙 半年</button>
-        <button class="fortune-choice" data-g="period" data-v="1年" onclick="toggleFortune(this)">🌟 1年</button>
-      </div>
-    </div>
-
-    <a id="fortunePayBtn" class="fortune-pay-btn" href="javascript:void(0)" onclick="payHonkaku(); return false;">
-      診断を申し込む &nbsp;¥1,000
-    </a>
-    <div class="paid-notice">
-      <b>お支払い前に必ずご確認ください</b>
-      <ul>
-        <li><b>料金・内容</b>：税込1,000円（1回のお申し込みごと）。選んでいただいたカテゴリ・期間について、運営者が作成した診断レポートを<b>メールでお届け</b>します。占い・診断は娯楽としてお楽しみいただくもので、<b>運勢・願いの成就・健康・金銭・人間関係の結果を保証するものではありません</b>。医療・法律・投資の助言に代わるものでもありません。</li>
-        <li><b>お届けまで</b>：ご購入後、STORESの購入完了画面・購入完了メールのご案内に沿って、<b>お名前（ニックネーム可）・生年月日・カテゴリ・期間</b>をメールでお送りください。受付から<b>7日以内</b>にご記入のメールアドレス宛てにレポートをお送りします。</li>
-        <li><b>お預かりする情報の扱い</b>：いただいたお名前・生年月日・メールアドレスは、<b>レポートの作成と送付のためだけ</b>に利用します。当サイトのサーバーやデータベースには保存せず、運営者のメール上でのみ取り扱い、<b>お届けから90日以内に削除</b>します。第三者へ提供・販売することはありません。お届け前後を問わず、<a href="/jinja-matching/contact/">お問い合わせ</a>からご連絡いただければ、確認のうえ速やかに削除します。</li>
-        <li><b>返品・キャンセル</b>：デジタルコンテンツのため、レポート送付後の返金はお受けできません。未送付の段階でのキャンセルはご相談ください（<a href="/jinja-matching/tokushoho/">特定商取引法に基づく表記</a>）。</li>
-      </ul>
-    </div>
-    <p style="text-align:center;font-size:0.78rem;color:var(--text-light);margin-top:0.7rem;line-height:1.6">🔐 決済はSTORESで行われます。クレジットカード情報を当サイトが受け取ることはありません。</p>
-  </div>
+  <!-- 有料の詳細診断レポート（手作業・メール納品）は 2026-07-31 に販売終了 -->
 </div>
 
 <!-- ========== SAISEN ========== -->
@@ -1218,7 +1177,7 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
 
     <h3>📋 ご利用にあたって</h3>
     <p>神社の診断結果・今日の診断カードは、<strong>娯楽・自己理解・神社めぐりの参考</strong>としてお楽しみいただくものです。願いごとの成就・運勢・健康・金銭・人間関係の結果を保証するものではありません。</p>
-    <p>診断・神社一覧・今日の診断カードは無料でご利用いただけます（有料は「さらに詳しく診断する」¥1,000 と「サイトを応援する」のみです）。</p>
+    <p>診断・神社一覧・今日の診断カードを含む<strong>すべての機能を無料</strong>でご利用いただけます。有料のお申し込みは一切ありません（「サイトを応援する」は任意のご支援で、ご利用条件や診断結果には一切影響しません）。</p>
 
     <h3>⛩ 正しい神社参拝の作法</h3>
     <p>神社は神様をお迎えする神聖な場所です。作法を知っておくと、心を込めた参拝ができます。難しく考えすぎず、敬意を持つことがいちばん大切です。</p>
@@ -2562,35 +2521,16 @@ function filterShrines(q) {
   renderShrines(filtered);
 }
 
-// ========== PAID FORTUNE ==========
-let fortuneSelections = {};
-function toggleFortune(btn) {
-  const g = btn.dataset.g;
-  const v = btn.dataset.v;
-  // single-select per group (except category which allows multi)
-  if (g !== 'category') {
-    document.querySelectorAll(`.fortune-choice[data-g="${g}"]`).forEach(b => b.classList.remove('selected'));
-    fortuneSelections[g] = null;
-  }
-  if (!fortuneSelections[g]) fortuneSelections[g] = [];
-  if (btn.classList.contains('selected')) {
-    btn.classList.remove('selected');
-    fortuneSelections[g] = fortuneSelections[g].filter(x => x !== v);
-  } else {
-    btn.classList.add('selected');
-    if (g !== 'category') fortuneSelections[g] = [v];
-    else fortuneSelections[g].push(v);
-  }
-  updateFortunePayBtn();
-}
+// ========== PAY LINKS ==========
 // 💳 決済はSTORESネットショップ（クレカ＋PayPay残高）で提供。各商品ページへ遷移する。
 //    旧カード決済サービスの連携は撤去済み（アカウント解約 2026-06-21）。
-// TODO: STORES商品URLを差し替える場合はこの2つの LINK を更新する
+// ⚠️ 2026-07-31：手作業・メール納品だった「詳細診断レポート ¥1,000」は販売終了。
+//    HONKAKU_LINK と関連UI/関数（toggleFortune / payHonkaku / gotoPaidDiagnosis /
+//    updateFortunePayBtn）は撤去済み。再開する場合も手作業納品ではなくPDF等の
+//    ファイル納品にすること（ページ内テキストをコードで開閉する方式は禁止）。
 const PAY = {
   // サイト応援（100円 × 個数で金額自由）※神社への奉納ではなく運営支援
   OSAISEN_LINK: 'https://u5btoqwywc8ql2lhulvn.stores.jp/items/6a2e368fb0a302ed3068aab5',
-  // 神社マッチング 詳細診断レポート（カテゴリ・期間オーダーメイド ¥1,000）
-  HONKAKU_LINK: 'https://u5btoqwywc8ql2lhulvn.stores.jp/items/6a2e35a413b903e44ae5b6d2',
 };
 function openPay(url) {
   if (url) {
@@ -2600,15 +2540,8 @@ function openPay(url) {
 }
 // インラインonclickから確実に呼べるよう関数宣言で公開（const PAY をクロージャで参照）
 function payOsaisen() { openPay(PAY.OSAISEN_LINK); }
-function payHonkaku() { openPay(PAY.HONKAKU_LINK); }
 
-// ===== 無料診断 → 有料診断への導線（A-1） =====
 var lastMatch = { wish: '', top: '' };
-function gotoPaidDiagnosis(source) {
-  try { if (typeof gtag === 'function') gtag('event', 'cta_click', { cta_type: 'paid_diagnosis', cta_source: source || 'unknown' }); } catch (e) {}
-  var el = document.getElementById('paid-diagnosis');
-  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-}
 function gotoSaisenCta() {
   try { if (typeof gtag === 'function') gtag('event', 'cta_click', { cta_type: 'saisen', cta_source: 'omikuji' }); } catch (e) {}
   payOsaisen();
@@ -2628,17 +2561,6 @@ function doShare(platform) {
   window.open(share, '_blank', 'noopener');
   return false;
 }
-function updateFortunePayBtn() {
-  const btn = document.getElementById('fortunePayBtn');
-  const hasCategory = fortuneSelections.category && fortuneSelections.category.length > 0;
-  const hasPeriod = fortuneSelections.period && fortuneSelections.period.length > 0;
-  if (hasCategory && hasPeriod) {
-    btn.classList.add('visible');
-  } else {
-    btn.classList.remove('visible');
-  }
-}
-
 function drawOmikuji() {
   const result = document.getElementById('omikujiResult');
   const weights = [1, 3, 4, 3, 2, 2];
