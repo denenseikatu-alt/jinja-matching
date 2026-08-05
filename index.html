@@ -1076,6 +1076,11 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
 
   <div id="matchResults"></div>
   <div id="matchCta" style="display:none;margin-top:1.2rem">
+    <div class="card" style="text-align:center;border:2px solid #b8860b;background:linear-gradient(135deg,#fffdf5,#fdf3dd);margin-bottom:1rem">
+      <p style="font-weight:700;margin-bottom:.3rem">📔 この神社に祀られているのは、どなたですか</p>
+      <p style="font-size:.85rem;color:var(--text-light);margin-bottom:.9rem">当サイトの神社データには<b>御祭神の項目がありません</b>。診断結果に出せないのはそのためです。御祭神24系統の見分け方と、昇殿参拝・御朱印・氏神・神棚といった一歩先の作法をまとめました（PDF・A4 54ページ／¥680）。</p>
+      <button class="free-fortune-btn" onclick="payPdf()">実践ガイドを見る（STORES）</button>
+    </div>
     <div class="card" style="text-align:center;border:2px solid var(--accent);background:linear-gradient(135deg,#fffdf5,#fff9e6)">
       <p style="font-weight:700;margin-bottom:.3rem"><span id="matchCtaWish">あなた</span>にご縁のある神社が見つかりました</p>
       <p style="font-size:.85rem;color:var(--text-light);margin-bottom:.9rem">診断・神社一覧・今日の診断カードは、すべて無料でご利用いただけます。</p>
@@ -2531,6 +2536,8 @@ function filterShrines(q) {
 const PAY = {
   // サイト応援（100円 × 個数で金額自由）※神社への奉納ではなく運営支援
   OSAISEN_LINK: 'https://u5btoqwywc8ql2lhulvn.stores.jp/items/6a2e368fb0a302ed3068aab5',
+  // 神社参拝 実践ガイド（PDF・A4 54ページ・¥680）※ファイル納品
+  PDF_LINK: 'https://u5btoqwywc8ql2lhulvn.stores.jp/items/6a72d6d22514e81603048b2f',
 };
 function openPay(url) {
   if (url) {
@@ -2540,6 +2547,13 @@ function openPay(url) {
 }
 // インラインonclickから確実に呼べるよう関数宣言で公開（const PAY をクロージャで参照）
 function payOsaisen() { openPay(PAY.OSAISEN_LINK); }
+// PDF商品は openPay() を流用しない。openPay は cta_type:'paid_diagnosis' 固定で、
+// 販売停止した旧「¥1,000本格鑑定」と同じラベルでGA4に混ざってしまうため。
+function payPdf() {
+  var u = PAY.PDF_LINK + '?utm_source=jinja&utm_medium=cross_site&utm_campaign=jinja_sanpai_pdf&utm_content=shrine_result_bottom&site=jinja&diagnosis_type=jinja';
+  try { if (typeof gtag === 'function') gtag('event', 'paid_cta_click', { site: 'jinja', diagnosis_type: 'jinja', result_type: 'match', link_url: u, link_domain: 'stores.jp', cta_type: 'jinja_sanpai_pdf' }); } catch (e) {}
+  window.open(u, '_blank', 'noopener');
+}
 
 var lastMatch = { wish: '', top: '' };
 function gotoSaisenCta() {
