@@ -965,7 +965,7 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
   <button id="navMatching" class="active" onclick="showTab('matching')">🔍 マッチング</button>
   <button onclick="showTab('shrines')">⛩ 神社一覧</button>
   <button onclick="showTab('omikuji')">🎋 今日の診断カード</button>
-  <button onclick="showTab('saisen')">🤝 サイトを応援</button>
+  <button id="navGuide" onclick="showTab('guide')">📔 実践ガイド</button>
   <button onclick="showTab('about')">💡 使い方</button>
 </nav>
 
@@ -1109,7 +1109,7 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
       <button class="omikuji-btn" onclick="drawOmikuji()">診断カード<br>を引く</button>
       <div class="omikuji-result" id="omikujiResult"></div>
       <div id="omikujiCta" style="display:none;margin-top:1rem">
-        <a href="javascript:void(0)" onclick="gotoSaisenCta();return false;" style="display:inline-block;margin:.3em;font-size:.85rem;color:var(--text-light);text-decoration:none">🤝 サイトを応援する（任意）</a>
+        <a href="javascript:void(0)" onclick="gotoGuideTab();return false;" style="display:inline-block;margin:.3em;font-size:.85rem;color:var(--text-light);text-decoration:none">📔 神社参拝 実践ガイド（PDF・¥680）</a>
       </div>
     </div>
   </div>
@@ -1117,29 +1117,29 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
   <!-- 有料の詳細診断レポート（手作業・メール納品）は 2026-07-31 に販売終了 -->
 </div>
 
-<!-- ========== SAISEN ========== -->
-<div id="saisen" class="section">
+<!-- ========== GUIDE（PDF教材） ========== -->
+<div id="guide" class="section">
   <div class="card">
     <div class="saisen-intro">
-      <div class="coin-icon">🤝</div>
-      <h2>サイトを応援する</h2>
-      <p style="margin-top:0.5rem;font-size:0.9rem;color:var(--text-light)">神社マッチングの運営を支えていただくための、任意の支援メニューです</p>
+      <div class="coin-icon">📔</div>
+      <h2>神社参拝 実践ガイド</h2>
+      <p style="margin-top:0.5rem;font-size:0.9rem;color:var(--text-light)">PDF・A4 54ページ／680円（税込）・ダウンロード販売</p>
     </div>
     <div class="support-notice">
-      <b>⚠ 神社へのお賽銭・奉納ではありません</b>
-      <p>こちらは当サイト（神社マッチング）の<b>運営費に充てるための任意のご支援</b>です。いただいた金額を神社へお納めしたり、参拝の代行を行ったりするものではありません。神社へのお賽銭は、実際に参拝された際に各神社の賽銭箱へお納めください。</p>
-      <p><b>いただいたご支援の使いみち</b>：掲載する神社データの調査・更新、サーバーおよびドメインの費用、コラム記事の制作・維持に使わせていただきます。</p>
-      <p>ご支援は<b>任意</b>です。ご支援いただかなくても、診断・神社一覧・今日の診断カードを含むすべての無料機能を制限なくご利用いただけます。<b>ご利益・願いの成就・診断結果が変わることは一切ありません。</b></p>
+      <b>診断では出せない「その神社に祀られている神さま」を読むための一冊です</b>
+      <p>当サイトの神社データには<b>御祭神の項目そのものがありません</b>。診断結果にお名前が出てこないのはそのためです。この冊子では、天照大御神・素戔嗚尊・八幡神・稲荷神・天神など<b>御祭神24系統</b>を、系統ごとの性格と見分け方でまとめました。社名や神紋から「この神社はどの系統か」をたどれるようになります。</p>
+      <p><b>収録内容</b>：御祭神24系統の見分け方／正式参拝（昇殿参拝）の申し込みと当日の流れ／御朱印のいただき方と作法／氏神さまの調べ方／神棚の祀り方と日々のお世話／参拝の基本作法と忌み日の考え方。</p>
+      <p>診断・神社一覧・今日の診断カードを含む<b>サイトの機能はすべて無料のまま</b>です。ご購入いただかなくても、診断結果や内容が変わることは一切ありません。</p>
     </div>
     <div class="saisen-grid single">
-      <a href="javascript:void(0)" onclick="payOsaisen(); return false;" class="saisen-btn">
-        <span class="coin">🤝</span>
-        <span class="amount">お気持ちの金額で応援する</span>
-        <span class="label">100円 × 個数 でご自由に（例：5個で500円・10個で1,000円）</span>
+      <a href="javascript:void(0)" onclick="payPdf('guide_tab'); return false;" class="saisen-btn">
+        <span class="coin">📔</span>
+        <span class="amount">680円（税込）で読む</span>
+        <span class="label">PDF・A4 54ページ／購入後すぐにダウンロードできます</span>
       </a>
     </div>
     <div class="pay-note">
-      <span style="color:var(--text-light)">🔐 決済はSTORESで行われます。購入時に「個数」を選んで金額を調整できます。デジタルコンテンツ扱いのため、決済後の返金はお受けできません（<a href="/jinja-matching/tokushoho/">特定商取引法に基づく表記</a>）</span>
+      <span style="color:var(--text-light)">🔐 決済とファイルの受け渡しはSTORESで行われます。デジタルコンテンツ（PDF）のため、決済後の返金はお受けできません（<a href="/jinja-matching/tokushoho/">特定商取引法に基づく表記</a>）</span>
     </div>
   </div>
 </div>
@@ -1182,7 +1182,7 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
 
     <h3>📋 ご利用にあたって</h3>
     <p>神社の診断結果・今日の診断カードは、<strong>娯楽・自己理解・神社めぐりの参考</strong>としてお楽しみいただくものです。願いごとの成就・運勢・健康・金銭・人間関係の結果を保証するものではありません。</p>
-    <p>診断・神社一覧・今日の診断カードを含む<strong>すべての機能を無料</strong>でご利用いただけます。有料のお申し込みは一切ありません（「サイトを応援する」は任意のご支援で、ご利用条件や診断結果には一切影響しません）。</p>
+    <p>診断・神社一覧・今日の診断カードを含む<strong>サイトの機能はすべて無料</strong>でご利用いただけます。会員登録もお申し込みも不要です。別途ご案内している「神社参拝 実践ガイド（PDF・680円）」は、参拝作法や御祭神の系統をまとめた<strong>読み物としての別冊</strong>で、購入は任意です。ご購入の有無によって、ご利用条件・診断結果・掲載順が変わることは一切ありません。</p>
 
     <h3>⛩ 正しい神社参拝の作法</h3>
     <p>神社は神様をお迎えする神聖な場所です。作法を知っておくと、心を込めた参拝ができます。難しく考えすぎず、敬意を持つことがいちばん大切です。</p>
@@ -2366,11 +2366,14 @@ const prefToRegion = {
 let selections = {};
 
 // ========== FUNCTIONS ==========
-function showTab(id) {
+// btn を明示的に渡せる形にした（ナビ以外＝リンクからタブを切り替える場合、
+// event.currentTarget はそのリンク自身になり、ナビの選択状態がずれるため）
+function showTab(id, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  event.currentTarget.classList.add('active');
+  var target = btn || ((typeof event !== 'undefined' && event) ? event.currentTarget : null);
+  if (target && target.tagName === 'BUTTON') target.classList.add('active');
   if (id === 'shrines') renderShrines(shrines);
 }
 
@@ -2533,9 +2536,10 @@ function filterShrines(q) {
 //    HONKAKU_LINK と関連UI/関数（toggleFortune / payHonkaku / gotoPaidDiagnosis /
 //    updateFortunePayBtn）は撤去済み。再開する場合も手作業納品ではなくPDF等の
 //    ファイル納品にすること（ページ内テキストをコードで開閉する方式は禁止）。
+// ⚠️ 2026-08-05：「サイト応援（100円×個数）」もSTORES側を非公開にしたため、
+//    OSAISEN_LINK と関連UI/関数（payOsaisen / gotoSaisenCta / #saisenタブ）は撤去。
+//    タブは「📔 実践ガイド」＝PDF商品の紹介面に置き換えた。
 const PAY = {
-  // サイト応援（100円 × 個数で金額自由）※神社への奉納ではなく運営支援
-  OSAISEN_LINK: 'https://u5btoqwywc8ql2lhulvn.stores.jp/items/6a2e368fb0a302ed3068aab5',
   // 神社参拝 実践ガイド（PDF・A4 54ページ・¥680）※ファイル納品
   PDF_LINK: 'https://u5btoqwywc8ql2lhulvn.stores.jp/items/6a72d6d22514e81603048b2f',
 };
@@ -2546,19 +2550,22 @@ function openPay(url) {
   }
 }
 // インラインonclickから確実に呼べるよう関数宣言で公開（const PAY をクロージャで参照）
-function payOsaisen() { openPay(PAY.OSAISEN_LINK); }
 // PDF商品は openPay() を流用しない。openPay は cta_type:'paid_diagnosis' 固定で、
 // 販売停止した旧「¥1,000本格鑑定」と同じラベルでGA4に混ざってしまうため。
-function payPdf() {
-  var u = PAY.PDF_LINK + '?utm_source=jinja&utm_medium=cross_site&utm_campaign=jinja_sanpai_pdf&utm_content=shrine_result_bottom&site=jinja&diagnosis_type=jinja';
+function payPdf(content) {
+  var c = content || 'shrine_result_bottom';
+  var u = PAY.PDF_LINK + '?utm_source=jinja&utm_medium=cross_site&utm_campaign=jinja_sanpai_pdf&utm_content=' + c + '&site=jinja&diagnosis_type=jinja';
   try { if (typeof gtag === 'function') gtag('event', 'paid_cta_click', { site: 'jinja', diagnosis_type: 'jinja', result_type: 'match', link_url: u, link_domain: 'stores.jp', cta_type: 'jinja_sanpai_pdf' }); } catch (e) {}
   window.open(u, '_blank', 'noopener');
 }
 
 var lastMatch = { wish: '', top: '' };
-function gotoSaisenCta() {
-  try { if (typeof gtag === 'function') gtag('event', 'cta_click', { cta_type: 'saisen', cta_source: 'omikuji' }); } catch (e) {}
-  payOsaisen();
+// 今日の診断カードからは直接STORESへ飛ばさず、まず紹介タブへ送る
+function gotoGuideTab() {
+  try { if (typeof gtag === 'function') gtag('event', 'cta_click', { cta_type: 'guide_tab', cta_source: 'omikuji' }); } catch (e) {}
+  showTab('guide', document.getElementById('navGuide'));
+  var el = document.getElementById('guide');
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 function doShare(platform) {
   var url = 'https://denenseikatu-alt.github.io/jinja-matching/';
