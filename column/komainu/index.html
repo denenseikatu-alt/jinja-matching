@@ -23,6 +23,10 @@ try{var p=q&&q.get('optout');if(p==='1'||p==='0'){if(window.parent&&window.paren
 <meta property="og:description" content="神社の参道を守る狛犬の意味と由来をやさしく解説。「阿吽（あうん）」の一対が表すもの、獅子との違い、狐や狼など神社ごとの守り神まで、神社めぐりが楽しくなる知識を紹介します。">
 <meta property="og:url" content="https://denenseikatu-alt.github.io/jinja-matching/column/komainu/">
 <meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://denenseikatu-alt.github.io/jinja-matching/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&display=swap" rel="stylesheet">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DJ27SJ9W6G"></script>
@@ -79,15 +83,17 @@ footer .copy{font-size:11px;color:var(--ink2)}
 .page-head p{font-size:14px;color:var(--ink2);margin-top:10px}
 @media(max-width:880px){nav.menu{display:none}}
 .share{margin:28px 0}
-.share-label{font-size:12px;color:var(--ink2);margin-bottom:10px;font-weight:700}
-.share-btns{display:flex;flex-wrap:wrap;gap:8px}
-.share-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;border-radius:8px;padding:9px 14px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;font-family:inherit;line-height:1;appearance:none}
-.share-btn:hover{border-color:var(--gold);color:var(--goldD);text-decoration:none}
-.share-btn .ic{font-size:14px}
-.share-btn.x .ic{color:#000}
-.share-btn.fb .ic{color:#1877f2}
-.share-btn.line .ic{color:#06c755}
-.share-btn.hatena .ic{color:#00a4de}
+.share-label{font-size:12px;color:var(--ink2);margin-bottom:12px;font-weight:700}
+.share-circles{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.share-circle{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;color:#fff;font-weight:800;font-size:18px;font-family:inherit;border:none;cursor:pointer;text-decoration:none;flex-shrink:0;transition:filter .15s,transform .15s}
+.share-circle:hover{filter:brightness(1.08);transform:translateY(-1px);text-decoration:none}
+.share-circle.x{background:#000}
+.share-circle.fb{background:#1877f2}
+.share-circle.hatena{background:#00a4de;font-size:14px}
+.share-circle.pinterest{background:#e60023;font-size:20px}
+.share-circle.line{background:#06c755;font-size:14px;letter-spacing:-.02em}
+.share-circle.copy{background:#fff;color:var(--goldD);border:1.5px solid var(--gold);font-size:16px}
+.share-circle.copy.copied{background:var(--gold);color:#fff;border-color:var(--gold);font-size:10.5px;font-weight:700}
 </style>
 </head>
 <body>
@@ -120,23 +126,26 @@ footer .copy{font-size:11px;color:var(--ink2)}
 </article>
 <div class="share">
 <p class="share-label">この記事をシェアする</p>
-<div class="share-btns">
-<a class="share-btn x" href="#" target="_blank" rel="noopener" data-share="x"><span class="ic">𝕏</span>ポスト</a>
-<a class="share-btn fb" href="#" target="_blank" rel="noopener" data-share="facebook"><span class="ic">f</span>Facebook</a>
-<a class="share-btn line" href="#" target="_blank" rel="noopener" data-share="line"><span class="ic">L</span>LINE</a>
-<a class="share-btn hatena" href="#" target="_blank" rel="noopener" data-share="hatena"><span class="ic">B!</span>はてブ</a>
-<button class="share-btn copy" type="button" data-share="copy"><span class="ic">🔗</span>リンクをコピー</button>
+<div class="share-circles">
+<a class="share-circle x" href="#" target="_blank" rel="noopener" aria-label="Xでシェア" data-share="x">𝕏</a>
+<a class="share-circle fb" href="#" target="_blank" rel="noopener" aria-label="Facebookでシェア" data-share="facebook">f</a>
+<a class="share-circle hatena" href="#" target="_blank" rel="noopener" aria-label="はてなブックマークに追加" data-share="hatena">B!</a>
+<a class="share-circle pinterest" href="#" target="_blank" rel="noopener" aria-label="Pinterestでシェア" data-share="pinterest">P</a>
+<a class="share-circle line" href="#" target="_blank" rel="noopener" aria-label="LINEでシェア" data-share="line">L</a>
+<button class="share-circle copy" type="button" aria-label="リンクをコピー" data-share="copy">&#128279;</button>
 </div>
 </div>
 <script>(function(){
 var u=encodeURIComponent(location.href),t=encodeURIComponent(document.title);
 var bare=location.href.replace(/^https?:\/\//,'');
-var links={x:'https://twitter.com/intent/tweet?url='+u+'&text='+t,facebook:'https://www.facebook.com/sharer/sharer.php?u='+u,line:'https://social-plugins.line.me/lineit/share?url='+u,hatena:'https://b.hatena.ne.jp/entry/s/'+bare};
+var ogImg=document.querySelector('meta[property="og:image"]');
+var img=encodeURIComponent(ogImg?new URL(ogImg.content,location.href).href:'');
+var links={x:'https://twitter.com/intent/tweet?url='+u+'&text='+t,facebook:'https://www.facebook.com/sharer/sharer.php?u='+u,line:'https://social-plugins.line.me/lineit/share?url='+u,hatena:'https://b.hatena.ne.jp/entry/s/'+bare,pinterest:'https://www.pinterest.com/pin/create/button/?url='+u+'&media='+img+'&description='+t};
 document.querySelectorAll('[data-share]').forEach(function(el){
 var k=el.getAttribute('data-share');
 if(k==='copy'){
 el.addEventListener('click',function(){
-var done=function(){var orig=el.innerHTML;el.innerHTML='<span class=\"ic\">✓</span>コピーしました';setTimeout(function(){el.innerHTML=orig;},1800);};
+var done=function(){var orig=el.innerHTML;el.innerHTML='&#10003;';el.classList.add('copied');setTimeout(function(){el.innerHTML=orig;el.classList.remove('copied');},1800);};
 if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(location.href).then(done,done);}
 else{var ta=document.createElement('textarea');ta.value=location.href;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);done();}
 });
