@@ -45,12 +45,52 @@ FONT_CANDIDATES = [
     "C:/Windows/Fonts/msgothic.ttc",
 ]
 
+# 決め打ちで当たらなかったときに探すディレクトリとファイル名パターン。
+# macOS はヒラギノの場所がOSバージョンで変わるため、名前で拾う。
+FONT_DIRS = [
+    "/System/Library/Fonts",
+    "/System/Library/Fonts/Supplemental",
+    "/Library/Fonts",
+    "~/Library/Fonts",
+    "/usr/share/fonts",
+    "/usr/local/share/fonts",
+    "C:/Windows/Fonts",
+]
+FONT_GLOBS = [
+    "ヒラギノ角ゴ*.ttc", "ヒラギノ角ゴ*.otf", "ヒラギノ*.ttc",
+    "Hiragino*.ttc", "Hiragino*.otf",
+    "YuGoth*.ttc", "YuGo*.otf", "meiryo*.ttc", "msgothic.ttc",
+    "NotoSansCJK*", "NotoSansJP*", "ipag*.ttf", "fonts-japanese-gothic.ttf",
+]
 
-def find_font() -> str:
+
+def find_font(explicit: str | None = None) -> str:
+    if explicit:
+        if not Path(explicit).is_file():
+            sys.exit(f"指定されたフォントがありません: {explicit}")
+        return explicit
+
     for path in FONT_CANDIDATES:
         if Path(path).is_file():
             return path
-    sys.exit("日本語フォントが見つかりません。FONT_CANDIDATES にパスを追加してください。")
+
+    for d in FONT_DIRS:
+        base = Path(d).expanduser()
+        if not base.is_dir():
+            continue
+        for pattern in FONT_GLOBS:
+            # フォントはサブディレクトリに置かれることが多いので再帰で探す
+            # （例: /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf）
+            hits = sorted(base.rglob(pattern))
+            if hits:
+                return str(hits[0])
+
+    searched = "\n  ".join(FONT_DIRS)
+    sys.exit(
+        "日本語フォントが見つかりません。探した場所:\n  " + searched + "\n"
+        "--font でフォントファイルを直接指定してください。\n"
+        "例: --font '/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc'"
+    )
 
 
 def ffmpeg_bin() -> str:
@@ -213,6 +253,7 @@ def main() -> None:
     ap.add_argument("--host", default="http://127.0.0.1:50021", help="VOICEVOX ENGINE の URL")
     ap.add_argument("--speaker", type=int, default=None, help="script.json の話者IDを上書き")
     ap.add_argument("--slides-only", action="store_true", help="スライドPNGだけ出す（VOICEVOX 不要）")
+    ap.add_argument("--font", default=None, help="日本語フォントを直接指定する")
     args = ap.parse_args()
 
     script = json.loads(Path(args.script).read_text(encoding="utf-8"))
@@ -223,7 +264,7 @@ def main() -> None:
     slides_dir = outdir / "slides"
     audio_dir = outdir / "audio"
     slides_dir.mkdir(parents=True, exist_ok=True)
-    font_path = find_font()
+    font_path = find_font(args.font)
 
     # 1. スライド（フッターは台本の出典から。ドメインを決め打ちしない）
     footer = script.get("site_host") or urllib.parse.urlparse(

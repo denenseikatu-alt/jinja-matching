@@ -72,6 +72,10 @@ OAuth クライアントIDを `client_secret.json` として置く。実行す�
   クレジットは VOICEVOX ENGINE の `/speakers` から話者IDに対応する**キャラクター名**を
   引いて書く（利用規約がキャラクター名の明記を求めるため、推測では書かない）。
   名前が取れていない場合、`upload_youtube.py` はアップロードを中断する。
-- 日本語フォントは `FONT_CANDIDATES` から自動検出する
-  （Linux の IPAGothic、macOS のヒラギノ、Windows の游ゴシック / メイリオ）。
-  見つからない場合はリストにパスを足す。
+- 日本語フォントは自動検出する。まず `FONT_CANDIDATES` の決め打ちパスを見て、
+  外れたら `FONT_DIRS` を再帰的に探す（macOS はヒラギノの場所がOSバージョンで
+  変わるため、名前で拾う）。それでも見つからないときは `--font` で直接指定する:
+
+  ```bash
+  python3 build_video.py script.json -o out/ --font '/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc'
+  ```
