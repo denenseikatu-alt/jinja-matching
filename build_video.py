@@ -153,6 +153,21 @@ def synth(text: str, speaker: int, host: str, out_path: Path) -> None:
         out_path.write_bytes(r.read())
 
 
+def speaker_credit(speaker: int, host: str) -> str:
+    """VOICEVOX の利用規約はキャラクター名の表記を求めるので、
+    エンジンから正式名称を引いてクレジット文字列を作る（推測で書かない）。"""
+    try:
+        with urllib.request.urlopen(f"{host}/speakers", timeout=30) as r:
+            speakers = json.loads(r.read())
+    except Exception:
+        return "VOICEVOX"
+    for sp in speakers:
+        for style in sp.get("styles", []):
+            if style.get("id") == speaker:
+                return f"VOICEVOX:{sp['name']}"
+    return "VOICEVOX"
+
+
 def wav_duration(path: Path) -> float:
     with wave.open(str(path)) as w:
         return w.getnframes() / w.getframerate()
@@ -284,9 +299,21 @@ def main() -> None:
     ]
     subprocess.run(cmd, check=True)
 
+    # 5. アップロード用の付随情報（実測タイムから作る）
+    credit = speaker_credit(speaker, args.host)
+    (outdir / "credits.txt").write_text(credit + "\n", encoding="utf-8")
+
+    chapters, at = [], 0.0
+    for scene, dur in zip(scenes, slide_durations):
+        m, s = divmod(int(at), 60)
+        chapters.append(f"{m:02d}:{s:02d} {scene['heading']}")
+        at += dur
+    (outdir / "chapters.txt").write_text("\n".join(chapters) + "\n", encoding="utf-8")
+
     mins, secs = divmod(total, 60)
     print(f"\n完成: {mp4}")
     print(f"字幕: {srt_path}（{len(subtitles)} 枚）")
+    print(f"クレジット: {credit}")
     print(f"尺: {int(mins)}分{secs:04.1f}秒 / スライド {len(slide_paths)} 枚")
 
 

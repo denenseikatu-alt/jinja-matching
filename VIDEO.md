@@ -44,6 +44,22 @@ python3 build_video.py script.json -o out/
 python3 build_video.py script.json -o out/ --slides-only
 ```
 
+### 4. YouTube へ非公開アップロード
+
+```bash
+pip install google-auth-oauthlib google-api-python-client
+python3 upload_youtube.py out/video.mp4 --dry-run   # 送信内容の確認
+python3 upload_youtube.py out/video.mp4             # 実行
+```
+
+タイトル・概要欄・タグは `script.json` の `youtube` ブロックから取り、
+概要欄の末尾に目次・記事URL・VOICEVOXのクレジットを自動で付ける。
+既定は `privacyStatus: private`（非公開）。
+
+初回は Google Cloud で YouTube Data API v3 を有効にし、「デスクトップアプリ」の
+OAuth クライアントIDを `client_secret.json` として置く。実行するとブラウザで
+認可を求められ、`token.json` が作られる。**どちらも `.gitignore` 済み。**
+
 ## 仕様のメモ
 
 - `lines` の 1 要素 = 音声合成 1 回 = 字幕 1 枚。
@@ -52,6 +68,10 @@ python3 build_video.py script.json -o out/ --slides-only
 - 文と文のあいだに 0.35 秒、スライドの切り替わりに 0.65 秒の無音を挟む
   （`build_video.py` の `GAP_AFTER_LINE` / `GAP_AFTER_SCENE`）。
 - 出力は 1920×1080 / 30fps / H.264 + AAC。
+- `out/chapters.txt` と `out/credits.txt` は書き出し時に作られ、概要欄の組み立てに使う。
+  クレジットは VOICEVOX ENGINE の `/speakers` から話者IDに対応する**キャラクター名**を
+  引いて書く（利用規約がキャラクター名の明記を求めるため、推測では書かない）。
+  名前が取れていない場合、`upload_youtube.py` はアップロードを中断する。
 - 日本語フォントは `FONT_CANDIDATES` から自動検出する
   （Linux の IPAGothic、macOS のヒラギノ、Windows の游ゴシック / メイリオ）。
   見つからない場合はリストにパスを足す。
