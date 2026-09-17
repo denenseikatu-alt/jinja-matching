@@ -21,16 +21,34 @@ from urllib.parse import urlparse
 
 REPO_ROOT = Path(__file__).resolve().parent
 
-# ブロックごと捨てる定型（パンくず・免責）
+# 本文ではない領域。構造で落とすので、サイトが変わってもそのまま効く。
+STRIP_ELEMENTS = ("script", "style", "nav", "header", "footer", "aside", "form", "noscript")
+
+# ブロックごと捨てる定型（サイト固有。--skip で足せる）
 SKIP_PATTERNS = (
-    "ホーム ›",
     "本記事は神社・神道に関する一般的な読み物",
     "本記事の一部は生成AIを活用",
 )
-# 文単位で捨てる定型（本文末尾に付く導線）
+# 文単位で捨てる定型（本文末尾に付く導線。--skip-sentence で足せる）
 SKIP_SENTENCES = ("無料で診断", "診断してみません")
 # この見出し以降は本文ではない
-STOP_HEADINGS = ("関連コラム", "関連記事")
+STOP_HEADINGS = ("関連コラム", "関連記事", "あわせて読みたい", "こちらもおすすめ")
+
+# パンくずの区切り文字。2個以上並んでいたらパンくずとみなす。
+BREADCRUMB_SEPARATORS = ("›", "»", "＞", ">", "▸", "/")
+
+
+def looks_like_breadcrumb(text: str) -> bool:
+    """「ホーム › コラム › 記事名」のような行を、文字列決め打ちではなく形で判定する。"""
+    if len(text) > 200:
+        return False
+    for sep in BREADCRUMB_SEPARATORS:
+        if text.count(sep) >= 2:
+            return True
+        # 「ホーム › 記事名」のように区切りが1つだけのパンくずも拾う
+        if text.count(sep) == 1 and re.match(r"^\s*(ホーム|トップ|HOME|Home|TOP)\s*" + re.escape(sep), text):
+            return True
+    return False
 
 
 def strip_tags(html: str) -> str:
@@ -104,7 +122,8 @@ def extract(html: str, source_url: str) -> dict:
         r"<article[^>]*>(.*?)</article>", html, re.S
     )
     segment = body.group(1) if body else html
-    segment = re.sub(r"<(script|style)[^>]*>.*?</\1>", "", segment, flags=re.S)
+    for tag in STRIP_ELEMENTS:
+        segment = re.sub(rf"<{tag}[^>]*>.*?</{tag}>", "", segment, flags=re.S | re.I)
 
     title = ""
     sections: list[dict] = []
@@ -113,6 +132,8 @@ def extract(html: str, source_url: str) -> dict:
     for tag, inner in re.findall(r"<(h1|h2|h3|p|li)[^>]*>(.*?)</\1>", segment, re.S):
         text = strip_tags(inner)
         if not text or any(p in text for p in SKIP_PATTERNS):
+            continue
+        if tag in ("p", "li") and looks_like_breadcrumb(text):
             continue
         text = drop_cta_sentences(text)
         if not text:
@@ -166,7 +187,16 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("target", help="記事の URL またはローカルパス")
     ap.add_argument("-o", "--output", default="article.json", help="出力 JSON (既定: article.json)")
+    ap.add_argument("--skip", action="append", default=[], metavar="文字列",
+                    help="この文字列を含むブロックを捨てる（複数指定可）")
+    ap.add_argument("--skip-sentence", action="append", default=[], metavar="文字列",
+                    help="この文字列を含む「文」だけを捨てる（複数指定可）")
+    ap.add_argument("--dump", action="store_true", help="抽出結果を標準出力にも表示する")
     args = ap.parse_args()
+
+    global SKIP_PATTERNS, SKIP_SENTENCES
+    SKIP_PATTERNS = tuple(SKIP_PATTERNS) + tuple(args.skip)
+    SKIP_SENTENCES = tuple(SKIP_SENTENCES) + tuple(args.skip_sentence)
 
     html, source_url = load_html(args.target)
     article = extract(html, source_url)
@@ -176,7 +206,17 @@ def main() -> None:
 
     blocks = sum(len(s["blocks"]) for s in article["sections"])
     print(f"タイトル: {article['title']}")
+    print(f"サイト: {article['site']} ({article['site_host']})")
     print(f"セクション {len(article['sections'])} / ブロック {blocks} → {args.output}")
+
+    if args.dump:
+        print()
+        for s in article["sections"]:
+            print("##", s["heading"] or "(導入)")
+            for b in s["blocks"]:
+                print(f"   [{b['kind']}] {b['text']}")
+
+    print("\n本文でないものが混ざっていたら --skip / --skip-sentence で除いてください。")
 
 
 if __name__ == "__main__":

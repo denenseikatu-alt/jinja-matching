@@ -31,15 +31,28 @@ bash preflight.sh
 `script.json` に入っている台本は `jinja-matching`（神社マッチング）のコラムから
 作ったもので、**ユーザーが本来動画にしたい記事ではない**。
 
-本来の対象は `denenseikatu.com`（田園生活サイト）のブログ記事。
-クラウド環境では同ドメインが egress ポリシーで遮断されていて取得できなかったが、
+**対象記事はユーザーから指定済み:**
+
+```
+https://denenseikatu.com/articles/post-exercise-calorie-burn-morning-vs-evening-waseda/
+```
+
+（運動後のカロリー消費、朝と夕方の比較、早稲田大学の研究に関する記事らしい。
+神社とは全く別ジャンルなので、既存の台本は完全に捨てて作り直すこと。）
+
+クラウド環境では `denenseikatu.com` が egress ポリシーで遮断されていて取得できなかったが、
 **Mac からは普通にアクセスできるはず**。
 
-まずユーザーにどの記事か確認し、記事URLを渡して抽出からやり直す:
-
 ```bash
-python3 extract_article.py <記事URL> -o article.json
+python3 extract_article.py https://denenseikatu.com/articles/post-exercise-calorie-burn-morning-vs-evening-waseda/ -o article.json --dump
 ```
+
+`--dump` で抽出結果を目視確認すること。**このサイトの HTML 構造は未確認**
+（クラウドから到達できなかったため）。ナビやフッターの文字が本文に混ざっていたら、
+`--skip "文字列"` や `--skip-sentence "文字列"` で除ける。
+
+数字や研究機関名を扱う記事なので、**台本に記事にない数値・大学名・研究結果を足さないこと。**
+読み違いが起きやすい単位（kcal、％など）は `prompts/narration.md` の方針に従って読みを開く。
 
 そのうえで `prompts/narration.md` のルールに従って `script.json` を書き直す。
 既存の `script.json` の `scenes` は差し替え対象。`youtube` ブロックも記事に合わせて書き直す。
