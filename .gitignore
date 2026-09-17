@@ -1,0 +1,7 @@
+# 動画パイプラインの生成物
+out/
+article.json
+*.wav
+*.mp4
+*.srt
+__pycache__/
