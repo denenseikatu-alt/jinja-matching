@@ -256,7 +256,15 @@ def main() -> None:
     ap.add_argument("--font", default=None, help="日本語フォントを直接指定する")
     args = ap.parse_args()
 
-    script = json.loads(Path(args.script).read_text(encoding="utf-8"))
+    script_path = Path(args.script)
+    if not script_path.is_file():
+        sys.exit(
+            f"台本がありません: {script_path}\n"
+            "prompts/narration.md のルールに従って、対象記事から台本を作ってください。\n"
+            "書式の見本: examples/script.sample.json\n"
+            "（見本は神社記事のものです。そのまま書き出さないでください）"
+        )
+    script = json.loads(script_path.read_text(encoding="utf-8"))
     speaker = args.speaker if args.speaker is not None else script.get("speaker", 10)
     scenes = script["scenes"]
 

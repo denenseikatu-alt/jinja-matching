@@ -33,6 +33,7 @@ URL に対応する HTML がこのリポジトリ内にあればそれを読む�
 
 `article.json` をもとに、`prompts/narration.md` のルールに従って
 `script.json` を作る。話者 ID は既定で **10**。
+書式の見本は `examples/script.sample.json`（神社記事のもの。内容は流用しない）。
 
 読み間違い対策（「正中」→「せいちゅう」など）は narration.md の表を参照。
 画面に出す `bullets` は漢字のまま、読み上げる `lines` は読みを開いて書く。

@@ -13,7 +13,8 @@
 | `prompts/narration.md` | 完成 |
 | `build_video.py` | 完成。ただし VOICEVOX 呼び出しのみ未検証 |
 | `upload_youtube.py` | 完成。ただし YouTube API 送信のみ未検証 |
-| `script.json` | **中身が間違っている。作り直しが必要**（下記） |
+| `script.json` | **存在しない。作るのがこの作業の本体**（下記） |
+| `examples/script.sample.json` | 書式の見本。神社記事のものなので内容は流用しない |
 
 ## やること
 
@@ -28,8 +29,9 @@ bash preflight.sh
 
 ### 1. 台本を正しい記事で作り直す（必須）
 
-`script.json` に入っている台本は `jinja-matching`（神社マッチング）のコラムから
-作ったもので、**ユーザーが本来動画にしたい記事ではない**。
+かつて `script.json` に神社記事の台本が入っていたが、誤って書き出す事故を防ぐため
+`examples/script.sample.json` に退避してある。**あれは書式の見本であって、内容は
+ユーザーが動画にしたい記事ではない。** 中身は必ず作り直すこと。
 
 **対象記事はユーザーから指定済み:**
 
@@ -54,8 +56,13 @@ python3 extract_article.py https://denenseikatu.com/articles/post-exercise-calor
 数字や研究機関名を扱う記事なので、**台本に記事にない数値・大学名・研究結果を足さないこと。**
 読み違いが起きやすい単位（kcal、％など）は `prompts/narration.md` の方針に従って読みを開く。
 
-そのうえで `prompts/narration.md` のルールに従って `script.json` を書き直す。
-既存の `script.json` の `scenes` は差し替え対象。`youtube` ブロックも記事に合わせて書き直す。
+そのうえで `prompts/narration.md` のルールに従って `script.json` を新規に書く。
+書式は `examples/script.sample.json` を見ればよいが、`scenes` も `youtube` ブロックも
+対象記事の内容で書き起こすこと。
+
+narration.md には**数値・単位の扱い**と**研究結果の扱い**の節がある。
+この記事は大学の研究を扱うので、そこは必ず読むこと（主張の強さを変えない、
+被験者数や期間などの条件を落とさない、記事にない健康上の助言を足さない）。
 
 ### 2. 書き出し
 
