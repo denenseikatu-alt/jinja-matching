@@ -77,8 +77,26 @@ def load_html(target: str) -> tuple[str, str]:
         path = path / "index.html"
     if not path.is_file():
         sys.exit(f"記事が見つかりません: {target}")
-    rel = path.resolve().relative_to(REPO_ROOT).parent.as_posix()
-    return path.read_text(encoding="utf-8"), f"https://denenseikatu.com/{rel}/"
+    return path.read_text(encoding="utf-8"), ""
+
+
+def canonical_url(html: str) -> str:
+    """記事が自称する正規URL。ドメインを決め打ちせず、必ずHTMLから取る。"""
+    for pattern in (
+        r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)',
+        r'<meta[^>]+property=["\']og:url["\'][^>]+content=["\']([^"\']+)',
+    ):
+        m = re.search(pattern, html, re.I)
+        if m:
+            return m.group(1)
+    return ""
+
+
+def site_name(html: str) -> str:
+    m = re.search(
+        r'<meta[^>]+property=["\']og:site_name["\'][^>]+content=["\']([^"\']+)', html, re.I
+    )
+    return m.group(1) if m else ""
 
 
 def extract(html: str, source_url: str) -> dict:
@@ -122,7 +140,26 @@ def extract(html: str, source_url: str) -> dict:
         m = re.search(r"<title>(.*?)</title>", html, re.S)
         title = strip_tags(m.group(1)) if m else "無題"
 
-    return {"title": title, "source_url": source_url, "sections": sections}
+    # canonical を最優先する。渡されたURLがリダイレクト前だったり、
+    # ローカルパスでドメインが分からない場合があるため。
+    canonical = canonical_url(html)
+    if canonical:
+        source_url = canonical
+    if not source_url:
+        sys.exit(
+            "記事の正規URLが判定できません。\n"
+            "HTML に canonical も og:url も無く、ローカルパスから渡されました。\n"
+            "URL を直接指定して実行してください。"
+        )
+
+    host = urlparse(source_url).netloc
+    return {
+        "title": title,
+        "source_url": source_url,
+        "site": site_name(html) or host,
+        "site_host": host,
+        "sections": sections,
+    }
 
 
 def main() -> None:

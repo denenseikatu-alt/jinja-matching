@@ -83,7 +83,7 @@ def wrap(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.FreeTypeFont, max
     return lines
 
 
-def draw_slide(scene: dict, font_path: str, is_title: bool, out_path: Path) -> None:
+def draw_slide(scene: dict, font_path: str, is_title: bool, footer: str, out_path: Path) -> None:
     img = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(img)
 
@@ -125,8 +125,9 @@ def draw_slide(scene: dict, font_path: str, is_title: bool, out_path: Path) -> N
                 y += 68
             y += 22
 
-    f_foot = ImageFont.truetype(font_path, 30)
-    d.text((180, H - 90), "denenseikatu.com", font=f_foot, fill=SUB)
+    if footer:
+        f_foot = ImageFont.truetype(font_path, 30)
+        d.text((180, H - 90), footer, font=f_foot, fill=SUB)
 
     img.save(out_path)
 
@@ -224,11 +225,14 @@ def main() -> None:
     slides_dir.mkdir(parents=True, exist_ok=True)
     font_path = find_font()
 
-    # 1. スライド
+    # 1. スライド（フッターは台本の出典から。ドメインを決め打ちしない）
+    footer = script.get("site_host") or urllib.parse.urlparse(
+        script.get("source_url", "")
+    ).netloc
     slide_paths = []
     for i, scene in enumerate(scenes):
         p = slides_dir / f"{i + 1:02d}.png"
-        draw_slide(scene, font_path, is_title=(i == 0), out_path=p)
+        draw_slide(scene, font_path, is_title=(i == 0), footer=footer, out_path=p)
         slide_paths.append(p)
     print(f"スライド {len(slide_paths)} 枚 → {slides_dir}")
 
