@@ -194,19 +194,31 @@ def synth(text: str, speaker: int, host: str, out_path: Path) -> None:
         out_path.write_bytes(r.read())
 
 
+def engine_brand(host: str) -> str:
+    """エンジンの製品名。VOICEVOX 互換エンジン（AivisSpeech など）もあるため、
+    製品名を決め打ちせずマニフェストから取る。"""
+    try:
+        with urllib.request.urlopen(f"{host}/engine_manifest", timeout=30) as r:
+            manifest = json.loads(r.read())
+        return manifest.get("brand_name") or manifest.get("name") or "VOICEVOX"
+    except Exception:
+        return "VOICEVOX"
+
+
 def speaker_credit(speaker: int, host: str) -> str:
-    """VOICEVOX の利用規約はキャラクター名の表記を求めるので、
-    エンジンから正式名称を引いてクレジット文字列を作る（推測で書かない）。"""
+    """利用規約はキャラクター名の表記を求めるので、エンジンから正式名称を
+    引いてクレジット文字列を作る（推測で書かない）。"""
+    brand = engine_brand(host)
     try:
         with urllib.request.urlopen(f"{host}/speakers", timeout=30) as r:
             speakers = json.loads(r.read())
     except Exception:
-        return "VOICEVOX"
+        return brand
     for sp in speakers:
         for style in sp.get("styles", []):
             if style.get("id") == speaker:
-                return f"VOICEVOX:{sp['name']}"
-    return "VOICEVOX"
+                return f"{brand}:{sp['name']}"
+    return brand
 
 
 def wav_duration(path: Path) -> float:

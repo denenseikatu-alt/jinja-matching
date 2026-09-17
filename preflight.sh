@@ -61,7 +61,15 @@ fi
 HOST="${VOICEVOX_HOST:-http://127.0.0.1:50021}"
 if curl -sS -m 5 "$HOST/version" >/dev/null 2>&1; then
   VER=$(curl -sS -m 5 "$HOST/version" 2>/dev/null | tr -d '"')
-  ok "VOICEVOX ENGINE $VER ($HOST)"
+  BRAND=$(curl -sS -m 5 "$HOST/engine_manifest" 2>/dev/null | python3 -c "
+import json,sys
+try:
+    m = json.load(sys.stdin)
+    print(m.get('brand_name') or m.get('name') or 'VOICEVOX')
+except Exception:
+    print('VOICEVOX')
+" 2>/dev/null)
+  ok "${BRAND:-VOICEVOX} ENGINE $VER ($HOST)"
   SPK=$(curl -sS -m 10 "$HOST/speakers" 2>/dev/null | python3 -c "
 import json,sys
 try:
