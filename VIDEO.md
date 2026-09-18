@@ -48,6 +48,16 @@ python3 build_video.py script.json -o out/
 `out/video.mp4`、`out/video.srt`、`out/slides/*.png` が出る。
 終了時に尺とスライド枚数を表示する。
 
+VOICEVOX に接続できない環境では、ローカル完結の合成に切り替えられる:
+
+```bash
+pip install pyopenjtalk numpy
+python3 build_video.py script.json -o out/ --engine openjtalk
+```
+
+外部接続なしで動くが、声質は素朴な合成音になる（VOICEVOX の代わりにはならない）。
+使用する HTS 音声「Mei」は CC BY 3.0 で表示が義務のため、クレジットは自動で入る。
+
 スライドの見た目だけ先に確認したいときは VOICEVOX なしで:
 
 ```bash

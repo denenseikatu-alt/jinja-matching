@@ -194,6 +194,30 @@ def synth(text: str, speaker: int, host: str, out_path: Path) -> None:
         out_path.write_bytes(r.read())
 
 
+# Open JTalk が使う HTS 音声「Mei」は CC BY 3.0 で、表示が義務。
+OPENJTALK_CREDIT = (
+    'Open JTalk / HTS Voice "Mei" '
+    "(MMDAgent Project Team, 名古屋工業大学) CC BY 3.0"
+)
+
+
+def synth_openjtalk(text: str, out_path: Path) -> None:
+    """VOICEVOX が使えない環境向けのローカル合成。声質は素朴だが外部接続が要らない。"""
+    try:
+        import numpy as np
+        import pyopenjtalk
+    except ImportError:
+        sys.exit("pyopenjtalk が必要です。`pip install pyopenjtalk numpy` を実行してください。")
+
+    x, sr = pyopenjtalk.tts(text)
+    pcm = (np.clip(x / 32768.0, -1.0, 1.0) * 32767).astype("<i2")
+    with wave.open(str(out_path), "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(int(sr))
+        w.writeframes(pcm.tobytes())
+
+
 def engine_brand(host: str) -> str:
     """エンジンの製品名。VOICEVOX 互換エンジン（AivisSpeech など）もあるため、
     製品名を決め打ちせずマニフェストから取る。"""
@@ -266,6 +290,8 @@ def main() -> None:
     ap.add_argument("--speaker", type=int, default=None, help="script.json の話者IDを上書き")
     ap.add_argument("--slides-only", action="store_true", help="スライドPNGだけ出す（VOICEVOX 不要）")
     ap.add_argument("--font", default=None, help="日本語フォントを直接指定する")
+    ap.add_argument("--engine", choices=["voicevox", "openjtalk"], default="voicevox",
+                    help="音声合成の方式。openjtalk はローカル完結だが声質は素朴")
     args = ap.parse_args()
 
     script_path = Path(args.script)
@@ -317,7 +343,10 @@ def main() -> None:
         for li, line in enumerate(lines):
             n += 1
             wav = audio_dir / f"{n:04d}.wav"
-            synth(line, speaker, args.host, wav)
+            if args.engine == "openjtalk":
+                synth_openjtalk(line, wav)
+            else:
+                synth(line, speaker, args.host, wav)
             first_wav = first_wav or wav
             dur = wav_duration(wav)
             timeline.append(wav)
@@ -360,12 +389,18 @@ def main() -> None:
         "-f", "concat", "-safe", "0", "-i", str(audio_list),
         "-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", "30",
         "-c:a", "aac", "-b:a", "192k",
-        "-shortest", str(mp4),
+        # concat の末尾で最終画像を再掲する作法が余分な尺を生み、-shortest では
+        # 切り落とせないことがある。音声タイムラインの長さを明示して確実に揃える。
+        "-t", f"{total:.3f}",
+        str(mp4),
     ]
     subprocess.run(cmd, check=True)
 
     # 5. アップロード用の付随情報（実測タイムから作る）
-    credit = speaker_credit(speaker, args.host)
+    credit = (
+        OPENJTALK_CREDIT if args.engine == "openjtalk"
+        else speaker_credit(speaker, args.host)
+    )
     (outdir / "credits.txt").write_text(credit + "\n", encoding="utf-8")
 
     chapters, at = [], 0.0
