@@ -1,0 +1,11 @@
+# YouTube の認証情報（絶対にコミットしない）
+client_secret.json
+token.json
+
+# 動画パイプラインの生成物
+out/
+article.json
+*.wav
+*.mp4
+*.srt
+__pycache__/
