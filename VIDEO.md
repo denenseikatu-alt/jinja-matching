@@ -48,7 +48,25 @@ python3 build_video.py script.json -o out/
 `out/video.mp4`、`out/video.srt`、`out/slides/*.png` が出る。
 終了時に尺とスライド枚数を表示する。
 
-VOICEVOX に接続できない環境では、ローカル完結の合成に切り替えられる:
+### VOICEVOX が手元に無い環境で動かす
+
+ENGINE の配布物は直URLなら取得できる（リリースのHTMLページは 403 になるが、
+`releases/download/<tag>/<file>` は通る）。Linux なら以下でこの場に立てられる:
+
+```bash
+V=0.25.2
+curl -sSL -o engine.7z \
+  "https://github.com/VOICEVOX/voicevox_engine/releases/download/$V/voicevox_engine-linux-cpu-x64-$V.7z.001"
+pip install py7zr && python3 -c "import py7zr; py7zr.SevenZipFile('engine.7z').extractall()"
+cd linux-cpu-x64 && ./run --host 127.0.0.1 --port 50021 &
+```
+
+配布物は約1.7GB、展開後を含めて4GB程度の空きが要る。起動に20秒ほどかかる。
+タグ一覧は `git ls-remote --tags https://github.com/VOICEVOX/voicevox_engine` で取れる。
+
+### ローカル完結の簡易合成
+
+VOICEVOX をどうしても用意できない場合の代替:
 
 ```bash
 pip install pyopenjtalk numpy
