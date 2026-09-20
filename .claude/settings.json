@@ -1,41 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "permissions": {
-    "allow": [
-      "Bash(bash preflight.sh)",
-      "Bash(bash preflight.sh *)",
-      "Bash(python3 preflight.sh)",
-      "Bash(python3 pick_article.py)",
-      "Bash(python3 pick_article.py *)",
-      "Bash(python3 extract_article.py *)",
-      "Bash(python3 build_video.py *)",
-      "Bash(python3 upload_youtube.py *)",
-      "Bash(.venv/bin/python3 pick_article.py)",
-      "Bash(.venv/bin/python3 pick_article.py *)",
-      "Bash(.venv/bin/python3 extract_article.py *)",
-      "Bash(.venv/bin/python3 build_video.py *)",
-      "Bash(.venv/bin/python3 upload_youtube.py *)",
-      "Bash(source .venv/bin/activate)",
-      "Bash(source .venv/bin/activate *)",
-      "Bash(curl -sS http://127.0.0.1:50021/*)",
-      "Bash(curl -s http://127.0.0.1:50021/*)",
-      "Bash(git pull)",
-      "Bash(git pull *)",
-      "Bash(git status)",
-      "Bash(git status *)",
-      "Read",
-      "Edit(script.json)",
-      "Edit(article.json)",
-      "Edit(video_state.json)",
-      "Edit(out/**)",
-      "Edit(logs/**)"
-    ],
     "deny": [
-      "Bash(rm -rf *)",
-      "Edit(client_secret.json)",
-      "Edit(token.json)",
       "Read(client_secret.json)",
-      "Read(token.json)"
+      "Read(token.json)",
+      "Edit(client_secret.json)",
+      "Edit(token.json)"
     ]
   }
 }
