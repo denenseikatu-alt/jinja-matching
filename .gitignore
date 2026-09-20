@@ -9,3 +9,7 @@ article.json
 *.mp4
 *.srt
 __pycache__/
+
+# Python 仮想環境
+.venv/
+venv/
