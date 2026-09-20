@@ -13,3 +13,6 @@ __pycache__/
 # Python 仮想環境
 .venv/
 venv/
+
+# 進捗台帳はローカル管理
+video_state.json
