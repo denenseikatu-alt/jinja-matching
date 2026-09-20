@@ -85,3 +85,48 @@ python3 pick_article.py --status
 ```
 
 台帳は `video_state.json`。処理済みのスラッグ・日付・動画URLが入っている。
+
+## 毎日自動で走らせる
+
+`daily_run.sh` が、VOICEVOX の起動確認から Claude Code の実行までを一括で行う。
+まず手で一度動かして確かめる。
+
+```bash
+bash ~/jinja-matching/daily_run.sh
+tail -f ~/jinja-matching/logs/$(date +%Y-%m-%d).log
+```
+
+うまくいったら launchd に登録して、毎朝9時に走らせる。
+
+```bash
+mkdir -p ~/Library/LaunchAgents
+cat > ~/Library/LaunchAgents/com.denen.dailyvideo.plist <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.denen.dailyvideo</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>$HOME/jinja-matching/daily_run.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>0</integer></dict>
+  <key>RunAtLoad</key><false/>
+</dict>
+</plist>
+PLIST
+
+launchctl unload ~/Library/LaunchAgents/com.denen.dailyvideo.plist 2>/dev/null
+launchctl load ~/Library/LaunchAgents/com.denen.dailyvideo.plist
+```
+
+止めるときは `launchctl unload ~/Library/LaunchAgents/com.denen.dailyvideo.plist`。
+
+### 注意
+
+- **Macが起動している必要がある。** スリープ中は走らない。その日は飛ばされ、翌日に同じ記事から再開する。
+- ログは `logs/YYYY-MM-DD.log`。失敗した日はここを見る。
+- OAuth同意画面が「テスト」状態だと、リフレッシュトークンが7日で失効する。
+  毎週認可を求められるようなら、同意画面を「本番」に切り替える必要がある。
