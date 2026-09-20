@@ -31,8 +31,16 @@ SKIP_PATTERNS = (
 )
 # 文単位で捨てる定型（本文末尾に付く導線。--skip-sentence で足せる）
 SKIP_SENTENCES = ("無料で診断", "診断してみません")
-# この見出し以降は本文ではない
-STOP_HEADINGS = ("関連コラム", "関連記事", "あわせて読みたい", "こちらもおすすめ")
+# この見出し以降は本文ではない（h2 でも h3 でも打ち切る）
+STOP_HEADINGS = (
+    "関連コラム",
+    "関連記事",
+    "あわせて読みたい",
+    "こちらもおすすめ",
+    "よくある質問",
+    "読んだら",
+    "次の一歩",
+)
 
 # パンくずの区切り文字。2個以上並んでいたらパンくずとみなす。
 BREADCRUMB_SEPARATORS = ("›", "»", "＞", ">", "▸", "/")
@@ -142,9 +150,10 @@ def extract(html: str, source_url: str) -> dict:
         if tag == "h1":
             title = text
             continue
+        # 打ち切り見出しは h2 とは限らない。h3 で「関連記事」が来るサイトもある。
+        if tag in ("h2", "h3") and any(s in text for s in STOP_HEADINGS):
+            break
         if tag == "h2":
-            if any(text.startswith(s) for s in STOP_HEADINGS):
-                break
             current = {"heading": text, "blocks": []}
             sections.append(current)
             continue
