@@ -95,7 +95,11 @@ python3 build_video.py script.json -o out/ || die "動画の書き出しに失�
 [ -f out/video.mp4 ] || die "out/video.mp4 がありません"
 
 # --- 7. アップロード ------------------------------------------------------
-UP="$(python3 upload_youtube.py out/video.mp4)" || die "アップロードに失敗しました"
+# 公開設定は PRIVACY で変えられる。public にすると人目に触れるので、
+# 台本の出来を確認したうえで運用すること。
+PRIVACY="${PRIVACY:-public}"
+UP="$(python3 upload_youtube.py out/video.mp4 --privacy "$PRIVACY")" \
+  || die "アップロードに失敗しました"
 echo "$UP"
 URL="$(printf '%s\n' "$UP" | awk '/^完了:/{print $2}')"
 [ -n "$URL" ] || die "動画URLを取得できませんでした"

@@ -130,3 +130,9 @@ launchctl load ~/Library/LaunchAgents/com.denen.dailyvideo.plist
 - ログは `logs/YYYY-MM-DD.log`。失敗した日はここを見る。
 - OAuth同意画面が「テスト」状態だと、リフレッシュトークンが7日で失効する。
   毎週認可を求められるようなら、同意画面を「本番」に切り替える必要がある。
+- **公開設定は `PRIVACY` で決まる（既定 `public`）。** 非公開に戻すなら
+  `PRIVACY=private bash daily_run.sh`、または daily_run.sh の既定値を変える。
+- **審査前のAPIプロジェクトからのアップロードは、YouTube側で非公開に固定される。**
+  `--privacy public` を指定しても非公開のまま上がることがある。その場合は
+  Google Cloud Console でAPIプロジェクトの審査を申請するか、YouTube Studio で
+  1本ずつ公開に切り替える。
