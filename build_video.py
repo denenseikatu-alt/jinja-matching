@@ -123,7 +123,46 @@ def wrap(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.FreeTypeFont, max
     return lines
 
 
-def draw_slide(scene: dict, font_path: str, is_title: bool, footer: str, out_path: Path) -> None:
+NARRATOR_SIZE = 260       # 立ち絵の直径
+NARRATOR_MARGIN = 70      # 右下からの余白
+
+
+def paste_narrator(img: Image.Image, narrator_path: Path) -> None:
+    """語り手の立ち絵を右下に円形で置く。素材は正方形でなくてもよい。"""
+    try:
+        src = Image.open(narrator_path).convert("RGB")
+    except Exception:
+        return
+
+    # 中央を正方形に切り出してから縮小する（顔が入るよう上寄りに取る）
+    w, h = src.size
+    side = min(w, h)
+    left = (w - side) // 2
+    top = int((h - side) * 0.25)
+    src = src.crop((left, top, left + side, top + side)).resize(
+        (NARRATOR_SIZE, NARRATOR_SIZE), Image.LANCZOS
+    )
+
+    mask = Image.new("L", (NARRATOR_SIZE, NARRATOR_SIZE), 0)
+    ImageDraw.Draw(mask).ellipse([0, 0, NARRATOR_SIZE - 1, NARRATOR_SIZE - 1], fill=255)
+
+    x = W - NARRATOR_SIZE - NARRATOR_MARGIN
+    y = H - NARRATOR_SIZE - NARRATOR_MARGIN
+    # 縁取り
+    ImageDraw.Draw(img).ellipse(
+        [x - 5, y - 5, x + NARRATOR_SIZE + 4, y + NARRATOR_SIZE + 4], fill=ACCENT
+    )
+    img.paste(src, (x, y), mask)
+
+
+def draw_slide(
+    scene: dict,
+    font_path: str,
+    is_title: bool,
+    footer: str,
+    out_path: Path,
+    narrator: Path | None = None,
+) -> None:
     img = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(img)
 
@@ -168,6 +207,9 @@ def draw_slide(scene: dict, font_path: str, is_title: bool, footer: str, out_pat
     if footer:
         f_foot = ImageFont.truetype(font_path, 30)
         d.text((180, H - 90), footer, font=f_foot, fill=SUB)
+
+    if narrator and narrator.is_file():
+        paste_narrator(img, narrator)
 
     img.save(out_path)
 
@@ -290,6 +332,8 @@ def main() -> None:
     ap.add_argument("--speaker", type=int, default=None, help="script.json の話者IDを上書き")
     ap.add_argument("--slides-only", action="store_true", help="スライドPNGだけ出す（VOICEVOX 不要）")
     ap.add_argument("--font", default=None, help="日本語フォントを直接指定する")
+    ap.add_argument("--narrator", default="assets_video/narrator.png",
+                    help="スライド右下に置く語り手の画像。無ければ置かない")
     ap.add_argument("--engine", choices=["voicevox", "openjtalk"], default="voicevox",
                     help="音声合成の方式。openjtalk はローカル完結だが声質は素朴")
     args = ap.parse_args()
@@ -312,6 +356,11 @@ def main() -> None:
     slides_dir.mkdir(parents=True, exist_ok=True)
     font_path = find_font(args.font)
 
+    narrator = Path(args.narrator).expanduser() if args.narrator else None
+    if narrator and not narrator.is_file():
+        print(f"語り手の画像が無いので置きません: {narrator}")
+        narrator = None
+
     # 1. スライド（フッターは台本の出典から。ドメインを決め打ちしない）
     footer = script.get("site_host") or urllib.parse.urlparse(
         script.get("source_url", "")
@@ -319,7 +368,8 @@ def main() -> None:
     slide_paths = []
     for i, scene in enumerate(scenes):
         p = slides_dir / f"{i + 1:02d}.png"
-        draw_slide(scene, font_path, is_title=(i == 0), footer=footer, out_path=p)
+        draw_slide(scene, font_path, is_title=(i == 0), footer=footer, out_path=p,
+                   narrator=narrator)
         slide_paths.append(p)
     print(f"スライド {len(slide_paths)} 枚 → {slides_dir}")
 

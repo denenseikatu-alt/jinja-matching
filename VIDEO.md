@@ -98,6 +98,12 @@ python3 upload_youtube.py out/video.mp4             # 実行
 OAuth クライアントIDを `client_secret.json` として置く。実行するとブラウザで
 認可を求められ、`token.json` が作られる。**どちらも `.gitignore` 済み。**
 
+### 語り手の立ち絵
+
+`assets_video/narrator.png` があれば、スライド右下に円形で合成する。
+素材は正方形でなくてよい（中央やや上を正方形に切り出して使う）。
+置きたくないときは `--narrator ""`、別の画像なら `--narrator パス`。
+
 ## 仕様のメモ
 
 - `lines` の 1 要素 = 音声合成 1 回 = 字幕 1 枚。
