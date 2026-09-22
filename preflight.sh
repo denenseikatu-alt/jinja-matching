@@ -58,6 +58,13 @@ else
 fi
 
 # VOICEVOX
+SPEAKER=$(python3 -c "
+import json
+try:
+    print(json.load(open('script.json')).get('speaker', 9))
+except Exception:
+    print(9)
+" 2>/dev/null || echo 9)
 HOST="${VOICEVOX_HOST:-http://127.0.0.1:50021}"
 if curl -sS -m 5 "$HOST/version" >/dev/null 2>&1; then
   VER=$(curl -sS -m 5 "$HOST/version" 2>/dev/null | tr -d '"')
@@ -75,16 +82,16 @@ import json,sys
 try:
     for sp in json.load(sys.stdin):
         for st in sp.get('styles', []):
-            if st.get('id') == 10:
+            if st.get('id') == $SPEAKER:
                 print(f\"{sp['name']} / {st['name']}\")
 except Exception:
     pass
 " 2>/dev/null)
   if [ -n "$SPK" ]; then
-    ok "話者ID 10 = $SPK"
+    ok "話者ID $SPEAKER = $SPK"
     info "この名前が概要欄のクレジットになります。意図と違えば話者IDを見直してください"
   else
-    ng "話者ID 10 が見つかりません"
+    ng "話者ID $SPEAKER が見つかりません"
     info "$HOST/speakers を開いて、使いたい声のIDを確認してください"
   fi
 else

@@ -65,7 +65,7 @@ CLAUDE_BIN="${CLAUDE_BIN:-$HOME/.claude/local/claude}"
 
 - 書式の見本は examples/script.sample.json（内容は流用しない）
 - source_url と site、site_host は article.json の値をそのまま使う
-- speaker は 10
+- speaker は 9
 - youtube ブロックのタイトル・概要欄・タグも記事の内容で書く
 - 概要欄には、一般的な参考情報であり医師の診断・治療に代わるものではない旨を入れる
 

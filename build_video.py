@@ -347,7 +347,7 @@ def main() -> None:
             "（見本は神社記事のものです。そのまま書き出さないでください）"
         )
     script = json.loads(script_path.read_text(encoding="utf-8"))
-    speaker = args.speaker if args.speaker is not None else script.get("speaker", 10)
+    speaker = args.speaker if args.speaker is not None else script.get("speaker", 9)
     scenes = script["scenes"]
 
     outdir = Path(args.outdir)
