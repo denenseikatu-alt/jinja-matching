@@ -13,7 +13,7 @@ ENGINE_HOME="${VOICEVOX_HOME:-$HOME/voicevox}"
 HOST="${VOICEVOX_HOST:-http://127.0.0.1:50021}"
 
 echo "== Python の依存 =="
-pip install -q pillow imageio-ffmpeg py7zr google-auth google-auth-oauthlib google-api-python-client
+pip install -q pillow imageio-ffmpeg py7zr cffi cryptography google-auth google-auth-oauthlib google-api-python-client
 
 if curl -sS -m 5 "$HOST/version" >/dev/null 2>&1; then
   echo "== VOICEVOX ENGINE は起動済み: $(curl -sS -m 5 "$HOST/version") =="
