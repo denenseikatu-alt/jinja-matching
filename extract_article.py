@@ -20,6 +20,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 REPO_ROOT = Path(__file__).resolve().parent
+USER_AGENT = "denen-video-pipeline/1.0 (+https://github.com/denenseikatu-alt/jinja-matching)"
 
 # 本文ではない領域。構造で落とすので、サイトが変わってもそのまま効く。
 STRIP_ELEMENTS = ("script", "style", "nav", "header", "footer", "aside", "form", "noscript")
@@ -92,10 +93,12 @@ def load_html(target: str) -> tuple[str, str]:
         for cand in candidates:
             if cand.is_file():
                 return cand.read_text(encoding="utf-8"), target
-        # ローカルに無ければ取得
+        # ローカルに無ければ取得。denenseikatu.com は urllib 既定の UA を bot として
+        # 弾くので、何者かを名乗る UA を付ける（ブラウザを装うことはしない）。
         import urllib.request
 
-        with urllib.request.urlopen(target, timeout=30) as resp:
+        req = urllib.request.Request(target, headers={"User-Agent": USER_AGENT})
+        with urllib.request.urlopen(req, timeout=30) as resp:
             return resp.read().decode("utf-8", "replace"), target
 
     path = Path(target)
@@ -125,6 +128,14 @@ def site_name(html: str) -> str:
     return m.group(1) if m else ""
 
 
+_BLOCK_START = r"<(?:h[1-6]|p|div|section|ul|ol|table|/article|/section|/div)[\s>]"
+BLOCK_RE = (
+    r"<(h1|h2|h3|p|li)(?:\s[^>]*)?>"
+    rf"((?:(?!{_BLOCK_START}).)*?)"
+    rf"(?:</\1>|(?={_BLOCK_START}))"
+)
+
+
 def extract(html: str, source_url: str) -> dict:
     body = re.search(r"<main[^>]*>(.*?)</main>", html, re.S) or re.search(
         r"<article[^>]*>(.*?)</article>", html, re.S
@@ -137,7 +148,9 @@ def extract(html: str, source_url: str) -> dict:
     sections: list[dict] = []
     current: dict | None = None
 
-    for tag, inner in re.findall(r"<(h1|h2|h3|p|li)[^>]*>(.*?)</\1>", segment, re.S):
+    # 閉じタグの無い <p> がある（HTML では合法）。その場合は次のブロック要素の手前で
+    # 段落を終える。そうしないと後続の見出しまで本文に飲み込み、打ち切り見出しも見逃す。
+    for tag, inner in re.findall(BLOCK_RE, segment, re.S):
         text = strip_tags(inner)
         if not text or any(p in text for p in SKIP_PATTERNS):
             continue

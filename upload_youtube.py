@@ -11,6 +11,7 @@
     Google Cloud で YouTube Data API v3 を有効にし、
     「デスクトップアプリ」の OAuth クライアントIDを client_secret.json として置く。
     初回実行時にブラウザで認可すると token.json が作られ、次回以降は不要。
+    クラウドでは環境変数の YT_* を使う（yt_auth.py を参照）。
 
 注意:
     アップロードは既定で privacyStatus=private（非公開）。
@@ -24,7 +25,6 @@ import json
 import sys
 from pathlib import Path
 
-SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 REPO_ROOT = Path(__file__).resolve().parent
 
 
@@ -53,32 +53,6 @@ def build_description(script: dict, outdir: Path, with_chapters: bool) -> str:
     parts.append(f"■ 音声\n{credit}")
 
     return "\n\n".join(p for p in parts if p)
-
-
-def get_credentials(client_secret: Path, token: Path):
-    from google.auth.transport.requests import Request
-    from google.oauth2.credentials import Credentials
-    from google_auth_oauthlib.flow import InstalledAppFlow
-
-    creds = None
-    if token.is_file():
-        creds = Credentials.from_authorized_user_file(str(token), SCOPES)
-    if creds and creds.valid:
-        return creds
-    if creds and creds.expired and creds.refresh_token:
-        creds.refresh(Request())
-        token.write_text(creds.to_json(), encoding="utf-8")
-        return creds
-    if not client_secret.is_file():
-        sys.exit(
-            f"OAuth クライアント情報がありません: {client_secret}\n"
-            "Google Cloud で YouTube Data API v3 を有効にし、デスクトップアプリの\n"
-            "クライアントIDを client_secret.json として保存してください。"
-        )
-    flow = InstalledAppFlow.from_client_secrets_file(str(client_secret), SCOPES)
-    creds = flow.run_local_server(port=0)
-    token.write_text(creds.to_json(), encoding="utf-8")
-    return creds
 
 
 def main() -> None:
@@ -128,7 +102,9 @@ def main() -> None:
     from googleapiclient.discovery import build
     from googleapiclient.http import MediaFileUpload
 
-    creds = get_credentials(REPO_ROOT / args.client_secret, REPO_ROOT / args.token)
+    from yt_auth import load_credentials
+
+    creds = load_credentials(REPO_ROOT / args.client_secret, REPO_ROOT / args.token)
     youtube = build("youtube", "v3", credentials=creds)
 
     media = MediaFileUpload(str(video), chunksize=4 * 1024 * 1024, resumable=True,
@@ -143,7 +119,12 @@ def main() -> None:
 
     video_id = response["id"]
     print(f"\n完了: https://www.youtube.com/watch?v={video_id}")
-    print(f"公開設定: {privacy}")
+    # 未審査の API プロジェクトからの投稿は、public を指定しても非公開に固定されることがある。
+    # 指定した値ではなく、YouTube が実際に付けた値を出す。
+    actual = response.get("status", {}).get("privacyStatus", "不明")
+    print(f"公開設定: {actual}")
+    if actual != privacy:
+        print(f"注意: {privacy} を指定しましたが、YouTube 側で {actual} になっています。")
 
 
 if __name__ == "__main__":

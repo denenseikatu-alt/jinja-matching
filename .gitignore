@@ -16,3 +16,6 @@ venv/
 
 # 進捗台帳はローカル管理
 video_state.json
+
+# クラウド版の作業ファイル
+.today_slug
