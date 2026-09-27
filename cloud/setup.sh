@@ -34,7 +34,10 @@ if [ ! -x "$RUN" ]; then
 fi
 
 echo "== VOICEVOX ENGINE を起動 =="
-(cd "$(dirname "$RUN")" && nohup ./run --host 127.0.0.1 --port 50021 >"$ENGINE_HOME/engine.log" 2>&1 &)
+# exec で置き換え、さらに外側の入出力も切り離す。そうしないと ENGINE を待つ
+# サブシェルがこのスクリプトの標準出力を握ったまま残り、呼び出し側が終わらない。
+(cd "$(dirname "$RUN")" && exec nohup ./run --host 127.0.0.1 --port 50021 \
+  >"$ENGINE_HOME/engine.log" 2>&1 </dev/null) >/dev/null 2>&1 &
 for _ in $(seq 1 60); do
   sleep 2
   if curl -sS -m 5 "$HOST/version" >/dev/null 2>&1; then
