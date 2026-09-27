@@ -9,7 +9,8 @@
 - まばたきは不規則な間隔で入れる
 - カメラはほぼ固定で、ごくわずかに寄り引きする
 - 各シーンの heading / bullets を、絵の中のスクリーンに映す
-- lines を字幕として画面下に焼き込む（video.srt も出す）
+- lines を字幕として画面下に焼き込む（video.srt も出す）。読みを開いた語は、台本の
+  "caption_replace"（例: {"イーピーエー": "EPA"}）で字幕だけ元の表記に戻せる
 
 layout（JSON）には絵の中の位置を 1920×1080 基準のピクセルで書く:
     {"screen": [x0, y0, x1, y1],
@@ -270,7 +271,10 @@ def main() -> None:
             first_wav = first_wav or wav
             dur = wav_duration(wav)
             timeline.append(wav)
-            subtitles.append((clock, clock + dur, line))
+            shown = line
+            for spoken, written in script.get("caption_replace", {}).items():
+                shown = shown.replace(spoken, written)
+            subtitles.append((clock, clock + dur, shown))
             clock += dur
             gap = GAP_AFTER_SCENE if li == len(scene["lines"]) - 1 else GAP_AFTER_LINE
             if gap not in silence:
