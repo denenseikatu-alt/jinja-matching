@@ -95,17 +95,17 @@ def render_screen(scene: dict, size: tuple[int, int], font_path: str) -> Image.I
     img = Image.new("RGB", size, SCREEN_BG)
     d = ImageDraw.Draw(img)
     pad = int(sw * 0.07)
-    hf = ImageFont.truetype(font_path, max(18, int(sh * 0.085)))
-    bf = ImageFont.truetype(font_path, max(14, int(sh * 0.058)))
+    hf = ImageFont.truetype(font_path, max(18, int(sh * 0.12)))
+    bf = ImageFont.truetype(font_path, max(14, int(sh * 0.085)))
     d.rectangle([0, 0, sw, int(sh * 0.025)], fill=ACCENT)
     y = int(sh * 0.12)
-    for line in wrap(d, scene["heading"], hf, sw - pad * 2)[:3]:
+    for line in wrap_ja(d, scene["heading"], hf, sw - pad * 2)[:3]:
         d.text((pad, y), line, font=hf, fill=INK)
         y += int(hf.size * 1.35)
     d.rectangle([pad, y + 4, pad + int(sw * 0.1), y + 8], fill=ACCENT)
     y += int(sh * 0.08)
     for b in scene.get("bullets", [])[:5]:
-        rows = wrap(d, b, bf, sw - pad * 2 - int(bf.size * 1.2))
+        rows = wrap_ja(d, b, bf, sw - pad * 2 - int(bf.size * 1.2))
         r = bf.size * 0.22
         cy = y + bf.size * 0.6
         d.ellipse([pad, cy - r, pad + 2 * r, cy + r], fill=ACCENT)
@@ -116,12 +116,26 @@ def render_screen(scene: dict, size: tuple[int, int], font_path: str) -> Image.I
     return img
 
 
+NO_LINE_START = "、。，．・：；？！」』）】〕ー々ぁぃぅぇぉっゃゅょァィゥェォッャュョ"
+
+
+def wrap_ja(d: ImageDraw.ImageDraw, text: str, font: ImageFont.FreeTypeFont,
+            max_w: int) -> list[str]:
+    """wrap() の結果に行頭禁則をかける（句読点や小書き文字を前の行へ送る）。"""
+    rows = wrap(d, text, font, max_w)
+    for i in range(1, len(rows)):
+        while rows[i] and rows[i][0] in NO_LINE_START:
+            rows[i - 1] += rows[i][0]
+            rows[i] = rows[i][1:]
+    return [r for r in rows if r]
+
+
 def render_caption(text: str, font_path: str) -> Image.Image:
     """字幕レイヤー（RGBA）。画面下に半透明の帯を敷いて白文字で出す。"""
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
     f = ImageFont.truetype(font_path, 50)
-    rows = wrap(d, text, f, W - 360)[:2]
+    rows = wrap_ja(d, text, f, W - 360)[:2]
     lh = 66
     band_h = lh * len(rows) + 44
     top = H - band_h - 36
