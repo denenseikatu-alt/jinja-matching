@@ -11,12 +11,12 @@ Mac が手元になくても、電源が切れていても動く。
 | 記事選び | `pick_article.py --sitemap ... --youtube`。サイトの sitemap から記事一覧を取り、**YouTube に投稿済みの動画の概要欄にある記事URL** を処理済みとみなす。台帳ファイルは使わない |
 | 抽出 | `extract_article.py`（サイトの WAF に弾かれないよう、名乗りを付けた User-Agent で取得） |
 | 台本 | ルーティンのセッション（Claude）が `prompts/narration.md` に従って書く |
-| 書き出し・投稿 | `cloud/daily.sh publish` |
+| 書き出し・投稿 | `cloud/daily.sh publish`。既定は語り手がスクリーンの横で解説する形式（`build_talking.py`）。`STYLE=slides` で従来のスライド形式 |
 
 `cloud/daily.sh prepare` → 台本 → `cloud/daily.sh publish` の順に動く。
 
 二重投稿の防止:
-- 直近20時間以内に記事動画を上げていたら、その日は何もしない
+- 日本時間の同じ日にすでに記事動画を上げていたら、その日は何もしない（1日1本）
 - 送信の直前にも、その記事が投稿済みでないかを YouTube で確かめる
 
 ## 必要な設定（クラウド環境の設定画面）

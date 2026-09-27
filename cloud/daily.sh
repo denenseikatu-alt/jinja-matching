@@ -21,8 +21,8 @@ prepare() {
   bash cloud/setup.sh || die "VOICEVOX / 依存の準備に失敗しました"
   python3 yt_auth.py check || die "YouTube の認証に失敗しました"
 
-  # 直近20時間以内に記事動画を上げていれば二重投稿を避けて終わる
-  PICK="$(python3 pick_article.py --sitemap "$SITEMAP" --youtube --skip-if-within 20)"
+  # 日本時間の今日すでに記事動画を上げていれば、二重投稿を避けて終わる
+  PICK="$(python3 pick_article.py --sitemap "$SITEMAP" --youtube --once-per-day)"
   code=$?
   echo "$PICK"
   [ "$code" -eq 3 ] && { echo "SKIP"; exit 3; }
@@ -71,7 +71,12 @@ if sys.argv[1] in done:
 PY
 
   rm -rf out
-  python3 build_video.py script.json -o out/ || die "動画の書き出しに失敗しました"
+  # 語り手がスクリーンの横で解説する形式（build_talking.py）。STYLE=slides で従来のスライド形式
+  if [ "${STYLE:-talking}" = "slides" ]; then
+    python3 build_video.py script.json -o out/ || die "動画の書き出しに失敗しました"
+  else
+    python3 build_talking.py script.json -o out/ || die "動画の書き出しに失敗しました"
+  fi
   [ -f out/video.mp4 ] || die "out/video.mp4 がありません"
 
   python3 upload_youtube.py out/video.mp4 --privacy "$PRIVACY" || die "アップロードに失敗しました"

@@ -113,8 +113,8 @@ def main() -> None:
                     help="記事一覧をローカルコピーではなく sitemap.xml から取る")
     ap.add_argument("--youtube", action="store_true",
                     help="処理済みを台帳ではなく YouTube の投稿済み動画から判断する")
-    ap.add_argument("--skip-if-within", type=float, metavar="時間", default=None,
-                    help="--youtube と併用。直近この時間内に記事動画を上げていたら何もせず終了（終了コード 3）")
+    ap.add_argument("--once-per-day", action="store_true",
+                    help="--youtube と併用。日本時間の今日すでに記事動画を上げていたら何もせず終了（終了コード 3）")
     args = ap.parse_args()
 
     site = Path(args.site).expanduser()
@@ -133,11 +133,12 @@ def main() -> None:
     slugs = list_articles_sitemap(args.sitemap) if args.sitemap else list_articles(site)
     if args.youtube:
         done = youtube_done()
-        if args.skip_if_within is not None and done:
+        if args.once_per_day and done:
+            jst = timezone(timedelta(hours=9))
             latest = max(datetime.fromisoformat(v["date"].replace("Z", "+00:00"))
-                         for v in done.values() if v["date"])
-            if datetime.now(timezone.utc) - latest < timedelta(hours=args.skip_if_within):
-                print(f"直近 {args.skip_if_within:g} 時間以内に投稿済みです（{latest.isoformat()}）。今日はスキップします。")
+                         for v in done.values() if v["date"]).astimezone(jst)
+            if latest.date() == datetime.now(jst).date():
+                print(f"日本時間の今日はすでに投稿済みです（{latest:%Y-%m-%d %H:%M} JST）。今日はスキップします。")
                 sys.exit(3)
     remaining = [s for s in slugs if s not in done]
 

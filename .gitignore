@@ -20,3 +20,6 @@ video_state.json
 # クラウド版の作業ファイル
 .today_slug
 out_talk/
+
+# 毎日書き換わる台本（生成物）
+script.json
