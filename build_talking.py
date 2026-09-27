@@ -13,8 +13,9 @@
 
 layout（JSON）には絵の中の位置を 1920×1080 基準のピクセルで書く:
     {"screen": [x0, y0, x1, y1],
-     "mouth": {"cx": .., "cy": .., "w": ..},
-     "eyes": [[x0, y0, x1, y1], [x0, y0, x1, y1]]}
+     "mouth": {"cx": .., "cy": .., "w": .., "angle": ..},   # 口の中心は唇の合わせ目
+     "eyes": [{"cx": .., "cy": .., "w": .., "h": .., "angle": .., "skin": [x, y]}, ...]}
+angle は顔の傾き（度・反時計回り）。skin はまぶたの色を取る頬の位置。
 
 これは AI の動画生成ではない。口・まばたき・寄り引き以外（手振り・首の動き）は動かない。
 """
@@ -31,7 +32,7 @@ import wave
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
 
 from build_video import (GAP_AFTER_LINE, GAP_AFTER_SCENE, ffmpeg_bin, find_font,
                          speaker_credit, synth, wav_duration, wrap, write_silence,
@@ -76,7 +77,7 @@ def mouth_levels(samples: np.ndarray, rate: int, n_frames: int) -> np.ndarray:
 def blink_schedule(n_frames: int, seed: int = 7) -> dict[int, float]:
     """フレーム番号 → まぶたの閉じ具合（0〜1）。2.5〜5.5秒おきに約0.15秒のまばたき。"""
     rng = random.Random(seed)
-    shape = [0.5, 1.0, 1.0, 0.5]
+    shape = [0.55, 0.95, 0.95, 0.55]
     sched: dict[int, float] = {}
     t = rng.uniform(1.0, 2.5)
     while True:
@@ -134,36 +135,82 @@ def render_caption(text: str, font_path: str) -> Image.Image:
 
 
 class Face:
-    """1枚絵の口とまぶたを描き替える。"""
+    """1枚絵の口とまぶたを描き替える。顔の傾き（angle, 度・反時計回り）に合わせて描く。"""
 
     def __init__(self, base: Image.Image, layout: dict):
-        m = layout["mouth"]
-        self.cx, self.cy, self.mw = m["cx"], m["cy"], m["w"]
-        self.eyes = [tuple(e) for e in layout.get("eyes", [])]
+        self.mouth = layout["mouth"]
+        self.eyes = layout.get("eyes", [])
         px = base.load()
-        # まぶたの色は目の少し上（まぶた・額）の肌から取る
-        self.lid = []
-        for x0, y0, x1, y1 in self.eyes:
-            sx, sy = (x0 + x1) // 2, max(0, y0 - int((y1 - y0) * 0.35))
-            self.lid.append(px[sx, sy])
-        self.inner = (96, 34, 40)
-        self.tongue = (196, 96, 100)
+
+        def sample(x: int, y: int) -> tuple[int, int, int]:
+            # 前髪やまつげの暗い画素を除いて、明るい肌だけを平均する
+            vals = [px[x + dx, y + dy] for dx in range(-4, 5) for dy in range(-4, 5)]
+            light = [v for v in vals if sum(v) / 3 > 170] or vals
+            return tuple(sum(v[i] for v in light) // len(light) for i in range(3))
+
+        # まぶたの色は、目のすぐ上（まぶた）の肌から取る。頬は赤みが入るので使わない
+        self.lid = [sample(*e["skin"]) for e in self.eyes]
+        self.inner = (104, 40, 46)
+        self.tongue = (206, 112, 112)
+        self.lash = (52, 34, 32)
+
+    @staticmethod
+    def _paste_rotated(img: Image.Image, patch: Image.Image, cx: float, cy: float,
+                       angle: float) -> None:
+        patch = patch.rotate(angle, resample=Image.BICUBIC, expand=True)
+        patch = patch.filter(ImageFilter.GaussianBlur(0.8))
+        img.paste(patch, (round(cx - patch.width / 2), round(cy - patch.height / 2)), patch)
 
     def draw(self, img: Image.Image, mouth: float, blink: float) -> None:
-        d = ImageDraw.Draw(img)
+        m = self.mouth
         if mouth > 0.08:
-            w = self.mw * (0.62 + 0.25 * mouth)
-            h = self.mw * (0.10 + 0.42 * mouth)
-            box = [self.cx - w / 2, self.cy - h * 0.35, self.cx + w / 2, self.cy + h * 0.65]
-            d.ellipse(box, fill=self.inner)
-            if mouth > 0.45:
-                tb = [self.cx - w * 0.3, box[1] + h * 0.55, self.cx + w * 0.3, box[3] - 1]
-                d.ellipse(tb, fill=self.tongue)
+            mw = m["w"]
+            w = mw * (0.42 + 0.16 * mouth)
+            h = mw * (0.05 + 0.22 * mouth)
+            size = int(mw * 1.6)
+            patch = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+            d = ImageDraw.Draw(patch)
+            c = size / 2
+            # 唇の線を上端にして、下へ開く
+            box = [c - w / 2, c - h * 0.3, c + w / 2, c + h * 0.7]
+            d.ellipse(box, fill=self.inner + (255,))
+            if mouth > 0.5:
+                d.ellipse([c - w * 0.26, box[1] + h * 0.6, c + w * 0.26, box[3]],
+                          fill=self.tongue + (255,))
+            self._paste_rotated(img, patch, m["cx"], m["cy"], m.get("angle", 0))
         if blink > 0:
-            for (x0, y0, x1, y1), lid in zip(self.eyes, self.lid):
-                hgt = (y1 - y0) * blink
-                d.rectangle([x0, y0, x1, y0 + hgt], fill=lid)
-                d.line([x0, y0 + hgt, x1, y0 + hgt], fill=(40, 28, 26), width=4)
+            for e in self.eyes:
+                self._blink(img, e, blink)
+
+    @staticmethod
+    def _blink(img: Image.Image, e: dict, amount: float) -> None:
+        """目を下まぶたに向かって押しつぶし、上のまぶたの肌を引き伸ばして埋める。
+
+        上下のまつげが重なって閉じた目の線になり、元の絵の陰影もそのまま残る。
+        傾いた目は、いったん水平に戻してから処理する。
+        """
+        cx, cy, w, h, ang = e["cx"], e["cy"], e["w"], e["h"], e.get("angle", 0)
+        side = int(max(w, h) * 1.8)
+        x0, y0 = round(cx - side / 2), round(cy - side / 2)
+        patch = img.crop((x0, y0, x0 + side, y0 + side)).rotate(-ang, resample=Image.BICUBIC)
+        c = side / 2
+        left, right = int(c - w / 2 - 4), int(c + w / 2 + 4)
+        top, bottom = int(c - h / 2), int(c + h / 2)
+        lid_top = int(top - h * 0.3)
+        eye_h = max(2, round((bottom - top) * (1 - amount)))
+        cols = right - left
+        skin = patch.crop((left, lid_top, right, top)).resize(
+            (cols, bottom - eye_h - lid_top), Image.BICUBIC)
+        eye = patch.crop((left, top, right, bottom)).resize((cols, eye_h), Image.BICUBIC)
+        work = patch.copy()
+        work.paste(skin, (left, lid_top))
+        work.paste(eye, (left, bottom - eye_h))
+        mask = Image.new("L", (side, side), 0)
+        ImageDraw.Draw(mask).ellipse([left + 2, lid_top + 2, right - 2, bottom + 2], fill=255)
+        mask = mask.filter(ImageFilter.GaussianBlur(3))
+        work = work.rotate(ang, resample=Image.BICUBIC)
+        mask = mask.rotate(ang, resample=Image.BICUBIC)
+        img.paste(work, (x0, y0), mask)
 
 
 def main() -> None:
