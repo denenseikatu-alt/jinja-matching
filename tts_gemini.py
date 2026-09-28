@@ -86,7 +86,7 @@ def _generate(prompt: str, voice: str) -> bytes:
         try:
             res = _request(f"{API}/models/{pick_model()}:generateContent", body)
             part = res["candidates"][0]["content"]["parts"][0]["inlineData"]
-            return base64.b64decode(part["data"])
+            return _strip_tail_junk(base64.b64decode(part["data"]))
         except urllib.error.HTTPError as e:
             detail = e.read().decode("utf-8", "replace")
             if e.code == 429 and "PerDay" in detail:
@@ -122,6 +122,34 @@ def _generate(prompt: str, voice: str) -> bytes:
                 continue
             sys.exit(f"Gemini から音声が返りませんでした: {str(res)[:300]}")
     sys.exit("Gemini の音声生成に失敗しました")
+
+
+def _strip_tail_junk(pcm: bytes) -> bytes:
+    """Gemini の音声の末尾につく雑音を切り落とす。
+
+    返ってくる音声の最後に、静かな区間のあと、ほぼ最大音量の雑音が 0.1〜0.2 秒つくことが
+    ある（まとめて生成した回の最後の文で毎回確認した）。末尾0.6秒の中で、0.1秒以上
+    静か（-45dB 未満）な区間のあとに大きな音（-20dB 超）が始まり、それが最後まで
+    続いていれば、その大きな音の始まりで切る。
+    """
+    a = np.frombuffer(pcm, dtype=np.int16)
+    x = a.astype(np.float32) / 32768
+    win = int(RATE * 0.01)
+    n = len(x) // win
+    if n < 20:
+        return pcm
+    db = 20 * np.log10(np.sqrt((x[: n * win].reshape(n, win) ** 2).mean(axis=1)) + 1e-9)
+    loud = db > -20
+    # 末尾から、大きな音が続く区間の始まりを探す
+    k = n
+    while k > 0 and loud[k - 1]:
+        k -= 1
+    burst = n - k
+    if burst == 0 or burst > 60 or k < 10:     # 末尾が静か、または0.6秒より長い大音量は対象外
+        return pcm
+    if np.all(db[k - 10:k] < -45):              # 直前0.1秒が静か → 話し声の続きではない
+        return a[: k * win].tobytes()
+    return pcm
 
 
 def _write(pcm: bytes, out_path: Path) -> None:

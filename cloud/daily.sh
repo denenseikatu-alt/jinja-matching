@@ -191,6 +191,8 @@ PY
   fi
   [ "$code" -eq 0 ] || die "動画の書き出しに失敗しました"
   [ -f out/video.mp4 ] || die "out/video.mp4 がありません"
+  # 雑音（無音から急な大音量・音割れ）が残っていたらアップしない
+  python3 check_audio.py out/video.mp4 || die "音声に雑音が残っているためアップを中止しました"
 
   if [ "$DRY" = "1" ]; then
     python3 upload_youtube.py out/video.mp4 --privacy "$PRIVACY" --dry-run
