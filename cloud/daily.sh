@@ -7,12 +7,13 @@
 #
 # 処理済みの判断は YouTube の投稿済み動画（概要欄の記事URL）で行う。台帳ファイルは使わない。
 # 必要な環境変数: YT_CLIENT_ID / YT_CLIENT_SECRET / YT_REFRESH_TOKEN（yt_auth.py 参照）
-#                 GEMINI_API_KEY（STYLE=presentation のとき。Gemini の声を使う）
+#                 GEMINI_API_KEY（台本の voice が gemini のとき）
 #
-# STYLE（既定 presentation）:
-#   presentation  語り手の6ポーズが各スライドで説明する形式（build_presentation.py・Gemini の声）
-#   talking       アニメ調の語り手が口を動かす形式（build_talking.py・VOICEVOX）
+# STYLE（既定 talking）:
+#   talking       アニメ調の語り手がスクリーンの横で口を動かして話す形式（build_talking.py）
+#   presentation  実写風の語り手の6ポーズが各スライドで説明する形式（build_presentation.py）
 #   slides        スライドのみ（build_video.py・VOICEVOX）
+# 声は台本の "voice" で決まる。{"engine": "gemini", ...} なら Gemini（VOICEVOX は起動しない）
 
 set -u
 cd "$(dirname "$0")/.." || exit 1
@@ -20,7 +21,8 @@ cd "$(dirname "$0")/.." || exit 1
 SITEMAP="${DENEN_SITEMAP:-https://denenseikatu.com/sitemap.xml}"
 PRIVACY="${PRIVACY:-public}"
 TODAY_FILE=".today_slug"
-STYLE="${STYLE:-presentation}"
+STYLE="${STYLE:-talking}"
+GEMINI_VOICE="${GEMINI_VOICE:-1}"   # 1 なら Gemini の声を使う前提で準備する（VOICEVOX を起動しない）
 DRY="${DRY:-0}"          # 1 にすると送信せず、投稿済みの確認も飛ばす（試験用）
 
 die() { echo "中断: $*"; exit 1; }
@@ -73,7 +75,7 @@ restore_pending() {
 }
 
 prepare() {
-  if [ "$STYLE" = "presentation" ]; then
+  if [ "$GEMINI_VOICE" = "1" ]; then
     bash cloud/setup.sh --no-engine || die "依存の準備に失敗しました"
     [ -n "${GEMINI_API_KEY:-}" ] || die "GEMINI_API_KEY がありません"
   else
@@ -123,7 +125,8 @@ publish() {
 import json, sys
 slug, style = sys.argv[1], sys.argv[2]
 d = json.load(open("script.json", encoding="utf-8"))
-for k in ("title", "source_url", "voice" if style == "presentation" else "speaker",
+uses_voice = style in ("presentation", "talking") and "voice" in d
+for k in ("title", "source_url", "voice" if uses_voice or style == "presentation" else "speaker",
           "scenes", "youtube"):
     if k not in d:
         sys.exit(f"script.json に {k} がありません")
@@ -147,10 +150,18 @@ if style == "presentation":
         for k in need[lay] + ["lines"]:
             if not s.get(k):
                 sys.exit(f"scene {i}（{lay}）に {k} がありません")
-    if d.get("voice", {}).get("engine") != "gemini":
+if style == "talking":
+    for i, s in enumerate(d["scenes"], 1):
+        for k in ("heading", "lines"):
+            if not s.get(k):
+                sys.exit(f"scene {i} に {k} がありません")
+        if len(s.get("bullets", [])) > 5:
+            sys.exit(f"scene {i}: bullets は5項目までにしてください（スクリーンに収まらない）")
+if style in ("presentation", "talking") and "voice" in d:
+    if d["voice"].get("engine") != "gemini":
         sys.exit('voice は {"engine": "gemini", ...} にしてください')
     if not d["youtube"].get("synthetic"):
-        sys.exit("youtube.synthetic を true にしてください（AI の人物と音声を申告するため）")
+        sys.exit("youtube.synthetic を true にしてください（AI の音声を申告するため）")
 print(f"台本 OK: {len(d['scenes'])} スライド")
 PY
 

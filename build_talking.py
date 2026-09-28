@@ -244,6 +244,9 @@ def main() -> None:
 
     script = json.loads(Path(args.script).read_text(encoding="utf-8"))
     speaker = args.speaker if args.speaker is not None else script.get("speaker", 9)
+    # 声は "voice" で選ぶ。{"engine": "gemini", "name": "Leda", "style": "..."} なら Gemini、
+    # 無ければ従来どおり VOICEVOX（speaker）
+    voice = script.get("voice", {"engine": "voicevox", "speaker": speaker})
     scenes = script["scenes"]
     layout = json.loads(Path(args.layout).read_text(encoding="utf-8"))
     font_path = find_font(args.font)
@@ -257,6 +260,13 @@ def main() -> None:
     audio_dir.mkdir(parents=True, exist_ok=True)
 
     # 1. 音声（build_video.py と同じ並べ方）
+    if voice.get("engine") == "gemini":
+        import tts_gemini
+        # 数場面ずつまとめて生成する（1日の回数制限対策）。既にある文は作り直さない
+        tts_gemini.synth_script(scenes, audio_dir, voice)
+        credit = tts_gemini.CREDIT
+    else:
+        credit = None
     timeline: list[Path] = []
     subtitles: list[tuple[float, float, str]] = []
     scene_spans: list[tuple[float, float]] = []
@@ -267,7 +277,8 @@ def main() -> None:
         for li, line in enumerate(scene["lines"]):
             n += 1
             wav = audio_dir / f"{n:04d}.wav"
-            synth(line, speaker, args.host, wav)
+            if not wav.exists():
+                synth(line, speaker, args.host, wav)
             first_wav = first_wav or wav
             dur = wav_duration(wav)
             timeline.append(wav)
@@ -353,7 +364,7 @@ def main() -> None:
         sys.exit("ffmpeg が失敗しました")
 
     write_srt(subtitles, outdir / "video.srt")
-    credit = speaker_credit(speaker, args.host)
+    credit = credit or speaker_credit(speaker, args.host)
     (outdir / "credits.txt").write_text(credit + "\n", encoding="utf-8")
     chapters = []
     for scene, (a, _) in zip(scenes, scene_spans):

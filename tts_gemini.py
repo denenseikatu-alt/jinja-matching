@@ -311,4 +311,34 @@ def _trim(pcm: bytes, margin: float = 0.08) -> bytes:
     return (seg * 32767).astype(np.int16).tobytes()
 
 
+def synth_script(scenes: list[dict], audio_dir: Path, voice: dict, chunk_chars: int = 600) -> None:
+    """台本の全文を、場面をまたがない約600字ずつにまとめて生成し、audio/0001.wav… に置く。
+
+    すでにある文のファイルは作り直さない（途中で止まっても、翌日などに続きから作れる）。
+    """
+    audio_dir.mkdir(parents=True, exist_ok=True)
+    chunk, count, k = [], 0, 0
+
+    def flush(chunk):
+        todo = [(line, audio_dir / f"{idx:04d}.wav") for idx, line in chunk]
+        if any(not p.exists() for _, p in todo):
+            synth_lines([l for l, _ in todo], [p for _, p in todo],
+                        voice=voice.get("name", "Leda"), style=voice.get("style", ""))
+            print(f"  音声 {todo[0][1].stem}〜{todo[-1][1].stem} を生成", flush=True)
+
+    for s in scenes:
+        scene_lines = []
+        for line in s["lines"]:
+            k += 1
+            scene_lines.append((k, line))
+        size = sum(len(l) for _, l in scene_lines)
+        if chunk and count + size > chunk_chars:
+            flush(chunk)
+            chunk, count = [], 0
+        chunk += scene_lines
+        count += size
+    if chunk:
+        flush(chunk)
+
+
 CREDIT = "音声: Google Gemini（AI 音声合成）"

@@ -43,10 +43,13 @@
 
 スライドは最大20枚程度。短い記事を無理に引き延ばさない。
 
-## 毎日の動画の形式（build_presentation.py）
+## 毎日の動画の形式（build_talking.py）
 
-毎日の動画は、語り手（`assets_video/poses` の6ポーズ）が各スライドの横に立って説明する形式。
-見本は `talk/40s-safe-aerobic.json`。`speaker` の代わりに次を書く:
+毎日の動画は、アニメ調のスーツ姿の語り手（`assets_video/presenter.png`）がセミナー室の
+スクリーンの横に立ち、口を動かしながら話す形式。スクリーンに各シーンの `heading` と
+`bullets` が映り、画面下に `lines` が字幕で出る。声は Gemini。
+
+見本は `talk/40s-safe-aerobic-talking.json`。`speaker` の代わりに次を書く:
 
 ```json
 "voice": {"engine": "gemini", "name": "Leda",
@@ -54,24 +57,11 @@
 ```
 
 - `style` は英語のまま変えない（日本語で書くと指示文まで読み上げる）。
-- `youtube` に `"synthetic": true` を入れ、概要欄に「この動画の語り手の人物と音声は、AI で生成したものです。」と書く。
-- シーンごとに `layout` で構図を選び、同じ構図を3枚以上続けない。内容に合う構図を使う:
-
-| layout | 向いている内容 | 必須の項目 |
-| --- | --- | --- |
-| `title` | 表紙 | `heading`、`sub`（任意） |
-| `bullets` / `screen` | 要点の列挙（最大4〜5項目） | `heading`、`bullets` |
-| `number` | 記事にある印象的な数値1つ | `heading`、`number`、`label`、`note`（改行で区切る） |
-| `table` | 記事の表、比較の一覧（最大6行） | `heading`、`rows`（1行目が見出し）、`widths`（任意） |
-| `compare` | 2つの対比 | `heading`、`left`、`right`（それぞれ `title` と `items`） |
-| `steps` | 手順・コツ（2〜4個） | `heading`、`steps`（改行の後は補足） |
-| `checklist` | まとめ | `heading`、`bullets` |
-| `closing` | 結び | `heading`、`sub`（任意） |
-
-- 語り手の立ち位置は1枚ごとに自動で左右が入れ替わり、ポーズは構図に合わせて選ばれる。
-  驚く内容なら `"pose": "surprised"`、考えさせる問いなら `"think"` のように、シーンで指定してもよい
-  （`present` `point` `surprised` `think` `hands` `thumbsup`）。
-- 記事の表は抽出で「セル ／ セル」の行になる。数値の根拠なので、`table` か `number` で必ず使う。
+- `youtube` に `"synthetic": true` を入れ、概要欄に「この動画の音声は、AI で生成したものです。」と書く。
+- スクリーンは小さいので、`heading` は20字程度まで、`bullets` は1シーン4項目程度まで、
+  1項目は25字程度までに収める。記事の表の数値は、`bullets` に「項目：数値」の形で載せる。
+- `lines` は Gemini がそのまま読むので、自然な日本語で書く（VOICEVOX 用の読みの開きは不要）。
+  英字の略語は読みやすい形のままでよい。
 
 ## 文章
 

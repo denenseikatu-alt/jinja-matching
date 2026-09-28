@@ -11,7 +11,7 @@ Mac が手元になくても、電源が切れていても動く。
 | 記事選び | `pick_article.py --sitemap ... --youtube`。サイトの sitemap から記事一覧を取り、**YouTube に投稿済みの動画の概要欄にある記事URL** を処理済みとみなす。台帳ファイルは使わない |
 | 抽出 | `extract_article.py`（サイトの WAF に弾かれないよう、名乗りを付けた User-Agent で取得） |
 | 台本 | ルーティンのセッション（Claude）が `prompts/narration.md` に従って書く |
-| 書き出し・投稿 | `cloud/daily.sh publish`。既定は語り手がスクリーンの横で解説する形式（`build_talking.py`）。`STYLE=slides` で従来のスライド形式 |
+| 書き出し・投稿 | `cloud/daily.sh publish`。既定はアニメ調の語り手がスクリーンの横で口を動かして話す形式（`build_talking.py`・Gemini の声）。`STYLE=presentation` で6ポーズの形式、`STYLE=slides` でスライドのみ |
 
 `cloud/daily.sh prepare` → 台本 → `cloud/daily.sh publish` の順に動く。
 
