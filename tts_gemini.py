@@ -157,6 +157,11 @@ def synth_lines(lines: list[str], out_paths: list[Path], voice: str = "Leda",
         segs = [_trim((a[bounds[k]:bounds[k + 1]] * 32767).astype(np.int16).tobytes())
                 for k in range(len(lines))]
         problem = verify(lines, segs)
+        if problem is None:
+            # 照合用の文字起こしが混雑などで使えなかった。音声を作り直すと無料枠を
+            # 無駄に使うので、そのまま進める
+            print("    注意: 文字起こしが使えず、この部分は台本との照合を省きました", flush=True)
+            break
         if not problem:
             break
         print(f"    音声の照合で不一致: {problem}（作り直します）", flush=True)
@@ -173,8 +178,11 @@ def _norm(t: str) -> str:
     return re.sub(r"[\s、。，．,.!?！？「」『』（）()・:：]", "", t)
 
 
-def verify(lines: list[str], segs: list[bytes]) -> str:
-    """切り分けた各文を文字起こしし、台本と照合する。問題がなければ空文字を返す。"""
+def verify(lines: list[str], segs: list[bytes]) -> str | None:
+    """切り分けた各文を文字起こしし、台本と照合する。
+
+    問題がなければ空文字、問題があればその内容、照合できなければ None を返す。
+    """
     import difflib
     import io
     parts = [{"text": "以下の音声をそれぞれ一字一句そのまま文字起こししてください。"
@@ -204,7 +212,7 @@ def verify(lines: list[str], segs: list[bytes]) -> str:
         if got is not None:
             break
     if got is None:
-        return "文字起こしができず照合できませんでした"
+        return None
     import re
     heard = {}
     for key, val in got.items():
