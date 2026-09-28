@@ -345,6 +345,31 @@ def main() -> None:
             synth_voicevox(text, speaker, args.host, path)
         credit = speaker_credit(speaker, args.host)
 
+    # Gemini は1日の回数制限が厳しいので、数場面ぶん（約600字）をまとめて1回で作る
+    if voice.get("engine") == "gemini":
+        chunk, count = [], 0
+        k = 0
+        def flush(chunk):
+            todo = [(line, audio_dir / f"{idx:04d}.wav") for idx, line in chunk]
+            if any(not p.exists() for _, p in todo):
+                tts_gemini.synth_lines([l for l, _ in todo], [p for _, p in todo],
+                                       voice=voice.get("name", "Leda"),
+                                       style=voice.get("style", ""))
+                print(f"  音声 {todo[0][1].stem}〜{todo[-1][1].stem} を生成", flush=True)
+        for s in scenes:
+            scene_lines = []
+            for line in s["lines"]:
+                k += 1
+                scene_lines.append((k, line))
+            size = sum(len(l) for _, l in scene_lines)
+            if chunk and count + size > 600:
+                flush(chunk)
+                chunk, count = [], 0
+            chunk += scene_lines
+            count += size
+        if chunk:
+            flush(chunk)
+
     replace = script.get("caption_replace", {})
     timeline, frames, subtitles, spans = [], [], [], []
     clock, n, first = 0.0, 0, None
