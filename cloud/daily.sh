@@ -47,6 +47,7 @@ prepare() {
   printf '%s\n' "$SLUG" >"$TODAY_FILE"
 
   rm -f script.json
+  rm -rf out                 # 新しい記事なので、前回の音声などは捨てる
   python3 extract_article.py "$URL" -o article.json --dump || die "抽出に失敗しました"
   echo "READY: $SLUG"
 }
@@ -100,11 +101,9 @@ if sys.argv[1] in done:
     sys.exit(f"この記事はすでに投稿済みです: {done[sys.argv[1]]['url']}")
 PY
 
-  if [ "$DRY" = "1" ]; then
-    rm -rf out/slides out/frames out/video.mp4    # 試験では合成済みの音声を使い回す
-  else
-    rm -rf out
-  fi
+  # 合成済みの音声（out/audio）は残す。途中で失敗して publish をやり直しても、
+  # Gemini の回数を二重に使わない。音声を捨てるのは prepare で記事を選び直したとき
+  rm -rf out/slides out/frames out/video.mp4
   case "$STYLE" in
     presentation) python3 build_presentation.py script.json -o out/ ;;
     talking)      python3 build_talking.py script.json -o out/ ;;
