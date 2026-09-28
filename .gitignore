@@ -23,3 +23,4 @@ out_talk/
 
 # 毎日書き換わる台本（生成物）
 script.json
+out_pres/

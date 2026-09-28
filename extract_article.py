@@ -39,6 +39,10 @@ STOP_HEADINGS = (
     "あわせて読みたい",
     "こちらもおすすめ",
     "よくある質問",
+    "よくあるご質問",
+    "FAQ",
+    "おすすめの実践教材",
+    "関連する商品",
     "読んだら",
     "次の一歩",
 )
@@ -128,6 +132,16 @@ def site_name(html: str) -> str:
     return m.group(1) if m else ""
 
 
+def _table_to_paragraphs(m: re.Match) -> str:
+    rows = []
+    for tr in re.findall(r"<tr[^>]*>(.*?)</tr>", m.group(0), re.S | re.I):
+        cells = [strip_tags(c) for c in re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", tr, re.S | re.I)]
+        cells = [c for c in cells if c]
+        if cells:
+            rows.append("<p>" + " ／ ".join(cells) + "</p>")
+    return "\n".join(rows)
+
+
 _BLOCK_START = r"<(?:h[1-6]|p|div|section|ul|ol|table|/article|/section|/div)[\s>]"
 BLOCK_RE = (
     r"<(h1|h2|h3|p|li)(?:\s[^>]*)?>"
@@ -143,6 +157,8 @@ def extract(html: str, source_url: str) -> dict:
     segment = body.group(1) if body else html
     for tag in STRIP_ELEMENTS:
         segment = re.sub(rf"<{tag}[^>]*>.*?</{tag}>", "", segment, flags=re.S | re.I)
+    # 表は数値の根拠になることが多いので、1行ずつ「セル ／ セル」の段落にして残す
+    segment = re.sub(r"<table[^>]*>.*?</table>", _table_to_paragraphs, segment, flags=re.S | re.I)
 
     title = ""
     sections: list[dict] = []

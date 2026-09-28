@@ -87,12 +87,15 @@ def main() -> None:
             "tags": yt.get("tags", []),
             "categoryId": yt.get("categoryId", "22"),
         },
-        "status": {"privacyStatus": privacy, "selfDeclaredMadeForKids": False},
+        # AI で生成した人物・音声など、実写と見分けにくい合成コンテンツは申告する
+        "status": {"privacyStatus": privacy, "selfDeclaredMadeForKids": False,
+                   "containsSyntheticMedia": bool(yt.get("synthetic", False))},
     }
 
     if args.dry_run:
         print(f"--- dry-run: 送信しません（{video}, {video.stat().st_size / 1e6:.1f} MB）---")
         print(f"公開設定: {privacy}")
+        print(f"合成コンテンツの申告: {body['status']['containsSyntheticMedia']}")
         print(f"タイトル: {body['snippet']['title']}")
         print(f"タグ: {', '.join(body['snippet']['tags'])}")
         print("--- 概要欄 ---")
