@@ -25,6 +25,53 @@ DRY="${DRY:-0}"          # 1 にすると送信せず、投稿済みの確認も
 
 die() { echo "中断: $*"; exit 1; }
 
+# Gemini の1日の無料枠を使い切ったとき、台本と途中までの音声を GitHub のブランチに預け、
+# 翌日の実行で続きから作る（自動実行は毎回まっさらな環境で動くため、手元には残らない）
+PENDING_BRANCH="video-pending"
+PENDING_DIR="$HOME/.video_pending"
+ORIGIN_URL="$(git remote get-url origin)"
+
+save_pending() {
+  local slug="$1"
+  rm -rf "$PENDING_DIR" && mkdir -p "$PENDING_DIR/audio"
+  cp script.json "$PENDING_DIR/"
+  printf '%s\n' "$slug" >"$PENDING_DIR/slug"
+  cp out/audio/*.wav "$PENDING_DIR/audio/" 2>/dev/null || true
+  if ( cd "$PENDING_DIR" && git init -q && git checkout -q -b "$PENDING_BRANCH" \
+       && git add -A && git -c user.name=denen-video -c user.email=noreply@anthropic.com \
+          commit -q -m "作りかけの動画: $slug" \
+       && git push -q -f "$ORIGIN_URL" "$PENDING_BRANCH" ); then
+    echo "途中までの台本と音声を $PENDING_BRANCH に保存しました（$slug）"
+  else
+    echo "注意: 途中までの音声を保存できませんでした。翌日は最初から作り直します"
+  fi
+}
+
+clear_pending() {
+  # ブランチを消せない環境があるので、中身のない状態で上書きする
+  local tmp; tmp="$(mktemp -d)"
+  ( cd "$tmp" && git init -q && git checkout -q -b "$PENDING_BRANCH" \
+    && git -c user.name=denen-video -c user.email=noreply@anthropic.com \
+       commit -q --allow-empty -m "作りかけの動画なし" \
+    && git push -q -f "$ORIGIN_URL" "$PENDING_BRANCH" ) >/dev/null 2>&1 || true
+  rm -rf "$tmp"
+}
+
+restore_pending() {
+  # 作りかけがあれば script.json と音声を戻し、その記事のスラッグを出す
+  local tmp; tmp="$(mktemp -d)"
+  if ! git clone -q --depth 1 -b "$PENDING_BRANCH" "$ORIGIN_URL" "$tmp" 2>/dev/null; then
+    rm -rf "$tmp"; return 1
+  fi
+  if [ ! -f "$tmp/slug" ] || [ ! -f "$tmp/script.json" ]; then
+    rm -rf "$tmp"; return 1
+  fi
+  cp "$tmp/script.json" script.json
+  mkdir -p out/audio && cp "$tmp"/audio/*.wav out/audio/ 2>/dev/null || true
+  cat "$tmp/slug"
+  rm -rf "$tmp"
+}
+
 prepare() {
   if [ "$STYLE" = "presentation" ]; then
     bash cloud/setup.sh --no-engine || die "依存の準備に失敗しました"
@@ -41,13 +88,28 @@ prepare() {
   [ "$code" -eq 3 ] && { echo "SKIP"; exit 3; }
   [ "$code" -eq 0 ] || die "記事を選べませんでした"
 
+  # 前日に無料枠を使い切って作りかけになった動画があれば、その続きから作る
+  rm -rf out
+  PENDING_SLUG="$(restore_pending || true)"
+  if [ -n "$PENDING_SLUG" ]; then
+    if python3 -c "import sys; from pick_article import youtube_done; sys.exit(0 if sys.argv[1] in youtube_done() else 1)" "$PENDING_SLUG"; then
+      echo "作りかけの記事はすでに投稿済みなので破棄します: $PENDING_SLUG"
+      rm -rf out script.json
+      clear_pending
+    else
+      printf '%s\n' "$PENDING_SLUG" >"$TODAY_FILE"
+      n=$(ls out/audio/*.wav 2>/dev/null | wc -l)
+      echo "RESUME: $PENDING_SLUG（台本と音声 ${n} 文を前日から引き継ぎました。台本は書き直さず、そのまま publish すること）"
+      exit 0
+    fi
+  fi
+
   SLUG="$(printf '%s\n' "$PICK" | awk '/^スラッグ:/{print $2}')"
   URL="$(printf '%s\n' "$PICK" | awk '/^URL:/{print $2}')"
   [ -n "$SLUG" ] && [ -n "$URL" ] || die "記事の特定に失敗しました"
   printf '%s\n' "$SLUG" >"$TODAY_FILE"
 
   rm -f script.json
-  rm -rf out                 # 新しい記事なので、前回の音声などは捨てる
   python3 extract_article.py "$URL" -o article.json --dump || die "抽出に失敗しました"
   echo "READY: $SLUG"
 }
@@ -109,7 +171,14 @@ PY
     talking)      python3 build_talking.py script.json -o out/ ;;
     slides)       python3 build_video.py script.json -o out/ ;;
     *)            die "未知の STYLE です: $STYLE" ;;
-  esac || die "動画の書き出しに失敗しました"
+  esac
+  code=$?
+  if [ "$code" -eq 75 ]; then
+    [ "$DRY" = "1" ] || save_pending "$SLUG"
+    echo "QUOTA: Gemini の今日の無料枠を使い切りました。明日の枠で続きを作ってアップします。"
+    exit 75
+  fi
+  [ "$code" -eq 0 ] || die "動画の書き出しに失敗しました"
   [ -f out/video.mp4 ] || die "out/video.mp4 がありません"
 
   if [ "$DRY" = "1" ]; then
@@ -118,6 +187,7 @@ PY
   fi
   python3 upload_youtube.py out/video.mp4 --privacy "$PRIVACY" || die "アップロードに失敗しました"
   rm -f "$TODAY_FILE"
+  clear_pending
 }
 
 case "${1:-}" in

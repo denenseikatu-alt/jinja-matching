@@ -32,6 +32,7 @@ DEFAULT_MODEL = "gemini-2.5-flash-preview-tts"
 RATE = 24000
 _model_cache: str | None = None
 _exhausted: set[str] = set()      # 今日の無料枠を使い切ったモデル
+QUOTA_EXIT = 75                   # 1日の無料枠を使い切ったときの終了コード
 
 
 def _key() -> str:
@@ -99,7 +100,10 @@ def _generate(prompt: str, voice: str) -> bytes:
                     print(f"    {sorted(_exhausted)[-1]} の今日の枠を使い切ったので {left[0].strip()} に切り替えます",
                           flush=True)
                     continue
-                sys.exit("Gemini の音声生成の、今日の無料枠を使い切りました。")
+                # 終了コード 75 で止める。呼び出し側（cloud/daily.sh）は途中までの音声を
+                # 保存して、翌日の枠で続きを作る
+                print("Gemini の音声生成の、今日の無料枠を使い切りました。", file=sys.stderr)
+                sys.exit(QUOTA_EXIT)
             if e.code in (429, 500, 503) and attempt < 7:
                 wait = 10 * (attempt + 1)
                 try:
