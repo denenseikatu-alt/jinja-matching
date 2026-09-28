@@ -32,7 +32,46 @@
    本文が長い節は 2 枚に割ってよい。
 3. **結び** — 記事の締めを 1 枚。最後に出典サイト名を読み上げる。
 
-全体で 6〜10 枚、尺は 2〜4 分を目安にする。
+**尺は記事の分量に合わせて決める（固定しない）。** 記事の要点を落とさず、水増しもしない。
+目安は、読み上げ1,000字あたり約3分、スライド1枚あたり15〜40秒。
+
+| 記事の本文（表を含む） | スライド | 尺の目安 |
+| --- | --- | --- |
+| 〜2,500字 | 6〜10枚 | 2〜5分 |
+| 2,500〜5,000字 | 10〜16枚 | 5〜9分 |
+| 5,000字〜 | 16〜20枚 | 9〜12分 |
+
+スライドは最大20枚程度。短い記事を無理に引き延ばさない。
+
+## 毎日の動画の形式（build_presentation.py）
+
+毎日の動画は、語り手（`assets_video/poses` の6ポーズ）が各スライドの横に立って説明する形式。
+見本は `talk/40s-safe-aerobic.json`。`speaker` の代わりに次を書く:
+
+```json
+"voice": {"engine": "gemini", "name": "Leda",
+          "style": "Say in a bright, friendly young woman's voice, at a natural, lively conversational pace"},
+```
+
+- `style` は英語のまま変えない（日本語で書くと指示文まで読み上げる）。
+- `youtube` に `"synthetic": true` を入れ、概要欄に「この動画の語り手の人物と音声は、AI で生成したものです。」と書く。
+- シーンごとに `layout` で構図を選び、同じ構図を3枚以上続けない。内容に合う構図を使う:
+
+| layout | 向いている内容 | 必須の項目 |
+| --- | --- | --- |
+| `title` | 表紙 | `heading`、`sub`（任意） |
+| `bullets` / `screen` | 要点の列挙（最大4〜5項目） | `heading`、`bullets` |
+| `number` | 記事にある印象的な数値1つ | `heading`、`number`、`label`、`note`（改行で区切る） |
+| `table` | 記事の表、比較の一覧（最大6行） | `heading`、`rows`（1行目が見出し）、`widths`（任意） |
+| `compare` | 2つの対比 | `heading`、`left`、`right`（それぞれ `title` と `items`） |
+| `steps` | 手順・コツ（2〜4個） | `heading`、`steps`（改行の後は補足） |
+| `checklist` | まとめ | `heading`、`bullets` |
+| `closing` | 結び | `heading`、`sub`（任意） |
+
+- 語り手の立ち位置は1枚ごとに自動で左右が入れ替わり、ポーズは構図に合わせて選ばれる。
+  驚く内容なら `"pose": "surprised"`、考えさせる問いなら `"think"` のように、シーンで指定してもよい
+  （`present` `point` `surprised` `think` `hands` `thumbsup`）。
+- 記事の表は抽出で「セル ／ セル」の行になる。数値の根拠なので、`table` か `number` で必ず使う。
 
 ## 文章
 

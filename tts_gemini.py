@@ -8,7 +8,8 @@
 style は英語で書く。「指示: 本文」の形で送ると本文だけが読まれる
 （日本語で指示を書くと、指示文まで読み上げてしまうことを文字起こしで確認した）。
 
-モデル名は GEMINI_TTS_MODEL で指定できる。指定がなく既定のモデルが無い場合は、
+モデル名は GEMINI_TTS_MODEL で指定できる（カンマ区切りで複数書くと、1日の無料枠を
+使い切ったときに次のモデルへ切り替える）。指定がなく既定のモデルが無い場合は、
 使えるモデルの一覧から名前に "tts" を含むものを選ぶ。
 """
 
@@ -30,6 +31,7 @@ API = "https://generativelanguage.googleapis.com/v1beta"
 DEFAULT_MODEL = "gemini-2.5-flash-preview-tts"
 RATE = 24000
 _model_cache: str | None = None
+_exhausted: set[str] = set()      # 今日の無料枠を使い切ったモデル
 
 
 def _key() -> str:
@@ -51,10 +53,11 @@ def pick_model() -> str:
     global _model_cache
     if _model_cache:
         return _model_cache
-    wanted = os.environ.get("GEMINI_TTS_MODEL")
+    wanted = [m.strip() for m in os.environ.get("GEMINI_TTS_MODEL", "").split(",") if m.strip()]
+    wanted = [m for m in wanted if m not in _exhausted]
     if wanted:
-        _model_cache = wanted
-        return wanted
+        _model_cache = wanted[0]
+        return _model_cache
     names = []
     token = ""
     while True:
@@ -85,6 +88,18 @@ def _generate(prompt: str, voice: str) -> bytes:
             return base64.b64decode(part["data"])
         except urllib.error.HTTPError as e:
             detail = e.read().decode("utf-8", "replace")
+            if e.code == 429 and "PerDay" in detail:
+                # 1日の枠を使い切った。次の候補があれば切り替え、なければ止める
+                global _model_cache
+                _exhausted.add(pick_model())
+                _model_cache = None
+                left = [m for m in os.environ.get("GEMINI_TTS_MODEL", "").split(",")
+                        if m.strip() and m.strip() not in _exhausted]
+                if left:
+                    print(f"    {sorted(_exhausted)[-1]} の今日の枠を使い切ったので {left[0].strip()} に切り替えます",
+                          flush=True)
+                    continue
+                sys.exit("Gemini の音声生成の、今日の無料枠を使い切りました。")
             if e.code in (429, 500, 503) and attempt < 7:
                 wait = 10 * (attempt + 1)
                 try:

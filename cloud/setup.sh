@@ -2,7 +2,8 @@
 # クラウド実行環境（Linux）で動画パイプラインを動かす準備。
 # Python の依存を入れ、VOICEVOX ENGINE を取得して起動する。何度実行してもよい。
 #
-#   bash cloud/setup.sh
+#   bash cloud/setup.sh               # 依存 + VOICEVOX ENGINE
+#   bash cloud/setup.sh --no-engine   # 依存だけ（Gemini の声を使う形式）
 #
 # ENGINE の配布物は約1.7GB。展開後を含めて4GB程度の空きが要る。
 
@@ -13,7 +14,11 @@ ENGINE_HOME="${VOICEVOX_HOME:-$HOME/voicevox}"
 HOST="${VOICEVOX_HOST:-http://127.0.0.1:50021}"
 
 echo "== Python の依存 =="
-pip install -q pillow imageio-ffmpeg py7zr cffi cryptography google-auth google-auth-oauthlib google-api-python-client
+pip install -q pillow numpy imageio-ffmpeg py7zr cffi cryptography google-auth google-auth-oauthlib google-api-python-client
+
+if [ "${1:-}" = "--no-engine" ]; then
+  exit 0
+fi
 
 if curl -sS -m 5 "$HOST/version" >/dev/null 2>&1; then
   echo "== VOICEVOX ENGINE は起動済み: $(curl -sS -m 5 "$HOST/version") =="
