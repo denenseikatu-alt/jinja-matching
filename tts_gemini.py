@@ -126,15 +126,80 @@ def synth_lines(lines: list[str], out_paths: list[Path], voice: str = "Leda",
     無料枠は1日あたりの回数制限が厳しいため（モデルごとに10回など）、
     1文ずつではなく数場面分をまとめて頼む。
     """
-    directive = (style + ", pausing briefly between lines") if style else "Read aloud"
-    # 空行で区切ると、文と文の間の間（ま）がはっきりして切り分けやすい
-    pcm = _generate(directive + ":\n\n" + "\n\n".join(lines), voice)
-    a = np.frombuffer(pcm, dtype=np.int16).astype(np.float32) / 32768
-    cuts = _find_cuts(a, [len(x) for x in lines])
-    bounds = [0] + cuts + [len(a)]
-    for k, path in enumerate(out_paths):
-        seg = (a[bounds[k]:bounds[k + 1]] * 32767).astype(np.int16).tobytes()
-        _write(_trim(seg), path)
+    # 指示に余計な語を足すと、指示文そのものを読み上げることがあった（文字起こしで確認）。
+    # 1文ずつのときに問題のなかった「指示: 本文」の形のままにする。
+    directive = style or "Read aloud"
+    for attempt in range(3):
+        # 空行で区切ると、文と文の間の間（ま）がはっきりして切り分けやすい
+        pcm = _generate(directive + ":\n\n" + "\n\n".join(lines), voice)
+        a = np.frombuffer(pcm, dtype=np.int16).astype(np.float32) / 32768
+        cuts = _find_cuts(a, [len(x) for x in lines])
+        bounds = [0] + cuts + [len(a)]
+        segs = [_trim((a[bounds[k]:bounds[k + 1]] * 32767).astype(np.int16).tobytes())
+                for k in range(len(lines))]
+        problem = verify(lines, segs)
+        if not problem:
+            break
+        print(f"    音声の照合で不一致: {problem}（作り直します）", flush=True)
+    else:
+        sys.exit(f"Gemini の音声が台本と一致しませんでした: {problem}")
+    for seg, path in zip(segs, out_paths):
+        _write(seg, path)
+
+
+def _norm(t: str) -> str:
+    import re
+    import unicodedata
+    t = unicodedata.normalize("NFKC", t).replace("パーセント", "%")
+    return re.sub(r"[\s、。，．,.!?！？「」『』（）()・:：]", "", t)
+
+
+def verify(lines: list[str], segs: list[bytes]) -> str:
+    """切り分けた各文を文字起こしし、台本と照合する。問題がなければ空文字を返す。"""
+    import difflib
+    import io
+    parts = [{"text": "以下の音声をそれぞれ一字一句そのまま文字起こししてください。"
+                      "英語が含まれていれば英語もそのまま書くこと。"
+                      "出力は JSON のみで、キーは番号の数字: {\"1\": \"…\", …}"}]
+    for k, seg in enumerate(segs, 1):
+        buf = io.BytesIO()
+        with wave.open(buf, "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(RATE)
+            w.writeframes(seg)
+        parts += [{"text": f"{k}:"},
+                  {"inlineData": {"mimeType": "audio/wav",
+                                  "data": base64.b64encode(buf.getvalue()).decode()}}]
+    body = {"contents": [{"parts": parts}],
+            "generationConfig": {"responseMimeType": "application/json"}}
+    got = None
+    for model in ("gemini-3.5-flash", "gemini-flash-latest", "gemini-3-flash-preview"):
+        for _ in range(3):
+            try:
+                res = _request(f"{API}/models/{model}:generateContent", body)
+                got = json.loads(res["candidates"][0]["content"]["parts"][0]["text"])
+                break
+            except (urllib.error.HTTPError, KeyError, ValueError):
+                time.sleep(8)
+        if got is not None:
+            break
+    if got is None:
+        return "文字起こしができず照合できませんでした"
+    import re
+    heard = {}
+    for key, val in got.items():
+        m = re.search(r"\d+", str(key))
+        if m:
+            heard[int(m.group())] = str(val)
+    for k, line in enumerate(lines, 1):
+        h = heard.get(k, "")
+        if re.search(r"[A-Za-z]{4,}", h) and not re.search(r"[A-Za-z]{4,}", line):
+            return f"{k}文目に英語が入っている（{h[:40]}）"
+        ratio = difflib.SequenceMatcher(None, _norm(line), _norm(h)).ratio()
+        if ratio < 0.6:
+            return f"{k}文目が台本と合わない（一致率 {ratio:.2f}: {h[:30]}）"
+    return ""
 
 
 def _find_cuts(a: np.ndarray, lengths: list[int]) -> list[int]:
@@ -209,7 +274,14 @@ def _trim(pcm: bytes, margin: float = 0.08) -> bytes:
         return pcm
     start = max(0, loud[0] * win - int(RATE * margin))
     end = min(len(a), (loud[-1] + 1) * win + int(RATE * margin))
-    return pcm[start * 2:end * 2]
+    seg = a[start:end].copy()
+    # 切り口で波形が途切れるとプツッと鳴るので、頭と終わりを短くフェードさせる
+    fade = min(int(RATE * 0.015), len(seg) // 4)
+    if fade > 0:
+        ramp = np.linspace(0.0, 1.0, fade, dtype=np.float32)
+        seg[:fade] *= ramp
+        seg[-fade:] *= ramp[::-1]
+    return (seg * 32767).astype(np.int16).tobytes()
 
 
 CREDIT = "音声: Google Gemini（AI 音声合成）"

@@ -2,19 +2,23 @@
 """語り手がスライドを説明する動画を、構図を切り替えながら作る。口や表情は動かさない。
 
     python3 build_presentation.py talk/xxx.json -o out_pres/ \\
-        --scene assets_video/presenter2.png --layout assets_video/presenter2.json
+        --poses assets_video/poses --background assets_video/room_blur.png
+
+どのスライドにも語り手が片側に立つ。立ち位置は1枚ごとに左右が入れ替わり、ポーズは
+構図に合わせて変わる（シーンの "pose" と "side" で指定もできる）。指差しや手のひらは
+内容の側を向くよう、必要なら左右反転する。語り手の切り抜きは make_presenter.py で作る。
 
 シーンごとに "layout" で構図を選ぶ:
 
-    title     語り手の横のスクリーンに大きくタイトル        heading, sub
-    screen    語り手の横のスクリーンに見出しと箇条書き      heading, bullets
-    bullets   左に箇条書き、右に語り手                      heading, bullets
+    title     大きなタイトル                                heading, sub
+    screen    見出しと箇条書き（bullets と同じ）            heading, bullets
+    bullets   見出しと箇条書き                              heading, bullets
     number    大きな数字と説明                              heading, number, label, note
     table     表                                            heading, rows（1行目が見出し）
     compare   2列の比較                                     heading, left{title,items}, right{title,items}
     steps     番号付きの手順カード                          heading, steps
-    checklist チェック付きのまとめ、左に語り手              heading, bullets
-    closing   スクリーンに結びの言葉と記事の案内            heading, sub
+    checklist チェック付きのまとめ                          heading, bullets
+    closing   結びの言葉                                    heading, sub
 
 声は台本の "voice" で選ぶ。{"engine": "gemini", "name": "Leda", "style": "..."} か
 {"engine": "voicevox", "speaker": 9}。lines は字幕にもなり、"caption_replace" で
@@ -48,12 +52,28 @@ WARM = (190, 104, 72)
 CONTENT_BOTTOM = 860      # これより下は字幕の帯
 
 
+# ポーズごとの既定。gesture は手ぶりが向く側（元画像で見て）。説明の内容がある側を向くよう、
+# 立ち位置に応じて左右反転する
+POSES = {
+    "present": {"gesture": "left"},
+    "point": {"gesture": "right"},
+    "surprised": {"gesture": None},
+    "think": {"gesture": None},
+    "hands": {"gesture": None},
+    "thumbsup": {"gesture": None},
+}
+LAYOUT_POSE = {"title": "present", "screen": "point", "bullets": "point", "number": "surprised",
+               "table": "point", "compare": "think", "steps": "present", "checklist": "thumbsup",
+               "closing": "hands"}
+
+
 class Painter:
-    def __init__(self, font_path: str, scene_img: Image.Image, layout: dict, site: str):
+    """スライドを描く。すべての構図で、語り手が片側に立って説明する。"""
+
+    def __init__(self, font_path: str, background: Image.Image, poses: dict, site: str):
         self.fp = font_path
-        self.scene = scene_img
-        self.screen = layout["screen"]
-        self.person = layout["person"]
+        self.bg = background
+        self.poses = poses
         self.site = site
         self._fonts: dict[int, ImageFont.FreeTypeFont] = {}
 
@@ -63,27 +83,52 @@ class Painter:
         return self._fonts[size]
 
     # --- 共通の部品 -------------------------------------------------------
-    def base(self) -> tuple[Image.Image, ImageDraw.ImageDraw]:
-        img = Image.new("RGB", (W, H), BG)
+    def canvas(self, s: dict, i: int) -> tuple[Image.Image, ImageDraw.ImageDraw, tuple]:
+        """背景・語り手・内容用のパネルを置き、パネルの内側の範囲を返す。"""
+        img = self.bg.copy()
+        side = s.get("side") or ("left" if i % 2 else "right")
+        pose = s.get("pose") or LAYOUT_POSE.get(s.get("layout", "bullets"), "present")
+        pw = 1180                                  # パネルの幅
+        if side == "left":
+            box = (W - 70 - pw, 70, W - 70, CONTENT_BOTTOM)
+        else:
+            box = (70, 70, 70 + pw, CONTENT_BOTTOM)
+        panel = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        pd = ImageDraw.Draw(panel)
+        pd.rounded_rectangle([box[0] + 8, box[1] + 12, box[2] + 8, box[3] + 12], radius=34,
+                             fill=(0, 0, 0, 40))
+        panel = panel.filter(ImageFilter.GaussianBlur(10))
+        pd = ImageDraw.Draw(panel)
+        pd.rounded_rectangle(box, radius=34, fill=(255, 255, 255, 242))
+        pd.rounded_rectangle([box[0], box[1], box[2], box[1] + 14], radius=7, fill=NAVY + (255,))
+        img.paste(panel, (0, 0), panel)
+        self.place_presenter(img, pose, side)
         d = ImageDraw.Draw(img)
-        d.rectangle([0, 0, W, 10], fill=NAVY)
-        d.text((80, 38), self.site, font=self.f(26), fill=SUB)
-        return img, d
+        d.text((box[0] + 50, box[1] + 36), self.site, font=self.f(24), fill=SUB)
+        inner = (box[0] + 60, box[1] + 90, box[2] - 60, box[3] - 40)
+        return img, d, inner
 
-    def number_badge(self, d: ImageDraw.ImageDraw, idx: int, total: int) -> None:
-        t = f"{idx:02d} / {total:02d}"
-        d.text((W - 80 - d.textlength(t, font=self.f(24)), 40), t, font=self.f(24), fill=SUB)
+    def place_presenter(self, img: Image.Image, pose: str, side: str) -> None:
+        fig = self.poses.get(pose) or next(iter(self.poses.values()))
+        gesture = POSES.get(pose, {}).get("gesture")
+        # 左に立つなら手ぶりは右（内容の側）へ、右に立つなら左へ向ける
+        want = "right" if side == "left" else "left"
+        if gesture and gesture != want:
+            fig = fig.transpose(Image.FLIP_LEFT_RIGHT)
+        h = 930
+        fig = fig.resize((int(fig.width * h / fig.height), h), Image.LANCZOS)
+        x = 40 if side == "left" else W - 40 - fig.width
+        img.paste(fig, (x, H - h + 30), fig)
 
-    def heading(self, d: ImageDraw.ImageDraw, text: str, x: int, y: int, max_w: int,
-                size: int = 60) -> int:
-        for row in wrap_ja(d, text, self.f(size), max_w)[:2]:
-            d.text((x, y), row, font=self.f(size), fill=INK)
+    def heading(self, d, text, box, size=54) -> int:
+        x0, y, x1, _ = box
+        for row in wrap_ja(d, text, self.f(size), x1 - x0)[:2]:
+            d.text((x0, y), row, font=self.f(size), fill=INK)
             y += int(size * 1.3)
-        d.rectangle([x, y + 8, x + 110, y + 14], fill=WARM)
-        return y + 50
+        d.rectangle([x0, y + 6, x0 + 100, y + 12], fill=WARM)
+        return y + 44
 
-    def bullets(self, d: ImageDraw.ImageDraw, items: list[str], x: int, y: int, max_w: int,
-                size: int = 42, mark: str = "dot") -> int:
+    def bullets(self, d, items, x, y, max_w, size=40, mark="dot") -> int:
         f = self.f(size)
         indent = int(size * 1.3)
         for b in items:
@@ -103,183 +148,134 @@ class Painter:
             y += int(size * 0.5)
         return y
 
-    def person_card(self, img: Image.Image, box: tuple[int, int, int, int]) -> None:
-        """シーン画像から語り手の部分を切り出し、角丸のカードとして置く。"""
-        x0, y0, x1, y1 = box
-        bw, bh = x1 - x0, y1 - y0
-        px0, py0, px1, py1 = self.person
-        crop = self.scene.crop((px0, py0, px1, py1))
-        # 箱の縦横比に合わせて中央（やや上）で切りそろえる
-        cw, ch = crop.size
-        if cw / ch > bw / bh:
-            nw = int(ch * bw / bh)
-            crop = crop.crop(((cw - nw) // 2, 0, (cw - nw) // 2 + nw, ch))
-        else:
-            nh = int(cw * bh / bw)
-            crop = crop.crop((0, 0, cw, nh))
-        crop = crop.resize((bw, bh), Image.LANCZOS)
-        mask = Image.new("L", (bw, bh), 0)
-        ImageDraw.Draw(mask).rounded_rectangle([0, 0, bw - 1, bh - 1], radius=28, fill=255)
-        shadow = Image.new("RGBA", (bw + 40, bh + 40), (0, 0, 0, 0))
-        ImageDraw.Draw(shadow).rounded_rectangle([20, 26, bw + 20, bh + 26], radius=28,
-                                                 fill=(0, 0, 0, 60))
-        shadow = shadow.filter(ImageFilter.GaussianBlur(12))
-        img.paste(shadow, (x0 - 20, y0 - 20), shadow)
-        img.paste(crop, (x0, y0), mask)
-
-    def on_screen(self) -> tuple[Image.Image, ImageDraw.ImageDraw, tuple[int, int, int, int]]:
-        img = self.scene.copy()
-        d = ImageDraw.Draw(img)
-        x0, y0, x1, y1 = self.screen
-        d.rectangle([x0, y0, x1, y1], fill=(250, 250, 248))
-        d.rectangle([x0, y0, x1, y0 + 12], fill=NAVY)
-        return img, d, (x0, y0, x1, y1)
-
     # --- 構図 -------------------------------------------------------------
-    def title(self, s: dict, i: int, n: int) -> Image.Image:
-        img, d, (x0, y0, x1, y1) = self.on_screen()
-        pad = int((x1 - x0) * 0.08)
-        y = y0 + int((y1 - y0) * 0.22)
-        d.text((x0 + pad, y), self.site, font=self.f(30), fill=WARM)
-        y += 64
-        for row in wrap_ja(d, s["heading"], self.f(64), x1 - x0 - 2 * pad)[:3]:
-            d.text((x0 + pad, y), row, font=self.f(64), fill=INK)
-            y += 84
+    def title(self, s, i, n):
+        img, d, (x0, y0, x1, y1) = self.canvas(s, i)
+        y = y0 + 110
+        for row in wrap_ja(d, s["heading"], self.f(74), x1 - x0)[:3]:
+            d.text((x0, y), row, font=self.f(74), fill=INK)
+            y += 98
+        d.rectangle([x0, y + 14, x0 + 140, y + 22], fill=WARM)
         if s.get("sub"):
-            y += 16
-            for row in wrap_ja(d, s["sub"], self.f(34), x1 - x0 - 2 * pad)[:2]:
-                d.text((x0 + pad, y), row, font=self.f(34), fill=SUB)
-                y += 48
+            y += 60
+            for row in wrap_ja(d, s["sub"], self.f(40), x1 - x0)[:2]:
+                d.text((x0, y), row, font=self.f(40), fill=SUB)
+                y += 56
         return img
 
-    def closing(self, s: dict, i: int, n: int) -> Image.Image:
-        return self.title(s, i, n)
+    closing = title
 
-    def screen_(self, s: dict, i: int, n: int) -> Image.Image:
-        img, d, (x0, y0, x1, y1) = self.on_screen()
-        pad = int((x1 - x0) * 0.07)
-        sw = x1 - x0 - 2 * pad
-        y = y0 + int((y1 - y0) * 0.1)
-        for row in wrap_ja(d, s["heading"], self.f(48), sw)[:2]:
-            d.text((x0 + pad, y), row, font=self.f(48), fill=INK)
-            y += 64
-        d.rectangle([x0 + pad, y + 6, x0 + pad + 90, y + 11], fill=WARM)
-        self.bullets(d, s.get("bullets", []), x0 + pad, y + 40, sw, size=34)
+    def bullets_(self, s, i, n):
+        img, d, box = self.canvas(s, i)
+        y = self.heading(d, s["heading"], box)
+        self.bullets(d, s.get("bullets", []), box[0], y + 6, box[2] - box[0], size=42)
         return img
 
-    def bullets_(self, s: dict, i: int, n: int) -> Image.Image:
-        img, d = self.base()
-        self.number_badge(d, i, n)
-        y = self.heading(d, s["heading"], 110, 120, 1020)
-        self.bullets(d, s.get("bullets", []), 120, y + 10, 1000)
-        self.person_card(img, (1250, 120, 1810, CONTENT_BOTTOM))
+    screen_ = bullets_
+
+    def checklist(self, s, i, n):
+        img, d, box = self.canvas(s, i)
+        y = self.heading(d, s["heading"], box)
+        self.bullets(d, s.get("bullets", []), box[0], y + 6, box[2] - box[0], size=40,
+                     mark="check")
         return img
 
-    def checklist(self, s: dict, i: int, n: int) -> Image.Image:
-        img, d = self.base()
-        self.number_badge(d, i, n)
-        self.person_card(img, (110, 120, 640, CONTENT_BOTTOM))
-        y = self.heading(d, s["heading"], 740, 120, 1080)
-        self.bullets(d, s.get("bullets", []), 750, y + 10, 1060, size=40, mark="check")
-        return img
-
-    def number(self, s: dict, i: int, n: int) -> Image.Image:
-        img, d = self.base()
-        self.number_badge(d, i, n)
-        self.heading(d, s["heading"], 110, 120, 1700, size=54)
-        d.rounded_rectangle([110, 300, 930, CONTENT_BOTTOM - 20], radius=36, fill=NAVY)
+    def number(self, s, i, n):
+        img, d, box = self.canvas(s, i)
+        x0, _, x1, y1 = box
+        y = self.heading(d, s["heading"], box, size=48)
+        nb = (x0, y, x0 + 470, y1)
+        d.rounded_rectangle(nb, radius=30, fill=NAVY)
         num = s["number"]
-        size = 200
-        while d.textlength(num, font=self.f(size)) > 700 and size > 80:
-            size -= 10
-        tw = d.textlength(num, font=self.f(size))
-        d.text((520 - tw / 2, 400), num, font=self.f(size), fill=PANEL)
-        if s.get("label"):
-            for k, row in enumerate(wrap_ja(d, s["label"], self.f(40), 720)[:2]):
-                lw = d.textlength(row, font=self.f(40))
-                d.text((520 - lw / 2, 400 + size + 40 + k * 56), row, font=self.f(40),
-                       fill=(222, 228, 238))
-        y = 330
+        size = 150
+        while d.textlength(num, font=self.f(size)) > 420 and size > 60:
+            size -= 6
+        cx = (nb[0] + nb[2]) / 2
+        ny = y + 60
+        d.text((cx - d.textlength(num, font=self.f(size)) / 2, ny), num, font=self.f(size),
+               fill=PANEL)
+        ly = ny + size + 30
+        for row in wrap_ja(d, s.get("label", ""), self.f(32), 420)[:3]:
+            d.text((cx - d.textlength(row, font=self.f(32)) / 2, ly), row, font=self.f(32),
+                   fill=(222, 228, 238))
+            ly += 44
+        ty = y + 10
         for para in s.get("note", "").split("\n"):
-            for row in wrap_ja(d, para, self.f(40), 780):
-                d.text((1010, y), row, font=self.f(40), fill=INK)
-                y += 60
-            y += 24
+            for row in wrap_ja(d, para, self.f(34), x1 - x0 - 510):
+                d.text((x0 + 510, ty), row, font=self.f(34), fill=INK)
+                ty += 50
+            ty += 22
         return img
 
-    def table(self, s: dict, i: int, n: int) -> Image.Image:
-        img, d = self.base()
-        self.number_badge(d, i, n)
-        y = self.heading(d, s["heading"], 110, 120, 1700, size=54)
+    def table(self, s, i, n):
+        img, d, box = self.canvas(s, i)
+        x0, _, x1, y1 = box
+        y = self.heading(d, s["heading"], box, size=48)
         rows = s["rows"]
-        ncol = max(len(r) for r in rows)
-        widths = s.get("widths") or [1] * ncol
-        total = sum(widths)
-        x0, x1 = 110, W - 110
+        widths = s.get("widths") or [1] * max(len(r) for r in rows)
         xs = [x0]
         for wv in widths:
-            xs.append(xs[-1] + (x1 - x0) * wv / total)
-        size = 34 if len(rows) <= 6 else 30
-        avail = CONTENT_BOTTOM - 20 - y
-        rh = min(96, avail // len(rows))
+            xs.append(xs[-1] + (x1 - x0) * wv / sum(widths))
+        size = 28 if len(rows) <= 5 else 26
+        rh = min(104, (y1 - y) // len(rows))
         for r, row in enumerate(rows):
             top = y + r * rh
             fill = NAVY if r == 0 else (PANEL if r % 2 else SOFT)
             d.rectangle([x0, top, x1, top + rh - 4], fill=fill)
             for c, cell in enumerate(row):
-                lines = wrap_ja(d, cell, self.f(size), int(xs[c + 1] - xs[c] - 36))[:2]
+                lines = wrap_ja(d, cell, self.f(size), int(xs[c + 1] - xs[c] - 28))[:3]
                 ty = top + (rh - 4 - len(lines) * size * 1.25) / 2
                 for ln in lines:
-                    d.text((xs[c] + 18, ty), ln, font=self.f(size),
-                           fill=PANEL if r == 0 else INK)
+                    d.text((xs[c] + 14, ty), ln, font=self.f(size), fill=PANEL if r == 0 else INK)
                     ty += size * 1.25
         return img
 
-    def compare(self, s: dict, i: int, n: int) -> Image.Image:
-        img, d = self.base()
-        self.number_badge(d, i, n)
-        y = self.heading(d, s["heading"], 110, 120, 1700, size=54)
+    def compare(self, s, i, n):
+        img, d, box = self.canvas(s, i)
+        x0, _, x1, y1 = box
+        y = self.heading(d, s["heading"], box, size=48)
+        gap = 30
+        cw = (x1 - x0 - gap) / 2
         for k, side in enumerate((s["left"], s["right"])):
-            x0 = 110 + k * 870
-            x1 = x0 + 830
+            a = x0 + k * (cw + gap)
+            b = a + cw
             color = NAVY if k == 0 else WARM
-            d.rounded_rectangle([x0, y, x1, CONTENT_BOTTOM - 10], radius=30, fill=PANEL,
-                                outline=color, width=4)
-            d.rounded_rectangle([x0, y, x1, y + 96], radius=30, fill=color)
-            d.rectangle([x0, y + 60, x1, y + 96], fill=color)
-            tw = d.textlength(side["title"], font=self.f(44))
-            d.text(((x0 + x1) / 2 - tw / 2, y + 22), side["title"], font=self.f(44), fill=PANEL)
-            self.bullets(d, side.get("items", []), x0 + 40, y + 130, 750, size=38)
+            d.rounded_rectangle([a, y, b, y1], radius=26, fill=PANEL, outline=color, width=4)
+            d.rounded_rectangle([a, y, b, y + 84], radius=26, fill=color)
+            d.rectangle([a, y + 50, b, y + 84], fill=color)
+            tw = d.textlength(side["title"], font=self.f(38))
+            d.text(((a + b) / 2 - tw / 2, y + 20), side["title"], font=self.f(38), fill=PANEL)
+            self.bullets(d, side.get("items", []), a + 30, y + 110, cw - 50, size=32)
         return img
 
-    def steps(self, s: dict, i: int, n: int) -> Image.Image:
-        img, d = self.base()
-        self.number_badge(d, i, n)
-        y = self.heading(d, s["heading"], 110, 120, 1700, size=54)
+    def steps(self, s, i, n):
+        img, d, box = self.canvas(s, i)
+        x0, _, x1, y1 = box
+        y = self.heading(d, s["heading"], box, size=48)
         items = s["steps"]
-        k = len(items)
-        gap = 40
-        cw = (W - 220 - gap * (k - 1)) / k
+        cols = 2 if len(items) == 4 else len(items)
+        rows = (len(items) + cols - 1) // cols
+        gap = 26
+        cw = (x1 - x0 - gap * (cols - 1)) / cols
+        ch = (y1 - y - gap * (rows - 1)) / rows
         for j, text in enumerate(items):
-            x0 = 110 + j * (cw + gap)
-            d.rounded_rectangle([x0, y + 20, x0 + cw, CONTENT_BOTTOM - 10], radius=30,
-                                fill=PANEL)
-            cx = x0 + cw / 2
-            d.ellipse([cx - 52, y + 60, cx + 52, y + 164], fill=NAVY if j % 2 == 0 else WARM)
+            r, c = divmod(j, cols)
+            a, t = x0 + c * (cw + gap), y + r * (ch + gap)
+            d.rounded_rectangle([a, t, a + cw, t + ch], radius=24, fill=SOFT)
+            d.ellipse([a + 24, t + 24, a + 94, t + 94], fill=NAVY if j % 2 == 0 else WARM)
             num = str(j + 1)
-            d.text((cx - d.textlength(num, font=self.f(60)) / 2, y + 74), num,
-                   font=self.f(60), fill=PANEL)
-            ty = y + 200
-            # 1行目はカードの見出し、改行以降は小さめの補足
+            d.text((a + 59 - d.textlength(num, font=self.f(44)) / 2, t + 34), num,
+                   font=self.f(44), fill=PANEL)
             head, *rest = text.split("\n")
-            for row in wrap_ja(d, head, self.f(38), int(cw - 60))[:4]:
-                d.text((x0 + 30, ty), row, font=self.f(38), fill=INK)
-                ty += 56
-            ty += 14
+            ty = t + 30
+            for row in wrap_ja(d, head, self.f(34), int(cw - 140))[:2]:
+                d.text((a + 116, ty), row, font=self.f(34), fill=INK)
+                ty += 46
+            ty = max(ty, t + 110)
             for para in rest:
-                for row in wrap_ja(d, para, self.f(31), int(cw - 60))[:4]:
-                    d.text((x0 + 30, ty), row, font=self.f(31), fill=SUB)
-                    ty += 46
+                for row in wrap_ja(d, para, self.f(28), int(cw - 48))[:3]:
+                    d.text((a + 26, ty), row, font=self.f(28), fill=SUB)
+                    ty += 40
         return img
 
     def render(self, s: dict, i: int, n: int) -> Image.Image:
@@ -297,9 +293,10 @@ def main() -> None:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("script")
     ap.add_argument("-o", "--outdir", default="out_pres")
-    ap.add_argument("--scene", default="assets_video/presenter2.png",
-                    help="語り手とスクリーンが写った 16:9 の絵")
-    ap.add_argument("--layout", default="assets_video/presenter2.json")
+    ap.add_argument("--background", default="assets_video/room_blur.png",
+                    help="背景（ぼかしたセミナー室など）")
+    ap.add_argument("--poses", default="assets_video/poses",
+                    help="語り手の切り抜き（make_presenter.py の出力）のフォルダ")
     ap.add_argument("--host", default="http://127.0.0.1:50021")
     ap.add_argument("--font", default=None)
     ap.add_argument("--slides-only", action="store_true", help="スライド画像だけ出す")
@@ -309,11 +306,13 @@ def main() -> None:
     scenes = script["scenes"]
     voice = script.get("voice", {"engine": "voicevox", "speaker": script.get("speaker", 9)})
     font_path = find_font(args.font)
-    scene_img = Image.open(args.scene).convert("RGB").resize((W, H), Image.LANCZOS)
-    layout = json.loads(Path(args.layout).read_text(encoding="utf-8"))
+    background = Image.open(args.background).convert("RGB").resize((W, H), Image.LANCZOS)
+    poses = {p.stem: Image.open(p).convert("RGBA") for p in sorted(Path(args.poses).glob("*.png"))}
+    if not poses:
+        sys.exit(f"語り手の切り抜きがありません: {args.poses}（make_presenter.py で作る）")
     site = script.get("site") or script.get("site_host") or urllib.parse.urlparse(
         script.get("source_url", "")).netloc
-    painter = Painter(font_path, scene_img, layout, site)
+    painter = Painter(font_path, background, poses, site)
 
     outdir = Path(args.outdir)
     slides_dir, audio_dir, frames_dir = outdir / "slides", outdir / "audio", outdir / "frames"
