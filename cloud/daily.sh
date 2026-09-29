@@ -101,8 +101,15 @@ prepare() {
   fi
   python3 yt_auth.py check || die "YouTube の認証に失敗しました"
 
-  # 日本時間の今日すでに記事動画を上げていれば、二重投稿を避けて終わる
-  PICK="$(python3 pick_article.py --sitemap "$SITEMAP" --youtube --once-per-day)"
+  # 日本時間の今日すでに記事動画を上げていれば、二重投稿を避けて終わる。
+  # ALLOW_EXTRA_ON（日本時間の日付 YYYY-MM-DD）の日だけは、この判定を飛ばして2本目を作る
+  # （取りこぼした日の分を手動で上げた翌朝など）。同じ記事の二重投稿は別の確認で防ぐ
+  ONCE="--once-per-day"
+  if [ "${ALLOW_EXTRA_ON:-}" = "$(TZ=Asia/Tokyo date +%F)" ]; then
+    ONCE=""
+    log "今日（${ALLOW_EXTRA_ON}）は1日1本の判定を飛ばす"
+  fi
+  PICK="$(python3 pick_article.py --sitemap "$SITEMAP" --youtube $ONCE)"
   code=$?
   echo "$PICK"
   [ "$code" -eq 3 ] && { log "SKIP: 日本時間の今日は投稿済み"; echo "SKIP"; exit 3; }
