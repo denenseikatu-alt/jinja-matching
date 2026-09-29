@@ -180,7 +180,8 @@ def synth_lines(lines: list[str], out_paths: list[Path], voice: str = "Leda",
     # 指示に余計な語を足すと、指示文そのものを読み上げることがあった（文字起こしで確認）。
     # 1文ずつのときに問題のなかった「指示: 本文」の形のままにする。
     directive = style or "Read aloud"
-    for attempt in range(3):
+    # 指示文を読み上げるかどうかは毎回ばらつくので、何度か作り直す
+    for attempt in range(6):
         # 空行で区切ると、文と文の間の間（ま）がはっきりして切り分けやすい
         pcm = _generate(directive + ":\n\n" + "\n\n".join(lines), voice)
         a = np.frombuffer(pcm, dtype=np.int16).astype(np.float32) / 32768
