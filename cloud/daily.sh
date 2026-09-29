@@ -25,7 +25,23 @@ STYLE="${STYLE:-talking}"
 GEMINI_VOICE="${GEMINI_VOICE:-1}"   # 1 なら Gemini の声を使う前提で準備する（VOICEVOX を起動しない）
 DRY="${DRY:-0}"          # 1 にすると送信せず、投稿済みの確認も飛ばす（試験用）
 
-die() { echo "中断: $*"; exit 1; }
+# 各段階の結果を routine-log ブランチに書き残す（自動実行のセッションの中身は外から
+# 読めないため、失敗したときに何が起きたかを後から確かめられるようにする）
+LOG_FILE="$HOME/.routine_log.txt"
+log() {
+  printf '%s %s\n' "$(TZ=Asia/Tokyo date '+%m/%d %H:%M:%S')" "$*" | tee -a "$LOG_FILE"
+}
+push_log() {
+  [ "$DRY" = "1" ] && return 0
+  local tmp; tmp="$(mktemp -d)"
+  ( cd "$tmp" && git init -q && git checkout -q -b routine-log && cp "$LOG_FILE" log.txt \
+    && git add log.txt && git -c user.name=denen-video -c user.email=noreply@anthropic.com \
+       commit -q -m "自動実行の記録" && git push -q -f "$ORIGIN_URL" routine-log ) >/dev/null 2>&1 || true
+  rm -rf "$tmp"
+}
+trap push_log EXIT
+
+die() { log "中断: $*"; exit 1; }
 
 # Gemini の1日の無料枠を使い切ったとき、台本と途中までの音声を GitHub のブランチに預け、
 # 翌日の実行で続きから作る（自動実行は毎回まっさらな環境で動くため、手元には残らない）
@@ -75,6 +91,8 @@ restore_pending() {
 }
 
 prepare() {
+  : >"$LOG_FILE"
+  log "prepare 開始（STYLE=$STYLE）"
   if [ "$GEMINI_VOICE" = "1" ]; then
     bash cloud/setup.sh --no-engine || die "依存の準備に失敗しました"
     [ -n "${GEMINI_API_KEY:-}" ] || die "GEMINI_API_KEY がありません"
@@ -87,7 +105,7 @@ prepare() {
   PICK="$(python3 pick_article.py --sitemap "$SITEMAP" --youtube --once-per-day)"
   code=$?
   echo "$PICK"
-  [ "$code" -eq 3 ] && { echo "SKIP"; exit 3; }
+  [ "$code" -eq 3 ] && { log "SKIP: 日本時間の今日は投稿済み"; echo "SKIP"; exit 3; }
   [ "$code" -eq 0 ] || die "記事を選べませんでした"
 
   # 前日に無料枠を使い切って作りかけになった動画があれば、その続きから作る
@@ -101,6 +119,7 @@ prepare() {
     else
       printf '%s\n' "$PENDING_SLUG" >"$TODAY_FILE"
       n=$(ls out/audio/*.wav 2>/dev/null | wc -l)
+      log "RESUME: $PENDING_SLUG（音声 ${n} 件を引き継ぎ）"
       echo "RESUME: $PENDING_SLUG（台本と音声 ${n} 文を前日から引き継ぎました。台本は書き直さず、そのまま publish すること）"
       exit 0
     fi
@@ -113,12 +132,14 @@ prepare() {
 
   rm -f script.json
   python3 extract_article.py "$URL" -o article.json --dump || die "抽出に失敗しました"
+  log "READY: $SLUG（抽出まで完了。次は台本）"
   echo "READY: $SLUG"
 }
 
 publish() {
   [ -f "$TODAY_FILE" ] || die "先に prepare を実行してください"
   SLUG="$(cat "$TODAY_FILE")"
+  log "publish 開始: $SLUG"
   [ -f script.json ] || die "script.json がありません"
 
   python3 - "$SLUG" "$STYLE" <<'PY' || die "script.json の検証に失敗しました"
@@ -186,6 +207,7 @@ PY
   code=$?
   if [ "$code" -eq 75 ]; then
     [ "$DRY" = "1" ] || save_pending "$SLUG"
+    log "QUOTA: 今日の無料枠を使い切り。途中まで保存して明日に回す（$SLUG）"
     echo "QUOTA: Gemini の今日の無料枠を使い切りました。明日の枠で続きを作ってアップします。"
     exit 75
   fi
@@ -198,7 +220,9 @@ PY
     python3 upload_youtube.py out/video.mp4 --privacy "$PRIVACY" --dry-run
     return
   fi
-  python3 upload_youtube.py out/video.mp4 --privacy "$PRIVACY" || die "アップロードに失敗しました"
+  UP="$(python3 upload_youtube.py out/video.mp4 --privacy "$PRIVACY")" || die "アップロードに失敗しました"
+  echo "$UP"
+  log "公開: $(printf '%s\n' "$UP" | grep -E '^完了:|^公開設定:' | tr '\n' ' ')"
   rm -f "$TODAY_FILE"
   clear_pending
 }
@@ -206,5 +230,6 @@ PY
 case "${1:-}" in
   prepare) prepare ;;
   publish) publish ;;
+  note)    shift; log "メモ: $*" ;;     # 台本づくりなど、daily.sh の外の段階の結果を残す
   *) echo "使い方: bash cloud/daily.sh prepare|publish"; exit 1 ;;
 esac
