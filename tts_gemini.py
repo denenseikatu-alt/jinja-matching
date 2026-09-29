@@ -103,6 +103,10 @@ def _generate(prompt: str, voice: str) -> bytes:
                 # 終了コード 75 で止める。呼び出し側（cloud/daily.sh）は途中までの音声を
                 # 保存して、翌日の枠で続きを作る
                 print("Gemini の音声生成の、今日の無料枠を使い切りました。", file=sys.stderr)
+                try:
+                    print("  " + json.loads(detail)["error"]["message"][:300], file=sys.stderr)
+                except Exception:
+                    pass
                 sys.exit(QUOTA_EXIT)
             if e.code in (429, 500, 503) and attempt < 7:
                 wait = 10 * (attempt + 1)
