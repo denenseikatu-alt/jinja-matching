@@ -33,6 +33,10 @@ claude.ai/code の入力欄の上にある雲のアイコン → 環境の歯車
    YT_REFRESH_TOKEN=...
    ```
 
+環境変数の代わりに、暗号化した認証情報 `cloud/secrets.enc` を使うこともできる。
+ルーティンの指示文には合言葉だけを書き、`bash cloud/unlock.sh '<合言葉>'` で
+`~/.video_env` に解いてから `. ~/.video_env && bash cloud/daily.sh ...` と実行する。
+
 ### YouTube の認可（初回のみ。スマホでできる）
 
 ```bash
