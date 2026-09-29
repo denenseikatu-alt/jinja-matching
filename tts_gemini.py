@@ -185,11 +185,18 @@ def synth_lines(lines: list[str], out_paths: list[Path], voice: str = "Leda",
         # 空行で区切ると、文と文の間の間（ま）がはっきりして切り分けやすい
         pcm = _generate(directive + ":\n\n" + "\n\n".join(lines), voice)
         a = np.frombuffer(pcm, dtype=np.int16).astype(np.float32) / 32768
-        cuts = _find_cuts(a, [len(x) for x in lines])
-        bounds = [0] + cuts + [len(a)]
-        segs = [_trim((a[bounds[k]:bounds[k + 1]] * 32767).astype(np.int16).tobytes())
-                for k in range(len(lines))]
+        segs = _split(a, [len(x) for x in lines])
         problem = verify(lines, segs)
+        if problem and problem.startswith("1文目に英語"):
+            # 先頭で指示文を読んでいる。短い文のまとまりで起きやすく、作り直しても
+            # 繰り返すので、指示文ぶんの区間を先頭に見込んで切り分け直し、それを捨てる
+            for lead in (40, 30, 55):
+                segs2 = _split(a, [lead] + [len(x) for x in lines])[1:]
+                p2 = verify(lines, segs2)
+                if p2 == "":
+                    print("    先頭で読まれた指示文を切り落としました", flush=True)
+                    segs, problem = segs2, ""
+                    break
         if problem is None:
             # 照合用の文字起こしが混雑などで使えなかった。音声を作り直すと無料枠を
             # 無駄に使うので、そのまま進める
@@ -263,6 +270,13 @@ def verify(lines: list[str], segs: list[bytes]) -> str | None:
         if ratio < 0.6:
             return f"{k}文目が台本と合わない（一致率 {ratio:.2f}: {h[:30]}）"
     return ""
+
+
+def _split(a: np.ndarray, lengths: list[int]) -> list[bytes]:
+    """まとめて読ませた音声を、各文の文字数に合わせて無音で切り分ける。"""
+    bounds = [0] + _find_cuts(a, lengths) + [len(a)]
+    return [_trim((a[bounds[k]:bounds[k + 1]] * 32767).astype(np.int16).tobytes())
+            for k in range(len(lengths))]
 
 
 def _find_cuts(a: np.ndarray, lengths: list[int]) -> list[int]:
