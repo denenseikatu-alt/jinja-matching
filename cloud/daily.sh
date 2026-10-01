@@ -190,6 +190,15 @@ if style in ("presentation", "talking") and "voice" in d:
         sys.exit('voice は {"engine": "gemini", ...} にしてください')
     if not d["youtube"].get("synthetic"):
         sys.exit("youtube.synthetic を true にしてください（AI の音声を申告するため）")
+# 結びで必ず田園生活のサイト（denenseikatu.com）を紹介する（prompts/narration.md「サイトの紹介」）
+tail = d["scenes"][-2:]
+if not any("denenseikatu.com" in s.get("heading", "") + "".join(s.get("bullets", [])) for s in tail):
+    sys.exit("最後のシーンのスクリーン（heading か bullets）に denenseikatu.com を出してください")
+if not any(k in line for s in tail for line in s.get("lines", [])
+           for k in ("ドットコム", "denenseikatu")):
+    sys.exit("最後のシーンの lines で、田園生活のサイト（でんえんせいかつドットコム）を紹介してください")
+if d.get("site_host") != "denenseikatu.com":
+    sys.exit("site_host を denenseikatu.com にしてください（概要欄のサイトのリンクになる）")
 print(f"台本 OK: {len(d['scenes'])} スライド")
 PY
 

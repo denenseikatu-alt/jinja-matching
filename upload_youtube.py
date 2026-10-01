@@ -39,6 +39,10 @@ def build_description(script: dict, outdir: Path, with_chapters: bool) -> str:
     source_url = script.get("source_url")
     if source_url:
         parts.append(f"■ 記事\n{source_url}")
+    # サイトのトップも必ず紹介する（動画の最後でも読み上げている）
+    site_host = script.get("site_host")
+    if site_host:
+        parts.append(f"■ {script.get('site', site_host)}のサイト\nhttps://{site_host}/")
 
     # VOICEVOX はキャラクター名を含むクレジット表記を求めている。
     # build_video.py がエンジンから引いた正式名称を credits.txt に残している。
