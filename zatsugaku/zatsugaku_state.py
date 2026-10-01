@@ -1,0 +1,233 @@
+#!/usr/bin/env python3
+"""雑学動画の台本検査と台帳（重複防止・二重投稿防止）。
+
+台帳 state.json は GitHub の zatsugaku-state ブランチに置き、Mac とクラウドで共有する。
+書き込みは「取得→書き換え→push」を push が通るまで繰り返す（同時に書いても片方が負けて読み直す）。
+
+    python3 zatsugaku_state.py pull                      # 台帳を手元の state.json に取ってくる
+    python3 zatsugaku_state.py claim --by mac            # 今日の担当を取る（終了コード 3 = 今日は不要）
+    python3 zatsugaku_state.py release --by mac          # 失敗したとき担当を手放す（もう一方が作れるように）
+    python3 zatsugaku_state.py check scripts/<日付>.json
+    python3 zatsugaku_state.py done  scripts/<日付>.json --url https://youtu.be/...
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+STATE = HERE / "state.json"
+BRANCH = "zatsugaku-state"
+JST = timezone(timedelta(hours=9))
+CLAIM_HOURS = 3  # 担当を取ってからこの時間を過ぎたら、作成に失敗したとみなしてもう一方が作ってよい
+
+BANNED = re.compile(r"[A-Z]{2,}")  # 英語の略語（RCT・LDL など）。kg・mg は小文字なので通る
+ALLOWED_CAPS = ["NISA"]  # 制度の正式名称だけ許す
+BANNED_WORDS = ["メタ解析", "コホート", "エビデンス", "バイアス", "治る", "効く", "若返る",
+                "必ず儲", "必ず増え", "損しない", "買うべき", "おすすめの銘柄",
+                "ファイナンシャルプランナー", "マネーセミナー"]
+HEALTH = {"筋トレ", "栄養", "ダイエット", "美容", "病気予防", "認知症予防", "健康情報"}
+LIFE = {"恋愛", "暮らし", "幸福感", "人生", "投資", "資産管理"}
+
+
+def today() -> str:
+    return datetime.now(JST).date().isoformat()
+
+
+def empty_state() -> dict:
+    return {"used_topics": [], "used_sources": [], "done": {}, "claims": {}}
+
+
+# --- 共有台帳（git ブランチ） ----------------------------------------------
+
+def _git(*args: str, cwd: Path) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", *args], cwd=cwd, capture_output=True, text=True)
+
+
+def _origin() -> str:
+    r = _git("remote", "get-url", "origin", cwd=HERE)
+    if r.returncode:
+        sys.exit("git の origin が分かりません")
+    return r.stdout.strip()
+
+
+def _checkout(tmp: Path) -> Path:
+    r = _git("clone", "-q", "--depth", "1", "-b", BRANCH, _origin(), str(tmp / "s"), cwd=tmp)
+    repo = tmp / "s"
+    if r.returncode:  # ブランチがまだ無い
+        repo.mkdir()
+        _git("init", "-q", cwd=repo)
+        _git("checkout", "-q", "-b", BRANCH, cwd=repo)
+        _git("remote", "add", "origin", _origin(), cwd=repo)
+    return repo
+
+
+def read_shared() -> dict:
+    with tempfile.TemporaryDirectory() as t:
+        f = _checkout(Path(t)) / "state.json"
+        if f.exists():
+            return json.loads(f.read_text(encoding="utf-8"))
+    # 初回だけ、手元の台帳を種にする
+    return json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else empty_state()
+
+
+def update_shared(change, message: str) -> dict:
+    """change(state) を当てて push する。push が拒否されたら読み直してやり直す。"""
+    for _ in range(5):
+        with tempfile.TemporaryDirectory() as t:
+            repo = _checkout(Path(t))
+            f = repo / "state.json"
+            if f.exists():
+                st = json.loads(f.read_text(encoding="utf-8"))
+            else:
+                st = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else empty_state()
+            st.setdefault("claims", {})
+            result = change(st)
+            f.write_text(json.dumps(st, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            _git("add", "state.json", cwd=repo)
+            _git("-c", "user.name=denen-zatsugaku", "-c", "user.email=noreply@anthropic.com",
+                 "commit", "-q", "-m", message, cwd=repo)
+            if _git("push", "-q", "origin", BRANCH, cwd=repo).returncode == 0:
+                STATE.write_text(f.read_text(encoding="utf-8"), encoding="utf-8")
+                return result if result is not None else st
+    sys.exit("台帳を書き込めませんでした（push が通りません）")
+
+
+# --- コマンド -------------------------------------------------------------
+
+def cmd_pull() -> None:
+    st = read_shared()
+    st.setdefault("claims", {})
+    STATE.write_text(json.dumps(st, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"台帳を取得しました（使用済みの話題 {len(st['used_topics'])}件・投稿 {len(st['done'])}本）")
+
+
+def cmd_claim(by: str) -> None:
+    day = today()
+
+    def change(st):
+        if day in st["done"]:
+            return f"DONE {st['done'][day].get('url', '')}"
+        c = st["claims"].get(day)
+        if c and c["by"] != by:
+            age = datetime.now(JST) - datetime.fromisoformat(c["at"])
+            if age < timedelta(hours=CLAIM_HOURS):
+                return f"BUSY {c['by']}（{int(age.total_seconds() // 60)}分前から作成中）"
+        st["claims"][day] = {"by": by, "at": datetime.now(JST).isoformat(timespec="seconds")}
+        return "OK"
+
+    r = update_shared(change, f"{day} の担当: {by}")
+    if r.startswith("DONE"):
+        print(f"今日（{day}）の雑学動画は投稿済みです: {r[5:]}")
+        sys.exit(3)
+    if r.startswith("BUSY"):
+        print(f"今日（{day}）の雑学動画は {r[5:]}。こちらでは作りません")
+        sys.exit(3)
+    print(f"今日（{day}）の担当を取りました: {by}")
+
+
+def cmd_release(by: str) -> None:
+    day = today()
+
+    def change(st):
+        if st["claims"].get(day, {}).get("by") == by:
+            del st["claims"][day]
+    update_shared(change, f"{day} の担当を手放す: {by}")
+    print(f"今日の担当を手放しました: {by}")
+
+
+def check(path: Path) -> None:
+    sc = json.loads(path.read_text(encoding="utf-8"))
+    st = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else empty_state()
+    errs = []
+    items = sc.get("items", [])
+    body = items[1:-1]
+    if len(body) != 10:
+        errs.append(f"雑学が{len(body)}個です（10個にする）")
+    total = 0
+    for it in items:
+        for ln in it.get("lines", []):
+            cap, say = ln.get("caption", ""), ln.get("say", "")
+            total += len(say)
+            rows = cap.split("\n")
+            if len(rows) > 2 or any(len(r) > 16 for r in rows):
+                errs.append(f"画面の文字が長すぎます: {cap!r}")
+            if len(say) > 70:
+                errs.append(f"読み上げの1文が長すぎます（{len(say)}字）: {say[:20]}…")
+            for t in (cap, say):
+                if BANNED.search(re.sub("|".join(ALLOWED_CAPS), "", t)):
+                    errs.append(f"英語の略語があります: {t!r}")
+                for w in BANNED_WORDS:
+                    if w in t:
+                        errs.append(f"使わない言葉「{w}」があります: {t!r}")
+    for it in body:
+        if not it.get("source") or not (it.get("pmid") or it.get("url")):
+            errs.append(f"出典がありません: {it.get('topic')}")
+        if it.get("pmid") and str(it["pmid"]) in st["used_sources"]:
+            errs.append(f"過去に使った出典です: PMID {it['pmid']}（{it.get('topic')}）")
+        if it.get("topic") in st["used_topics"]:
+            errs.append(f"過去に使った話題です: {it.get('topic')}")
+        if not (it.get("image") or it.get("image_query")):
+            errs.append(f"絵の指定がありません: {it.get('topic')}")
+    cats = [it.get("category") for it in body]
+    bad = [c for c in cats if c not in HEALTH | LIFE]
+    if bad:
+        errs.append(f"category が決まりの値ではありません: {bad}")
+    n_life = sum(c in LIFE for c in cats)
+    if not 3 <= n_life <= 4:
+        errs.append(f"暮らしの分野が{n_life}個です（3〜4個にする）")
+    if len(set(cats)) < 6:
+        errs.append(f"分野が{len(set(cats))}種類しかありません（6種類以上）")
+    if not 1100 <= total <= 1450:
+        errs.append(f"読み上げの合計が{total}字です（1,150〜1,350字が目安）")
+    if not sc.get("youtube", {}).get("title"):
+        errs.append("youtube.title がありません")
+    if errs:
+        print("台本の検査で不合格:\n  " + "\n  ".join(errs))
+        sys.exit(1)
+    print(f"台本 OK: 雑学{len(body)}個・読み上げ{total}字")
+
+
+def cmd_done(path: Path, url: str, by: str) -> None:
+    sc = json.loads(path.read_text(encoding="utf-8"))
+    body = sc["items"][1:-1]
+    day = today()
+
+    def change(st):
+        st["used_topics"] += [it["topic"] for it in body if it.get("topic")]
+        st["used_sources"] += [str(it["pmid"]) for it in body if it.get("pmid")]
+        st["done"][day] = {"url": url, "by": by, "title": sc.get("youtube", {}).get("title")}
+        st["claims"].pop(day, None)
+    st = update_shared(change, f"{day} 投稿: {url}")
+    print(f"記録しました: {day} → {url}（使用済みの話題 {len(st['used_topics'])}件）")
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("cmd", choices=["pull", "claim", "release", "check", "done"])
+    ap.add_argument("script", nargs="?")
+    ap.add_argument("--url", default="")
+    ap.add_argument("--by", default="mac", choices=["mac", "cloud"])
+    a = ap.parse_args()
+    if a.cmd == "pull":
+        cmd_pull()
+    elif a.cmd == "claim":
+        cmd_claim(a.by)
+    elif a.cmd == "release":
+        cmd_release(a.by)
+    elif a.cmd == "check":
+        check(Path(a.script))
+    else:
+        cmd_done(Path(a.script), a.url, a.by)
+
+
+if __name__ == "__main__":
+    main()
