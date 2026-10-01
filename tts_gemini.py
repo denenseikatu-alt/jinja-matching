@@ -263,7 +263,9 @@ def verify(lines: list[str], segs: list[bytes]) -> str | None:
         h = heard.get(k, "")
         # 指示文を読んだときは英語の単語が混ざる。大文字だけの略語（ビーディーエヌエフ →
         # BDNF のように、カタカナで読ませた語を英字で書き起こしたもの）は数えない
-        words = [w for w in re.findall(r"[A-Za-z]{4,}", h) if not w.isupper()]
+        # サイト名（でんえんせいかつドットコム → denenseikatsu.com）のようなドメイン名も数えない
+        h_words = re.sub(r"[A-Za-z][A-Za-z.\-]*\.(?:com|jp|net|org)\b", "", h)
+        words = [w for w in re.findall(r"[A-Za-z]{4,}", h_words) if not w.isupper()]
         if words and not re.search(r"[A-Za-z]{4,}", line):
             return f"{k}文目に英語が入っている（{h[:40]}）"
         ratio = difflib.SequenceMatcher(None, _norm(line), _norm(h)).ratio()
