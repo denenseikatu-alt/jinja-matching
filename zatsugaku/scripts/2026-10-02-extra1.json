@@ -1,0 +1,326 @@
+{
+  "theme": "恋愛",
+  "title": "9割が知らない 恋愛の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n恋愛の雑学",
+          "say": "知って得する、恋愛の雑学。"
+        },
+        {
+          "caption": "全部、研究で\n確かめました",
+          "say": "今日の10個は、すべて研究論文や調査で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "考え込む女性",
+      "image_query_alt": "片思い",
+      "topic": "恋愛初期の脳内物質と強迫性障害の共通点",
+      "category": "恋愛",
+      "source": "Marazziti ほか（1999年・心理医学誌）",
+      "pmid": "10405096",
+      "lines": [
+        {
+          "caption": "恋をすると\n頭から離れない",
+          "say": "恋をすると、相手のことが頭から離れなくなりませんか。"
+        },
+        {
+          "caption": "血液中の物質が\n強迫性障害の人と同じ",
+          "say": "最近恋に落ちた60人を調べた研究があります。"
+        },
+        {
+          "caption": "セロトニンを運ぶ量が\n恋していない人より少ない",
+          "say": "脳の中でセロトニンを運ぶ量が、恋をしていない人より少なく、強迫性障害の人とほぼ同じ量でした。"
+        }
+      ],
+      "image": "rennai_kaeruka.png",
+      "image_page": "https://www.irasutoya.com/2023/04/blog-post_527.html"
+    },
+    {
+      "image_query": "カップル",
+      "image_query_alt": "デートする男女",
+      "topic": "恋愛初期の脳の報酬系の活動",
+      "category": "恋愛",
+      "source": "Aron ほか（2005年・神経生理学誌）",
+      "pmid": "15928068",
+      "lines": [
+        {
+          "caption": "恋をすると\n脳のどこが働く?",
+          "say": "恋をすると、脳のどこが強く働くのでしょうか。"
+        },
+        {
+          "caption": "交際1〜17か月の\n17人を検査",
+          "say": "交際して1か月から17か月の、17人の男女を調べた研究があります。"
+        },
+        {
+          "caption": "恋人の写真を見ると\nやる気の脳が強く反応",
+          "say": "恋人の写真を見たとき、やる気やドーパミンに関わる脳の部分が、強く反応していました。"
+        }
+      ],
+      "image": "eto_uma_couple.png",
+      "image_page": "https://www.irasutoya.com/2025/12/etoumacouple.html"
+    },
+    {
+      "image_query": "緊張する人",
+      "image_query_alt": "ストレス 女性",
+      "topic": "恋愛初期のストレスホルモンの変化",
+      "category": "恋愛",
+      "source": "Marazziti・Canale（2004年・精神神経内分泌学誌）",
+      "pmid": "15177709",
+      "lines": [
+        {
+          "caption": "恋をすると\n体はストレス状態?",
+          "say": "恋をすると、体はストレスを感じているときと似た状態になります。"
+        },
+        {
+          "caption": "恋して半年以内の24人と\n独身や長期交際の24人を比較",
+          "say": "恋をして半年以内の24人と、独身か長期交際中の24人のホルモンを比べました。"
+        },
+        {
+          "caption": "ストレスホルモンが\n恋した人だけ高かった",
+          "say": "ストレスホルモンのコルチゾールは、恋をした人たちだけ、はっきり高くなっていました。"
+        },
+        {
+          "caption": "1〜2年後には\n元の値に戻っていた",
+          "say": "ただ、1年から2年後に測り直すと、差はなくなっていました。"
+        }
+      ],
+      "image": "stress_woman.png",
+      "image_page": "https://www.irasutoya.com/2014/03/blog-post_294.html"
+    },
+    {
+      "image_query": "手をつなぐカップル",
+      "image_query_alt": "仲良し夫婦",
+      "topic": "恋愛初期のオキシトシンと関係の継続",
+      "category": "恋愛",
+      "source": "Schneiderman ほか（2012年・精神神経内分泌学誌）",
+      "pmid": "22281209",
+      "lines": [
+        {
+          "caption": "恋人ホルモンの量で\n関係の先が分かる?",
+          "say": "愛着のホルモン、オキシトシンの量で、関係の先が見えてくるかもしれません。"
+        },
+        {
+          "caption": "新しい恋人がいる120人と\n独身の43人を比較",
+          "say": "新しく恋人ができた120人と、独身の43人のオキシトシンを比べました。"
+        },
+        {
+          "caption": "恋人がいる人は\n明らかに量が多かった",
+          "say": "恋人がいる人たちは、独身の人たちより、明らかにオキシトシンの量が多かったのです。"
+        },
+        {
+          "caption": "量が多かった人ほど\n半年後も交際が続いていた",
+          "say": "さらに、最初の量が多かった人ほど、半年後も交際が続いている傾向がありました。"
+        }
+      ],
+      "image": "eto_usagi_couple.png",
+      "image_page": "https://www.irasutoya.com/2022/10/blog-post_561.html"
+    },
+    {
+      "image_query": "頭痛",
+      "image_query_alt": "痛みを我慢する人",
+      "topic": "恋人の写真を見ることによる痛みの軽減",
+      "category": "恋愛",
+      "source": "Younger ほか（2010年・プロス・ワン）",
+      "pmid": "20967200",
+      "lines": [
+        {
+          "caption": "恋人の写真を見ると\n痛みが和らぐ?",
+          "say": "恋人の写真を見ると、痛みが和らぐことがあります。"
+        },
+        {
+          "caption": "交際9か月以内の\n15人で実験",
+          "say": "交際して9か月以内の15人に、熱による痛みを与える実験をしました。"
+        },
+        {
+          "caption": "恋人の写真でも\n痛みは同じくらい和らいだ",
+          "say": "恋人の写真を見たときも、別の作業で気をそらしたときと同じくらい、痛みが和らぎました。"
+        },
+        {
+          "caption": "恋人の写真の時だけ\n脳のごほうび部分が働いた",
+          "say": "ただ、恋人の写真を見たときだけ、脳のごほうびに関わる部分が強く働いていました。"
+        }
+      ],
+      "image": "mask_zutsu_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/08/blog-post_18.html"
+    },
+    {
+      "image_query": "手を握る",
+      "image_query_alt": "夫婦 手をつなぐ",
+      "topic": "手をつなぐことによる恐怖反応の軽減",
+      "category": "恋愛",
+      "source": "Coan ほか（2006年・心理科学誌）",
+      "pmid": "17201784",
+      "lines": [
+        {
+          "caption": "手をつなぐだけで\n怖さが和らぐ?",
+          "say": "手をつなぐだけで、怖さが和らぐことがあります。"
+        },
+        {
+          "caption": "既婚女性16人に\n電気の刺激の恐怖を与えて検査",
+          "say": "16人の既婚女性に、電気の刺激が来るという恐怖を与えながら、脳の働きを調べました。"
+        },
+        {
+          "caption": "夫の手を握ると\n脳の恐怖反応が鎮まった",
+          "say": "夫の手を握ると、脳の中の恐怖に関わる反応が、広い範囲で鎮まりました。"
+        },
+        {
+          "caption": "結婚生活の満足度が\n高い人ほど効果が大きかった",
+          "say": "結婚生活の満足度が高い人ほど、夫の手を握ったときの効果が大きかったのです。"
+        }
+      ],
+      "image": "baby_shake_hands.png",
+      "image_page": "https://www.irasutoya.com/2018/08/blog-post_398.html"
+    },
+    {
+      "image_query": "遊園地 カップル",
+      "image_query_alt": "デート",
+      "topic": "新しい共同体験による関係満足度の変化",
+      "category": "恋愛",
+      "source": "Aron ほか（2000年・人格社会心理学誌）",
+      "pmid": "10707334",
+      "lines": [
+        {
+          "caption": "関係にマンネリを\n感じたら",
+          "say": "交際や結婚生活にマンネリを感じることは、よくあります。"
+        },
+        {
+          "caption": "カップルに7分間\n新しい体験をしてもらう実験",
+          "say": "カップルに7分間、初めてのドキドキする作業を一緒にしてもらう実験をしました。"
+        },
+        {
+          "caption": "ふだんどおりの作業と比べ\n関係の満足度が上がった",
+          "say": "いつもどおりの作業をしたカップルより、満足度がはっきり上がっていました。"
+        }
+      ],
+      "image": "yuenchi_couple_school.png",
+      "image_page": "https://www.irasutoya.com/2018/12/blog-post_902.html"
+    },
+    {
+      "image_query": "高齢夫婦",
+      "image_query_alt": "仲良し高齢者",
+      "topic": "長期的な関係における恋愛感情の脳活動",
+      "category": "恋愛",
+      "source": "Acevedo ほか（2012年・社会認知感情神経科学誌）",
+      "pmid": "21208991",
+      "lines": [
+        {
+          "caption": "長年連れ添うと\n恋愛感情は消える?",
+          "say": "長年連れ添うと、恋愛の気持ちは消えてしまうものでしょうか。"
+        },
+        {
+          "caption": "平均21.4年の\n夫婦17人の脳を検査",
+          "say": "結婚して平均21.4年の夫婦、17人の脳を調べた研究があります。"
+        },
+        {
+          "caption": "恋をしたばかりの人と\n同じ脳の部分が働いていた",
+          "say": "恋をしたばかりの人と同じ、脳のごほうびに関わる部分が働いていました。"
+        }
+      ],
+      "image": "travel_old_couple.png",
+      "image_page": "https://www.irasutoya.com/2018/07/blog-post_96.html"
+    },
+    {
+      "image_query": "結婚式",
+      "image_query_alt": "新婚夫婦",
+      "topic": "パートナーの理想化と結婚満足度の変化",
+      "category": "恋愛",
+      "source": "Murray ほか（2011年・心理科学誌）",
+      "pmid": "21467549",
+      "lines": [
+        {
+          "caption": "相手を理想化すると\n関係は長持ちする?",
+          "say": "相手を少し理想化して見ることは、関係にとってよいことなのでしょうか。"
+        },
+        {
+          "caption": "新婚夫婦を\n結婚後3年間追跡",
+          "say": "新婚の夫婦を、結婚してから3年間、追いかけて調べた研究があります。"
+        },
+        {
+          "caption": "満足度は全体的に\nだんだん下がっていった",
+          "say": "満足度は、全体としては、年月とともにだんだん下がっていきました。"
+        },
+        {
+          "caption": "相手を理想化していた人は\n3年後も満足度は下がらず",
+          "say": "ところが、結婚時に相手を最も理想化していた人たちは、3年後も満足度が下がっていませんでした。"
+        }
+      ],
+      "image": "tablet_online_wedding.png",
+      "image_page": "https://www.irasutoya.com/2020/06/blog-post_990.html"
+    },
+    {
+      "image_query": "お見合い",
+      "image_query_alt": "マッチングアプリ",
+      "topic": "恋愛における年齢の好みの男女差",
+      "category": "恋愛",
+      "source": "Eastwick ほか（2025年・米国科学アカデミー紀要）",
+      "pmid": "39869809",
+      "lines": [
+        {
+          "caption": "年上が好き・年下が好きは\n男女で違う?",
+          "say": "男性は年下が好き、女性は年上が好き、と思われていませんか。"
+        },
+        {
+          "caption": "結婚相手を探す\n6262人のデートを調査",
+          "say": "結婚相手を探している6262人の、実際のデートを大規模に調べました。"
+        },
+        {
+          "caption": "男女とも\n少し年下を好む結果に",
+          "say": "結果は、男女とも、相手がわずかに年下のときに、より好意的な評価をしていました。"
+        },
+        {
+          "caption": "男女差は\nほとんど見られなかった",
+          "say": "この傾向に、男女の差はほとんど見られませんでした。"
+        }
+      ],
+      "image": "renai_feeling_couple.png",
+      "image_page": "https://www.irasutoya.com/2019/02/blog-post_80.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか?",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない恋愛の雑学10選【論文で確認済み】脳とホルモンが変わる",
+    "description": "恋愛にまつわる10個の雑学を、すべて査読付きの研究論文で確かめて紹介します。",
+    "tags": [
+      "雑学",
+      "恋愛",
+      "心理学",
+      "オキシトシン",
+      "脳科学",
+      "豆知識"
+    ],
+    "sources": [
+      "Marazziti D ほか. 心理医学誌 1999;29(3):741-745 https://europepmc.org/article/MED/10405096",
+      "Aron A ほか. 神経生理学誌 2005;94:327-337 https://europepmc.org/article/MED/15928068",
+      "Marazziti D, Canale D. 精神神経内分泌学誌 2004;29(7):931-936 https://europepmc.org/article/MED/15177709",
+      "Schneiderman I ほか. 精神神経内分泌学誌 2012;37(8):1277-1285 https://europepmc.org/article/MED/22281209",
+      "Younger J ほか. プロス・ワン 2010;5(10):e13309 https://europepmc.org/article/MED/20967200",
+      "Coan JA ほか. 心理科学誌 2006;17(12):1032-1039 https://europepmc.org/article/MED/17201784",
+      "Aron A ほか. 人格社会心理学誌 2000;78(2):273-284 https://europepmc.org/article/MED/10707334",
+      "Acevedo BP ほか. 社会認知感情神経科学誌 2012;7(2):145-159 https://europepmc.org/article/MED/21208991",
+      "Murray SL ほか. 心理科学誌 2011;22(5):619-626 https://europepmc.org/article/MED/21467549",
+      "Eastwick PW ほか. 米国科学アカデミー紀要 2025;122(5):e2416984122 https://europepmc.org/article/MED/39869809"
+    ]
+  }
+}
