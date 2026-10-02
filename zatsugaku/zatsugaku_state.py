@@ -272,7 +272,7 @@ def check(path: Path, theme: str | None = None) -> None:
     print(f"台本 OK: 雑学{len(body)}個・読み上げ{total}字")
 
 
-def cmd_done(path: Path, url: str, by: str, key: str | None = None) -> None:
+def cmd_done(path: Path, url: str, by: str, key: str | None = None, keep_order: bool = False) -> None:
     sc = json.loads(path.read_text(encoding="utf-8"))
     body = sc["items"][1:-1]
     day = key or today()
@@ -282,7 +282,7 @@ def cmd_done(path: Path, url: str, by: str, key: str | None = None) -> None:
         st["used_sources"] += [str(it["pmid"]) for it in body if it.get("pmid")]
         st["done"][day] = {"url": url, "by": by, "title": sc.get("youtube", {}).get("title"),
                            "theme": sc.get("theme"),
-                           "fixed": st.get("theme_overrides", {}).get(day) == sc.get("theme")}
+                           "fixed": keep_order or st.get("theme_overrides", {}).get(day) == sc.get("theme")}
         st["claims"].pop(day, None)
     st = update_shared(change, f"{day} 投稿: {url}")
     print(f"記録しました: {day} → {url}（使用済みの話題 {len(st['used_topics'])}件）")
@@ -297,6 +297,8 @@ def main() -> None:
     ap.add_argument("--scope", action="store_true", help="theme と一緒に使う。テーマの範囲の説明も出す")
     ap.add_argument("--theme", help="check と一緒に使う。今日のテーマの代わりにこのテーマで検査する（追加の回）")
     ap.add_argument("--key", help="done と一緒に使う。台帳の記録先（追加の回は「日付-extraN」）")
+    ap.add_argument("--keep-order", action="store_true",
+                    help="done と一緒に使う。毎日の回のテーマの順番を進めない（ルーティンとは別に作った回）")
     a = ap.parse_args()
     if a.cmd == "pull":
         cmd_pull()
@@ -313,7 +315,7 @@ def main() -> None:
     elif a.cmd == "check":
         check(Path(a.script), a.theme)
     else:
-        cmd_done(Path(a.script), a.url, a.by, a.key)
+        cmd_done(Path(a.script), a.url, a.by, a.key, a.keep_order)
 
 
 if __name__ == "__main__":
