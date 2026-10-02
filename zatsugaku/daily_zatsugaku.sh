@@ -68,9 +68,10 @@ if [ ! -f "$SCRIPT" ]; then
 - 見本は scripts/trial_01.json（文体と書式だけ参考にし、内容は流用しない）
 - state.json の used_topics と used_sources にある話題・出典は使わない
 - 10個すべて、論文の要旨か公的資料を WebFetch で実際に開いて数値を確かめてから書く。確かめられなかった雑学は入れない
+- 調べものと執筆は自分で行う（ほかのエージェントに任せない）。ネタ探しには WebSearch を使ってよい
 - $SCRIPT を書く以外のことはしないでください" \
     --permission-mode acceptEdits \
-    --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "WebFetch" \
+    --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "WebFetch" "WebSearch" \
     || die "台本の作成に失敗しました"
 fi
 # 今日のテーマでネタが10個そろわないと Claude が判断したら（scripts/<日付>.skip）、
@@ -89,9 +90,10 @@ if [ -f "$SKIP" ] && [ ! -f "$SCRIPT" ]; then
 - 見本は scripts/trial_01.json（文体と書式だけ参考にし、内容は流用しない）
 - state.json の used_topics と used_sources にある話題・出典は使わない
 - 10個すべて、論文の要旨か公的資料を WebFetch で実際に開いて数値を確かめてから書く
+- 調べものと執筆は自分で行う（ほかのエージェントに任せない）。ネタ探しには WebSearch を使ってよい
 - $SCRIPT を書く以外のことはしないでください" \
     --permission-mode acceptEdits \
-    --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "WebFetch" \
+    --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "WebFetch" "WebSearch" \
     || die "台本の作成に失敗しました"
 fi
 [ -f "$SCRIPT" ] || die "$SCRIPT が作られませんでした"
@@ -103,7 +105,7 @@ for attempt in 1 2; do
 
 $CHECK" \
     --permission-mode acceptEdits \
-    --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "WebFetch" \
+    --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "WebFetch" "WebSearch" \
     || die "台本の修正に失敗しました"
 done
 python3 zatsugaku_state.py check "$SCRIPT" || die "台本の検査に通りませんでした"
