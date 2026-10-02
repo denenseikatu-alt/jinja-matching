@@ -31,7 +31,7 @@ prepare() {
   (cd "$REPO" && python3 yt_auth.py check) || die "YouTube の認証に失敗しました"
   THEME="$(python3 zatsugaku_state.py theme)" || die "今日のテーマを決められませんでした"
   SCOPE="$(python3 zatsugaku_state.py theme --scope)"
-  echo "READY: zatsugaku/$SCRIPT を書いてください。今日のテーマは「$THEME」で、10個すべてこのテーマにする。テーマの範囲: $SCOPE。prompts/zatsugaku.md にこのテーマ向けの注意があれば必ず守る（見本 scripts/trial_01.json）"
+  echo "READY: zatsugaku/$SCRIPT を書いてください。今日のテーマは「$THEME」で、10個すべてこのテーマにする。テーマの範囲: $SCOPE。prompts/zatsugaku.md にこのテーマ向けの注意があれば必ず守る（見本 scripts/trial_01.json）。このテーマで過去回と重ならない確かめられた雑学が10個そろわなければ、作り話で埋めず \`cd zatsugaku && python3 zatsugaku_state.py skip-theme\` を実行し、表示された新しいテーマで書き直す"
 }
 
 publish() {

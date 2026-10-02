@@ -7,6 +7,7 @@
     python3 zatsugaku_state.py pull                      # 台帳を手元の state.json に取ってくる
     python3 zatsugaku_state.py claim --by mac            # 今日の担当を取る（終了コード 3 = 今日は不要）
     python3 zatsugaku_state.py theme                     # 今日のテーマを表示する
+    python3 zatsugaku_state.py skip-theme                # 今日のテーマでネタがそろわないとき、次のテーマに切り替える
     python3 zatsugaku_state.py release --by mac          # 失敗したとき担当を手放す（もう一方が作れるように）
     python3 zatsugaku_state.py check scripts/<日付>.json
     python3 zatsugaku_state.py done  scripts/<日付>.json --url https://youtu.be/...
@@ -80,14 +81,20 @@ def theme_for(st: dict, day: str) -> str:
     台帳だけで決まるので Mac とクラウドで一致する。固定した日のあとは、最後に投稿したテーマの次から続く。"""
     if day in st.get("done", {}) and st["done"][day].get("theme"):
         return st["done"][day]["theme"]
+    # その日に「別のネタが10個そろわない」として外したテーマ（台帳の theme_skips）
+    skips = set(st.get("theme_skips", {}).get(day, []))
     # オーナーの指示で日付ごとにテーマを固定した日（台帳の theme_overrides）。順番より優先する
-    if st.get("theme_overrides", {}).get(day) in THEMES:
-        return st["theme_overrides"][day]
+    fixed = st.get("theme_overrides", {}).get(day)
+    if fixed in THEMES and fixed not in skips:
+        return fixed
     past = sorted((d, v["theme"]) for d, v in st.get("done", {}).items()
                   if d < day and v.get("theme") in THEMES)
-    if not past:
-        return THEMES[0]
-    return THEMES[(THEMES.index(past[-1][1]) + 1) % len(THEMES)]
+    i = (THEMES.index(past[-1][1]) + 1) % len(THEMES) if past else 0
+    for k in range(len(THEMES)):
+        t = THEMES[(i + k) % len(THEMES)]
+        if t not in skips:
+            return t
+    sys.exit("その日に使えるテーマが残っていません")
 
 
 def empty_state() -> dict:
@@ -194,6 +201,24 @@ def cmd_release(by: str) -> None:
     print(f"今日の担当を手放しました: {by}")
 
 
+def cmd_skip_theme() -> None:
+    """今日のテーマでは確かめられた別のネタが10個そろわないとき、順番で次のテーマに切り替える。"""
+    day = today()
+
+    def change(st):
+        cur = theme_for(st, day)
+        st.setdefault("theme_skips", {}).setdefault(day, []).append(cur)
+        new = theme_for(st, day)
+        if day in st["claims"]:
+            st["claims"][day]["theme"] = new
+        return f"{cur}→{new}"
+    r = update_shared(change, f"{day} のテーマを切り替え（ネタが10個そろわない）")
+    cur, new = r.split("→")
+    print(f"「{cur}」は別のネタが10個そろわないため、今日のテーマを「{new}」に切り替えました")
+    print(f"THEME: {new}")
+    print(f"範囲: {THEME_SCOPE[new]}")
+
+
 def check(path: Path) -> None:
     sc = json.loads(path.read_text(encoding="utf-8"))
     st = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else empty_state()
@@ -262,7 +287,7 @@ def cmd_done(path: Path, url: str, by: str) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["pull", "claim", "release", "check", "done", "theme"])
+    ap.add_argument("cmd", choices=["pull", "claim", "release", "check", "done", "theme", "skip-theme"])
     ap.add_argument("script", nargs="?")
     ap.add_argument("--url", default="")
     ap.add_argument("--by", default="mac", choices=["mac", "cloud"])
@@ -270,6 +295,8 @@ def main() -> None:
     a = ap.parse_args()
     if a.cmd == "pull":
         cmd_pull()
+    elif a.cmd == "skip-theme":
+        cmd_skip_theme()
     elif a.cmd == "theme":
         st = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else read_shared()
         t = theme_for(st, today())

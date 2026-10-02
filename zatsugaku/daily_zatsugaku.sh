@@ -73,6 +73,27 @@ if [ ! -f "$SCRIPT" ]; then
     --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "WebFetch" \
     || die "台本の作成に失敗しました"
 fi
+# 今日のテーマでネタが10個そろわないと Claude が判断したら（scripts/<日付>.skip）、
+# 台帳でテーマを次に切り替えて、1回だけ書き直しを頼む
+SKIP="scripts/$TODAY.skip"
+if [ -f "$SKIP" ] && [ ! -f "$SCRIPT" ]; then
+  echo "「$THEME」は10個そろわない: $(cat "$SKIP")"
+  rm -f "$SKIP"
+  python3 zatsugaku_state.py skip-theme || die "テーマを切り替えられませんでした"
+  THEME="$(python3 zatsugaku_state.py theme)"
+  SCOPE="$(python3 zatsugaku_state.py theme --scope)"
+  "$CLAUDE_BIN" -p "prompts/zatsugaku.md のルールに従って、今日（$TODAY）の雑学動画の台本を $SCRIPT に書いてください。
+
+- **今日のテーマは「$THEME」。10個すべてこのテーマの雑学にする**（台本の theme と各 category も「$THEME」）。前のテーマでは10個そろわなかったため切り替えた
+- テーマの範囲: $SCOPE。prompts/zatsugaku.md にこのテーマ向けの注意があれば必ず守る
+- 見本は scripts/trial_01.json（文体と書式だけ参考にし、内容は流用しない）
+- state.json の used_topics と used_sources にある話題・出典は使わない
+- 10個すべて、論文の要旨か公的資料を WebFetch で実際に開いて数値を確かめてから書く
+- $SCRIPT を書く以外のことはしないでください" \
+    --permission-mode acceptEdits \
+    --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "WebFetch" \
+    || die "台本の作成に失敗しました"
+fi
 [ -f "$SCRIPT" ] || die "$SCRIPT が作られませんでした"
 
 for attempt in 1 2; do
