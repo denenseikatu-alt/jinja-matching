@@ -76,9 +76,13 @@ def today() -> str:
 
 
 def theme_for(st: dict, day: str) -> str:
-    """その日のテーマ。前日までに投稿した最後のテーマの次。台帳だけで決まるので Mac とクラウドで一致する。"""
+    """その日のテーマ。前日までに投稿した最後のテーマの次（固定した日はそのテーマ）。
+    台帳だけで決まるので Mac とクラウドで一致する。固定した日のあとは、最後に投稿したテーマの次から続く。"""
     if day in st.get("done", {}) and st["done"][day].get("theme"):
         return st["done"][day]["theme"]
+    # オーナーの指示で日付ごとにテーマを固定した日（台帳の theme_overrides）。順番より優先する
+    if st.get("theme_overrides", {}).get(day) in THEMES:
+        return st["theme_overrides"][day]
     past = sorted((d, v["theme"]) for d, v in st.get("done", {}).items()
                   if d < day and v.get("theme") in THEMES)
     if not past:
