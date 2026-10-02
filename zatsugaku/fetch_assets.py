@@ -26,7 +26,7 @@ HIRAGINO = Path("/System/Library/Fonts/ヒラギノ角ゴシック W8.ttc")
 
 UA = {"User-Agent": "Mozilla/5.0"}
 BGM_PAGE = "https://opentracks.com/bgm/detail/12633/download"
-FONT_URL = "https://github.com/google/fonts/raw/main/ofl/notosansjp/NotoSansJP%5Bwght%5D.ttf"
+FONT_URL = "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansjp/NotoSansJP%5Bwght%5D.ttf"
 _B = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/"
 FIXED_IMAGES = {
     "hirameki_man.png": _B + "AVvXsEiThh51O_5PBczGCVOAZqWk0NniNOu2Fxun8BlELAmHwR8Rltl1Gnqb_u0dkHvf34yGijTLvwnjWDAe6f-LtgOXAiX3sj__yCp5rsa2KTeaR0uaGye3zKUaTCUd8PiHDAObRfDSW8JT9qc/s800/hirameki_man.png",
