@@ -17,7 +17,9 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import math
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -172,6 +174,41 @@ def render_slide(caption: str, image: str, source: str | None, path: Path) -> No
 
 # --- 組み立て -------------------------------------------------------------
 
+BGM_XFADE = 1.5  # 曲の終わりと次の頭を重ねる長さ（秒）
+
+
+def bgm_music_end() -> float:
+    """曲の終わりの無音（余韻）が始まる位置。Escort は最後の約11秒がほぼ無音で、
+    そのまま繰り返すと2周目の前に音が途切れる。"""
+    r = subprocess.run([FFMPEG, "-hide_banner", "-i", str(BGM), "-af", "silencedetect=noise=-45dB:d=0.3",
+                        "-f", "null", "-"], capture_output=True, text=True)
+    starts = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", r.stderr)]
+    ends = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", r.stderr)]
+    dur = float(re.search(r"Duration: (\d+):(\d+):([\d.]+)", r.stderr).group(3)) + \
+        60 * int(re.search(r"Duration: (\d+):(\d+)", r.stderr).group(2))
+    # 曲の最後まで続く無音があれば、その手前（余韻を少し残す）で切る
+    if starts and (len(ends) < len(starts) or ends[-1] >= dur - 0.1):
+        return min(dur, starts[-1] + 0.5)
+    return dur
+
+
+def make_bgm_bed(total: float, path: Path) -> None:
+    """無音の余韻を切り落とした曲を、つなぎ目を重ねながら必要な長さまで並べる（途切れなく続く）。"""
+    end = bgm_music_end()
+    n = max(1, math.ceil((total + 1) / (end - BGM_XFADE)))
+    args = [FFMPEG, "-y", "-loglevel", "error"]
+    for _ in range(n):
+        args += ["-i", str(BGM)]
+    parts = [f"[{i}:a]atrim=0:{end:.3f},asetpts=PTS-STARTPTS[s{i}]" for i in range(n)]
+    chain, last = [], "s0"
+    for i in range(1, n):
+        chain.append(f"[{last}][s{i}]acrossfade=d={BGM_XFADE}:c1=tri:c2=tri[x{i}]")
+        last = f"x{i}"
+    graph = ";".join(parts + chain) if chain else parts[0]
+    args += ["-filter_complex", graph, "-map", f"[{last}]", "-ar", "48000", str(path)]
+    subprocess.run(args, check=True)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("script")
@@ -242,11 +279,12 @@ def main() -> None:
     fade = 3.0
     subprocess.run([FFMPEG, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(out / "audio.txt"),
                     "-c:a", "pcm_s16le", str(out / "narration.wav")], check=True)
+    make_bgm_bed(total, out / "bgm_bed.wav")
     subprocess.run([
         FFMPEG, "-y", "-loglevel", "error",
         "-f", "concat", "-safe", "0", "-i", str(out / "video.txt"),
         "-i", str(out / "narration.wav"),
-        "-stream_loop", "-1", "-i", str(BGM),
+        "-i", str(out / "bgm_bed.wav"),
         "-filter_complex",
         f"[2:a]volume={BGM_VOLUME},atrim=0:{total:.3f},afade=t=out:st={total - fade:.3f}:d={fade}[bgm];"
         f"[1:a]aresample=48000[nar];[nar][bgm]amix=inputs=2:duration=first:normalize=0,"
