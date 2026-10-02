@@ -6,6 +6,7 @@
 
     python3 zatsugaku_state.py pull                      # 台帳を手元の state.json に取ってくる
     python3 zatsugaku_state.py claim --by mac            # 今日の担当を取る（終了コード 3 = 今日は不要）
+    python3 zatsugaku_state.py theme                     # 今日のテーマを表示する
     python3 zatsugaku_state.py release --by mac          # 失敗したとき担当を手放す（もう一方が作れるように）
     python3 zatsugaku_state.py check scripts/<日付>.json
     python3 zatsugaku_state.py done  scripts/<日付>.json --url https://youtu.be/...
@@ -34,12 +35,25 @@ ALLOWED_CAPS = ["NISA"]  # 制度の正式名称だけ許す
 BANNED_WORDS = ["メタ解析", "コホート", "エビデンス", "バイアス", "治る", "効く", "若返る",
                 "必ず儲", "必ず増え", "損しない", "買うべき", "おすすめの銘柄",
                 "ファイナンシャルプランナー", "マネーセミナー"]
-HEALTH = {"筋トレ", "栄養", "ダイエット", "美容", "病気予防", "認知症予防", "健康情報"}
-LIFE = {"恋愛", "暮らし", "幸福感", "人生", "投資", "資産管理"}
+# 1本の動画は1テーマ。毎日この順に1つずつ進む（健康と暮らしが交互になる並び。17日で一巡）
+THEMES = ["筋トレ", "恋愛", "栄養", "幸福感", "プロテイン", "暮らし", "ビタミン", "人生", "ダイエット",
+          "投資", "アンチエイジング", "資産管理", "筋肥大", "美容", "病気予防", "認知症予防", "健康情報"]
+MONEY = {"投資", "資産管理"}
 
 
 def today() -> str:
     return datetime.now(JST).date().isoformat()
+
+
+def theme_for(st: dict, day: str) -> str:
+    """その日のテーマ。前日までに投稿した最後のテーマの次。台帳だけで決まるので Mac とクラウドで一致する。"""
+    if day in st.get("done", {}) and st["done"][day].get("theme"):
+        return st["done"][day]["theme"]
+    past = sorted((d, v["theme"]) for d, v in st.get("done", {}).items()
+                  if d < day and v.get("theme") in THEMES)
+    if not past:
+        return THEMES[0]
+    return THEMES[(THEMES.index(past[-1][1]) + 1) % len(THEMES)]
 
 
 def empty_state() -> dict:
@@ -121,8 +135,9 @@ def cmd_claim(by: str) -> None:
             age = datetime.now(JST) - datetime.fromisoformat(c["at"])
             if age < timedelta(hours=CLAIM_HOURS):
                 return f"BUSY {c['by']}（{int(age.total_seconds() // 60)}分前から作成中）"
-        st["claims"][day] = {"by": by, "at": datetime.now(JST).isoformat(timespec="seconds")}
-        return "OK"
+        st["claims"][day] = {"by": by, "at": datetime.now(JST).isoformat(timespec="seconds"),
+                             "theme": theme_for(st, day)}
+        return "OK " + st["claims"][day]["theme"]
 
     r = update_shared(change, f"{day} の担当: {by}")
     if r.startswith("DONE"):
@@ -132,6 +147,7 @@ def cmd_claim(by: str) -> None:
         print(f"今日（{day}）の雑学動画は {r[5:]}。こちらでは作りません")
         sys.exit(3)
     print(f"今日（{day}）の担当を取りました: {by}")
+    print(f"THEME: {r[3:]}")
 
 
 def cmd_release(by: str) -> None:
@@ -148,6 +164,9 @@ def check(path: Path) -> None:
     sc = json.loads(path.read_text(encoding="utf-8"))
     st = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else empty_state()
     errs = []
+    theme = theme_for(st, today())
+    if sc.get("theme") != theme:
+        errs.append(f"theme が今日のテーマと違います（今日は「{theme}」）: {sc.get('theme')}")
     items = sc.get("items", [])
     body = items[1:-1]
     if len(body) != 10:
@@ -177,15 +196,11 @@ def check(path: Path) -> None:
             errs.append(f"過去に使った話題です: {it.get('topic')}")
         if not (it.get("image") or it.get("image_query")):
             errs.append(f"絵の指定がありません: {it.get('topic')}")
-    cats = [it.get("category") for it in body]
-    bad = [c for c in cats if c not in HEALTH | LIFE]
-    if bad:
-        errs.append(f"category が決まりの値ではありません: {bad}")
-    n_life = sum(c in LIFE for c in cats)
-    if not 3 <= n_life <= 4:
-        errs.append(f"暮らしの分野が{n_life}個です（3〜4個にする）")
-    if len(set(cats)) < 6:
-        errs.append(f"分野が{len(set(cats))}種類しかありません（6種類以上）")
+    off = [it.get("topic") for it in body if it.get("category") != theme]
+    if off:
+        errs.append(f"今日のテーマ「{theme}」以外の雑学があります（category を確認）: {off}")
+    if theme not in "".join(ln.get("caption", "") for ln in items[0].get("lines", [])):
+        errs.append(f"導入の画面にテーマ「{theme}」が出ていません")
     if not 1100 <= total <= 1450:
         errs.append(f"読み上げの合計が{total}字です（1,150〜1,350字が目安）")
     if not sc.get("youtube", {}).get("title"):
@@ -204,7 +219,8 @@ def cmd_done(path: Path, url: str, by: str) -> None:
     def change(st):
         st["used_topics"] += [it["topic"] for it in body if it.get("topic")]
         st["used_sources"] += [str(it["pmid"]) for it in body if it.get("pmid")]
-        st["done"][day] = {"url": url, "by": by, "title": sc.get("youtube", {}).get("title")}
+        st["done"][day] = {"url": url, "by": by, "title": sc.get("youtube", {}).get("title"),
+                           "theme": sc.get("theme")}
         st["claims"].pop(day, None)
     st = update_shared(change, f"{day} 投稿: {url}")
     print(f"記録しました: {day} → {url}（使用済みの話題 {len(st['used_topics'])}件）")
@@ -212,13 +228,16 @@ def cmd_done(path: Path, url: str, by: str) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["pull", "claim", "release", "check", "done"])
+    ap.add_argument("cmd", choices=["pull", "claim", "release", "check", "done", "theme"])
     ap.add_argument("script", nargs="?")
     ap.add_argument("--url", default="")
     ap.add_argument("--by", default="mac", choices=["mac", "cloud"])
     a = ap.parse_args()
     if a.cmd == "pull":
         cmd_pull()
+    elif a.cmd == "theme":
+        st = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else read_shared()
+        print(theme_for(st, today()))
     elif a.cmd == "claim":
         cmd_claim(a.by)
     elif a.cmd == "release":

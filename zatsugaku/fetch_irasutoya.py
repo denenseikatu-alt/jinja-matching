@@ -4,7 +4,8 @@
     python3 fetch_irasutoya.py scripts/2026-10-02.json
 
 1枚の絵だけのページ（png）を優先し、複数の絵をまとめたサムネイル（jpg）は使わない。
-見つからなければ image_query_alt で探し直す。それでも無ければ中断する。
+見つからなければ image_query_alt、検索語を1語ずつ、テーマ名の順に探し直す。
+それでも無ければ汎用の絵（hirameki_man.png）を使い、止まらずに進める。
 """
 
 from __future__ import annotations
@@ -62,7 +63,12 @@ def main() -> None:
         if it.get("image"):
             continue
         hit = None
-        for q in (it.get("image_query"), it.get("image_query_alt")):
+        queries = [it.get("image_query"), it.get("image_query_alt")]
+        for q in list(queries):
+            if q and " " in q.strip():
+                queries += q.split()
+        queries.append(sc.get("theme"))
+        for q in dict.fromkeys(q for q in queries if q):
             if not q:
                 continue
             for title, page, url in search(q):
@@ -73,7 +79,9 @@ def main() -> None:
             if hit:
                 break
         if not hit:
-            sys.exit(f"いらすとやで絵が見つかりません: {it.get('image_query')} / {it.get('image_query_alt')}")
+            print(f"  注意: いらすとやで絵が見つからないため汎用の絵を使います: {it.get('image_query')}")
+            it["image"] = "hirameki_man.png"
+            continue
         title, page, url, name = hit
         download(url, name)
         it["image"] = name

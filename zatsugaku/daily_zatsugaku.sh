@@ -40,6 +40,8 @@ code=$?
 [ "$code" -eq 3 ] && { echo "===== 終了（今日は不要）====="; exit 0; }
 [ "$code" -eq 0 ] || { echo "中断: 台帳を確認できませんでした"; exit 1; }
 python3 zatsugaku_state.py pull || die "台帳を取得できませんでした"
+THEME="$(python3 zatsugaku_state.py theme)" || die "今日のテーマを決められませんでした"
+echo "今日のテーマ: $THEME"
 
 # --- 1. 音声エンジン ------------------------------------------------------
 if curl -sS -m 5 "$HOST/version" >/dev/null 2>&1; then
@@ -57,7 +59,9 @@ CLAUDE_BIN="$(command -v claude || echo "$HOME/.local/bin/claude")"
 [ -x "$CLAUDE_BIN" ] || die "claude コマンドが見つかりません"
 
 if [ ! -f "$SCRIPT" ]; then
-  "$CLAUDE_BIN" -p "prompts/zatsugaku.md のルールに従って、今日（$TODAY）の暮らしと健康の雑学動画の台本を $SCRIPT に書いてください。
+  "$CLAUDE_BIN" -p "prompts/zatsugaku.md のルールに従って、今日（$TODAY）の雑学動画の台本を $SCRIPT に書いてください。
+
+- **今日のテーマは「$THEME」。10個すべてこのテーマの雑学にする**（台本の theme と各 category も「$THEME」）
 
 - 見本は scripts/trial_01.json（文体と書式だけ参考にし、内容は流用しない）
 - state.json の used_topics と used_sources にある話題・出典は使わない

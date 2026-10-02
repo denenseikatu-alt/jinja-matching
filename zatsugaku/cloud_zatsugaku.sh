@@ -29,7 +29,8 @@ prepare() {
   (cd "$REPO" && bash cloud/setup.sh) || die "VOICEVOX / 依存の準備に失敗しました"
   python3 fetch_assets.py || die "素材（BGM・フォント・絵）の準備に失敗しました"
   (cd "$REPO" && python3 yt_auth.py check) || die "YouTube の認証に失敗しました"
-  echo "READY: zatsugaku/$SCRIPT を書いてください（prompts/zatsugaku.md・見本 scripts/trial_01.json）"
+  THEME="$(python3 zatsugaku_state.py theme)" || die "今日のテーマを決められませんでした"
+  echo "READY: zatsugaku/$SCRIPT を書いてください。今日のテーマは「$THEME」で、10個すべてこのテーマにする（prompts/zatsugaku.md・見本 scripts/trial_01.json）"
 }
 
 publish() {
