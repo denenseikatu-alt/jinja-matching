@@ -87,8 +87,10 @@ def theme_for(st: dict, day: str) -> str:
     fixed = st.get("theme_overrides", {}).get(day)
     if fixed in THEMES and fixed not in skips:
         return fixed
+    # 順番の位置は、順番どおりに選んだ回（固定した日を除く）の最後のテーマで決まる。
+    # 追加で作った回（キーが「日付-extraN」）も順番を進める
     past = sorted((d, v["theme"]) for d, v in st.get("done", {}).items()
-                  if d < day and v.get("theme") in THEMES)
+                  if d < day and v.get("theme") in THEMES and not v.get("fixed"))
     i = (THEMES.index(past[-1][1]) + 1) % len(THEMES) if past else 0
     for k in range(len(THEMES)):
         t = THEMES[(i + k) % len(THEMES)]
@@ -219,11 +221,11 @@ def cmd_skip_theme() -> None:
     print(f"範囲: {THEME_SCOPE[new]}")
 
 
-def check(path: Path) -> None:
+def check(path: Path, theme: str | None = None) -> None:
     sc = json.loads(path.read_text(encoding="utf-8"))
     st = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else empty_state()
     errs = []
-    theme = theme_for(st, today())
+    theme = theme or theme_for(st, today())
     if sc.get("theme") != theme:
         errs.append(f"theme が今日のテーマと違います（今日は「{theme}」）: {sc.get('theme')}")
     items = sc.get("items", [])
@@ -270,16 +272,17 @@ def check(path: Path) -> None:
     print(f"台本 OK: 雑学{len(body)}個・読み上げ{total}字")
 
 
-def cmd_done(path: Path, url: str, by: str) -> None:
+def cmd_done(path: Path, url: str, by: str, key: str | None = None) -> None:
     sc = json.loads(path.read_text(encoding="utf-8"))
     body = sc["items"][1:-1]
-    day = today()
+    day = key or today()
 
     def change(st):
         st["used_topics"] += [it["topic"] for it in body if it.get("topic")]
         st["used_sources"] += [str(it["pmid"]) for it in body if it.get("pmid")]
         st["done"][day] = {"url": url, "by": by, "title": sc.get("youtube", {}).get("title"),
-                           "theme": sc.get("theme")}
+                           "theme": sc.get("theme"),
+                           "fixed": st.get("theme_overrides", {}).get(day) == sc.get("theme")}
         st["claims"].pop(day, None)
     st = update_shared(change, f"{day} 投稿: {url}")
     print(f"記録しました: {day} → {url}（使用済みの話題 {len(st['used_topics'])}件）")
@@ -292,6 +295,8 @@ def main() -> None:
     ap.add_argument("--url", default="")
     ap.add_argument("--by", default="mac", choices=["mac", "cloud"])
     ap.add_argument("--scope", action="store_true", help="theme と一緒に使う。テーマの範囲の説明も出す")
+    ap.add_argument("--theme", help="check と一緒に使う。今日のテーマの代わりにこのテーマで検査する（追加の回）")
+    ap.add_argument("--key", help="done と一緒に使う。台帳の記録先（追加の回は「日付-extraN」）")
     a = ap.parse_args()
     if a.cmd == "pull":
         cmd_pull()
@@ -306,9 +311,9 @@ def main() -> None:
     elif a.cmd == "release":
         cmd_release(a.by)
     elif a.cmd == "check":
-        check(Path(a.script))
+        check(Path(a.script), a.theme)
     else:
-        cmd_done(Path(a.script), a.url, a.by)
+        cmd_done(Path(a.script), a.url, a.by, a.key)
 
 
 if __name__ == "__main__":
