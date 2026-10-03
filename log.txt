@@ -1,0 +1,6 @@
+10/03 08:53:08 prepare 開始（STYLE=talking）
+10/03 08:53:22 READY: 7000-steps-health-lancet-2025（抽出まで完了。次は台本）
+10/03 08:54:04 publish 開始: 7000-steps-health-lancet-2025
+10/03 09:05:28 中断: アップロードに失敗しました
+10/03 13:25:12 publish 開始: 7000-steps-health-lancet-2025
+10/03 13:35:08 公開: 完了: https://www.youtube.com/watch?v=VXNYAH4jq4U 公開設定: public 
