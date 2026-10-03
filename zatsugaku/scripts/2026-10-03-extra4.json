@@ -1,0 +1,340 @@
+{
+  "theme": "病気予防",
+  "title": "9割が知らない 病気予防の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n病気予防の雑学",
+          "say": "知って得する、病気予防の雑学。"
+        },
+        {
+          "caption": "全部、研究論文や\n公的資料で確かめました",
+          "say": "今日の10個は、すべて研究論文や国の公的資料で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "インフルエンザ予防接種",
+      "image_query_alt": "心臓 聴診器",
+      "topic": "インフルエンザワクチンと心血管イベント",
+      "category": "病気予防",
+      "source": "Udell ほか（2013年・米国医師会雑誌）",
+      "pmid": "24150467",
+      "lines": [
+        {
+          "caption": "インフルエンザの予防接種\n心臓にも良い？",
+          "say": "インフルエンザの予防接種は、心臓の病気の予防にも役立つのでしょうか。"
+        },
+        {
+          "caption": "心臓の持病がある人\n6735人を調査",
+          "say": "心臓に持病がある、6735人を対象にした分析があります。"
+        },
+        {
+          "caption": "予防接種した人は\n発症率2.9%",
+          "say": "予防接種をした人は2.9%、しなかった人は4.7%が発症していました。"
+        },
+        {
+          "caption": "発症リスクは\n36%低い結果に",
+          "say": "発症のリスクは、36%低いという結果でした。"
+        }
+      ],
+      "image": "medical_hojo_jinkou_shinzou_woman.png",
+      "image_page": "https://www.irasutoya.com/2021/03/blog-post_4.html"
+    },
+    {
+      "image_query": "歯科検診",
+      "image_query_alt": "歯医者",
+      "topic": "歯周病治療と糖尿病の血糖コントロール",
+      "category": "病気予防",
+      "source": "Teeuw ほか（2010年・米国糖尿病学会誌）",
+      "pmid": "20103557",
+      "lines": [
+        {
+          "caption": "歯周病の治療は\n糖尿病にも関係ある？",
+          "say": "歯周病の治療は、糖尿病にも関係があるのでしょうか。"
+        },
+        {
+          "caption": "2型糖尿病の患者\n371人を分析",
+          "say": "2型糖尿病の患者371人を対象にした分析では、"
+        },
+        {
+          "caption": "歯周病を治療すると\n血糖の数値が改善",
+          "say": "歯周病をしっかり治療すると、血糖の状態を示す数値が改善していました。"
+        },
+        {
+          "caption": "数か月で\n平均0.4ポイント低下",
+          "say": "3か月から9か月の間に、平均で0.4ポイント下がっていました。"
+        }
+      ],
+      "image": "kenkoushindan06_shika_girl.png",
+      "image_page": "https://www.irasutoya.com/2019/05/blog-post_77.html"
+    },
+    {
+      "image_query": "予防接種 高齢者",
+      "image_query_alt": "肺 聴診器",
+      "topic": "肺炎球菌ワクチンの効果",
+      "category": "病気予防",
+      "source": "Bonten ほか（2015年・ニューイングランド医学誌）",
+      "pmid": "25785969",
+      "lines": [
+        {
+          "caption": "肺炎球菌ワクチンは\nどれくらい効果ある？",
+          "say": "肺炎球菌のワクチンは、高齢者の肺炎をどれくらい防げるのでしょうか。"
+        },
+        {
+          "caption": "65歳以上\n8万4496人が参加",
+          "say": "65歳以上、8万4496人が参加した試験があります。"
+        },
+        {
+          "caption": "ワクチンを打つと\n肺炎が45%減",
+          "say": "ワクチンを受けた人は、肺炎の発症が45%少なくなっていました。"
+        },
+        {
+          "caption": "重い感染症は\n75%も予防",
+          "say": "全身に菌が回る重い感染症では、75%も予防できていました。"
+        }
+      ],
+      "image": "medical_yobou_chuusya_mask_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/06/blog-post_78.html"
+    },
+    {
+      "image_query": "風邪 男性",
+      "image_query_alt": "マスク 咳",
+      "topic": "睡眠不足と風邪のかかりやすさ",
+      "category": "病気予防",
+      "source": "Cohen ほか（2009年・米国内科学会誌）",
+      "pmid": "19139325",
+      "lines": [
+        {
+          "caption": "寝不足だと\n風邪をひきやすい？",
+          "say": "寝不足が続くと、風邪をひきやすくなるのでしょうか。"
+        },
+        {
+          "caption": "153人にウイルスを\nわざと浴びせる実験",
+          "say": "153人に、風邪のウイルスをわざと浴びせる実験をしました。"
+        },
+        {
+          "caption": "7時間未満の睡眠は\n発症が2.94倍",
+          "say": "普段の睡眠が7時間未満の人は、発症が2.94倍多くなっていました。"
+        },
+        {
+          "caption": "睡眠の質が悪い人は\n5.5倍という結果も",
+          "say": "眠りの効率が悪い人では、5.5倍という結果も出ていました。"
+        }
+      ],
+      "image": "sick_hatsunetsu_man.png",
+      "image_page": "https://www.irasutoya.com/2020/07/blog-post_84.html"
+    },
+    {
+      "image_query": "水を飲む女性",
+      "image_query_alt": "コップ 水",
+      "topic": "水分摂取量と尿路感染症の再発",
+      "category": "病気予防",
+      "source": "Hooton ほか（2018年・米国医師会雑誌 内科版）",
+      "pmid": "30285042",
+      "lines": [
+        {
+          "caption": "水をよく飲むと\n膀胱炎は減る？",
+          "say": "水をよく飲むようにすると、膀胱炎を繰り返しにくくなるのでしょうか。"
+        },
+        {
+          "caption": "膀胱炎を繰り返す\n女性140人で実験",
+          "say": "膀胱炎を繰り返す140人の女性に、1年間続けてもらいました。"
+        },
+        {
+          "caption": "1日1.5リットル\n多く水を飲むと",
+          "say": "普段より1日1.5リットル多く水を飲むグループでは、"
+        },
+        {
+          "caption": "再発回数が\nほぼ半分に",
+          "say": "1年間の膀胱炎の回数が、3.2回から1.7回に減っていました。"
+        }
+      ],
+      "image": "drink_suibun_hokyuu_sagyouin_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/05/blog-post_119.html"
+    },
+    {
+      "image_query": "禁煙",
+      "image_query_alt": "タバコ",
+      "topic": "禁煙と心血管疾患リスクの変化",
+      "category": "病気予防",
+      "source": "Duncan ほか（2019年・米国医師会雑誌）",
+      "pmid": "31429895",
+      "lines": [
+        {
+          "caption": "タバコをやめると\n心臓の病気は減る？",
+          "say": "タバコをやめると、心臓や血管の病気は減るのでしょうか。"
+        },
+        {
+          "caption": "8770人を\n長年追跡した分析",
+          "say": "8770人を長年にわたって追いかけた分析があります。"
+        },
+        {
+          "caption": "禁煙から5年以内\nリスクは4割ほど低下",
+          "say": "禁煙してから5年以内は、吸い続けた人よりリスクが4割ほど低くなっていました。"
+        },
+        {
+          "caption": "吸ったことのない人より\n高い状態が長く続く",
+          "say": "ただし、一度も吸ったことのない人より高い状態は、10年以上続いていました。"
+        }
+      ],
+      "image": "nicotine_gum.png",
+      "image_page": "https://www.irasutoya.com/2019/09/blog-post_96.html"
+    },
+    {
+      "image_query": "血圧計",
+      "image_query_alt": "お爺さん 血圧",
+      "topic": "家庭血圧と脳卒中リスク",
+      "category": "病気予防",
+      "source": "Ohkubo ほか（2004年・血圧モニタリング誌）",
+      "pmid": "15564987",
+      "lines": [
+        {
+          "caption": "家で測る血圧\n脳卒中の目安になる？",
+          "say": "家で測る血圧は、脳卒中の危険度の目安になるのでしょうか。"
+        },
+        {
+          "caption": "宮城県の1702人を\n平均10.6年追跡",
+          "say": "宮城県の1702人を、平均10.6年にわたって追跡しました。"
+        },
+        {
+          "caption": "家庭血圧が\n上10・下5高いごとに",
+          "say": "家で測る血圧が、上が10、下が5高くなるごとに、"
+        },
+        {
+          "caption": "脳卒中のリスクが\n約3割高かった",
+          "say": "脳卒中になるリスクが、約3割高くなっていました。"
+        }
+      ],
+      "image": "medical_ketsuatsukei_aneroid.png",
+      "image_page": "https://www.irasutoya.com/2019/12/blog-post_934.html"
+    },
+    {
+      "image_query": "予防接種 女性",
+      "image_query_alt": "子宮頸がん検診",
+      "topic": "子宮頸がんワクチンと子宮頸がんリスク",
+      "category": "病気予防",
+      "source": "Lei ほか（2020年・ニューイングランド医学誌）",
+      "pmid": "32997908",
+      "lines": [
+        {
+          "caption": "子宮頸がんワクチンは\n本当に効果ある？",
+          "say": "子宮頸がんを防ぐワクチンには、本当に効果があるのでしょうか。"
+        },
+        {
+          "caption": "スウェーデンで\n167万人を追跡",
+          "say": "スウェーデンで、167万人以上の女性を追跡した研究があります。"
+        },
+        {
+          "caption": "17歳になる前に\n接種した人は",
+          "say": "17歳になる前にワクチンを受けた人は、"
+        },
+        {
+          "caption": "発症リスクが\n88%低かった",
+          "say": "子宮頸がんになるリスクが、88%低いという結果でした。"
+        }
+      ],
+      "image": "medical_yobou_chuusya_mask_man.png",
+      "image_page": "https://www.irasutoya.com/2016/02/blog-post_117.html"
+    },
+    {
+      "image_query": "大腸がん検診",
+      "image_query_alt": "便検査",
+      "topic": "便潜血検査と大腸がんの死亡率",
+      "category": "病気予防",
+      "source": "Mandel ほか（1993年・ニューイングランド医学誌）",
+      "pmid": "8474513",
+      "lines": [
+        {
+          "caption": "便潜血検査は\n大腸がんを防げる？",
+          "say": "便に血が混じっていないか調べる検査は、大腸がんを防ぐのに役立つのでしょうか。"
+        },
+        {
+          "caption": "4万6551人を\n13年間追跡した試験",
+          "say": "4万6551人を、13年間追いかけた試験があります。"
+        },
+        {
+          "caption": "毎年検査を受けた人は\n死亡率が33%減",
+          "say": "毎年この検査を受けたグループは、大腸がんによる死亡が33%少なくなっていました。"
+        }
+      ],
+      "image": "medical_daichougan_kensa.png",
+      "image_page": "https://www.irasutoya.com/2016/02/blog-post_988.html"
+    },
+    {
+      "image_query": "帯状疱疹",
+      "image_query_alt": "予防接種 高齢者",
+      "topic": "帯状疱疹ワクチンの有効率",
+      "category": "病気予防",
+      "source": "Lal ほか（2015年・ニューイングランド医学誌）",
+      "pmid": "25916341",
+      "lines": [
+        {
+          "caption": "帯状疱疹ワクチンの\n有効率は何％？",
+          "say": "帯状疱疹を防ぐワクチンの効果は、どれくらいなのでしょうか。"
+        },
+        {
+          "caption": "50歳以上\n1万5411人で試験",
+          "say": "50歳以上の1万5411人を対象にした試験があります。"
+        },
+        {
+          "caption": "発症した人は\nワクチン群で6人のみ",
+          "say": "帯状疱疹を発症したのは、ワクチンを受けた群でわずか6人でした。"
+        },
+        {
+          "caption": "プラセボ群は210人\n有効率97%",
+          "say": "何も入っていない注射を受けた群は210人で、有効率は97%でした。"
+        }
+      ],
+      "image": "medical_yobou_chuusya_baby.png",
+      "image_page": "https://www.irasutoya.com/2016/02/blog-post_381.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない病気予防の雑学10選【論文で確認済み】",
+    "description": "ワクチンや検診、生活習慣に関する研究論文・公的資料を実際に確認して作った、病気予防の雑学10選です。",
+    "tags": [
+      "雑学",
+      "病気予防",
+      "ワクチン",
+      "健康",
+      "予防医学",
+      "検診",
+      "感染症",
+      "豆知識"
+    ],
+    "sources": [
+      "Udell JA ほか. 米国医師会雑誌 2013;310:1711-20 https://europepmc.org/article/MED/24150467",
+      "Teeuw WJ ほか. 米国糖尿病学会誌 2010;33:421-7 https://europepmc.org/article/MED/20103557",
+      "Bonten MJ ほか. ニューイングランド医学誌 2015;372:1114-25 https://europepmc.org/article/MED/25785969",
+      "Cohen S ほか. 米国内科学会誌 2009;169:62-7 https://europepmc.org/article/MED/19139325",
+      "Hooton TM ほか. 米国医師会雑誌 内科版 2018;178:1509-15 https://europepmc.org/article/MED/30285042",
+      "Duncan MS ほか. 米国医師会雑誌 2019;322:642-50 https://europepmc.org/article/MED/31429895",
+      "Ohkubo T ほか. 血圧モニタリング誌 2004;9:315-20 https://europepmc.org/article/MED/15564987",
+      "Lei J ほか. ニューイングランド医学誌 2020;383:1340-8 https://europepmc.org/article/MED/32997908",
+      "Mandel JS ほか. ニューイングランド医学誌 1993;328:1365-71 https://europepmc.org/article/MED/8474513",
+      "Lal H ほか. ニューイングランド医学誌 2015;372:2087-96 https://europepmc.org/article/MED/25916341"
+    ]
+  }
+}
