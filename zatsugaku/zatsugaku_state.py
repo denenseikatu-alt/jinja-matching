@@ -100,6 +100,26 @@ def theme_for(st: dict, day: str) -> str:
     sys.exit("その日に使えるテーマが残っていません")
 
 
+def next_theme(st: dict, skips: set[str] = frozenset()) -> str:
+    """毎日の2本目（追加の回）のテーマ。これまでに順番どおり投稿した最後のテーマの次。
+    追加の回もテーマの順番を進めるので、翌日の1本目はこの次のテーマになる。"""
+    past = sorted((d, v["theme"]) for d, v in st.get("done", {}).items()
+                  if v.get("theme") in THEMES and not v.get("fixed"))
+    i = (THEMES.index(past[-1][1]) + 1) % len(THEMES) if past else 0
+    for k in range(len(THEMES)):
+        t = THEMES[(i + k) % len(THEMES)]
+        if t not in skips:
+            return t
+    sys.exit("使えるテーマが残っていません")
+
+
+def next_extra_key(st: dict, day: str) -> str:
+    n = 1
+    while f"{day}-extra{n}" in st.get("done", {}):
+        n += 1
+    return f"{day}-extra{n}"
+
+
 def empty_state() -> dict:
     return {"used_topics": [], "used_sources": [], "done": {}, "claims": {}}
 
@@ -291,7 +311,9 @@ def cmd_done(path: Path, url: str, by: str, key: str | None = None, keep_order: 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["pull", "claim", "release", "check", "done", "theme", "skip-theme"])
+    ap.add_argument("cmd", choices=["pull", "claim", "release", "check", "done", "theme", "skip-theme",
+                                    "extra"])
+    ap.add_argument("--skip", default="", help="extra と一緒に使う。ネタがそろわず外すテーマ（カンマ区切り）")
     ap.add_argument("script", nargs="?")
     ap.add_argument("--url", default="")
     ap.add_argument("--by", default="mac", choices=["mac", "cloud"])
@@ -308,6 +330,12 @@ def main() -> None:
     elif a.cmd == "theme":
         st = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else read_shared()
         t = theme_for(st, today())
+        print(f"{t}（範囲: {THEME_SCOPE[t]}）" if a.scope else t)
+    elif a.cmd == "extra":
+        # 毎日の2本目: 記録先のキーとテーマを1行ずつ出す（台帳は共有のものを読む）
+        st = read_shared()
+        t = next_theme(st, {s for s in a.skip.split(",") if s})
+        print(next_extra_key(st, today()))
         print(f"{t}（範囲: {THEME_SCOPE[t]}）" if a.scope else t)
     elif a.cmd == "claim":
         cmd_claim(a.by)

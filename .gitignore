@@ -24,3 +24,6 @@ out_talk/
 # 毎日書き換わる台本（生成物）
 script.json
 out_pres/
+
+# 雑学動画の2本目の作業メモ
+zatsugaku/.extra_today
