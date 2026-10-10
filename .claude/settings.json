@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "permissions": {
+    "deny": [
+      "Read(client_secret.json)",
+      "Read(token.json)",
+      "Edit(client_secret.json)",
+      "Edit(token.json)"
+    ]
+  }
+}

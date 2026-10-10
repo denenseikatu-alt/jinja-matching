@@ -1,0 +1,335 @@
+{
+  "theme": "プロテイン",
+  "title": "9割が知らない プロテインの雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\nプロテインの雑学",
+          "say": "知って得する、プロテインの雑学。"
+        },
+        {
+          "caption": "全部、論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "プロテイン",
+      "image_query_alt": "プロテインシェイク",
+      "topic": "プロテイン1回分の上限量",
+      "category": "プロテイン",
+      "source": "Moore ほか（2009年・応用生理学誌）",
+      "pmid": "19056590",
+      "lines": [
+        {
+          "caption": "プロテインは\n多いほどいい？",
+          "say": "プロテインは、一度にたくさん飲むほど、筋肉が増えるのでしょうか。"
+        },
+        {
+          "caption": "6人の男性が\n0〜40gを摂取",
+          "say": "運動のあと、6人の若い男性が、ゼロから40グラムまで、たんぱく質をとる実験です。"
+        },
+        {
+          "caption": "筋肉を作る働きは\n20gで頭打ち",
+          "say": "筋肉を作る働きは、20グラムで、ほぼ頭打ちになりました。"
+        },
+        {
+          "caption": "超えた分は\nエネルギーに",
+          "say": "それを超えた分は、エネルギーとして使われやすくなっていました。"
+        }
+      ],
+      "image": "food_hijousyoku_yellow.png",
+      "image_page": "https://www.irasutoya.com/2019/07/blog-post_281.html"
+    },
+    {
+      "image_query": "プロテイン 筋トレ",
+      "image_query_alt": "ダンベル",
+      "topic": "1日のプロテイン摂取量の上限",
+      "category": "プロテイン",
+      "source": "Morton ほか（2018年・英国スポーツ医学誌）",
+      "pmid": "28698222",
+      "lines": [
+        {
+          "caption": "1日に何gまで\n効果がある？",
+          "say": "プロテインは、1日にどれくらいまで、効果があるのでしょうか。"
+        },
+        {
+          "caption": "49研究\n約1900人を分析",
+          "say": "49件の研究、1900人分のデータをまとめた分析があります。"
+        },
+        {
+          "caption": "体重1kgあたり\n1.6gを超えると",
+          "say": "体重1キロあたり、1.6グラムを超えてたんぱく質をとっても、"
+        },
+        {
+          "caption": "筋肉の増え方は\n変わらなかった",
+          "say": "それ以上、筋肉の増え方は変わりませんでした。"
+        }
+      ],
+      "image": "undou_kettlebell_dumbbell.png",
+      "image_page": "https://www.irasutoya.com/2019/08/blog-post_49.html"
+    },
+    {
+      "image_query": "牛乳",
+      "image_query_alt": "ベッド",
+      "topic": "寝る前のプロテインと筋肉作り",
+      "category": "プロテイン",
+      "source": "Res ほか（2012年・米国スポーツ医学会誌）",
+      "pmid": "22330017",
+      "lines": [
+        {
+          "caption": "寝る前の\nプロテインは効果ある？",
+          "say": "寝る前にプロテインを飲むと、筋肉作りに役立つのでしょうか。"
+        },
+        {
+          "caption": "16人の男性が\n就寝30分前に摂取",
+          "say": "16人の若い男性が、運動した夜、寝る30分前に、たんぱく質40グラムをとりました。"
+        },
+        {
+          "caption": "寝ている間の\n合成がアップ",
+          "say": "寝ている間の筋肉の合成は、飲まない場合より、およそ22パーセント高くなっていました。"
+        }
+      ],
+      "image": "ofuro_drink_milk_woman.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_417.html"
+    },
+    {
+      "image_query": "筋トレ お爺さん",
+      "image_query_alt": "高齢者 運動",
+      "topic": "プロテインと筋トレの効果（高齢者も）",
+      "category": "プロテイン",
+      "source": "Cermak ほか（2012年・米国臨床栄養学誌）",
+      "pmid": "23134885",
+      "lines": [
+        {
+          "caption": "プロテインは\n高齢者にも役立つ？",
+          "say": "プロテインの効果は、若い人だけでなく、高齢者にもあるのでしょうか。"
+        },
+        {
+          "caption": "22研究\n680人を分析",
+          "say": "22件の研究、680人を調べた分析では、"
+        },
+        {
+          "caption": "若者も高齢者も\n筋肉量と筋力が増加",
+          "say": "若い人でも高齢者でも、プロテインをとりながら筋トレをすると、筋肉量と筋力がより増えていました。"
+        },
+        {
+          "caption": "脚の筋力は平均\n13.5kg多く向上",
+          "say": "脚の筋力は、平均でおよそ13.5キロ、多く伸びていました。"
+        }
+      ],
+      "image": "kintore_ojiisan.png",
+      "image_page": "https://www.irasutoya.com/2015/06/blog-post_470.html"
+    },
+    {
+      "image_query": "豆腐",
+      "image_query_alt": "大豆",
+      "topic": "大豆プロテインと動物性プロテインの比較",
+      "category": "プロテイン",
+      "source": "Messina ほか（2018年・国際スポーツ栄養運動代謝誌）",
+      "pmid": "29722584",
+      "lines": [
+        {
+          "caption": "大豆プロテインは\n動物性に劣る？",
+          "say": "大豆のプロテインは、動物性のプロテインより、効果が劣るのでしょうか。"
+        },
+        {
+          "caption": "9研究\n266人を分析",
+          "say": "9件の研究、266人を調べた分析では、"
+        },
+        {
+          "caption": "筋力・筋肉量の増え方に\n差はなかった",
+          "say": "大豆を飲んだ人と、動物性を飲んだ人で、筋力や筋肉量の増え方に、差はありませんでした。"
+        }
+      ],
+      "image": "food_tofu_bar.png",
+      "image_page": "https://www.irasutoya.com/2024/06/blog-post_07.html"
+    },
+    {
+      "image_query": "体重計",
+      "image_query_alt": "食事",
+      "topic": "プロテインの割合と食欲",
+      "category": "プロテイン",
+      "source": "Weigle ほか（2005年・米国臨床栄養学誌）",
+      "pmid": "16002798",
+      "lines": [
+        {
+          "caption": "たんぱく質の比率を\n上げるだけで",
+          "say": "食事の中の、たんぱく質の比率を上げるだけで、何が起きるでしょうか。"
+        },
+        {
+          "caption": "19人が\n15%→30%に増加",
+          "say": "19人の実験で、たんぱく質を15パーセントから30パーセントに増やしました。"
+        },
+        {
+          "caption": "空腹感が減り\n食べる量が自然に減少",
+          "say": "空腹感が減り、好きなだけ食べても、1日441キロカロリー、食べる量が自然に減りました。"
+        },
+        {
+          "caption": "12週間で体重\n約4.9kg減",
+          "say": "12週間後には、体重が平均およそ4.9キロ減っていました。"
+        }
+      ],
+      "image": "kenkoushindan03_taijuu_boy.png",
+      "image_page": "https://www.irasutoya.com/2019/02/blog-post_585.html"
+    },
+    {
+      "image_query": "健康診断",
+      "image_query_alt": "腎臓",
+      "topic": "高たんぱく質と腎臓への影響",
+      "category": "プロテイン",
+      "source": "Devries ほか（2018年・栄養学誌）",
+      "pmid": "30383278",
+      "lines": [
+        {
+          "caption": "プロテインの摂りすぎは\n腎臓に悪い？",
+          "say": "プロテインの摂りすぎは、腎臓に悪いと聞いたことはありませんか。"
+        },
+        {
+          "caption": "28研究\n1358人を分析",
+          "say": "健康な人を対象にした28件の研究、1358人の分析があります。"
+        },
+        {
+          "caption": "高たんぱく質でも\n腎機能の低下はなし",
+          "say": "たんぱく質を多くとっても、腎臓の働きが悪くなる変化は見られませんでした。"
+        },
+        {
+          "caption": "対象は\n腎臓が健康な人",
+          "say": "ただし、これは腎臓が健康な人を対象にした結果です。"
+        }
+      ],
+      "image": "kenkoushindan_hana_taisougi_girl.png",
+      "image_page": "https://www.irasutoya.com/2020/08/blog-post_30.html"
+    },
+    {
+      "image_query": "骨",
+      "image_query_alt": "高齢者",
+      "topic": "高たんぱく質と骨の健康",
+      "category": "プロテイン",
+      "source": "Shams-White ほか（2017年・米国臨床栄養学誌）",
+      "pmid": "28404575",
+      "lines": [
+        {
+          "caption": "プロテインは\n骨にも関係する？",
+          "say": "プロテインは、骨の健康にも関係しているのでしょうか。"
+        },
+        {
+          "caption": "16の実験と\n20の追跡調査を分析",
+          "say": "16件の実験と、20件の追跡調査をまとめた分析では、"
+        },
+        {
+          "caption": "腰の骨密度が\nわずかに高かった",
+          "say": "たんぱく質を多くとった人ほど、腰の骨密度が、わずかに高くなっていました。"
+        },
+        {
+          "caption": "骨を弱くする\n証拠はなかった",
+          "say": "少なくとも、骨を弱くするという証拠は、見つかりませんでした。"
+        }
+      ],
+      "image": "music_earphone_kotsudendou.png",
+      "image_page": "https://www.irasutoya.com/2025/03/blog-post_944.html"
+    },
+    {
+      "image_query": "減量",
+      "image_query_alt": "筋トレ",
+      "topic": "減量中のプロテイン量と体の変化",
+      "category": "プロテイン",
+      "source": "Longland ほか（2016年・米国臨床栄養学誌）",
+      "pmid": "26817506",
+      "lines": [
+        {
+          "caption": "減量中は\nプロテインを増やすべき？",
+          "say": "カロリーを減らす減量中は、プロテインを増やしたほうがいいのでしょうか。"
+        },
+        {
+          "caption": "40人が4週間\n激しい運動と減量",
+          "say": "40人の若い男性が、4週間、カロリーを4割減らしながら、激しい運動をしました。"
+        },
+        {
+          "caption": "多く摂った人は\n筋肉が1.2kg増加",
+          "say": "体重1キロあたり2.4グラムとった人たちは、筋肉が1.2キロ増えていました。"
+        },
+        {
+          "caption": "少ない人は\n脂肪も減りにくい",
+          "say": "少ない量の人たちは、筋肉がほとんど増えず、脂肪の減りも小さくなりました。"
+        }
+      ],
+      "image": "undou_calf_raise.png",
+      "image_page": "https://www.irasutoya.com/2020/11/blog-post_24.html"
+    },
+    {
+      "image_query": "大豆",
+      "image_query_alt": "豆類",
+      "topic": "プロテインの種類と死亡リスク",
+      "category": "プロテイン",
+      "source": "Song ほか（2016年・米国医師会雑誌 内科版）",
+      "pmid": "27479196",
+      "lines": [
+        {
+          "caption": "動物性と植物性\nどちらのプロテインがいい？",
+          "say": "動物性と植物性、どちらのプロテインが、体にいいのでしょうか。"
+        },
+        {
+          "caption": "13万人以上を\n最長32年追跡",
+          "say": "13万人以上を、最長32年間追いかけた研究があります。"
+        },
+        {
+          "caption": "植物性が多い人は\n死亡リスクが低い",
+          "say": "植物性のたんぱく質を多くとる人ほど、全体の死亡リスクが低くなっていました。"
+        },
+        {
+          "caption": "肉の一部を置き換えると\nリスクがさらに低下",
+          "say": "加工した赤身肉の一部を植物性に置き換えると、死亡リスクはさらに低くなりました。"
+        }
+      ],
+      "image": "cooking_powder_daizu.png",
+      "image_page": "https://www.irasutoya.com/2020/11/blog-post_0.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らないプロテインの雑学10選【論文で確認済み】",
+    "description": "飲む量、タイミング、大豆と動物性の違い、腎臓や骨への影響まで。プロテインの雑学を10個、すべて研究論文の要旨で数値を確かめて紹介します。",
+    "tags": [
+      "雑学",
+      "プロテイン",
+      "筋トレ",
+      "ダイエット",
+      "栄養",
+      "健康情報",
+      "豆知識"
+    ],
+    "sources": [
+      "Moore DR ほか. 応用生理学誌 2009;107:987-92 https://europepmc.org/article/MED/19056590",
+      "Morton RW ほか. 英国スポーツ医学誌 2018;52:376-84 https://europepmc.org/article/MED/28698222",
+      "Res PT ほか. 米国スポーツ医学会誌 2012;44:1560-9 https://europepmc.org/article/MED/22330017",
+      "Cermak NM ほか. 米国臨床栄養学誌 2012;96:1454-64 https://europepmc.org/article/MED/23134885",
+      "Messina M ほか. 国際スポーツ栄養運動代謝誌 2018;28:674-85 https://europepmc.org/article/MED/29722584",
+      "Weigle DS ほか. 米国臨床栄養学誌 2005;82:41-8 https://europepmc.org/article/MED/16002798",
+      "Devries MC ほか. 栄養学誌 2018;148:1760-75 https://europepmc.org/article/MED/30383278",
+      "Shams-White MM ほか. 米国臨床栄養学誌 2017;105:1528-43 https://europepmc.org/article/MED/28404575",
+      "Longland TA ほか. 米国臨床栄養学誌 2016;103:738-46 https://europepmc.org/article/MED/26817506",
+      "Song M ほか. 米国医師会雑誌 内科版 2016;176:1453-63 https://europepmc.org/article/MED/27479196"
+    ]
+  }
+}
