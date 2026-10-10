@@ -180,8 +180,10 @@ def synth_lines(lines: list[str], out_paths: list[Path], voice: str = "Leda",
     # 指示に余計な語を足すと、指示文そのものを読み上げることがあった（文字起こしで確認）。
     # 1文ずつのときに問題のなかった「指示: 本文」の形のままにする。
     directive = style or "Read aloud"
-    # 指示文を読み上げるかどうかは毎回ばらつくので、何度か作り直す
-    for attempt in range(6):
+    # 指示文を読み上げるかどうかは毎回ばらつくので、何度か作り直す。
+    # 文が多いまとまりは、切り分けがずれ続けたら半分ずつに分けて作り直す
+    tries = 6 if len(lines) <= 3 else 3
+    for attempt in range(tries):
         # 空行で区切ると、文と文の間の間（ま）がはっきりして切り分けやすい
         pcm = _generate(directive + ":\n\n" + "\n\n".join(lines), voice)
         a = np.frombuffer(pcm, dtype=np.int16).astype(np.float32) / 32768
@@ -206,6 +208,12 @@ def synth_lines(lines: list[str], out_paths: list[Path], voice: str = "Leda",
             break
         print(f"    音声の照合で不一致: {problem}（作り直します）", flush=True)
     else:
+        if len(lines) > 3:
+            half = len(lines) // 2
+            print(f"    {len(lines)}文のまとまりを {half}文と{len(lines) - half}文に分けて作り直します", flush=True)
+            synth_lines(lines[:half], out_paths[:half], voice, style)
+            synth_lines(lines[half:], out_paths[half:], voice, style)
+            return
         sys.exit(f"Gemini の音声が台本と一致しませんでした: {problem}")
     for seg, path in zip(segs, out_paths):
         _write(seg, path)
