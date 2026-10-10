@@ -41,7 +41,9 @@
           "caption": "楽しむ段階から\n順に深まる",
           "say": "この研究では、気持ちの強さは、楽しむ段階から順に深まっていくと考えられています。"
         }
-      ]
+      ],
+      "image": "idol_fan_doutan_kyohi.png",
+      "image_page": "https://www.irasutoya.com/2021/06/blog-post162.html"
     },
     {
       "image_query": "スマホ 笑顔",
@@ -63,7 +65,9 @@
           "caption": "交流も推しへの思いも\n幸福感を高めた",
           "say": "ファン同士のオンラインでの交流と、推しへの親しみの気持ちが、どちらも幸福感を高めていました。"
         }
-      ]
+      ],
+      "image": "smartphone_nekorogaru_businesswoman.png",
+      "image_page": "https://www.irasutoya.com/2018/06/blog-post.html"
     },
     {
       "image_query": "お年寄り テレビ",
@@ -85,7 +89,9 @@
           "caption": "寂しさが和らぎ\n生活の満足度が高い",
           "say": "寂しさが和らぎ、前向きな気分や生活の満足度が高い傾向がありました。"
         }
-      ]
+      ],
+      "image": "tv_haishin_owarai_man.png",
+      "image_page": "https://www.irasutoya.com/2020/06/blog-post_414.html"
     },
     {
       "image_query": "応援 スポーツ",
@@ -107,7 +113,9 @@
           "caption": "応援する人ほど\n希望が高かった",
           "say": "スポーツチームを応援している人ほど、希望の気持ちが強く、治療もきちんと続けられていました。"
         }
-      ]
+      ],
+      "image": "tv_sports_kansen_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/07/blog-post_96.html"
     },
     {
       "image_query": "サポーター 応援席",
@@ -129,7 +137,9 @@
           "caption": "仲間意識と\n前向きな気分が強い",
           "say": "仲間としての一体感や、前向きな気分が強くなっていました。"
         }
-      ]
+      ],
+      "image": "undoukai_class_hata_girl.png",
+      "image_page": "https://www.irasutoya.com/2020/10/blog-post_582.html"
     },
     {
       "image_query": "運動 学生",
@@ -151,7 +161,9 @@
           "caption": "寂しさが\n関係していた",
           "say": "その間には、寂しさの感じ方が関係していると考えられています。"
         }
-      ]
+      ],
+      "image": "gakusei_undou.png",
+      "image_page": "https://www.irasutoya.com/2016/07/blog-post_979.html"
     },
     {
       "image_query": "鏡",
@@ -173,7 +185,9 @@
           "caption": "外見の完璧主義や\n不安が強い傾向",
           "say": "外見を完璧にしたい気持ちや、不安の強さが高い傾向が続いていました。"
         }
-      ]
+      ],
+      "image": "medical_bisokukyou.png",
+      "image_page": "https://www.irasutoya.com/2020/09/blog-post_353.html"
     },
     {
       "image_query": "自信がない",
@@ -195,7 +209,9 @@
           "caption": "自己肯定感が\nやや低い傾向",
           "say": "体の見た目を気にしやすく、自己肯定感がやや低い傾向がありました。ただし、関係は弱いものでした。"
         }
-      ]
+      ],
+      "image": "pose_ochikomu_businesswoman.png",
+      "image_page": "https://www.irasutoya.com/2018/05/blog-post_139.html"
     },
     {
       "image_query": "ため息",
@@ -221,7 +237,9 @@
           "caption": "推しとの距離感が\n大切",
           "say": "推しとの、ちょうどいい距離感が大切だと言えそうです。"
         }
-      ]
+      ],
+      "image": "karou_kanjiru_woman.png",
+      "image_page": "https://www.irasutoya.com/2019/04/blog-post_337.html"
     },
     {
       "image_query": "友達と楽しむ",
@@ -243,7 +261,9 @@
           "caption": "個人差は\n大きい",
           "say": "どの研究も傾向を示したもので、個人差は大きいことが分かっています。楽しめる範囲が大切ですね。"
         }
-      ]
+      ],
+      "image": "joshikai_nomikai.png",
+      "image_page": "https://www.irasutoya.com/2015/03/blog-post_641.html"
     },
     {
       "image": "uroko_man.png",
