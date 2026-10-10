@@ -41,7 +41,9 @@
           "caption": "体や頭の働きとも\n関係",
           "say": "見た目の年齢は、体や頭の働きの衰え具合とも関係していました。"
         }
-      ]
+      ],
+      "image": "food_medamayaki_futago.png",
+      "image_page": "https://www.irasutoya.com/2017/10/blog-post_504.html"
     },
     {
       "image_query": "排気ガス",
@@ -67,7 +69,9 @@
           "caption": "車の少ない地域の\n粒子とも関係",
           "say": "交通量の少ない住宅地の空気中の粒子の量とも、シミの多さは関係していました。"
         }
-      ]
+      ],
+      "image": "earth_bad.png",
+      "image_page": "https://www.irasutoya.com/2014/06/blog-post_6528.html"
     },
     {
       "image_query": "野菜",
@@ -93,7 +97,9 @@
           "caption": "日焼けではなく\n野菜の色素",
           "say": "この色の変化は、日焼けではなく、野菜や果物に含まれる色素によるものでした。"
         }
-      ]
+      ],
+      "image": "food_perimeni.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_923.html"
     },
     {
       "image_query": "試験勉強",
@@ -115,7 +121,9 @@
           "caption": "ストレスが強いと\nバリアの回復が遅い",
           "say": "ストレスが強い試験の時期ほど、肌のバリア機能の回復が遅くなっていました。"
         }
-      ]
+      ],
+      "image": "anki_card.png",
+      "image_page": "https://www.irasutoya.com/2015/06/blog-post_88.html"
     },
     {
       "image_query": "水を飲む",
@@ -137,7 +145,9 @@
           "caption": "普段あまり飲まない人ほど\nうるおいが変化",
           "say": "肌のうるおいが変化し、特に普段あまり水を飲まない人で、はっきりした変化が見られました。"
         }
-      ]
+      ],
+      "image": "drink_suibun_hokyuu_sagyouin_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/05/blog-post_119.html"
     },
     {
       "image_query": "スマホの光",
@@ -159,7 +169,9 @@
           "caption": "目に見える光のほうが\n濃く長く残った",
           "say": "どちらでも色素沈着が起き、目に見える光のほうが、濃く長く残りました。"
         }
-      ]
+      ],
+      "image": "pet_sanpo_summer_atsui.png",
+      "image_page": "https://www.irasutoya.com/2018/08/blog-post_919.html"
     },
     {
       "image_query": "笑顔",
@@ -181,7 +193,9 @@
           "caption": "笑顔の写真ほど\n若く見積もられた",
           "say": "笑顔の写真ほど、実際より若く見積もられやすくなっていました。"
         }
-      ]
+      ],
+      "image": "eto_tatsu_fukubukuro.png",
+      "image_page": "https://www.irasutoya.com/2023/10/blog-post_125.html"
     },
     {
       "image_query": "化粧",
@@ -203,7 +217,9 @@
           "caption": "魅力・有能さ・\n親しみやすさが上昇",
           "say": "メイクをした顔のほうが、魅力的で、有能で、親しみやすく、信頼できると評価されました。"
         }
-      ]
+      ],
+      "image": "biyou_dounyueki.png",
+      "image_page": "https://www.irasutoya.com/2020/12/blog-post_2.html"
     },
     {
       "image_query": "白髪",
@@ -229,7 +245,9 @@
           "caption": "ストレスの時期とも\n重なっていた",
           "say": "白髪になる時期や戻る時期は、心のストレスの時期とも重なっていました。"
         }
-      ]
+      ],
+      "image": "rakugo_rei_oldman.png",
+      "image_page": "https://www.irasutoya.com/2018/11/blog-post_175.html"
     },
     {
       "image_query": "ジョギング",
@@ -251,7 +269,9 @@
           "caption": "筋肉から出る物質が\n関わっていた",
           "say": "運動したときに筋肉から出る物質が、肌の細胞の働きに関わっていると考えられています。"
         }
-      ]
+      ],
+      "image": "gym_running_people_dark.png",
+      "image_page": "https://www.irasutoya.com/2018/06/blog-post_530.html"
     },
     {
       "image": "uroko_man.png",
