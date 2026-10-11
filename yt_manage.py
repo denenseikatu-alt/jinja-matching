@@ -13,6 +13,9 @@ youtube.force-ssl の許可が要る（yt_auth.py の url → exchange で取り
     # 決まった2つの再生リスト（手撮り・雑学）に、まだ入っていない公開動画を再生の多い順に足す
     python3 yt_manage.py sync-playlists [--limit 40] [--apply]
 
+    # 当たった手撮り動画（再生 --min 回以上）の概要欄の一番上に、再生リストへの誘導文を足す（足してあれば飛ばす）
+    python3 yt_manage.py promote [--min 1000] [--limit 30] [--apply]
+
 YouTube の1日の操作の枠（10,000）は、日本時間16時に戻る。動画のアップロードは1本1,600、題名の変更と
 再生リストへの追加は1回50を使う。毎朝のアップロード（3〜4本）の分を残すため、1日に変えるのは合わせて70回まで。
 """
@@ -114,6 +117,54 @@ def cmd_sync(limit: int, apply: bool) -> None:
             break
 
 
+PROMO_MARK = "▶ 猫と旅の一言シリーズ（再生リスト）"
+
+
+def promo_text(playlist_id: str) -> str:
+    return ("旅先の景色や、わが家と旅先で出会った子たちの「ひと言」を集めています。\n"
+            f"{PROMO_MARK}: https://www.youtube.com/playlist?list={playlist_id}\n"
+            "次の子にも会いに来てね。チャンネル登録で、新しい動画をお知らせします。")
+
+
+def cmd_promote(min_views: int, limit: int, apply: bool) -> None:
+    yt = _yt()
+    pl = None
+    req = yt.playlists().list(part="snippet", mine=True, maxResults=50)
+    while req and not pl:
+        res = req.execute()
+        pl = next((p for p in res["items"] if p["snippet"]["title"] == "猫と旅の一言シリーズ"), None)
+        req = yt.playlists().list_next(req, res)
+    if not pl:
+        sys.exit("再生リスト「猫と旅の一言シリーズ」がありません（先に sync-playlists --apply）")
+    ch = yt.channels().list(part="contentDetails", mine=True).execute()["items"][0]
+    up = ch["contentDetails"]["relatedPlaylists"]["uploads"]
+    ids = []
+    req = yt.playlistItems().list(part="contentDetails", playlistId=up, maxResults=50)
+    while req:
+        res = req.execute()
+        ids += [i["contentDetails"]["videoId"] for i in res["items"]]
+        req = yt.playlistItems().list_next(req, res)
+    hits = []
+    for k in range(0, len(ids), 50):
+        for v in yt.videos().list(part="snippet,statistics,status,liveStreamingDetails",
+                                  id=",".join(ids[k:k + 50])).execute()["items"]:
+            sn = v["snippet"]
+            if (v["status"]["privacyStatus"] == "public" and int(v["statistics"].get("viewCount", 0)) >= min_views
+                    and kind(sn["title"], "liveStreamingDetails" in v) == "猫と旅の一言シリーズ"
+                    and PROMO_MARK not in sn.get("description", "")):
+                hits.append((int(v["statistics"]["viewCount"]), v["id"], sn))
+    hits.sort(key=lambda h: -h[0])
+    text = promo_text(pl["id"])
+    for views, vid, sn in hits[:limit]:
+        print(f"{vid}（再生 {views}）: {sn['title']}")
+        if apply:
+            body = {k: sn[k] for k in ("title", "description", "tags", "categoryId",
+                                       "defaultLanguage", "defaultAudioLanguage") if k in sn}
+            body["description"] = text + ("\n\n" + sn["description"] if sn.get("description") else "")
+            yt.videos().update(part="snippet", body={"id": vid, "snippet": body}).execute()
+    print(("足しました" if apply else "試しのみ（--apply で実際に足す）") + f": {min(len(hits), limit)} 本（対象 {len(hits)} 本）")
+
+
 def cmd_playlist(title: str, desc: str, ids: list[str], apply: bool, limit: int = 10 ** 6) -> int:
     """足した本数（試しのときは足す予定の本数）を返す。"""
     yt = _yt()
@@ -172,12 +223,18 @@ def main() -> None:
     pl.add_argument("--desc", default="")
     pl.add_argument("--ids", default="")
     pl.add_argument("--apply", action="store_true")
+    pr = sub.add_parser("promote")
+    pr.add_argument("--min", type=int, default=1000)
+    pr.add_argument("--limit", type=int, default=30)
+    pr.add_argument("--apply", action="store_true")
     sy = sub.add_parser("sync-playlists")
     sy.add_argument("--limit", type=int, default=40)
     sy.add_argument("--apply", action="store_true")
     a = p.parse_args()
     if a.cmd == "titles":
         cmd_titles(a.csv, a.limit, a.apply)
+    elif a.cmd == "promote":
+        cmd_promote(a.min, a.limit, a.apply)
     elif a.cmd == "sync-playlists":
         cmd_sync(a.limit, a.apply)
     else:
