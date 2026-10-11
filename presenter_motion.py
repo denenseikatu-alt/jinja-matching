@@ -149,33 +149,63 @@ FADE = 0.25   # ポーズを切り替えるときに重ねる秒数
 
 
 def pose_timeline(scenes: list[dict], scene_spans: list[tuple[float, float]],
-                  line_starts: list[float], n_frames: int, fps: int, have: set[str]) -> list[str]:
-    """フレームごとのポーズ名。基本は "base"。場面の頭でスクリーンを見てから手で示し、
-    ときどき両手で説明する。最初のあいさつと最後のお礼では手を振る。"""
-    poses = ["base"] * n_frames
+                  line_starts: list[float], n_frames: int, fps: int, have: set[str],
+                  groups: dict[str, list[str]] | None = None, seed: str = "") -> list[str]:
+    """フレームごとのポーズ名。基本は "base"。ポーズの選び方と順番は動画ごとにランダム（題名を種にするので、
+    同じ台本を書き出し直せば同じ動きになる）。
+    - 最初のあいさつと最後のお礼: 手を振る（greet / bye）
+    - 場面の頭: ときどきスクリーンを見てから（look）、スライドを手で示す（screen）
+    - 話の途中: 文の頭で、ときどき身ぶり（talk: 説明・拍手・考える・親指・OK・胸に手・人さし指）
+    同じポーズが続かないようにし、身ぶりの長さと間隔もばらつかせる。"""
+    import random
 
-    def put(a: float, b: float, name: str) -> None:
-        if name in have:
-            for i in range(max(0, int(a * fps)), min(n_frames, int(b * fps))):
+    rng = random.Random(seed or "presenter")
+    g = {k: [p for p in v if p in have] for k, v in (groups or {
+        "greet": ["lean"], "screen": ["present", "point"], "look": ["look"],
+        "talk": ["explain"], "bye": ["lean"]}).items()}
+    poses = ["base"] * n_frames
+    recent: list[str] = []
+
+    def pick(kind: str) -> str | None:
+        cands = [p for p in g.get(kind, []) if p not in recent[-2:]] or g.get(kind, [])
+        if not cands:
+            return None
+        name = rng.choice(cands)
+        recent.append(name)
+        return name
+
+    def put(a: float, b: float, name: str | None, free_only: bool = False) -> None:
+        i0, i1 = max(0, int(a * fps)), min(n_frames, int(b * fps))
+        # 身ぶりは、ほかのポーズの最中（と直後0.5秒）には入れない
+        if free_only and any(p != "base" for p in poses[i0:min(n_frames, i1 + fps // 2)]):
+            return
+        if name:
+            for i in range(i0, i1):
                 poses[i] = name
 
     last = len(scenes) - 1
     for k, (scene, (a, b)) in enumerate(zip(scenes, scene_spans)):
         starts = [t for t in line_starts if a <= t < b]
+        first = starts[0] if starts else a
         if k == 0:
-            put(starts[0] if starts else a, (starts[0] if starts else a) + 2.4, "lean")
-        elif k == last:
-            put(a + 0.3, min(b, a + 3.5), "present")
-            if starts:
-                put(starts[-1], b + 5.0, "lean")
+            put(first, first + rng.uniform(2.0, 2.8), pick("greet"))
+            rest = starts[1:]
         else:
-            if scene.get("bullets"):
-                put(a, a + 1.0, "look")
-                put(a + 1.0, min(b, a + 4.2), "present" if k % 2 else "point")
-            if len(starts) > 2 and k % 2 == 0:
-                put(starts[2], min(b, starts[2] + 2.6), "explain")
-            elif len(starts) > 3:
-                put(starts[3], min(b, starts[3] + 1.4), "look")
+            t = a + rng.uniform(0.0, 0.4)
+            if scene.get("bullets") or k == last:
+                if rng.random() < 0.5:
+                    d = rng.uniform(0.8, 1.3)
+                    put(t, min(b, t + d), pick("look"))
+                    t += d
+                put(t, min(b, t + rng.uniform(2.6, 4.0)), pick("screen"))
+            rest = starts[1:]
+        if k == last and starts:
+            put(starts[-1], b + 5.0, pick("bye"))
+            rest = rest[:-1]
+        # 話の途中の身ぶり: 2文目以降の文の頭で、約半分の確率で
+        for t in rest:
+            if rng.random() < 0.5:
+                put(t + rng.uniform(0.0, 0.5), min(b, t + rng.uniform(1.8, 3.0)), pick("talk"), free_only=True)
     return poses
 
 

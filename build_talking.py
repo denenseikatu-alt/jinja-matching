@@ -331,14 +331,17 @@ def main() -> None:
             for name, pc in pcfg["poses"].items():
                 rgba = Image.open(pc["image"]).convert("RGBA").resize((W, H), Image.LANCZOS)
                 rgb = rgba.convert("RGB")
-                flay = layout if pc.get("face") == "layout" else pc
+                flay = layout if pc.get("face") == "layout" else dict(pc)
+                if flay.get("eyes") == "layout":
+                    flay["eyes"] = layout["eyes"]
                 alpha = np.asarray(rgba.getchannel("A")).astype(np.float32) / 255.0
                 poses[name] = (rgb, Face(rgb, flay), presenter_motion.Motion(alpha, layout["motion"], FPS))
             motion = poses["base"][2]
             motion.clean = Image.open(pcfg["background"]).convert("RGB").resize((W, H), Image.LANCZOS)
             line_starts = [a for a, _, _ in subtitles]
             timeline_poses = presenter_motion.pose_timeline(scenes, scene_spans, line_starts, n_frames,
-                                                            FPS, set(poses))
+                                                            FPS, set(poses), pcfg.get("groups"),
+                                                            seed=script.get("title", ""))
         else:
             motion = presenter_motion.Motion.from_room(base, Image.open(args.room).convert("RGB"),
                                                        layout["motion"], FPS)

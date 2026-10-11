@@ -1,17 +1,155 @@
 {
-  "_説明": "記事動画の語り手のポーズ。絵は make_poses_gemini.py で作り、make_pose_cutouts.py で切り抜いた。face が base のポーズは元の絵と顔の位置が同じ。lean は口を開けて笑っているので口を描かない",
-  "background": "assets_video/poses_anime/room_clean.png",
-  "poses": {
-    "base": {"image": "assets_video/poses_anime/base.png", "face": "layout"},
-    "present": {"image": "assets_video/poses_anime/present.png", "face": "layout"},
-    "point": {"image": "assets_video/poses_anime/point.png", "face": "layout"},
-    "explain": {"image": "assets_video/poses_anime/explain.png", "face": "layout"},
-    "look": {"image": "assets_video/poses_anime/look.png",
-             "mouth": {"cx": 617, "cy": 460, "w": 50, "angle": 5},
-             "eyes": [{"cx": 560, "cy": 365, "w": 58, "h": 30, "angle": 3, "skin": [585, 398]}]},
-    "lean": {"image": "assets_video/poses_anime/lean.png",
-             "mouth": null,
-             "eyes": [{"cx": 385, "cy": 395, "w": 66, "h": 30, "angle": 2, "skin": [394, 375]},
-                      {"cx": 535, "cy": 345, "w": 56, "h": 31, "angle": 7, "skin": [541, 323]}]}
+ "_説明": "記事動画の語り手のポーズ。絵は make_poses_gemini.py で作り、make_pose_cutouts.py で切り抜いた。face が layout のポーズは元の絵（presenter.json）と顔の位置が同じ。mouth が null のポーズは口を開けて笑っているので口を描かない。groups は、場面のどこで使うかの分け方（presenter_motion.pose_timeline が毎回ランダムに選ぶ）",
+ "background": "assets_video/poses_anime/room_clean.png",
+ "poses": {
+  "base": {
+   "image": "assets_video/poses_anime/base.png",
+   "face": "layout"
+  },
+  "present": {
+   "image": "assets_video/poses_anime/present.png",
+   "face": "layout"
+  },
+  "point": {
+   "image": "assets_video/poses_anime/point.png",
+   "face": "layout"
+  },
+  "explain": {
+   "image": "assets_video/poses_anime/explain.png",
+   "face": "layout"
+  },
+  "look": {
+   "image": "assets_video/poses_anime/look.png",
+   "mouth": {
+    "cx": 617,
+    "cy": 460,
+    "w": 50,
+    "angle": 5
+   },
+   "eyes": [
+    {
+     "cx": 560,
+     "cy": 365,
+     "w": 58,
+     "h": 30,
+     "angle": 3,
+     "skin": [
+      585,
+      398
+     ]
+    }
+   ]
+  },
+  "lean": {
+   "image": "assets_video/poses_anime/lean.png",
+   "mouth": null,
+   "eyes": [
+    {
+     "cx": 385,
+     "cy": 395,
+     "w": 66,
+     "h": 30,
+     "angle": 2,
+     "skin": [
+      394,
+      375
+     ]
+    },
+    {
+     "cx": 535,
+     "cy": 345,
+     "w": 56,
+     "h": 31,
+     "angle": 7,
+     "skin": [
+      541,
+      323
+     ]
+    }
+   ]
+  },
+  "clap": {
+   "image": "assets_video/poses_anime/clap.png",
+   "mouth": null,
+   "eyes": "layout"
+  },
+  "think": {
+   "image": "assets_video/poses_anime/think.png",
+   "face": "layout"
+  },
+  "thumbsup": {
+   "image": "assets_video/poses_anime/thumbsup.png",
+   "face": "layout"
+  },
+  "okay": {
+   "image": "assets_video/poses_anime/okay.png",
+   "face": "layout"
+  },
+  "chest": {
+   "image": "assets_video/poses_anime/chest.png",
+   "face": "layout"
+  },
+  "one": {
+   "image": "assets_video/poses_anime/one.png",
+   "face": "layout"
+  },
+  "both": {
+   "image": "assets_video/poses_anime/both.png",
+   "face": "layout"
+  },
+  "lookpoint": {
+   "image": "assets_video/poses_anime/lookpoint.png",
+   "mouth": null,
+   "eyes": [
+    {
+     "cx": 550,
+     "cy": 365,
+     "w": 68,
+     "h": 32,
+     "angle": -3,
+     "skin": [
+      540,
+      410
+     ]
+    },
+    {
+     "cx": 665,
+     "cy": 350,
+     "w": 54,
+     "h": 30,
+     "angle": -3,
+     "skin": [
+      670,
+      400
+     ]
+    }
+   ]
   }
+ },
+ "groups": {
+  "greet": [
+   "lean"
+  ],
+  "screen": [
+   "present",
+   "point",
+   "both",
+   "lookpoint"
+  ],
+  "look": [
+   "look"
+  ],
+  "talk": [
+   "explain",
+   "clap",
+   "think",
+   "thumbsup",
+   "okay",
+   "chest",
+   "one"
+  ],
+  "bye": [
+   "lean"
+  ]
+ }
 }
