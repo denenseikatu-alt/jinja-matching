@@ -154,7 +154,7 @@ class Face:
     """1枚絵の口とまぶたを描き替える。顔の傾き（angle, 度・反時計回り）に合わせて描く。"""
 
     def __init__(self, base: Image.Image, layout: dict):
-        self.mouth = layout["mouth"]
+        self.mouth = layout.get("mouth")
         self.eyes = layout.get("eyes", [])
         px = base.load()
 
@@ -179,7 +179,7 @@ class Face:
 
     def draw(self, img: Image.Image, mouth: float, blink: float) -> None:
         m = self.mouth
-        if mouth > 0.08:
+        if m and mouth > 0.08:
             mw = m["w"]
             w = mw * (0.42 + 0.16 * mouth)
             h = mw * (0.05 + 0.22 * mouth)
@@ -239,6 +239,8 @@ def main() -> None:
     ap.add_argument("--room", default="assets_video/room_blur.png",
                     help="語り手のいない同じ部屋の絵。layout に motion があれば、体と首を動かすのに使う")
     ap.add_argument("--still", action="store_true", help="体と首を動かさない（口とまばたきだけ）")
+    ap.add_argument("--poses", default="assets_video/poses_anime/poses.json",
+                    help="ポーズの絵の一覧。あれば、場面に合わせてスライドを手で示すなどのポーズに切り替える")
     ap.add_argument("--host", default="http://127.0.0.1:50021")
     ap.add_argument("--speaker", type=int, default=None)
     ap.add_argument("--font", default=None)
@@ -318,12 +320,28 @@ def main() -> None:
     blinks = blink_schedule(n_frames)
     face = Face(base, layout)
     motion = None
+    poses: dict[str, tuple] = {}
     if layout.get("motion") and not args.still and Path(args.room).exists():
         import presenter_motion
-        motion = presenter_motion.Motion(base, Image.open(args.room).convert("RGB"),
-                                         layout["motion"], FPS)
         nods = presenter_motion.nod_curve([a for a, _, _ in subtitles], n_frames, FPS)
         leans = presenter_motion.lean_curve([a for a, _ in scene_spans], n_frames, FPS)
+        if Path(args.poses).exists():
+            # ポーズの絵（透明つきの切り抜き）: 名前 → (絵, 口とまぶた, 動き)
+            pcfg = json.loads(Path(args.poses).read_text(encoding="utf-8"))
+            for name, pc in pcfg["poses"].items():
+                rgba = Image.open(pc["image"]).convert("RGBA").resize((W, H), Image.LANCZOS)
+                rgb = rgba.convert("RGB")
+                flay = layout if pc.get("face") == "layout" else pc
+                alpha = np.asarray(rgba.getchannel("A")).astype(np.float32) / 255.0
+                poses[name] = (rgb, Face(rgb, flay), presenter_motion.Motion(alpha, layout["motion"], FPS))
+            motion = poses["base"][2]
+            motion.clean = Image.open(pcfg["background"]).convert("RGB").resize((W, H), Image.LANCZOS)
+            line_starts = [a for a, _, _ in subtitles]
+            timeline_poses = presenter_motion.pose_timeline(scenes, scene_spans, line_starts, n_frames,
+                                                            FPS, set(poses))
+        else:
+            motion = presenter_motion.Motion.from_room(base, Image.open(args.room).convert("RGB"),
+                                                       layout["motion"], FPS)
 
     # シーンごとの背景（スクリーンにスライドを映した状態）。体を動かすときは人物を消した背景
     backgrounds = []
@@ -337,7 +355,18 @@ def main() -> None:
         t = i / FPS
         si = next((k for k, (a, b) in enumerate(scene_spans) if a <= t < b), len(scenes) - 1)
         level = float(mouth[i]) if i < len(mouth) else 0.0
-        if motion:
+        if poses:
+            cur, prev, wcur = presenter_motion.fade_at(timeline_poses, i, FPS)
+
+            def render(name: str) -> Image.Image:
+                rgb, pface, pmo = poses[name]
+                char = rgb.copy()
+                pface.draw(char, level, blinks.get(i, 0.0))
+                return pmo.frame(char, backgrounds[si], t, level, float(nods[i]), float(leans[i]))
+            img = render(cur)
+            if wcur < 1.0:
+                img = Image.blend(render(prev), img, wcur)
+        elif motion:
             char = base.copy()
             face.draw(char, level, blinks.get(i, 0.0))
             img = motion.frame(char, backgrounds[si], t, level, float(nods[i]), float(leans[i]))
@@ -349,8 +378,11 @@ def main() -> None:
         cw, ch = W / z, H / z
         ox = (W - cw) / 2 + 4 * math.sin(2 * math.pi * t / 13.0)
         oy = (H - ch) / 2
-        img = img.transform((W, H), Image.AFFINE, (cw / W, 0, ox, 0, ch / H, oy),
-                            resample=Image.BILINEAR)
+        # 出力の点 (x, y) → 元の点 (x·cw/W + ox, y·ch/H + oy)。OpenCV のほうが PIL より数倍速い
+        import cv2
+        img = Image.fromarray(cv2.warpAffine(
+            np.asarray(img), np.float32([[cw / W, 0, ox], [0, ch / H, oy]]), (W, H),
+            flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE))
         ci = next((k for k, (a, b, _) in enumerate(subtitles) if a <= t < b), None)
         if ci is not None:
             if ci not in captions:

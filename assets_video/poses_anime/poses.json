@@ -1,0 +1,17 @@
+{
+  "_説明": "記事動画の語り手のポーズ。絵は make_poses_gemini.py で作り、make_pose_cutouts.py で切り抜いた。face が base のポーズは元の絵と顔の位置が同じ。lean は口を開けて笑っているので口を描かない",
+  "background": "assets_video/poses_anime/room_clean.png",
+  "poses": {
+    "base": {"image": "assets_video/poses_anime/base.png", "face": "layout"},
+    "present": {"image": "assets_video/poses_anime/present.png", "face": "layout"},
+    "point": {"image": "assets_video/poses_anime/point.png", "face": "layout"},
+    "explain": {"image": "assets_video/poses_anime/explain.png", "face": "layout"},
+    "look": {"image": "assets_video/poses_anime/look.png",
+             "mouth": {"cx": 617, "cy": 460, "w": 50, "angle": 5},
+             "eyes": [{"cx": 560, "cy": 365, "w": 58, "h": 30, "angle": 3, "skin": [585, 398]}]},
+    "lean": {"image": "assets_video/poses_anime/lean.png",
+             "mouth": null,
+             "eyes": [{"cx": 385, "cy": 395, "w": 66, "h": 30, "angle": 2, "skin": [394, 375]},
+                      {"cx": 535, "cy": 345, "w": 56, "h": 31, "angle": 7, "skin": [541, 323]}]}
+  }
+}
