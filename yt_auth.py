@@ -34,6 +34,8 @@ SCOPES = [
     "https://www.googleapis.com/auth/youtube.upload",
     "https://www.googleapis.com/auth/youtube.readonly",
     "https://www.googleapis.com/auth/youtube.force-ssl",
+    # 視聴維持率・登録のきっかけなどの分析（YouTube Analytics API。Google Cloud で API の有効化も必要）
+    "https://www.googleapis.com/auth/yt-analytics.readonly",
 ]
 # Mac の token.json は upload だけで認可済み。範囲を広げると更新に失敗するので分けておく
 LEGACY_SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
