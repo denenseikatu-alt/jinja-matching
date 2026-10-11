@@ -30,3 +30,5 @@ zatsugaku/.extra_today
 review.json
 review_source.json
 out_review/
+clips/inbox/
+clips/out/
