@@ -31,6 +31,8 @@ prepare() {
   [ "$code" -eq 3 ] && { echo "SKIP"; exit 3; }
   [ "$code" -eq 0 ] || die "台帳を確認できませんでした"
   python3 zatsugaku_state.py pull || die "台帳を取得できませんでした"
+  WHY="$(python3 zatsugaku_state.py why 2>/dev/null)"
+  [ -n "$WHY" ] && echo "MAC_FAILED: $WHY"
   (cd "$REPO" && bash cloud/setup.sh) || die "VOICEVOX / 依存の準備に失敗しました"
   python3 fetch_assets.py || die "素材（BGM・フォント・絵）の準備に失敗しました"
   (cd "$REPO" && python3 yt_auth.py check) || die "YouTube の認証に失敗しました"

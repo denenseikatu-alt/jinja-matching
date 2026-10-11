@@ -214,14 +214,27 @@ def cmd_claim(by: str) -> None:
     print(f"THEME: {r[3:]}")
 
 
-def cmd_release(by: str) -> None:
+def cmd_release(by: str, reason: str = "") -> None:
     day = today()
 
     def change(st):
         if st["claims"].get(day, {}).get("by") == by:
             del st["claims"][day]
-    update_shared(change, f"{day} の担当を手放す: {by}")
+        if reason:
+            # 失敗の理由を台帳に残す（Mac のログは外から見られないため、クラウドが読んで報告する）
+            st.setdefault("failures", {})[f"{day}-{by}"] = {
+                "reason": reason[:300], "at": datetime.now(JST).isoformat(timespec="seconds")}
+    update_shared(change, f"{day} の担当を手放す: {by}" + (f"（{reason[:60]}）" if reason else ""))
     print(f"今日の担当を手放しました: {by}")
+
+
+def cmd_why() -> None:
+    """今日、ほかの担当が失敗した理由を表示する（なければ何も出さない）。"""
+    st = read_shared()
+    day = today()
+    for key, v in st.get("failures", {}).items():
+        if key.startswith(day):
+            print(f"{key}: {v.get('reason')}（{v.get('at')}）")
 
 
 def cmd_skip_theme() -> None:
@@ -312,7 +325,8 @@ def cmd_done(path: Path, url: str, by: str, key: str | None = None, keep_order: 
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["pull", "claim", "release", "check", "done", "theme", "skip-theme",
-                                    "extra"])
+                                    "extra", "why"])
+    ap.add_argument("--reason", default="", help="release と一緒に使う。手放した理由（台帳に残す）")
     ap.add_argument("--skip", default="", help="extra と一緒に使う。ネタがそろわず外すテーマ（カンマ区切り）")
     ap.add_argument("script", nargs="?")
     ap.add_argument("--url", default="")
@@ -340,7 +354,9 @@ def main() -> None:
     elif a.cmd == "claim":
         cmd_claim(a.by)
     elif a.cmd == "release":
-        cmd_release(a.by)
+        cmd_release(a.by, a.reason)
+    elif a.cmd == "why":
+        cmd_why()
     elif a.cmd == "check":
         check(Path(a.script), a.theme)
     else:

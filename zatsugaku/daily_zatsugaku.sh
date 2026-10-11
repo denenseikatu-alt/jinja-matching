@@ -28,11 +28,31 @@ mkdir -p "$LOG_DIR"
 exec >>"$LOG_DIR/$TODAY.log" 2>&1
 echo "===== $(date '+%Y-%m-%d %H:%M:%S') 開始 ====="
 cd "$DIR" || { echo "ディレクトリがありません: $DIR"; exit 1; }
-die() { echo "中断: $*"; python3 zatsugaku_state.py release --by mac >/dev/null 2>&1; exit 1; }
+# 失敗の理由は台帳にも残す（クラウドが読んで報告できるように）
+die() { echo "中断: $*"; python3 zatsugaku_state.py release --by mac --reason "$*" >/dev/null 2>&1; exit 1; }
+
+# 最新版のスクリプトを取ってきて、取れたら入れ替えてやり直す（直した内容が Mac にも自動で届くように）
+if [ -z "${ZATSUGAKU_UPDATED:-}" ]; then
+  if git -C "$REPO" pull -q --ff-only origin claude/denen-video-pipeline-myltss; then
+    echo "最新版を取得しました"
+  else
+    echo "注意: 最新版を取得できませんでした（手元の版で続けます）"
+  fi
+  export ZATSUGAKU_UPDATED=1
+  exec bash "$DIR/daily_zatsugaku.sh" "$@"
+fi
 
 # shellcheck disable=SC1091
 [ -f "$DIR/.env" ] && set -a && . "$DIR/.env" && set +a
 PRIVACY="${PRIVACY:-public}"
+
+# YouTube の許可: 合言葉（~/.unlock_pass）があれば、クラウドと共通の暗号化した許可（cloud/secrets.enc）を使う。
+# 許可を取り直すのはクラウド側の1か所で済み、Mac の許可が切れて止まることがなくなる
+if [ -f "$HOME/.unlock_pass" ] && bash "$REPO/cloud/unlock.sh" "$(cat "$HOME/.unlock_pass")" >/dev/null 2>&1; then
+  # shellcheck disable=SC1091
+  . "$HOME/.video_env"
+  echo "YouTube の許可: クラウドと共通のものを使います"
+fi
 
 # 今日の担当を取る。投稿済みか、クラウドが作成中なら何もしない
 python3 zatsugaku_state.py claim --by mac
@@ -40,6 +60,10 @@ code=$?
 [ "$code" -eq 3 ] && { echo "===== 終了（今日は不要）====="; exit 0; }
 [ "$code" -eq 0 ] || { echo "中断: 台帳を確認できませんでした"; exit 1; }
 python3 zatsugaku_state.py pull || die "台帳を取得できませんでした"
+# 台本や書き出しに時間をかける前に、YouTube の許可が生きているか確かめる
+# （切れていたらすぐ手放し、クラウドの予備に回す）
+( . "$REPO/.venv/bin/activate" && cd "$REPO" && python3 yt_auth.py check ) \
+  || die "YouTube の認証に失敗しました（許可の期限切れの可能性。yt_auth.py check を参照）"
 THEME="$(python3 zatsugaku_state.py theme)" || die "今日のテーマを決められませんでした"
 SCOPE="$(python3 zatsugaku_state.py theme --scope)"
 echo "今日のテーマ: $SCOPE"
