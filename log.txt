@@ -1,0 +1,6 @@
+10/11 08:53:42 prepare 開始（STYLE=talking）
+10/11 08:53:56 READY: aerobike-leg-training-effects（抽出まで完了。次は台本）
+10/11 08:54:36 publish 開始: aerobike-leg-training-effects
+10/11 08:59:24 中断: 動画の書き出しに失敗しました
+10/11 08:59:56 publish 開始: aerobike-leg-training-effects
+10/11 09:06:48 公開: 完了: https://www.youtube.com/watch?v=wVl02-V13Hk 公開設定: public 
