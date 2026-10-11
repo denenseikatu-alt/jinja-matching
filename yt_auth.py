@@ -27,10 +27,13 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent
 
-# 動画の送信と、送信済み動画の一覧（同じ記事を二度上げないため）に使う
+# 動画の送信と、送信済み動画の一覧（同じ記事を二度上げないため）に使う。
+# force-ssl は公開済みの動画の題名・概要欄の変更と再生リストの作成に使う（yt_manage.py）。
+# 更新トークンは許可を取ったときの範囲のまま使えるので、ここに足しても既存のトークンは壊れない
 SCOPES = [
     "https://www.googleapis.com/auth/youtube.upload",
     "https://www.googleapis.com/auth/youtube.readonly",
+    "https://www.googleapis.com/auth/youtube.force-ssl",
 ]
 # Mac の token.json は upload だけで認可済み。範囲を広げると更新に失敗するので分けておく
 LEGACY_SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]

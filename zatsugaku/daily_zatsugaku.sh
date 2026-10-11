@@ -33,8 +33,21 @@ die() { echo "中断: $*"; python3 zatsugaku_state.py release --by mac --reason 
 
 # 最新版のスクリプトを取ってきて、取れたら入れ替えてやり直す（直した内容が Mac にも自動で届くように）
 if [ -z "${ZATSUGAKU_UPDATED:-}" ]; then
-  if git -C "$REPO" pull -q --ff-only origin claude/denen-video-pipeline-myltss; then
+  BR=claude/denen-video-pipeline-myltss
+  if git -C "$REPO" pull -q --ff-only origin "$BR"; then
     echo "最新版を取得しました"
+  elif git -C "$REPO" fetch -q origin "$BR"; then
+    # Mac が作って投稿できなかった台本と、クラウドが代わりに作って保存した同じ日付の台本がぶつかると
+    # 取り込みが止まる。ぶつかる手元の台本だけ ~/zatsugaku_backup に退避してやり直す
+    bak="$HOME/zatsugaku_backup/$(date +%Y%m%d-%H%M%S)"
+    git -C "$REPO" ls-files --others --exclude-standard -- zatsugaku/scripts | while read -r f; do
+      git -C "$REPO" cat-file -e "FETCH_HEAD:$f" 2>/dev/null && mkdir -p "$bak" && mv "$REPO/$f" "$bak/" && echo "退避: $f → $bak"
+    done
+    if git -C "$REPO" pull -q --ff-only origin "$BR"; then
+      echo "最新版を取得しました（ぶつかった台本を退避）"
+    else
+      echo "注意: 最新版を取得できませんでした（手元の版で続けます）"
+    fi
   else
     echo "注意: 最新版を取得できませんでした（手元の版で続けます）"
   fi
