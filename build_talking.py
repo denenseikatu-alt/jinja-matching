@@ -18,7 +18,8 @@ layout（JSON）には絵の中の位置を 1920×1080 基準のピクセルで�
      "eyes": [{"cx": .., "cy": .., "w": .., "h": .., "angle": .., "skin": [x, y]}, ...]}
 angle は顔の傾き（度・反時計回り）。skin はまぶたの色を取る頬の位置。
 
-これは AI の動画生成ではない。口・まばたき・寄り引き以外（手振り・首の動き）は動かない。
+これは AI の動画生成ではない。layout に "motion" があれば、presenter_motion.py で体の揺れ・呼吸・
+首のかしげ・うなずき・場面の変わり目の身の乗り出しを付ける（手振りはない）。
 """
 
 from __future__ import annotations
@@ -235,6 +236,9 @@ def main() -> None:
     ap.add_argument("-o", "--outdir", default="out_talk")
     ap.add_argument("--presenter", default="assets_video/presenter.png")
     ap.add_argument("--layout", default="assets_video/presenter.json")
+    ap.add_argument("--room", default="assets_video/room_blur.png",
+                    help="語り手のいない同じ部屋の絵。layout に motion があれば、体と首を動かすのに使う")
+    ap.add_argument("--still", action="store_true", help="体と首を動かさない（口とまばたきだけ）")
     ap.add_argument("--host", default="http://127.0.0.1:50021")
     ap.add_argument("--speaker", type=int, default=None)
     ap.add_argument("--font", default=None)
@@ -313,11 +317,18 @@ def main() -> None:
     mouth = mouth_levels(samples, rate, n_frames)
     blinks = blink_schedule(n_frames)
     face = Face(base, layout)
+    motion = None
+    if layout.get("motion") and not args.still and Path(args.room).exists():
+        import presenter_motion
+        motion = presenter_motion.Motion(base, Image.open(args.room).convert("RGB"),
+                                         layout["motion"], FPS)
+        nods = presenter_motion.nod_curve([a for a, _, _ in subtitles], n_frames, FPS)
+        leans = presenter_motion.lean_curve([a for a, _ in scene_spans], n_frames, FPS)
 
-    # シーンごとの背景（スクリーンにスライドを映した状態）
+    # シーンごとの背景（スクリーンにスライドを映した状態）。体を動かすときは人物を消した背景
     backgrounds = []
     for scr in screens:
-        bg = base.copy()
+        bg = (motion.clean if motion else base).copy()
         bg.paste(scr, (x0, y0))
         backgrounds.append(bg)
     captions: dict[int, Image.Image] = {}
@@ -325,8 +336,14 @@ def main() -> None:
     def frame_at(i: int) -> Image.Image:
         t = i / FPS
         si = next((k for k, (a, b) in enumerate(scene_spans) if a <= t < b), len(scenes) - 1)
-        img = backgrounds[si].copy()
-        face.draw(img, float(mouth[i]) if i < len(mouth) else 0.0, blinks.get(i, 0.0))
+        level = float(mouth[i]) if i < len(mouth) else 0.0
+        if motion:
+            char = base.copy()
+            face.draw(char, level, blinks.get(i, 0.0))
+            img = motion.frame(char, backgrounds[si], t, level, float(nods[i]), float(leans[i]))
+        else:
+            img = backgrounds[si].copy()
+            face.draw(img, level, blinks.get(i, 0.0))
         # ごくわずかな寄り引き（約9秒周期で最大1%）
         z = 1.005 + 0.005 * math.sin(2 * math.pi * t / 9.0)
         cw, ch = W / z, H / z

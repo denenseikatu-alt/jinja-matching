@@ -14,7 +14,7 @@ ENGINE_HOME="${VOICEVOX_HOME:-$HOME/voicevox}"
 HOST="${VOICEVOX_HOST:-http://127.0.0.1:50021}"
 
 echo "== Python の依存 =="
-pip install -q pillow numpy imageio-ffmpeg py7zr cffi cryptography google-auth google-auth-oauthlib google-api-python-client
+pip install -q pillow numpy imageio-ffmpeg py7zr cffi cryptography google-auth google-auth-oauthlib google-api-python-client opencv-python-headless
 
 if [ "${1:-}" = "--no-engine" ]; then
   exit 0
