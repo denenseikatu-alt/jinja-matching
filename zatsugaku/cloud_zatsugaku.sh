@@ -71,7 +71,7 @@ extra_prepare() {
   out="$(python3 zatsugaku_state.py extra --skip "${1:-}")" || die_plain "テーマを決められませんでした"
   key="$(printf '%s\n' "$out" | sed -n 1p)"; theme="$(printf '%s\n' "$out" | sed -n 2p)"
   printf '%s\t%s\n' "$key" "$theme" >"$EXTRA_FILE"
-  scope="$(python3 -c "import sys; sys.path.insert(0,'.'); import zatsugaku_state as z; print(z.THEME_SCOPE['$theme'])")"
+  scope="$(python3 -c "import sys,json; sys.path.insert(0,'.'); import zatsugaku_state as z; print(z.scope_for(json.load(open('state.json')), '$theme'))")"
   echo "EXTRA: zatsugaku/scripts/$key.json を書いてください。テーマは「$theme」（範囲: $scope）で、10個すべてこのテーマにする。"
   echo "検査: (cd zatsugaku && python3 zatsugaku_state.py check scripts/$key.json --theme $theme)"
   echo "10個そろわなければ作り話で埋めず: bash zatsugaku/cloud_zatsugaku.sh extra-prepare $theme  （次のテーマに切り替わる。外すテーマはカンマ区切りで足していく）"

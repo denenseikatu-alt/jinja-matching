@@ -22,7 +22,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -40,41 +40,59 @@ BANNED_WORDS = ["メタ解析", "コホート", "エビデンス", "バイアス
 # キーは画面と題名に出す短い呼び名（導入の画面に「〇〇の雑学」と入るので短くする）。値はテーマの範囲の説明で、
 # 台本を書く Claude に渡す（オーナーの指示の言葉そのまま）。
 THEME_SCOPE = {
-    "筋トレ": "筋トレ",
-    "恋愛": "恋愛",
-    "栄養": "栄養",
-    "婚活": "婚活",
-    "プロテイン": "プロテイン",
-    "幸福感": "幸福感",
-    "ビタミン": "ビタミン",
-    "夫婦生活": "夫婦生活のメリット・デメリット",
-    "ダイエット": "ダイエット",
-    "暮らし": "暮らし",
-    "がんと生活習慣": "ガンになりやすい、なりにくい生活習慣",
-    "女性が好む男性": "世代別女性が好む男性の特徴",
-    "アンチエイジング": "アンチエイジング",
-    "人生": "人生",
-    "筋肥大": "筋肥大",
-    "推し活": "推し活をする男女の特徴、心理、精神",
-    "美容": "美容",
-    "投資": "投資",
-    "病気予防": "病気予防",
-    "ネットで攻撃する人": "ネット上で他者を攻撃する人の特徴、心理、精神",
-    "認知症予防": "認知症予防",
-    "資産管理": "資産管理",
-    "健康情報": "健康情報",
-    "男性が好む女性": "世代別男性が好む女性の特徴",
-    "結婚しない人生": "結婚しないメリット・デメリット",
-    "睡眠": "睡眠（睡眠時間の重要性、健康に及ぼす影響、話題の自称ショートスリーパーの実際）",
-    "顔出し発信する専門家": "YouTubeで顔出し情報発信する専門家の心理、心情、意味",
-    "世代別の男女": "世代別男女の思考傾向や特徴",
+    # 2026-10-11 オーナー判断: 筋トレ・栄養・体づくりに絞る（以前の28テーマは再生が伸びなかった）。
+    # 1日2本で順に回すので、似たテーマ（筋トレと筋肥大など）が同じ日に並ばない順番にしてある
+    "筋トレ": "筋トレ。毎回、体の部位を1つに絞る（今回の部位は最後に書く）。鍛え方・回数・頻度・休み方・年代別の注意",
+    "栄養": "体づくりのための栄養（食事・食べる時間・食材）",
+    "持久力": "持久系の運動（有酸素運動・心肺の力・歩く・走る・自転車・泳ぐ）",
+    "プロテイン": "たんぱく質（量・とり方・食品との違い）",
+    "筋肥大": "筋肉が発達する仕組み（高重量と軽い重さ・回復・睡眠）",
+    "健康長寿": "運動と生活習慣で健康を保ち、長生きにつながること（体力と寿命・転ばない体・姿勢）",
+    "筋トレで変わる体": "筋トレで体の中に起こる良い変化（骨・血管・脳・代謝・ホルモン・血糖）",
+    "ビタミン": "ビタミン・ミネラル（不足と取りすぎ・サプリの研究）",
 }
+# 筋トレの回は、体の部位を順に回す（台帳の筋トレの投稿数で決まるので Mac とクラウドで一致する）
+BODY_PARTS = ["脚（太もも）", "お尻", "背中", "胸", "肩", "腕", "お腹（体幹）", "ふくらはぎ"]
+# ネタがそろわず飛ばしたテーマは、この日数のあいだ順番から外す（毎回調べ直して飛ばす無駄をなくす）
+SKIP_REST_DAYS = 7
+# 全部のテーマを飛ばした日に使う予備のテーマ（順番には入れない）
+RESERVE_SCOPE = {"暮らし": "暮らし（体と健康にかかわる日々の習慣）"}
+# 部位を数え始める日（この日より前の筋トレの回は数えない）
+PARTS_FROM = "2026-10-12"
 THEMES = list(THEME_SCOPE)
-MONEY = {"投資", "資産管理"}
 
 
 def today() -> str:
     return datetime.now(JST).date().isoformat()
+
+
+def resting(st: dict, day: str) -> set[str]:
+    """ネタがそろわず飛ばしてから SKIP_REST_DAYS 日たっていないテーマ（その日に飛ばした分も含む）。"""
+    d0 = date.fromisoformat(day)
+    out = set()
+    for d, ts in st.get("theme_skips", {}).items():
+        try:
+            age = (d0 - date.fromisoformat(d)).days
+        except ValueError:
+            continue
+        if 0 <= age < SKIP_REST_DAYS:
+            out |= set(ts)
+    return out
+
+
+def _rotate(st: dict, before: str | None, skips: set[str]) -> str:
+    """順番どおりに選んだ回（固定した日を除く）の最後のテーマの次。使えるテーマがなければ予備のテーマ。"""
+    past = sorted((d, v["theme"]) for d, v in st.get("done", {}).items()
+                  if (before is None or d < before) and v.get("theme") in THEMES and not v.get("fixed"))
+    i = (THEMES.index(past[-1][1]) + 1) % len(THEMES) if past else 0
+    for k in range(len(THEMES)):
+        t = THEMES[(i + k) % len(THEMES)]
+        if t not in skips:
+            return t
+    for t in RESERVE_SCOPE:
+        if t not in skips:
+            return t
+    sys.exit("使えるテーマが残っていません（予備のテーマも使えません）")
 
 
 def theme_for(st: dict, day: str) -> str:
@@ -82,35 +100,38 @@ def theme_for(st: dict, day: str) -> str:
     台帳だけで決まるので Mac とクラウドで一致する。固定した日のあとは、最後に投稿したテーマの次から続く。"""
     if day in st.get("done", {}) and st["done"][day].get("theme"):
         return st["done"][day]["theme"]
-    # その日に「別のネタが10個そろわない」として外したテーマ（台帳の theme_skips）
-    skips = set(st.get("theme_skips", {}).get(day, []))
+    # ネタがそろわず飛ばしたテーマ（台帳の theme_skips）は、しばらく順番から外す
+    skips = resting(st, day)
     # オーナーの指示で日付ごとにテーマを固定した日（台帳の theme_overrides）。順番より優先する
     fixed = st.get("theme_overrides", {}).get(day)
     if fixed in THEMES and fixed not in skips:
         return fixed
-    # 順番の位置は、順番どおりに選んだ回（固定した日を除く）の最後のテーマで決まる。
     # 追加で作った回（キーが「日付-extraN」）も順番を進める
-    past = sorted((d, v["theme"]) for d, v in st.get("done", {}).items()
-                  if d < day and v.get("theme") in THEMES and not v.get("fixed"))
-    i = (THEMES.index(past[-1][1]) + 1) % len(THEMES) if past else 0
-    for k in range(len(THEMES)):
-        t = THEMES[(i + k) % len(THEMES)]
-        if t not in skips:
-            return t
-    sys.exit("その日に使えるテーマが残っていません")
+    return _rotate(st, day, skips)
 
 
 def next_theme(st: dict, skips: set[str] = frozenset()) -> str:
     """毎日の2本目（追加の回）のテーマ。これまでに順番どおり投稿した最後のテーマの次。
     追加の回もテーマの順番を進めるので、翌日の1本目はこの次のテーマになる。"""
-    past = sorted((d, v["theme"]) for d, v in st.get("done", {}).items()
-                  if v.get("theme") in THEMES and not v.get("fixed"))
-    i = (THEMES.index(past[-1][1]) + 1) % len(THEMES) if past else 0
-    for k in range(len(THEMES)):
-        t = THEMES[(i + k) % len(THEMES)]
-        if t not in skips:
-            return t
-    sys.exit("使えるテーマが残っていません")
+    return _rotate(st, None, set(skips) | resting(st, today()))
+
+
+def scope_for(st: dict, theme: str) -> str:
+    """台本を書く人に渡すテーマの範囲。筋トレの回は、今回の部位を付け足す。"""
+    scope = THEME_SCOPE.get(theme) or RESERVE_SCOPE.get(theme, theme)
+    part = body_part(st, theme)
+    return f"{scope}。今回の部位: {part}（導入の画面にも「{part_word(part)}」を出す）" if part else scope
+
+
+def body_part(st: dict, theme: str) -> str | None:
+    if theme != "筋トレ":
+        return None
+    n = sum(1 for d, v in st.get("done", {}).items() if v.get("theme") == "筋トレ" and d >= PARTS_FROM)
+    return BODY_PARTS[n % len(BODY_PARTS)]
+
+
+def part_word(part: str) -> str:
+    return part.split("（")[0]
 
 
 def next_extra_key(st: dict, day: str) -> str:
@@ -247,12 +268,12 @@ def cmd_skip_theme() -> None:
         new = theme_for(st, day)
         if day in st["claims"]:
             st["claims"][day]["theme"] = new
-        return f"{cur}→{new}"
-    r = update_shared(change, f"{day} のテーマを切り替え（ネタが10個そろわない）")
-    cur, new = r.split("→")
-    print(f"「{cur}」は別のネタが10個そろわないため、今日のテーマを「{new}」に切り替えました")
+        return cur, new, scope_for(st, new)
+    cur, new, scope = update_shared(change, f"{day} のテーマを切り替え（ネタが10個そろわない）")
+    print(f"「{cur}」は別のネタが10個そろわないため、今日のテーマを「{new}」に切り替えました"
+          f"（「{cur}」は{SKIP_REST_DAYS}日間お休み）")
     print(f"THEME: {new}")
-    print(f"範囲: {THEME_SCOPE[new]}")
+    print(f"範囲: {scope}")
 
 
 def check(path: Path, theme: str | None = None) -> None:
@@ -296,6 +317,9 @@ def check(path: Path, theme: str | None = None) -> None:
         errs.append(f"今日のテーマ「{theme}」以外の雑学があります（category を確認）: {off}")
     if theme not in "".join(ln.get("caption", "") for ln in items[0].get("lines", [])):
         errs.append(f"導入の画面にテーマ「{theme}」が出ていません")
+    part = body_part(st, theme)
+    if part and part_word(part) not in "".join(ln.get("caption", "") for ln in items[0].get("lines", [])):
+        errs.append(f"筋トレの回は今回の部位「{part_word(part)}」に絞り、導入の画面にも出してください")
     if not 1100 <= total <= 1450:
         errs.append(f"読み上げの合計が{total}字です（1,150〜1,350字が目安）")
     if not sc.get("youtube", {}).get("title"):
@@ -344,13 +368,21 @@ def main() -> None:
     elif a.cmd == "theme":
         st = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else read_shared()
         t = theme_for(st, today())
-        print(f"{t}（範囲: {THEME_SCOPE[t]}）" if a.scope else t)
+        print(f"{t}（範囲: {scope_for(st, t)}）" if a.scope else t)
     elif a.cmd == "extra":
         # 毎日の2本目: 記録先のキーとテーマを1行ずつ出す（台帳は共有のものを読む）
-        st = read_shared()
-        t = next_theme(st, {s for s in a.skip.split(",") if s})
+        skips = {x for x in a.skip.split(",") if x}
+        if skips:
+            # 2本目で飛ばしたテーマも台帳に残し、しばらく順番から外す
+            def change(st):
+                lst = st.setdefault("theme_skips", {}).setdefault(today(), [])
+                lst += [x for x in sorted(skips) if x not in lst]
+            st = update_shared(change, f"{today()} の2本目でテーマを外す: {','.join(sorted(skips))}")
+        else:
+            st = read_shared()
+        t = next_theme(st, skips)
         print(next_extra_key(st, today()))
-        print(f"{t}（範囲: {THEME_SCOPE[t]}）" if a.scope else t)
+        print(f"{t}（範囲: {scope_for(st, t)}）" if a.scope else t)
     elif a.cmd == "claim":
         cmd_claim(a.by)
     elif a.cmd == "release":
