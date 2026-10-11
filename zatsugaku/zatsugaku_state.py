@@ -340,6 +340,11 @@ def cmd_done(path: Path, url: str, by: str, key: str | None = None, keep_order: 
         st["used_sources"] += [str(it["pmid"]) for it in body if it.get("pmid")]
         st["done"][day] = {"url": url, "by": by, "title": sc.get("youtube", {}).get("title"),
                            "theme": sc.get("theme"),
+                           # 週1回のふりかえり動画の材料（Mac が作った回の台本は Mac にしか残らないため）
+                           "items": [{"topic": it.get("topic"), "source": it.get("source"),
+                                      "pmid": it.get("pmid"), "url": it.get("url"),
+                                      "say": "".join(ln.get("say", "") for ln in it.get("lines", []))}
+                                     for it in body],
                            "fixed": keep_order or st.get("theme_overrides", {}).get(day) == sc.get("theme")}
         st["claims"].pop(day, None)
     st = update_shared(change, f"{day} 投稿: {url}")
