@@ -61,6 +61,10 @@ def cmd_titles(path: str, limit: int, apply: bool) -> None:
         sn = items[0]["snippet"]
         if sn["title"] == new:
             continue
+        if sn["title"].strip() != r.get("今の題名", "").strip():
+            # オーナーが自分で題名を変えた動画は、案で上書きしない
+            print(f"飛ばす（題名がすでに変わっている）: {r['id']} {sn['title']!r}")
+            continue
         print(f"{r['id']}: {sn['title']!r} → {new!r}")
         done += 1
         if apply:
