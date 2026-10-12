@@ -61,8 +61,8 @@ def cmd_titles(path: str, limit: int, apply: bool) -> None:
         sn = items[0]["snippet"]
         if sn["title"] == new:
             continue
-        if sn["title"].strip() != r.get("今の題名", "").strip():
-            # オーナーが自分で題名を変えた動画は、案で上書きしない
+        if sn["title"].strip() not in (r.get("今の題名", "").strip(), r.get("案", "").strip()):
+            # オーナーが自分で題名を変えた動画は上書きしない（表を作ったときの題名か、こちらの案のままなら変える）
             print(f"飛ばす（題名がすでに変わっている）: {r['id']} {sn['title']!r}")
             continue
         print(f"{r['id']}: {sn['title']!r} → {new!r}")
@@ -79,7 +79,7 @@ def cmd_titles(path: str, limit: int, apply: bool) -> None:
 SERIES = {
     "9割が知らない犬と猫の雑学": "犬と猫の体のしくみや気持ち、一緒に暮らすことと健康の関係を、研究論文で確かめて約3分で紹介します。毎日更新。\n\n田園生活のサイト: https://denenseikatu.com/",
     "9割が知らない体づくりの雑学": "筋トレ・栄養・体づくりの「本当はどうなの？」を、論文で確かめて約3分で紹介します。毎日更新。\n\n田園生活のサイト: https://denenseikatu.com/",
-    "猫と旅の一言シリーズ": "旅先やわが家で出会った子たちの、ひと言つきの短い動画です。新しい子に会うたびに足していきます。\n\n田園生活のサイト: https://denenseikatu.com/",
+    "猫と旅の一言シリーズ": "地域猫クロちゃんと、旅先で出会った子たちの、ひと言つきの短い動画です。新しい動画を出すたびに足していきます。\n\n田園生活のサイト: https://denenseikatu.com/",
 }
 
 
@@ -129,7 +129,7 @@ PROMO_MARK = "▶ 猫と旅の一言シリーズ（再生リスト）"
 
 
 def promo_text(playlist_id: str) -> str:
-    return ("旅先の景色や、わが家と旅先で出会った子たちの「ひと言」を集めています。\n"
+    return ("地域猫クロちゃんと、旅先の景色や出会った子たちの「ひと言」を集めています。\n"
             f"{PROMO_MARK}: https://www.youtube.com/playlist?list={playlist_id}\n"
             "次の子にも会いに来てね。チャンネル登録で、新しい動画をお知らせします。")
 
@@ -157,9 +157,14 @@ def cmd_promote(min_views: int, limit: int, apply: bool) -> None:
         for v in yt.videos().list(part="snippet,statistics,status,liveStreamingDetails",
                                   id=",".join(ids[k:k + 50])).execute()["items"]:
             sn = v["snippet"]
+            desc = sn.get("description", "")
+            stale = PROMO_MARK in desc and not desc.startswith(promo_text(pl["id"]).split("\n")[0])
+            if stale:
+                # 前の言い回しの誘導文（最初の3行）を外して、今の言い回しで入れ直す
+                sn["description"] = desc.split("\n", 3)[3].lstrip("\n") if desc.count("\n") >= 3 else ""
             if (v["status"]["privacyStatus"] == "public" and int(v["statistics"].get("viewCount", 0)) >= min_views
                     and kind(sn["title"], "liveStreamingDetails" in v) == "猫と旅の一言シリーズ"
-                    and PROMO_MARK not in sn.get("description", "")):
+                    and (stale or PROMO_MARK not in desc)):
                 hits.append((int(v["statistics"]["viewCount"]), v["id"], sn))
     hits.sort(key=lambda h: -h[0])
     text = promo_text(pl["id"])
