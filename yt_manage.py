@@ -73,15 +73,19 @@ def cmd_titles(path: str, limit: int, apply: bool) -> None:
 
 
 SERIES = {
+    "9割が知らない犬と猫の雑学": "犬と猫の体のしくみや気持ち、一緒に暮らすことと健康の関係を、研究論文で確かめて約3分で紹介します。毎日更新。\n\n田園生活のサイト: https://denenseikatu.com/",
     "9割が知らない体づくりの雑学": "筋トレ・栄養・体づくりの「本当はどうなの？」を、論文で確かめて約3分で紹介します。毎日更新。\n\n田園生活のサイト: https://denenseikatu.com/",
     "猫と旅の一言シリーズ": "旅先やわが家で出会った子たちの、ひと言つきの短い動画です。新しい子に会うたびに足していきます。\n\n田園生活のサイト: https://denenseikatu.com/",
 }
 
 
+PET_WORDS = ("猫の", "犬の", "ペット")
 BODY_WORDS = ("筋トレ", "筋肥大", "栄養", "プロテイン", "ビタミン", "持久", "長寿", "体", "ダイエット", "健康")
 
 
 def kind(title: str, live: bool) -> str:
+    if title.startswith("9割が") and any(w in title for w in PET_WORDS):
+        return "9割が知らない犬と猫の雑学"
     if title.startswith("9割が"):
         # 体づくりと関係の薄いテーマの回（恋愛・婚活など、10/11 までの回）は入れない
         return "9割が知らない体づくりの雑学" if any(w in title for w in BODY_WORDS) else ""

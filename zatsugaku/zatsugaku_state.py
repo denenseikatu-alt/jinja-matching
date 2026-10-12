@@ -57,6 +57,18 @@ BODY_PARTS = ["脚（太もも）", "お尻", "背中", "胸", "肩", "腕", "�
 SKIP_REST_DAYS = 7
 # 全部のテーマを飛ばした日に使う予備のテーマ（順番には入れない）
 RESERVE_SCOPE = {"暮らし": "暮らし（体と健康にかかわる日々の習慣）"}
+# 毎日の2本目（追加の回）は、犬と猫を中心にしたペットの雑学を順に回す（2026-10-12 オーナー指示。
+# 再生の9割以上が手撮りの猫の動画なので、ペットの雑学を毎日1本にする。体づくりは毎日の1本目）
+PET_SCOPE = {
+    "猫の気持ち": "猫の行動と気持ち（鳴き声・しっぽ・ゴロゴロ・飼い主との関係）",
+    "犬の体": "犬の体のしくみ（鼻・耳・目・味覚・体温・寿命）",
+    "猫の体": "猫の体のしくみ（ひげ・目・舌・ジャンプ力・睡眠・体温）",
+    "犬の気持ち": "犬の行動と気持ち（しっぽ・表情・飼い主の言葉や表情の読み取り）",
+    "ペットと健康": "犬や猫と暮らすことと、飼い主の健康（心臓・血圧・ストレス・運動量・子どものアレルギー）",
+    "ペットの長生き": "犬や猫の長生きにかかわること（食事・体重・運動・歯・年齢による変化）",
+}
+PET_THEMES = list(PET_SCOPE)
+PET_RESERVE = {"ペットの暮らし": "犬や猫との暮らしの雑学（種類・歴史・世界の飼い方）"}
 # 部位を数え始める日（この日より前の筋トレの回は数えない）
 PARTS_FROM = "2026-10-12"
 THEMES = list(THEME_SCOPE)
@@ -80,16 +92,19 @@ def resting(st: dict, day: str) -> set[str]:
     return out
 
 
-def _rotate(st: dict, before: str | None, skips: set[str]) -> str:
+def _rotate(st: dict, before: str | None, skips: set[str], themes: list[str] | None = None,
+            reserve: dict | None = None) -> str:
     """順番どおりに選んだ回（固定した日を除く）の最後のテーマの次。使えるテーマがなければ予備のテーマ。"""
+    themes = themes or THEMES
+    reserve = RESERVE_SCOPE if reserve is None else reserve
     past = sorted((d, v["theme"]) for d, v in st.get("done", {}).items()
-                  if (before is None or d < before) and v.get("theme") in THEMES and not v.get("fixed"))
-    i = (THEMES.index(past[-1][1]) + 1) % len(THEMES) if past else 0
-    for k in range(len(THEMES)):
-        t = THEMES[(i + k) % len(THEMES)]
+                  if (before is None or d < before) and v.get("theme") in themes and not v.get("fixed"))
+    i = (themes.index(past[-1][1]) + 1) % len(themes) if past else 0
+    for k in range(len(themes)):
+        t = themes[(i + k) % len(themes)]
         if t not in skips:
             return t
-    for t in RESERVE_SCOPE:
+    for t in reserve:
         if t not in skips:
             return t
     sys.exit("使えるテーマが残っていません（予備のテーマも使えません）")
@@ -111,14 +126,15 @@ def theme_for(st: dict, day: str) -> str:
 
 
 def next_theme(st: dict, skips: set[str] = frozenset()) -> str:
-    """毎日の2本目（追加の回）のテーマ。これまでに順番どおり投稿した最後のテーマの次。
-    追加の回もテーマの順番を進めるので、翌日の1本目はこの次のテーマになる。"""
-    return _rotate(st, None, set(skips) | resting(st, today()))
+    """毎日の2本目（追加の回）のテーマ。ペットのテーマの順番で、最後に投稿したペットのテーマの次。
+    体づくりのテーマ（毎日の1本目）の順番には影響しない。"""
+    return _rotate(st, None, set(skips) | resting(st, today()), PET_THEMES, PET_RESERVE)
 
 
 def scope_for(st: dict, theme: str) -> str:
     """台本を書く人に渡すテーマの範囲。筋トレの回は、今回の部位を付け足す。"""
-    scope = THEME_SCOPE.get(theme) or RESERVE_SCOPE.get(theme, theme)
+    scope = (THEME_SCOPE.get(theme) or PET_SCOPE.get(theme) or RESERVE_SCOPE.get(theme)
+             or PET_RESERVE.get(theme, theme))
     part = body_part(st, theme)
     return f"{scope}。今回の部位: {part}（導入の画面にも「{part_word(part)}」を出す）" if part else scope
 
