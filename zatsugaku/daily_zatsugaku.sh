@@ -169,4 +169,16 @@ URL="$(printf '%s\n' "$UP" | awk '/^完了:/{print $2}')"
 # --- 6. 記録 --------------------------------------------------------------
 python3 zatsugaku_state.py done "$SCRIPT" --url "$URL" --by mac \
   || { echo "注意: 台帳への記録に失敗しました（動画は公開済み）: $URL"; exit 1; }
+
+# 台本を GitHub の本番ブランチにも置く（ふりかえり動画やまとめ動画をクラウドで作り直せるように）。
+# 手元の作業ツリーには触れず、一時的な clone から送る。失敗しても動画の公開には影響しない
+(
+  T="$(mktemp -d)" && trap 'rm -rf "$T"' EXIT
+  BR=claude/denen-video-pipeline-myltss
+  git clone -q --depth 1 -b "$BR" "$(git -C "$REPO" remote get-url origin)" "$T/r" \
+    && cp "$DIR/$SCRIPT" "$T/r/zatsugaku/$SCRIPT" && cd "$T/r" && git add "zatsugaku/$SCRIPT" \
+    && git -c user.name=denen-zatsugaku -c user.email=noreply@anthropic.com commit -q -m "雑学1本目の台本: $TODAY（Mac）" \
+    && { git push -q origin "$BR" || { git pull -q --rebase origin "$BR" && git push -q origin "$BR"; }; } \
+    && echo "台本を GitHub に置きました: zatsugaku/$SCRIPT"
+) || echo "注意: 台本を GitHub に置けませんでした（動画は公開済み）"
 echo "===== $(date '+%Y-%m-%d %H:%M:%S') 終了（$PRIVACY）====="
