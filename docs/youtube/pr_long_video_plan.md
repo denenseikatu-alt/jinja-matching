@@ -18,7 +18,7 @@
 | 縁結びナビ｜婚活アプリ比較 | https://enmusubi-navi.net |
 | BIZ-x Ai｜企業のAI導入支援 | https://biz-xai.com |
 | ツール農園｜無料お役立ちツール | https://tool-nouen.com |
-| 数秘術 無料診断 | https://uranai-portal.pages.dev |
+| 縁結びの導き（数秘術・相性診断） | https://uranai-portal.pages.dev |
 | 魂の履歴 | https://tamashii-rireki.pages.dev |
 | ASTRA LUMINA | https://astra-lumina.pages.dev |
 | 宿曜命式 | https://sukuyo-meishiki.pages.dev |
@@ -31,6 +31,11 @@
 **読み取りの問題（10/13 時点）**: クラウドの作業場所から開けるのは denenseikatu.com だけ。ほかの13サイトは
 ネットワークの設定で止められている（ウェブ検索にもまだ出ない）。中身を確かめずに紹介文を作ると事実と違う紹介になるため、
 オーナーがクラウドの環境の「許可するドメイン」に13サイトを足すまで、ほかの部分を先に進める。
+
+## オーナーの決定（10/13）
+
+- オンラインコーチング（メッセージでの相談）は**無料**として紹介する。有料は都内の出張コーチング（1時間8,000円）だけ
+- uranai-portal.pages.dev は「**縁結びの導き**」の名前で紹介する
 
 ## 作り方
 
