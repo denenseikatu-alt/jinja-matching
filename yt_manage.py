@@ -13,6 +13,9 @@ youtube.force-ssl の許可が要る（yt_auth.py の url → exchange で取り
     # 決まった2つの再生リスト（手撮り・雑学）に、まだ入っていない公開動画を再生の多い順に足す
     python3 yt_manage.py sync-playlists [--limit 40] [--apply]
 
+    # 検索・おすすめ向けに、言語・カテゴリ・タグ・ハッシュタグをそろえる（題名は変えない）
+    python3 yt_manage.py seo [--limit 30] [--apply]
+
     # 当たった手撮り動画（再生 --min 回以上）の概要欄の一番上に、再生リストへの誘導文を足す（足してあれば飛ばす）
     python3 yt_manage.py promote [--min 1000] [--limit 30] [--apply]
 
@@ -24,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import re
 import sys
 
 from yt_auth import _env_credentials
@@ -177,6 +181,76 @@ def cmd_promote(min_views: int, limit: int, apply: bool) -> None:
             yt.videos().update(part="snippet", body={"id": vid, "snippet": body}).execute()
     print(("足しました" if apply else "試しのみ（--apply で実際に足す）") + f": {min(len(hits), limit)} 本（対象 {len(hits)} 本）")
 
+# --- 検索・おすすめ向けの設定（SEO） -----------------------------------------
+# 1本ずつ、言語・カテゴリ・タグ・概要欄の最後のハッシュタグをそろえる。題名は変えない。
+# 変える所がある動画だけ、1回の更新（50）にまとめて送る。再生の多い順。
+SEO_MARK = "#田園生活"
+SCENERY_WORDS = ("ブリッジ", "満月", "船", "鉄道", "ロープウェイ", "山頂", "滝", "湖", "クルーズ", "サンセット",
+                 "ジェットコースター", "蜘蛛", "CAVE", "さようなら", "チヌ", "黒鯛")
+
+
+def seo_plan(title: str, live: bool, sn: dict) -> dict | None:
+    k = kind(title, live)
+    tags = list(sn.get("tags", []))
+    if title.startswith("9割が") and k == "9割が知らない犬と猫の雑学":
+        cat, add, hashtags = "15", ["雑学", "豆知識", "猫", "犬", "ペット", "動物行動学", "田園生活"], "#猫 #雑学 #ペット"
+    elif title.startswith("9割が") or title.startswith("【聞き流し") or title.startswith("今週の体づくり"):
+        cat, add, hashtags = "27", ["雑学", "豆知識", "健康", "体づくり", "論文", "田園生活"], "#雑学 #健康 #豆知識"
+    elif "｜" in title:      # 記事動画
+        cat, add, hashtags = "27", ["健康", "運動", "40代", "田園生活"], "#健康 #運動 #田園生活"
+    elif live:
+        cat, add, hashtags = "15", ["地域猫", "クロちゃん", "猫", "ライブ配信", "田園生活"], "#地域猫 #クロちゃん #猫"
+    elif re.search(r"リス(?!ク)", title):
+        cat, add, hashtags = "15", ["リス", "動物", "公園", "田園生活"], "#リス #動物 #田園生活"
+    elif any(w in title for w in SCENERY_WORDS):      # 景色・旅の動画
+        place = ["沖縄"] if "沖縄" in title else []
+        cat, add, hashtags = "19", place + ["旅行", "景色", "日本の風景", "田園生活"], "#旅行 #景色 #田園生活"
+    elif "沖縄" in title or "浜比嘉" in title or "残波" in title:   # 旅先（沖縄）で会った猫
+        cat, add, hashtags = "15", ["猫", "ねこ", "沖縄", "旅先の猫", "沖縄の猫", "田園生活"], "#猫 #沖縄 #田園生活"
+    else:                     # 地域猫クロちゃん（オーナー指示: 題名を変えていない猫の動画は地域猫クロちゃん）
+        cat, add, hashtags = "15", ["地域猫", "クロちゃん", "猫", "ねこ", "猫のいる暮らし", "かわいい猫", "田園生活"], "#地域猫 #クロちゃん #猫"
+    for t in add:
+        if t not in tags:
+            tags.append(t)
+    while sum(len(t) + 3 for t in tags) > 480:   # タグの合計は500文字まで
+        tags.pop()
+    desc = sn.get("description", "")
+    if SEO_MARK not in desc and "#" not in desc.split("\n")[-1]:
+        desc = (desc.rstrip() + "\n\n" if desc.strip() else "") + f"{hashtags} {SEO_MARK}"
+    want = {"categoryId": cat, "tags": tags, "description": desc,
+            "defaultLanguage": "ja", "defaultAudioLanguage": "ja"}
+    changed = any(sn.get(k2) != v for k2, v in want.items())
+    return want if changed else None
+
+
+def cmd_seo(limit: int, apply: bool) -> None:
+    yt = _yt()
+    ch = yt.channels().list(part="contentDetails", mine=True).execute()["items"][0]
+    up = ch["contentDetails"]["relatedPlaylists"]["uploads"]
+    ids = []
+    req = yt.playlistItems().list(part="contentDetails", playlistId=up, maxResults=50)
+    while req:
+        res = req.execute()
+        ids += [i["contentDetails"]["videoId"] for i in res["items"]]
+        req = yt.playlistItems().list_next(req, res)
+    todo = []
+    for k in range(0, len(ids), 50):
+        for v in yt.videos().list(part="snippet,statistics,status,liveStreamingDetails",
+                                  id=",".join(ids[k:k + 50])).execute()["items"]:
+            if v["status"]["privacyStatus"] != "public":
+                continue
+            sn = v["snippet"]
+            want = seo_plan(sn["title"], "liveStreamingDetails" in v, sn)
+            if want:
+                todo.append((int(v["statistics"].get("viewCount", 0)), v["id"], sn, want))
+    todo.sort(key=lambda x: -x[0])
+    for views, vid, sn, want in todo[:limit]:
+        print(f"{vid}（再生 {views}）: {sn['title'][:30]} → カテゴリ{want['categoryId']}・タグ{len(want['tags'])}個")
+        if apply:
+            body = {"title": sn["title"], **want}
+            yt.videos().update(part="snippet", body={"id": vid, "snippet": body}).execute()
+    print(("更新しました" if apply else "試しのみ（--apply で実際に更新）") + f": {min(len(todo), limit)} 本（残り {max(0, len(todo) - limit)} 本）")
+
 
 def cmd_playlist(title: str, desc: str, ids: list[str], apply: bool, limit: int = 10 ** 6) -> int:
     """足した本数（試しのときは足す予定の本数）を返す。"""
@@ -240,6 +314,9 @@ def main() -> None:
     pr.add_argument("--min", type=int, default=1000)
     pr.add_argument("--limit", type=int, default=30)
     pr.add_argument("--apply", action="store_true")
+    se = sub.add_parser("seo")
+    se.add_argument("--limit", type=int, default=30)
+    se.add_argument("--apply", action="store_true")
     sy = sub.add_parser("sync-playlists")
     sy.add_argument("--limit", type=int, default=40)
     sy.add_argument("--apply", action="store_true")
@@ -248,6 +325,8 @@ def main() -> None:
         cmd_titles(a.csv, a.limit, a.apply)
     elif a.cmd == "promote":
         cmd_promote(a.min, a.limit, a.apply)
+    elif a.cmd == "seo":
+        cmd_seo(a.limit, a.apply)
     elif a.cmd == "sync-playlists":
         cmd_sync(a.limit, a.apply)
     else:

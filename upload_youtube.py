@@ -55,6 +55,10 @@ def build_description(script: dict, outdir: Path, with_chapters: bool) -> str:
             "利用規約上、クレジットにはキャラクター名の明記が必要です。"
         )
     parts.append(f"■ 音声\n{credit}")
+    # 検索向け: 概要欄の最後にハッシュタグ（タグの先頭3つ＋#田園生活）。タイトルの上にも表示される
+    tags = [t.replace(" ", "") for t in yt.get("tags", []) if t and t != "田園生活"][:3]
+    if tags and "#" not in parts[0]:
+        parts.append(" ".join(f"#{t}" for t in tags) + " #田園生活")
 
     return "\n\n".join(p for p in parts if p)
 
@@ -90,6 +94,9 @@ def main() -> None:
             "description": description,
             "tags": yt.get("tags", []),
             "categoryId": yt.get("categoryId", "22"),
+            # 検索向け: 日本語の動画であることを明示する
+            "defaultLanguage": "ja",
+            "defaultAudioLanguage": "ja",
         },
         # AI で生成した人物・音声など、実写と見分けにくい合成コンテンツは申告する
         "status": {"privacyStatus": privacy, "selfDeclaredMadeForKids": False,
