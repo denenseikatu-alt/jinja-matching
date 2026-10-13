@@ -252,6 +252,50 @@ def cmd_seo(limit: int, apply: bool) -> None:
     print(("更新しました" if apply else "試しのみ（--apply で実際に更新）") + f": {min(len(todo), limit)} 本（残り {max(0, len(todo) - limit)} 本）")
 
 
+PIN_TEXT = ("地域猫クロちゃんと、旅先で出会った猫たちの動画は、再生リスト「猫と旅の一言シリーズ」にまとめています🐾\n"
+            "▶ https://www.youtube.com/playlist?list=PLF-K4PjwF37w\n"
+            "チャンネル登録で、新しい動画をお知らせします。")
+
+
+def cmd_comment(min_views: int, limit: int, apply: bool) -> None:
+    """当たった手撮り動画に、チャンネルとしてシリーズへの案内のコメントを書く（固定は YouTube の仕組み上、
+    オーナーがアプリか Studio で行う）。すでにチャンネルのコメントがある動画は飛ばす。"""
+    yt = _yt()
+    me = yt.channels().list(part="id", mine=True).execute()["items"][0]["id"]
+    ch = yt.channels().list(part="contentDetails", mine=True).execute()["items"][0]
+    up = ch["contentDetails"]["relatedPlaylists"]["uploads"]
+    ids = []
+    req = yt.playlistItems().list(part="contentDetails", playlistId=up, maxResults=50)
+    while req:
+        res = req.execute()
+        ids += [i["contentDetails"]["videoId"] for i in res["items"]]
+        req = yt.playlistItems().list_next(req, res)
+    hits = []
+    for k in range(0, len(ids), 50):
+        for v in yt.videos().list(part="snippet,statistics,status,liveStreamingDetails",
+                                  id=",".join(ids[k:k + 50])).execute()["items"]:
+            if (v["status"]["privacyStatus"] == "public" and int(v["statistics"].get("viewCount", 0)) >= min_views
+                    and kind(v["snippet"]["title"], "liveStreamingDetails" in v) == "猫と旅の一言シリーズ"
+                    and not any(w in v["snippet"]["title"] for w in SCENERY_WORDS)):
+                hits.append((int(v["statistics"]["viewCount"]), v["id"], v["snippet"]["title"]))
+    hits.sort(reverse=True)
+    done = 0
+    for views, vid, title in hits:
+        if done >= limit:
+            break
+        th = yt.commentThreads().list(part="snippet", videoId=vid, maxResults=50).execute().get("items", [])
+        if any(t["snippet"]["topLevelComment"]["snippet"].get("authorChannelId", {}).get("value") == me
+               and "猫と旅の一言シリーズ" in t["snippet"]["topLevelComment"]["snippet"].get("textOriginal", "")
+               for t in th):
+            continue
+        print(f"{vid}（再生 {views}）: {title[:30]}")
+        done += 1
+        if apply:
+            yt.commentThreads().insert(part="snippet", body={"snippet": {"videoId": vid, "topLevelComment": {
+                "snippet": {"textOriginal": PIN_TEXT}}}}).execute()
+    print(("書きました" if apply else "試しのみ（--apply で実際に書く）") + f": {done} 本")
+
+
 def cmd_playlist(title: str, desc: str, ids: list[str], apply: bool, limit: int = 10 ** 6) -> int:
     """足した本数（試しのときは足す予定の本数）を返す。"""
     yt = _yt()
@@ -314,6 +358,10 @@ def main() -> None:
     pr.add_argument("--min", type=int, default=1000)
     pr.add_argument("--limit", type=int, default=30)
     pr.add_argument("--apply", action="store_true")
+    co = sub.add_parser("comment")
+    co.add_argument("--min", type=int, default=1000)
+    co.add_argument("--limit", type=int, default=10)
+    co.add_argument("--apply", action="store_true")
     se = sub.add_parser("seo")
     se.add_argument("--limit", type=int, default=30)
     se.add_argument("--apply", action="store_true")
@@ -325,6 +373,8 @@ def main() -> None:
         cmd_titles(a.csv, a.limit, a.apply)
     elif a.cmd == "promote":
         cmd_promote(a.min, a.limit, a.apply)
+    elif a.cmd == "comment":
+        cmd_comment(a.min, a.limit, a.apply)
     elif a.cmd == "seo":
         cmd_seo(a.limit, a.apply)
     elif a.cmd == "sync-playlists":
