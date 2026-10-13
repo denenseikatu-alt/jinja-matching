@@ -52,6 +52,16 @@ def ensure_video(key: str) -> Path:
     txt = json.dumps(sc, ensure_ascii=False)
     for a, b in FIX.items():
         txt = txt.replace(a, b)
+    sc = json.loads(txt)
+    # 古い台本は絵のファイル名だけが書いてあり、手元に絵がないことがある。その絵は取り直す
+    img_dir = HERE / "assets" / "irasutoya"
+    for it in sc["items"]:
+        img = it.get("image")
+        if img and img not in ("hirameki_man.png", "uroko_man.png") and not (img_dir / img).exists():
+            it.pop("image")
+            first = it["lines"][0]["caption"].split("\n")[0] if it.get("lines") else ""
+            it.setdefault("image_query", it.get("topic") or re.sub(r"[？?！!、。]", "", first)[:12])
+    txt = json.dumps(sc, ensure_ascii=False)
     fixed = HERE / "out" / f"{key}.fixed.json"
     fixed.parent.mkdir(parents=True, exist_ok=True)
     fixed.write_text(txt, encoding="utf-8")
