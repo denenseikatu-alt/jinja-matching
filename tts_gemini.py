@@ -108,6 +108,12 @@ def _generate(prompt: str, voice: str) -> bytes:
                 except Exception:
                     pass
                 sys.exit(QUOTA_EXIT)
+            if e.code == 402:
+                # 前払いの残高が尽きた。オーナーが残高を足すまで作れないので、無料枠切れと同じく
+                # 終了コード 75 で止めて台本を預け、次の日に続きから作る
+                print("Gemini の前払いの残高がなくなりました（AI Studio で残高を足す必要があります）。",
+                      file=sys.stderr)
+                sys.exit(QUOTA_EXIT)
             if e.code in (429, 500, 503) and attempt < 7:
                 wait = 10 * (attempt + 1)
                 try:
