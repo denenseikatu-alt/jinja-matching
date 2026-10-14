@@ -41,7 +41,9 @@
           "caption": "鼻先は\n熱のセンサー",
           "say": "冷たい鼻先は、弱い熱を感じとるセンサーだと考えられています。"
         }
-      ]
+      ],
+      "image": "dog_pekingese.png",
+      "image_page": "https://www.irasutoya.com/2017/03/blog-post_14.html"
     },
     {
       "image_query": "犬 におい",
@@ -63,7 +65,9 @@
           "caption": "においの元を\n探すのに使う",
           "say": "左右のにおいの強さを比べて、においの元の場所を探していると考えられています。"
         }
-      ]
+      ],
+      "image": "pet_sanpo_summer_atsui.png",
+      "image_page": "https://www.irasutoya.com/2018/08/blog-post_919.html"
     },
     {
       "image_query": "犬 におい",
@@ -85,7 +89,9 @@
           "caption": "ドッグフードでは\n左右の差なし",
           "say": "ドッグフードのにおいでは、左右の差はありませんでした。"
         }
-      ]
+      ],
+      "image": "police_dog_pome.png",
+      "image_page": "https://www.irasutoya.com/2026/04/blog-post_20.html"
     },
     {
       "image_query": "犬",
@@ -107,7 +113,9 @@
           "caption": "青紫と黄緑に\n感度の山",
           "say": "感度の山は、青紫と黄緑のあたりにあります。犬は2色で色を見分けています。"
         }
-      ]
+      ],
+      "image": "pet_hoso_dog.png",
+      "image_page": "https://www.irasutoya.com/2024/06/blog-post_468.html"
     },
     {
       "image_query": "犬 目",
@@ -129,7 +137,9 @@
           "caption": "人と暮らした\n3万3千年で",
           "say": "人と暮らした約3万3千年のあいだに、人が好む顔つきが選ばれたと考えられています。"
         }
-      ]
+      ],
+      "image": "inu_akachan.png",
+      "image_page": "https://www.irasutoya.com/2015/06/blog-post_880.html"
     },
     {
       "image_query": "犬 耳",
@@ -151,7 +161,9 @@
           "caption": "2万ヘルツでも\n小さな音が聞こえた",
           "say": "2万ヘルツという高い音でも、予想よりずっと小さな音まで聞き取れました。"
         }
-      ]
+      ],
+      "image": "animal_smile_inu.png",
+      "image_page": "https://www.irasutoya.com/2018/09/blog-post_20.html"
     },
     {
       "image_query": "犬 水",
@@ -173,7 +185,9 @@
           "caption": "猫とは\n飲み方が違う",
           "say": "似た口の形の猫とは、水の飲み方のしくみが違っていました。"
         }
-      ]
+      ],
+      "image": "dog_mizu_tobasu.png",
+      "image_page": "https://www.irasutoya.com/2019/11/blog-post_312.html"
     },
     {
       "image_query": "犬 暑い",
@@ -199,7 +213,9 @@
           "caption": "様子が変なら\n動物病院へ",
           "say": "暑い日にぐったりしていたら、すぐに動物病院に相談してください。"
         }
-      ]
+      ],
+      "image": "pet_dog_sanpo_yugata_woman.png",
+      "image_page": "https://www.irasutoya.com/2018/02/blog-post_68.html"
     },
     {
       "image_query": "大型犬",
@@ -221,7 +237,9 @@
           "caption": "年をとる速さが\nいちばんの理由",
           "say": "大型犬が若くして亡くなりやすいのは、主に、年をとるのが速いからでした。"
         }
-      ]
+      ],
+      "image": "dog_great_pyrenees.png",
+      "image_page": "https://www.irasutoya.com/2020/09/blog-post_80.html"
     },
     {
       "image_query": "犬 ご飯",
@@ -247,7 +265,9 @@
           "caption": "量は動物病院と\n相談を",
           "say": "食事の量は、自己判断で減らさず、動物病院と相談して決めてください。"
         }
-      ]
+      ],
+      "image": "science_pavlof_dog.png",
+      "image_page": "https://www.irasutoya.com/2022/06/blog-post_24.html"
     },
     {
       "image": "uroko_man.png",
