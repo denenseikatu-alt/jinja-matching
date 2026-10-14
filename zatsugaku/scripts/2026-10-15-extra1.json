@@ -41,7 +41,9 @@
           "caption": "ほかの味は\nふつうに感じる",
           "say": "ほかの味はふつうに感じているのに、甘さだけは別なのです。"
         }
-      ]
+      ],
+      "image": "chara_girl_cat.png",
+      "image_page": "https://www.irasutoya.com/2026/02/catday.html"
     },
     {
       "image_query": "猫 毛づくろい",
@@ -67,7 +69,9 @@
           "caption": "舌をまねた\nブラシも作った",
           "say": "舌のとげをまねたブラシは、ふつうのブラシより軽い力でとかせて、手入れも簡単でした。"
         }
-      ]
+      ],
+      "image": "pet_cat_kedukuroi.png",
+      "image_page": "https://www.irasutoya.com/2014/09/blog-post_18.html"
     },
     {
       "image_query": "猫 水",
@@ -89,7 +93,9 @@
           "caption": "ネコ科は\nみな同じ飲み方",
           "say": "ネコ科の動物は、みな同じしくみで水を飲んでいると考えられています。"
         }
-      ]
+      ],
+      "image": "pet_cat_thirsty.png",
+      "image_page": "https://www.irasutoya.com/2018/10/blog-post_208.html"
     },
     {
       "image_query": "猫 寝る",
@@ -111,7 +117,9 @@
           "caption": "声帯に\n小さなかたまり",
           "say": "声帯の中に、最大4ミリの柔らかいかたまりがあり、低い音を出しやすくしていました。"
         }
-      ]
+      ],
+      "image": "sleep_animal_cat.png",
+      "image_page": "https://www.irasutoya.com/2018/09/blog-post_120.html"
     },
     {
       "image_query": "猫 耳",
@@ -137,7 +145,9 @@
           "caption": "低い音も\n聞こえたまま",
           "say": "低い音を聞く力を保ったまま、高い音を聞く力を伸ばしたと考えられています。"
         }
-      ]
+      ],
+      "image": "nekomimi.png",
+      "image_page": "https://www.irasutoya.com/2017/01/blog-post_44.html"
     },
     {
       "image_query": "猫 目",
@@ -159,7 +169,9 @@
           "caption": "紫外線を\n感じられるかも",
           "say": "紫外線用の細胞がなくても、紫外線を感じられると考えられています。"
         }
-      ]
+      ],
+      "image": "cat_exotic_shorthair.png",
+      "image_page": "https://www.irasutoya.com/2016/11/blog-post_26.html"
     },
     {
       "image_query": "猫 手",
@@ -181,7 +193,9 @@
           "caption": "全体では\n右の前足が多め",
           "say": "全体では、右の前足をよく使う傾向がありました。"
         }
-      ]
+      ],
+      "image": "nekonote_karitai_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/03/blog-post_833.html"
     },
     {
       "image_query": "猫 ひげ",
@@ -203,7 +217,9 @@
           "caption": "好みでは\n選ばれやすい",
           "say": "ただし、両方を出すと、ひげが当たりにくいお皿を選びやすい結果でした。"
         }
-      ]
+      ],
+      "image": "asobu_cat_shadow.png",
+      "image_page": "https://www.irasutoya.com/2025/05/blog-post_25.html"
     },
     {
       "image_query": "猫",
@@ -229,7 +245,9 @@
           "caption": "太りすぎ・やせすぎ\nは短命の傾向",
           "say": "体重が理想から外れた猫は、寿命が短い傾向がありました。体重は動物病院で相談してください。"
         }
-      ]
+      ],
+      "image": "pet_hoso_cat.png",
+      "image_page": "https://www.irasutoya.com/2024/06/blog-post_21.html"
     },
     {
       "image_query": "猫 植物",
@@ -255,7 +273,9 @@
           "caption": "その成分が\n蚊をよける",
           "say": "その成分は蚊をよけるので、猫が蚊に刺されにくくなると考えられています。"
         }
-      ]
+      ],
+      "image": "cat_kotatsu_neko.png",
+      "image_page": "https://www.irasutoya.com/2021/06/blog-post_24.html"
     },
     {
       "image": "uroko_man.png",
