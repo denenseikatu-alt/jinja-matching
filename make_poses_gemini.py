@@ -25,6 +25,14 @@ KEEP = ("Edit this image. Keep exactly the same anime-style woman (same face, sa
         "lecture-room background with the projector screen on the right, and the same camera framing, "
         "position and size of the woman. Do not add any text. Change only this: ")
 
+# 全サイト紹介の長尺動画用（2026-10-13 オーナー依頼）: 画面の中央に全身で立つ語り手
+KEEP_FULL = ("Using this image as the character reference, draw exactly the same anime-style woman (same face, "
+             "same brown hair in an updo, same glasses, same navy suit, white shirt and skirt), in the same art "
+             "style and colors. Show her FULL BODY from head to shoes, standing in the CENTER of a 16:9 frame, "
+             "facing the viewer, with some empty space above her head and below her feet. Background: the same "
+             "kind of softly blurred bright lecture room, without any screen behind her. Do not add any text. "
+             "Pose and expression: ")
+
 
 def main() -> None:
     ap = argparse.ArgumentParser()
@@ -33,11 +41,12 @@ def main() -> None:
     ap.add_argument("-o", "--outdir", default="assets_video/poses_anime")
     ap.add_argument("--src", default="assets_video/presenter.png")
     ap.add_argument("--model", default="gemini-3-pro-image")
+    ap.add_argument("--full", action="store_true", help="全身・画面中央の語り手として描く（KEEP_FULL）")
     a = ap.parse_args()
     key = os.environ.get("GEMINI_API_KEY") or sys.exit("GEMINI_API_KEY がありません")
     src = base64.b64encode(Path(a.src).read_bytes()).decode()
     body = {"contents": [{"parts": [{"inline_data": {"mime_type": "image/png", "data": src}},
-                                    {"text": KEEP + a.pose}]}],
+                                    {"text": (KEEP_FULL if a.full else KEEP) + a.pose}]}],
             "generationConfig": {"responseModalities": ["IMAGE"],
                                  "imageConfig": {"aspectRatio": "16:9"}}}
     req = urllib.request.Request(
