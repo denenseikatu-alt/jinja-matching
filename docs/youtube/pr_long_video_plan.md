@@ -52,3 +52,11 @@
 4. **声**: 全編を同じ voice（Leda）・同じ style の文・同じモデルで作り、照合（tts_gemini.verify）で合わない文は作り直す
 5. **書き出しとアップロード**: 書き出しは動画の長さの約2倍（約3時間）。日本時間16時以降にアップロードする
    （1本で操作の枠を1,600使う。毎朝の3本の分を残す）
+
+## 進み具合
+
+- 10/15 語り手の絵: 全身・画面中央の凛を25枚作った（`assets_video/poses_rin/`、一覧は `docs/youtube/rin_test/rin_all_sheet.jpg`）。
+  作り方は `python3 make_poses_gemini.py <名前> "<ポーズ>" --full --src assets_video/poses_rin/smile.png -o assets_video/poses_rin`
+  （笑顔の絵を元にすると人物がそろう）。オーナー確認済み（「その方向でいいです」）。
+  全身だと顔が小さいので、驚き・笑いなどの場面だけ顔に寄せる（拡大する）
+- 次: 12サイトを読んで `pr_sites_notes.md` を埋める → 台本 → 切り抜き（isnet-anime）と口の動き → 書き出し
