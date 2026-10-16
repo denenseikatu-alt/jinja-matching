@@ -54,6 +54,13 @@ if [ -z "${ZATSUGAKU_UPDATED:-}" ]; then
   exec bash "$DIR/daily_zatsugaku.sh" "$@"
 fi
 
+# 2026-10-17 から、雑学は1日1本・30分以上にまとめ、クラウドだけが作る（オーナー指示 10/16）。
+# 約100個の雑学を確かめるので、Mac では作らない。担当も取らずに終わる
+if [[ "$TODAY" > "2026-10-16" ]]; then
+  echo "===== 終了（雑学はクラウドが1日1本・30分以上で作るため、Mac では作りません）====="
+  exit 0
+fi
+
 # shellcheck disable=SC1091
 [ -f "$DIR/.env" ] && set -a && . "$DIR/.env" && set +a
 PRIVACY="${PRIVACY:-public}"

@@ -33,15 +33,27 @@ def flat(caption: str) -> str:
     return re.sub(r"\s*\n\s*", "", caption).strip()
 
 
-def to_talking(sc: dict) -> dict:
-    """雑学の台本 → 記事動画の台本（1個の雑学 = 1場面）。"""
+def to_talking(sc: dict) -> tuple[dict, list[tuple[int, str]]]:
+    """雑学の台本 → 記事動画の台本（1個の雑学 = 1場面）。
+    長い回（format: long）は、テーマ（category）が変わるところに章の見出しの場面を入れる。
+    戻り値の2つ目は (章の見出しの場面の番号, 章の名前) の一覧（概要欄の目次に使う）。"""
     items = sc["items"]
-    scenes = []
+    long_mode = sc.get("format") == "long"
+    scenes, chapters = [], []
     intro, *body, outro = items
     scenes.append({"heading": sc.get("title", "").replace("9割が知らない ", "9割が知らない"),
                    "bullets": [flat(ln["caption"]) for ln in intro["lines"][1:]],
                    "lines": [ln["say"] for ln in intro["lines"]]})
-    for k, it in enumerate(body, 1):
+    cur, k = None, 0
+    for it in body:
+        if long_mode and it.get("category") != cur:
+            cur, k = it.get("category"), 0
+            n = len(chapters) + 1
+            name = it.get("chapter_title") or cur
+            chapters.append((len(scenes), f"第{n}章 {name}"))
+            scenes.append({"heading": f"第{n}章　{name}", "bullets": [],
+                           "lines": [f"第{n}章は、{name}の雑学です。"]})
+        k += 1
         caps = [flat(ln["caption"]) for ln in it["lines"]]
         bullets = caps[1:]
         if it.get("source"):
@@ -51,7 +63,25 @@ def to_talking(sc: dict) -> dict:
     scenes.append({"heading": flat(outro["lines"][0]["caption"]),
                    "bullets": [flat(ln["caption"]) for ln in outro["lines"][1:]],
                    "lines": [ln["say"] for ln in outro["lines"]]})
-    return {"title": sc.get("title", ""), "voice": VOICE, "scenes": scenes}
+    return {"title": sc.get("title", ""), "voice": VOICE, "scenes": scenes}, chapters
+
+
+def hms(sec: float) -> str:
+    sec = int(sec)
+    h, rest = divmod(sec, 3600)
+    m, s = divmod(rest, 60)
+    return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
+
+
+def short_source(src: str) -> str:
+    """出典を短く（概要欄の5,000字に収めるため）。「著者 年 番号」の形にする。"""
+    url = re.search(r"https?://\S+", src)
+    pmid = re.search(r"MED/(\d+)", src)
+    author = re.split(r"[.,]| ほか", src)[0].strip()
+    year = re.search(r"(19|20)\d{2}", src)
+    if pmid:
+        return f"{author} {year.group() if year else ''}（PMID {pmid.group(1)}）".replace(" （", "（")
+    return src if len(src) <= 80 else (src[:60] + "… " + (url.group() if url else ""))
 
 
 def main() -> None:
@@ -62,7 +92,8 @@ def main() -> None:
     sc = json.loads(Path(a.script).read_text(encoding="utf-8"))
     out = Path(a.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
-    talk = to_talking(sc)
+    talk, chapters = to_talking(sc)
+    long_mode = sc.get("format") == "long"
     tpath = out / "talking.json"
     tpath.write_text(json.dumps(talk, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -95,14 +126,26 @@ def main() -> None:
     yt = dict(sc.get("youtube", {}))
     yt["synthetic"] = True
     desc = [yt.get("description", "").strip()]
+    if long_mode and chapters:
+        # 目次（章の見出しの場面が始まる時刻）。build_talking.py の chapters.txt は場面ごとの「分:秒」
+        starts = []
+        for row in (out / "talk" / "chapters.txt").read_text(encoding="utf-8").splitlines():
+            mm, ss = row.split(" ", 1)[0].split(":")
+            starts.append(int(mm) * 60 + int(ss))
+        toc = ["0:00 はじめに"] + [f"{hms(starts[i])} {name}" for i, name in chapters if i < len(starts)]
+        desc.append("■ 目次\n" + "\n".join(toc))
     if yt.get("sources"):
-        desc.append("■ 出典\n" + "\n".join(f"・{s}" for s in yt["sources"]))
+        srcs = [short_source(s) for s in yt["sources"]] if long_mode else yt["sources"]
+        desc.append("■ 出典\n" + "\n".join(f"・{s}" for s in srcs))
     desc.append("※この動画は一般的な健康情報の紹介です。医師による診断・治療に代わるものではありません。"
                 "持病のある方は、食事や運動を変える前にかかりつけ医にご相談ください。")
     desc.append("※この動画の音声は、AI で生成したものです。")
     desc.append("■ BGM\n「Escort」もっぴーさうんど（フリーBGM OpenTracks 旧DOVA-SYNDROME）")
     desc.append("■ 田園生活ブログ\nhttps://denenseikatu.com/")
     yt["description"] = "\n\n".join(d for d in desc if d)
+    if len(yt["description"]) > 4700:
+        # YouTube の概要欄は5,000字まで（アップロード時に付く文の分を残す）
+        sys.exit(f"概要欄が長すぎます（{len(yt['description'])}字）。description を短くしてください")
     (out / "upload.json").write_text(json.dumps({"youtube": yt}, ensure_ascii=False, indent=2), encoding="utf-8")
     mm, ss = divmod(total, 60)
     print(f"完了: {out / 'video.mp4'}  尺 {int(mm)}分{ss:04.1f}秒  場面 {len(talk['scenes'])}  BGM {BGM.name}")

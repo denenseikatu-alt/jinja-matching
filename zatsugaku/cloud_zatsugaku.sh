@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# 雑学動画のクラウド版（Mac がスリープなどで作れなかった日の予備）。ルーティンのセッションから呼ぶ。
+# 雑学動画のクラウド版。ルーティンのセッションから呼ぶ。
+# 2026-10-17 から、雑学は1日1本・30分以上（体づくりの日とペットの日を交互）。クラウドだけが作る（Mac は作らない）。
 #
 #   bash zatsugaku/cloud_zatsugaku.sh prepare   # 台帳の確認・担当取り・素材の準備
 #   （ここでセッションが prompts/zatsugaku.md に従って scripts/<日付>.json を書き、
@@ -37,16 +38,23 @@ prepare() {
   (cd "$REPO" && bash cloud/setup.sh --no-engine) || die "依存の準備に失敗しました"
   python3 fetch_assets.py || die "素材（BGM・フォント・絵）の準備に失敗しました"
   (cd "$REPO" && python3 yt_auth.py check) || die "YouTube の認証に失敗しました"
-  THEME="$(python3 zatsugaku_state.py theme)" || die "今日のテーマを決められませんでした"
-  SCOPE="$(python3 zatsugaku_state.py theme --scope)"
-  echo "READY: zatsugaku/$SCRIPT を書いてください。今日のテーマは「$THEME」で、10個すべてこのテーマにする。テーマの範囲: $SCOPE。prompts/zatsugaku.md にこのテーマ向けの注意があれば必ず守る（見本 scripts/trial_01.json）。このテーマで過去回と重ならない確かめられた雑学が10個そろわなければ、作り話で埋めず \`cd zatsugaku && python3 zatsugaku_state.py skip-theme\` を実行し、表示された新しいテーマで書き直す"
+  # 2026-10-17 から、雑学は1日1本・30分以上（体づくりの日とペットの日を交互）。章ごとにテーマを分ける
+  PLAN="$(python3 zatsugaku_state.py long)" || die "今日の章を決められませんでした"
+  KIND="$(printf '%s\n' "$PLAN" | sed -n 1p)"
+  echo "READY: zatsugaku/$SCRIPT を書いてください。今日は30分以上の長い雑学動画（種類「$KIND」）を1本作る。"
+  echo "  台本の最上位に \"format\": \"long\" と \"theme\": \"$KIND\" を書き、雑学を章（テーマ）ごとに続けて並べる（各雑学の category が章のテーマ）。"
+  echo "  合計 96個以上・読み上げ 11,500〜15,500字。1つずつの雑学の書き方・出典の確かめ方・使用済みの話題の扱いは prompts/zatsugaku.md のとおり（「30分以上の長い回」の節も読む）。"
+  echo "  章（テーマ・最低の個数・範囲）:"
+  printf '%s\n' "$PLAN" | sed -n '2,$p' | awk -F'\t' '{printf "    - %s（%s個以上）: %s\n", $1, $2, $3}'
+  echo "  ある章でネタがそろわなければ、作り話で埋めず、その章を予備のテーマ（体づくり: 暮らし／ペット: ペットの暮らし）に替えてよい。"
 }
 
 publish() {
   [ -f "$SCRIPT" ] || die "$SCRIPT がありません"
   python3 zatsugaku_state.py check "$SCRIPT" || die "台本の検査に通っていません。直してから publish してください"
   python3 build_zatsugaku_talking.py "$SCRIPT" -o "$OUT" || die "動画の書き出しに失敗しました"
-  python3 -c "import json,sys; d=json.load(open('$OUT/meta.json'))['duration']; print(f'尺 {d:.1f}秒'); sys.exit(0 if 150 <= d <= 330 else 1)" \
+  # 長い回は30分以上、短い回（以前の形式）は約3〜5分
+  python3 -c "import json,sys; d=json.load(open('$OUT/meta.json'))['duration']; long=json.load(open('$SCRIPT')).get('format')=='long'; print(f'尺 {d:.1f}秒'); sys.exit(0 if ((1800 <= d <= 4200) if long else (150 <= d <= 330)) else 1)" \
     || die "尺が想定外です。台本の分量を確認してください"
   # 書き出しのあいだに Mac が上げていないか、送信直前にもう一度確かめる
   python3 zatsugaku_state.py claim --by cloud >/dev/null
@@ -64,6 +72,11 @@ publish() {
 EXTRA_FILE=".extra_today"   # 2本目の「キー<TAB>テーマ」（.gitignore 済みの out/ と同じく手元だけ）
 
 extra_prepare() {
+  # 2026-10-17 から、雑学は1日1本・30分以上にまとめた（体とペットは日替わり）。2本目は作らない
+  if [[ "$TODAY" > "2026-10-16" ]]; then
+    echo "SKIP: 雑学は1日1本（30分以上）にまとめたため、2本目は作りません（今日の1本は cloud_zatsugaku.sh prepare で作る）"
+    exit 3
+  fi
   python3 zatsugaku_state.py pull || die_plain "台帳を取得できませんでした"
   (cd "$REPO" && bash cloud/setup.sh --no-engine) || die_plain "依存の準備に失敗しました"
   python3 fetch_assets.py || die_plain "素材（BGM・フォント・絵）の準備に失敗しました"
@@ -78,6 +91,10 @@ extra_prepare() {
 }
 
 extra_publish() {
+  if [[ "$TODAY" > "2026-10-16" ]]; then
+    echo "SKIP: 雑学は1日1本（30分以上）にまとめたため、2本目は作りません"
+    exit 3
+  fi
   [ -f "$EXTRA_FILE" ] || die_plain "先に extra-prepare を実行してください"
   key="$(cut -f1 "$EXTRA_FILE")"; theme="$(cut -f2 "$EXTRA_FILE")"
   script="scripts/$key.json"; out="out/$key"

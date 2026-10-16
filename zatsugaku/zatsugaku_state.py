@@ -74,6 +74,83 @@ PARTS_FROM = "2026-10-12"
 THEMES = list(THEME_SCOPE)
 
 
+# 2026-10-17 から、雑学は1日1本・30分以上（オーナー指示 10/16）。体づくりの日とペットの日を交互にする。
+# 1本の中を、テーマごとの章に分ける（体づくりの日は8テーマ、ペットの日は6テーマ）
+LONG_FROM = "2026-10-17"
+LONG_MIN_ITEMS = 96          # 雑学の数（これで約31〜34分）
+LONG_CHARS = (11500, 15500)  # 読み上げの合計字数
+LONG_MIN_PER_CHAPTER = 10
+
+
+def long_kind(day: str) -> str:
+    """その日の長い雑学動画の種類（体づくり / ペット）。LONG_FROM から1日おきに交互。"""
+    return "体づくり" if (date.fromisoformat(day) - date.fromisoformat(LONG_FROM)).days % 2 == 0 else "ペット"
+
+
+def long_part(st: dict, day: str) -> str:
+    """長い動画の筋トレの章で扱う部位（短い回の筋トレの数と、前日までの体づくりの日の数で順に回す）。"""
+    n = sum(1 for d, v in st.get("done", {}).items() if v.get("theme") == "筋トレ" and d >= PARTS_FROM)
+    n += sum(1 for d, v in st.get("done", {}).items() if v.get("format") == "long" and v.get("theme") == "体づくり"
+             and d < day)
+    return BODY_PARTS[n % len(BODY_PARTS)]
+
+
+def long_plan(st: dict, day: str) -> list[tuple[str, str, int]]:
+    """長い動画の章（テーマ・範囲・最低の個数）。ネタがそろわない章は予備のテーマに替えてよい。"""
+    if long_kind(day) == "体づくり":
+        per = -(-LONG_MIN_ITEMS // len(THEMES))
+        out = []
+        for th in THEMES:
+            sc = THEME_SCOPE[th]
+            if th == "筋トレ":
+                part = long_part(st, day)
+                sc = f"{sc}。今回の部位: {part}（章の見出しにも「{part_word(part)}」を出す）"
+            out.append((th, sc, per))
+        return out
+    per = -(-LONG_MIN_ITEMS // len(PET_THEMES))
+    return [(th, PET_SCOPE[th], per) for th in PET_THEMES]
+
+
+def check_long(sc: dict, st: dict) -> list[str]:
+    """長い動画（format: long）の検査。1つずつの雑学の決まりは短い回と同じ。"""
+    errs = []
+    day = today()
+    kind = long_kind(day)
+    if sc.get("theme") != kind:
+        errs.append(f"theme は今日の種類「{kind}」にする: {sc.get('theme')}")
+    allowed = {th for th, _, _ in long_plan(st, day)} | set(RESERVE_SCOPE if kind == "体づくり" else PET_RESERVE)
+    body = sc.get("items", [])[1:-1]
+    if len(body) < LONG_MIN_ITEMS:
+        errs.append(f"雑学が{len(body)}個です（{LONG_MIN_ITEMS}個以上にする）")
+    seen, order = {}, []
+    for it in body:
+        c = it.get("category")
+        if c not in allowed:
+            errs.append(f"今日の章のテーマ以外の雑学があります: {c}（{it.get('topic')}）")
+        if c not in seen:
+            order.append(c)
+        seen[c] = seen.get(c, 0) + 1
+    if len(order) != len(set(order)):
+        errs.append("同じ章の雑学はまとめて並べる（章ごとに続けて書く）")
+    for c, n in seen.items():
+        if n < LONG_MIN_PER_CHAPTER:
+            errs.append(f"章「{c}」の雑学が{n}個です（1章{LONG_MIN_PER_CHAPTER}個以上）")
+    if "筋トレ" in seen:
+        part = part_word(long_part(st, day))
+        tr = [it for it in body if it.get("category") == "筋トレ"]
+        if not any(part in "".join(ln.get("caption", "") + ln.get("say", "") for ln in it["lines"]) for it in tr):
+            errs.append(f"筋トレの章は今回の部位「{part}」に絞る（雑学の文にも部位を出す）")
+    topics = [it.get("topic") for it in body]
+    dup = {x for x in topics if topics.count(x) > 1}
+    if dup:
+        errs.append(f"同じ話題が2回あります: {sorted(dup)}")
+    pm = [str(it["pmid"]) for it in body if it.get("pmid")]
+    dupp = {x for x in pm if pm.count(x) > 1}
+    if dupp:
+        errs.append(f"同じ出典（PMID）を2回使っています: {sorted(dupp)}")
+    return errs
+
+
 def today() -> str:
     return datetime.now(JST).date().isoformat()
 
@@ -296,12 +373,17 @@ def check(path: Path, theme: str | None = None) -> None:
     sc = json.loads(path.read_text(encoding="utf-8"))
     st = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else empty_state()
     errs = []
-    theme = theme or theme_for(st, today())
-    if sc.get("theme") != theme:
+    long_mode = sc.get("format") == "long"
+    if long_mode:
+        errs += check_long(sc, st)
+        theme = sc.get("theme")
+    else:
+        theme = theme or theme_for(st, today())
+    if not long_mode and sc.get("theme") != theme:
         errs.append(f"theme が今日のテーマと違います（今日は「{theme}」）: {sc.get('theme')}")
     items = sc.get("items", [])
     body = items[1:-1]
-    if len(body) != 10:
+    if not long_mode and len(body) != 10:
         errs.append(f"雑学が{len(body)}個です（10個にする）")
     total = 0
     for it in items:
@@ -328,15 +410,22 @@ def check(path: Path, theme: str | None = None) -> None:
             errs.append(f"過去に使った話題です: {it.get('topic')}")
         if not (it.get("image") or it.get("image_query")):
             errs.append(f"絵の指定がありません: {it.get('topic')}")
-    off = [it.get("topic") for it in body if it.get("category") != theme]
+    off = [] if long_mode else [it.get("topic") for it in body if it.get("category") != theme]
     if off:
         errs.append(f"今日のテーマ「{theme}」以外の雑学があります（category を確認）: {off}")
-    if theme not in "".join(ln.get("caption", "") for ln in items[0].get("lines", [])):
+    intro_cap = "".join(ln.get("caption", "") for ln in items[0].get("lines", []))
+    if long_mode:
+        if ("犬" not in intro_cap and "猫" not in intro_cap) if theme == "ペット" else (theme not in intro_cap):
+            errs.append(f"導入の画面に今日の種類（{'犬・猫' if theme == 'ペット' else theme}）が出ていません")
+    elif theme not in intro_cap:
         errs.append(f"導入の画面にテーマ「{theme}」が出ていません")
-    part = body_part(st, theme)
+    part = None if long_mode else body_part(st, theme)
     if part and part_word(part) not in "".join(ln.get("caption", "") for ln in items[0].get("lines", [])):
         errs.append(f"筋トレの回は今回の部位「{part_word(part)}」に絞り、導入の画面にも出してください")
-    if not 1100 <= total <= 1450:
+    if long_mode:
+        if not LONG_CHARS[0] <= total <= LONG_CHARS[1]:
+            errs.append(f"読み上げの合計が{total}字です（{LONG_CHARS[0]:,}〜{LONG_CHARS[1]:,}字。30分以上にするため）")
+    elif not 1100 <= total <= 1450:
         errs.append(f"読み上げの合計が{total}字です（1,150〜1,350字が目安）")
     if not sc.get("youtube", {}).get("title"):
         errs.append("youtube.title がありません")
@@ -356,6 +445,7 @@ def cmd_done(path: Path, url: str, by: str, key: str | None = None, keep_order: 
         st["used_sources"] += [str(it["pmid"]) for it in body if it.get("pmid")]
         st["done"][day] = {"url": url, "by": by, "title": sc.get("youtube", {}).get("title"),
                            "theme": sc.get("theme"),
+                           "format": sc.get("format", "short"),
                            # 週1回のふりかえり動画の材料（Mac が作った回の台本は Mac にしか残らないため）
                            "items": [{"topic": it.get("topic"), "source": it.get("source"),
                                       "pmid": it.get("pmid"), "url": it.get("url"),
@@ -370,7 +460,7 @@ def cmd_done(path: Path, url: str, by: str, key: str | None = None, keep_order: 
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["pull", "claim", "release", "check", "done", "theme", "skip-theme",
-                                    "extra", "why"])
+                                    "extra", "why", "long"])
     ap.add_argument("--reason", default="", help="release と一緒に使う。手放した理由（台帳に残す）")
     ap.add_argument("--skip", default="", help="extra と一緒に使う。ネタがそろわず外すテーマ（カンマ区切り）")
     ap.add_argument("script", nargs="?")
@@ -404,6 +494,12 @@ def main() -> None:
         t = next_theme(st, skips)
         print(next_extra_key(st, today()))
         print(f"{t}（範囲: {scope_for(st, t)}）" if a.scope else t)
+    elif a.cmd == "long":
+        # 今日の長い雑学動画の種類と章（テーマ・範囲・最低の個数）を出す
+        st = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else read_shared()
+        print(long_kind(today()))
+        for th, scope, n in long_plan(st, today()):
+            print(f"{th}\t{n}\t{scope}")
     elif a.cmd == "claim":
         cmd_claim(a.by)
     elif a.cmd == "release":
