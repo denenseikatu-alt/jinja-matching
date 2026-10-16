@@ -30,6 +30,14 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent
 DEFAULT_STATE = REPO_ROOT / "video_state.json"
+SKIP_FILE = REPO_ROOT / "video_skip.txt"   # 記事動画にしない記事（オーナーが外した記事など）
+
+
+def load_skip() -> set[str]:
+    if not SKIP_FILE.exists():
+        return set()
+    return {ln.split("#")[0].strip() for ln in SKIP_FILE.read_text(encoding="utf-8").splitlines()
+            if ln.split("#")[0].strip()}
 
 
 def load_state(path: Path) -> dict:
@@ -140,7 +148,8 @@ def main() -> None:
             if latest.date() == datetime.now(jst).date():
                 print(f"日本時間の今日はすでに投稿済みです（{latest:%Y-%m-%d %H:%M} JST）。今日はスキップします。")
                 sys.exit(3)
-    remaining = [s for s in slugs if s not in done]
+    skip = load_skip()
+    remaining = [s for s in slugs if s not in done and s not in skip]
 
     if args.status:
         print(f"全 {len(slugs)} 本 / 済 {len(done)} 本 / 残り {len(remaining)} 本")
