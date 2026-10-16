@@ -206,10 +206,16 @@ def synth_lines(lines: list[str], out_paths: list[Path], voice: str = "Leda",
                     segs, problem = segs2, ""
                     break
         if problem is None:
-            # 照合用の文字起こしが混雑などで使えなかった。音声を作り直すと無料枠を
-            # 無駄に使うので、そのまま進める
-            print("    注意: 文字起こしが使えず、この部分は台本との照合を省きました", flush=True)
-            break
+            # 照合用の文字起こしが混雑などで使えなかった。少し待って照合だけやり直す
+            # （音声は作り直さない）。それでも使えなければ、全文を作り終えたあとの最終確認に回す
+            for wait in (30, 90):
+                time.sleep(wait)
+                problem = verify(lines, segs)
+                if problem is not None:
+                    break
+            if problem is None:
+                print("    注意: 文字起こしが使えず、この部分は最後にもう一度照合します", flush=True)
+                break
         if not problem:
             break
         print(f"    音声の照合で不一致: {problem}（作り直します）", flush=True)
@@ -240,8 +246,10 @@ def verify(lines: list[str], segs: list[bytes]) -> str | None:
     import difflib
     import io
     parts = [{"text": "以下の音声をそれぞれ一字一句そのまま文字起こししてください。"
-                      "英語が含まれていれば英語もそのまま書くこと。"
-                      "出力は JSON のみで、キーは番号の数字: {\"1\": \"…\", …}"}]
+                      "英語が含まれていれば、日本語に訳さず英語のまま書くこと。"
+                      "また、その音声に英語（英単語や英文）が話されている部分が少しでもあれば english を true にすること。"
+                      "出力は JSON のみで、キーは番号の数字: "
+                      "{\"1\": {\"text\": \"…\", \"english\": false}, …}"}]
     for k, seg in enumerate(segs, 1):
         buf = io.BytesIO()
         with wave.open(buf, "wb") as w:
@@ -268,13 +276,26 @@ def verify(lines: list[str], segs: list[bytes]) -> str | None:
     if got is None:
         return None
     import re
-    heard = {}
+    heard, eng = {}, {}
     for key, val in got.items():
         m = re.search(r"\d+", str(key))
         if m:
-            heard[int(m.group())] = str(val)
+            if isinstance(val, dict):
+                heard[int(m.group())] = str(val.get("text", ""))
+                eng[int(m.group())] = bool(val.get("english"))
+            else:
+                heard[int(m.group())] = str(val)
     for k, line in enumerate(lines, 1):
         h = heard.get(k, "")
+        # 文字起こし役が「英語が話されている」と答えたら、台本に英語の語がない限り作り直す
+        # （英語を日本語に訳して書き起こされると、下の英単語の数え方では見落とすため）
+        # ただし外来語（カタカナ語）や「ドットコム」を英語と答えることがあるので、書き起こしが台本とよく合い
+        # 英字も出ていなければ数えない
+        if eng.get(k) and not re.search(r"[A-Za-z]{3,}", line):
+            close = difflib.SequenceMatcher(None, _norm(line), _norm(h)).ratio() >= 0.85
+            letters = re.findall(r"[a-z]{3,}", re.sub(r"[A-Za-z][A-Za-z.\-]*\.(?:com|jp|net|org)(?![A-Za-z])", "", h))
+            if letters or not close:
+                return f"{k}文目に英語が話されている（{h[:40]}）"
         # 指示文を読んだときは英語の単語が混ざる。大文字だけの略語（ビーディーエヌエフ →
         # BDNF のように、カタカナで読ませた語を英字で書き起こしたもの）は数えない
         # サイト名（でんえんせいかつドットコム → denenseikatsu.com）のようなドメイン名も数えない
@@ -406,6 +427,45 @@ def synth_script(scenes: list[dict], audio_dir: Path, voice: dict, chunk_chars: 
         count += size
     if chunk:
         flush(chunk)
+    final_check(scenes, audio_dir, voice)
+
+
+def final_check(scenes: list[dict], audio_dir: Path, voice: dict, group: int = 8) -> None:
+    """全文を作り終えたあと、文ごとの音声をもう一度まとめて文字起こしし、英語が混ざっていないか、
+    台本と合っているかを確かめる。合わない文は1文ずつ作り直す（2026-10-16 オーナー指摘:
+    ナレーションの一部が英語で読まれていた）。照合できないまま終わる場合は止める。"""
+    lines = [l for s in scenes for l in s["lines"]]
+    paths = [audio_dir / f"{k:04d}.wav" for k in range(1, len(lines) + 1)]
+
+    def read(p: Path) -> bytes:
+        with wave.open(str(p), "rb") as w:
+            return w.readframes(w.getnframes())
+
+    bad: list[int] = []
+    for g in range(0, len(lines), group):
+        idx = list(range(g, min(g + group, len(lines))))
+        for attempt in range(4):
+            problem = verify([lines[i] for i in idx], [read(paths[i]) for i in idx])
+            if problem is not None:
+                break
+            time.sleep(30 * (attempt + 1))
+        if problem is None:
+            sys.exit("Gemini の音声を台本と照合できませんでした（文字起こしが使えない）。時間をおいて作り直してください")
+        # 1文ずつ確かめて、合わない文を集める（まとめての照合は最初の1つしか返さないため）
+        if problem:
+            for i in idx:
+                p1 = verify([lines[i]], [read(paths[i])])
+                if p1:
+                    bad.append(i)
+    for i in bad:
+        for attempt in range(5):
+            print(f"    最終確認で不一致の {i + 1}文目を作り直します（{attempt + 1}回目）", flush=True)
+            synth(lines[i], paths[i], voice=voice.get("name", "Leda"), style=voice.get("style", ""))
+            if verify([lines[i]], [read(paths[i])]) == "":
+                break
+        else:
+            sys.exit(f"Gemini の音声が台本と一致しませんでした（{i + 1}文目: {lines[i][:30]}）")
+    print(f"  最終確認: 全{len(lines)}文を照合（作り直し {len(bad)}文）", flush=True)
 
 
 CREDIT = "音声: Google Gemini（AI 音声合成）"
