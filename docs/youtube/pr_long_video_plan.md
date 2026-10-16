@@ -60,3 +60,9 @@
   （笑顔の絵を元にすると人物がそろう）。オーナー確認済み（「その方向でいいです」）。
   全身だと顔が小さいので、驚き・笑いなどの場面だけ顔に寄せる（拡大する）
 - 次: 12サイトを読んで `pr_sites_notes.md` を埋める → 台本 → 切り抜き（isnet-anime）と口の動き → 書き出し
+- 10/16 オーナー指示で構図を変更: 全身ではなく**記事動画と同じ大きさ（腰から上）**。凛は**画面の右**に立ち、左にスクリーン。
+  背景は3案（スタジオ・書斎・温室のテラス）からオーナーが **C 温室のテラス** を選んだ。
+  絵は `assets_video/poses_rin_garden/`（base と20ポーズ。一覧 `docs/youtube/rin_test/rin_garden_sheet.jpg`）。
+  作り方: `python3 make_poses_gemini.py <名前> "<ポーズ>" --same --src assets_video/poses_rin_garden/base.png -o assets_video/poses_rin_garden`
+  全身の絵（`assets_video/poses_rin/`）は使わない
+- 次: 12サイトの下調べ（10/17）→ 台本 → 切り抜き（isnet-anime）・口とまぶたの位置・スクリーンの位置の設定 → 書き出し

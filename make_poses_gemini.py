@@ -43,6 +43,13 @@ KEEP_RIN = ("Using this image as the character reference, draw exactly the same 
             "of the frame. Do not add any text. Background: ")
 
 
+# 元の絵（--src）と同じ人物・背景・構図のまま、ポーズと表情だけを変える（凛の温室のテラスの絵など）
+KEEP_SAME = ("Edit this image. Keep exactly the same anime-style woman (same face, same brown hair in an updo, same "
+             "glasses, same navy suit and white shirt), the same art style and colors, the same background, the same "
+             "blank screen on the left, and the same camera framing, position and size of the woman. Do not add any "
+             "text. Change only her pose and expression: ")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("name")
@@ -51,13 +58,19 @@ def main() -> None:
     ap.add_argument("--src", default="assets_video/presenter.png")
     ap.add_argument("--model", default="gemini-3-pro-image")
     ap.add_argument("--full", action="store_true", help="全身・画面中央の語り手として描く（KEEP_FULL）")
+    ap.add_argument("--same", action="store_true", help="--src の絵の背景と構図のまま、ポーズと表情だけ変える")
     ap.add_argument("--rin-bg", default=None, help="全サイト紹介動画の構図（右に立ち、左にスクリーン）。背景の説明")
     a = ap.parse_args()
     key = os.environ.get("GEMINI_API_KEY") or sys.exit("GEMINI_API_KEY がありません")
     src = base64.b64encode(Path(a.src).read_bytes()).decode()
+    if a.same:
+        prompt = KEEP_SAME + a.pose
+    elif a.rin_bg:
+        prompt = KEEP_RIN + a.rin_bg + ". Pose and expression: " + a.pose
+    else:
+        prompt = (KEEP_FULL if a.full else KEEP) + a.pose
     body = {"contents": [{"parts": [{"inline_data": {"mime_type": "image/png", "data": src}},
-                                    {"text": (KEEP_RIN + a.rin_bg + ". Pose and expression: " if a.rin_bg
-                                              else KEEP_FULL if a.full else KEEP) + a.pose}]}],
+                                    {"text": prompt}]}],
             "generationConfig": {"responseModalities": ["IMAGE"],
                                  "imageConfig": {"aspectRatio": "16:9"}}}
     req = urllib.request.Request(
