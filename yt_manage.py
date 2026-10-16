@@ -27,8 +27,10 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import re
 import sys
+from pathlib import Path
 
 from yt_auth import _env_credentials
 
@@ -342,6 +344,61 @@ def cmd_playlist(title: str, desc: str, ids: list[str], apply: bool, limit: int 
     return len(add)
 
 
+ASR_STATE = Path(__file__).resolve().parent / "docs" / "youtube" / "asr_scan.json"
+
+
+def english_in_asr(srt: str) -> list[str]:
+    """YouTube の自動字幕（日本語）から、英語で話された部分らしき行を拾う。
+    日本語の自動字幕でも、英語の発話は英字で書き起こされる（「sayinabright」など）。サイト名の .com は除く。"""
+    hits = []
+    for block in re.split(r"\n\s*\n", srt.strip()):
+        rows = block.split("\n")
+        if len(rows) < 3:
+            continue
+        text = " ".join(rows[2:])
+        if re.search(r"[A-Za-z]{3,}", re.sub(r"[.．]?com", "", text)):
+            hits.append(f"{rows[1][:8]} {text}")
+    return hits
+
+
+def cmd_asr_scan(limit: int) -> None:
+    """Gemini の声の動画の自動字幕を読み、ナレーションに英語が混ざっていないか調べる（2026-10-16 オーナー指摘）。
+    1本あたり操作の枠を約250使うので、--limit 本ずつ進める。結果は docs/youtube/asr_scan.json に残す。"""
+    yt = _yt()
+    state = json.loads(ASR_STATE.read_text(encoding="utf-8")) if ASR_STATE.exists() else {}
+    ch = yt.channels().list(part="contentDetails", mine=True).execute()
+    up = ch["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
+    ids, tok = [], None
+    while True:
+        r = yt.playlistItems().list(part="contentDetails", playlistId=up, maxResults=50, pageToken=tok).execute()
+        ids += [i["contentDetails"]["videoId"] for i in r["items"]]
+        tok = r.get("nextPageToken")
+        if not tok:
+            break
+    gem = []
+    for k in range(0, len(ids), 50):
+        r = yt.videos().list(part="snippet,status", id=",".join(ids[k:k + 50])).execute()
+        for v in r["items"]:
+            if "Gemini" in v["snippet"]["description"] and v["status"]["privacyStatus"] == "public":
+                gem.append((v["snippet"]["publishedAt"], v["id"], v["snippet"]["title"]))
+    todo = [g for g in sorted(gem, reverse=True) if g[1] not in state][:limit]
+    for when, vid, title in todo:
+        r = yt.captions().list(part="snippet", videoId=vid).execute()
+        asr = [c for c in r.get("items", []) if c["snippet"]["trackKind"] == "asr"]
+        if not asr:
+            print(f"{vid}: 自動字幕がまだありません（あとで）")
+            continue
+        srt = yt.captions().download(id=asr[0]["id"], tfmt="srt").execute().decode("utf-8")
+        hits = english_in_asr(srt)
+        state[vid] = {"title": title, "date": when[:10], "english": hits}
+        print(f"{vid} {title[:30]}: {'英語あり ' + str(len(hits)) + '行' if hits else '問題なし'}")
+        for h in hits:
+            print(f"    {h}")
+        ASR_STATE.write_text(json.dumps(state, ensure_ascii=False, indent=1), encoding="utf-8")
+    left = len([g for g in gem if g[1] not in state])
+    print(f"調べた: {len(todo)} 本（残り {left} 本）")
+
+
 def main() -> None:
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -368,8 +425,12 @@ def main() -> None:
     sy = sub.add_parser("sync-playlists")
     sy.add_argument("--limit", type=int, default=40)
     sy.add_argument("--apply", action="store_true")
+    asr = sub.add_parser("asr-scan")
+    asr.add_argument("--limit", type=int, default=4)
     a = p.parse_args()
-    if a.cmd == "titles":
+    if a.cmd == "asr-scan":
+        cmd_asr_scan(a.limit)
+    elif a.cmd == "titles":
         cmd_titles(a.csv, a.limit, a.apply)
     elif a.cmd == "promote":
         cmd_promote(a.min, a.limit, a.apply)
