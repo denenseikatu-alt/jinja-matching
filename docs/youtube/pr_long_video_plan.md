@@ -72,4 +72,4 @@
 - 10/16 オーナー指示: 今は Gemini の残高を足せないので、**できているもの（全身の凛の絵 `assets_video/poses_rin_cut/`）を使う**。
   試しの動画 `docs/youtube/rin_test/rin_full_test.mp4`。書き出しは `build_talking.py --presenter assets_video/poses_rin_cut/smile.png
   --layout assets_video/poses_rin_cut/layout.json --poses assets_video/poses_rin_cut/poses.json --room assets_video/poses_rin_cut/room_clean.png`。
-  声は Gemini が使えなければ自動で VOICEVOX（波音リツ）になる
+  声は Gemini が使えなければ自動で VOICEVOX（波音リツ）になる。BGM は雑学と同じ Escort（`--bgm`）
