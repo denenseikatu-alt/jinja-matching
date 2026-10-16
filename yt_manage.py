@@ -356,7 +356,9 @@ def english_in_asr(srt: str) -> list[str]:
         if len(rows) < 3:
             continue
         text = " ".join(rows[2:])
-        if re.search(r"[A-Za-z]{3,}", re.sub(r"[.．]?com", "", text)):
+        # 台本どおりの略語（SNS・ACTN3 など大文字と数字だけの語）は数えない
+        rest = re.sub(r"[.．]?com|\b[A-Z0-9]{2,}\b|[A-Z][A-Z0-9]+", "", text)
+        if re.search(r"[A-Za-z]{3,}", rest):
             hits.append(f"{rows[1][:8]} {text}")
     return hits
 
