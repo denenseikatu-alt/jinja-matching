@@ -434,6 +434,10 @@ def final_check(scenes: list[dict], audio_dir: Path, voice: dict, group: int = 8
     """全文を作り終えたあと、文ごとの音声をもう一度まとめて文字起こしし、英語が混ざっていないか、
     台本と合っているかを確かめる。合わない文は1文ずつ作り直す（2026-10-16 オーナー指摘:
     ナレーションの一部が英語で読まれていた）。照合できないまま終わる場合は止める。"""
+    if os.environ.get("TTS_FINAL_CHECK") == "0":
+        # 試しの書き出し（前に確かめた音声を使い回すとき）だけ。公開する動画では使わない
+        print("  最終確認を省きました（TTS_FINAL_CHECK=0）", flush=True)
+        return
     lines = [l for s in scenes for l in s["lines"]]
     paths = [audio_dir / f"{k:04d}.wav" for k in range(1, len(lines) + 1)]
 
