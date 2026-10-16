@@ -229,6 +229,23 @@ class Face:
         img.paste(work, (x0, y0), mask)
 
 
+FALLBACK_SPEAKER = 9   # Gemini が使えないときの声（VOICEVOX:波音リツ ノーマル。narration.md の既定）
+
+
+def ensure_voicevox(host: str) -> None:
+    """VOICEVOX ENGINE が動いていなければ、クラウドの準備スクリプトで起動する。"""
+    import urllib.request
+    try:
+        urllib.request.urlopen(f"{host}/version", timeout=5).read()
+        return
+    except Exception:
+        pass
+    here = Path(__file__).resolve().parent
+    r = subprocess.run(["bash", str(here / "cloud" / "setup.sh")], cwd=here)
+    if r.returncode:
+        sys.exit("VOICEVOX を起動できませんでした")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -253,6 +270,17 @@ def main() -> None:
     # 声は "voice" で選ぶ。{"engine": "gemini", "name": "Leda", "style": "..."} なら Gemini、
     # 無ければ従来どおり VOICEVOX（speaker）
     voice = script.get("voice", {"engine": "voicevox", "speaker": speaker})
+    if voice.get("engine") == "gemini":
+        import tts_gemini
+        if not tts_gemini.available(voice.get("name", "Leda")):
+            # 2026-10-16 オーナー指示: Gemini の残高を足せない間は、できるもの（VOICEVOX）で作る。
+            # 既に作った Gemini の音声があっても、声が混ざらないよう全文を VOICEVOX で作り直す
+            speaker = FALLBACK_SPEAKER
+            voice = {"engine": "voicevox", "speaker": speaker}
+            print(f"Gemini の声が使えないため（前払いの残高切れなど）、VOICEVOX（話者 {speaker}）で作ります", flush=True)
+            ensure_voicevox(args.host)
+            for old in (Path(args.outdir) / "audio").glob("*.wav"):
+                old.unlink()
     scenes = script["scenes"]
     layout = json.loads(Path(args.layout).read_text(encoding="utf-8"))
     font_path = find_font(args.font)

@@ -69,3 +69,7 @@
 - 10/16 訂正: オーナーが選んだのは **B 書斎**（温室のテラスではなかった）。`assets_video/poses_rin_library/base.png` を元に
   20ポーズを作り直す（`--same --src assets_video/poses_rin_library/base.png -o assets_video/poses_rin_library`。ポーズの一覧は
   温室の回と同じ）。Gemini の前払いの残高が切れたため、オーナーが残高を足してから作る。温室の絵（poses_rin_garden）は使わない
+- 10/16 オーナー指示: 今は Gemini の残高を足せないので、**できているもの（全身の凛の絵 `assets_video/poses_rin_cut/`）を使う**。
+  試しの動画 `docs/youtube/rin_test/rin_full_test.mp4`。書き出しは `build_talking.py --presenter assets_video/poses_rin_cut/smile.png
+  --layout assets_video/poses_rin_cut/layout.json --poses assets_video/poses_rin_cut/poses.json --room assets_video/poses_rin_cut/room_clean.png`。
+  声は Gemini が使えなければ自動で VOICEVOX（波音リツ）になる

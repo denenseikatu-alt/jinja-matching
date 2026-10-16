@@ -472,4 +472,15 @@ def final_check(scenes: list[dict], audio_dir: Path, voice: dict, group: int = 8
     print(f"  最終確認: 全{len(lines)}文を照合（作り直し {len(bad)}文）", flush=True)
 
 
+def available(voice: str = "Leda") -> bool:
+    """Gemini の声が今使えるか（前払いの残高切れ・1日の枠切れでないか）。短い1語を作って確かめる。"""
+    if not os.environ.get("GEMINI_API_KEY"):
+        return False
+    try:
+        _generate("Read aloud: はい。", voice)
+        return True
+    except SystemExit:
+        return False
+
+
 CREDIT = "音声: Google Gemini（AI 音声合成）"
