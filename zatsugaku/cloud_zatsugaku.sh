@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 雑学動画のクラウド版（Mac がスリープなどで作れなかった日の予備）。ルーティンのセッションから呼ぶ。
 #
-#   bash zatsugaku/cloud_zatsugaku.sh prepare   # 台帳の確認・担当取り・VOICEVOX と素材の準備
+#   bash zatsugaku/cloud_zatsugaku.sh prepare   # 台帳の確認・担当取り・素材の準備
 #   （ここでセッションが prompts/zatsugaku.md に従って scripts/<日付>.json を書き、
 #     python3 zatsugaku/zatsugaku_state.py check で検査に通す）
 #   bash zatsugaku/cloud_zatsugaku.sh publish   # 絵の取得・書き出し・アップロード・記録
@@ -13,7 +13,8 @@
 #   bash zatsugaku/cloud_zatsugaku.sh extra-publish                  # 書き出し・アップロード・記録
 #
 # 終了コード 3 = 今日は投稿済みか Mac が作成中なので何もしない。
-# 必要な環境変数: YT_CLIENT_ID / YT_CLIENT_SECRET / YT_REFRESH_TOKEN（cloud/unlock.sh が用意する）
+# 必要な環境変数: YT_CLIENT_ID / YT_CLIENT_SECRET / YT_REFRESH_TOKEN / GEMINI_API_KEY（cloud/unlock.sh が用意する）
+# 形式: 2026-10-17 から記事動画と同じ形式（語り手・Gemini の Leda の声・雑学の BGM）。build_zatsugaku_talking.py
 
 set -u
 cd "$(dirname "$0")" || exit 1
@@ -33,7 +34,7 @@ prepare() {
   python3 zatsugaku_state.py pull || die "台帳を取得できませんでした"
   WHY="$(python3 zatsugaku_state.py why 2>/dev/null)"
   [ -n "$WHY" ] && echo "MAC_FAILED: $WHY"
-  (cd "$REPO" && bash cloud/setup.sh) || die "VOICEVOX / 依存の準備に失敗しました"
+  (cd "$REPO" && bash cloud/setup.sh --no-engine) || die "依存の準備に失敗しました"
   python3 fetch_assets.py || die "素材（BGM・フォント・絵）の準備に失敗しました"
   (cd "$REPO" && python3 yt_auth.py check) || die "YouTube の認証に失敗しました"
   THEME="$(python3 zatsugaku_state.py theme)" || die "今日のテーマを決められませんでした"
@@ -44,9 +45,8 @@ prepare() {
 publish() {
   [ -f "$SCRIPT" ] || die "$SCRIPT がありません"
   python3 zatsugaku_state.py check "$SCRIPT" || die "台本の検査に通っていません。直してから publish してください"
-  python3 fetch_irasutoya.py "$SCRIPT" || die "絵の取得に失敗しました"
-  python3 build_zatsugaku.py "$SCRIPT" -o "$OUT" --engine voicevox || die "動画の書き出しに失敗しました"
-  python3 -c "import json,sys; d=json.load(open('$OUT/meta.json'))['duration']; print(f'尺 {d:.1f}秒'); sys.exit(0 if 150 <= d <= 215 else 1)" \
+  python3 build_zatsugaku_talking.py "$SCRIPT" -o "$OUT" || die "動画の書き出しに失敗しました"
+  python3 -c "import json,sys; d=json.load(open('$OUT/meta.json'))['duration']; print(f'尺 {d:.1f}秒'); sys.exit(0 if 150 <= d <= 330 else 1)" \
     || die "尺が想定外です。台本の分量を確認してください"
   # 書き出しのあいだに Mac が上げていないか、送信直前にもう一度確かめる
   python3 zatsugaku_state.py claim --by cloud >/dev/null
@@ -65,7 +65,7 @@ EXTRA_FILE=".extra_today"   # 2本目の「キー<TAB>テーマ」（.gitignore 
 
 extra_prepare() {
   python3 zatsugaku_state.py pull || die_plain "台帳を取得できませんでした"
-  (cd "$REPO" && bash cloud/setup.sh) || die_plain "VOICEVOX / 依存の準備に失敗しました"
+  (cd "$REPO" && bash cloud/setup.sh --no-engine) || die_plain "依存の準備に失敗しました"
   python3 fetch_assets.py || die_plain "素材（BGM・フォント・絵）の準備に失敗しました"
   (cd "$REPO" && python3 yt_auth.py check) || die_plain "YouTube の認証に失敗しました"
   out="$(python3 zatsugaku_state.py extra --skip "${1:-}")" || die_plain "テーマを決められませんでした"
@@ -83,9 +83,8 @@ extra_publish() {
   script="scripts/$key.json"; out="out/$key"
   [ -f "$script" ] || die_plain "$script がありません"
   python3 zatsugaku_state.py check "$script" --theme "$theme" || die_plain "台本の検査に通っていません"
-  python3 fetch_irasutoya.py "$script" || die_plain "絵の取得に失敗しました"
-  python3 build_zatsugaku.py "$script" -o "$out" --engine voicevox || die_plain "動画の書き出しに失敗しました"
-  python3 -c "import json,sys; d=json.load(open('$out/meta.json'))['duration']; print(f'尺 {d:.1f}秒'); sys.exit(0 if 150 <= d <= 215 else 1)" \
+  python3 build_zatsugaku_talking.py "$script" -o "$out" || die_plain "動画の書き出しに失敗しました"
+  python3 -c "import json,sys; d=json.load(open('$out/meta.json'))['duration']; print(f'尺 {d:.1f}秒'); sys.exit(0 if 150 <= d <= 330 else 1)" \
     || die_plain "尺が想定外です。台本の分量を確認してください"
   UP="$(cd "$REPO" && python3 upload_youtube.py "zatsugaku/$out/video.mp4" \
           --script "zatsugaku/$out/upload.json" --privacy "$PRIVACY" --no-chapters)" \

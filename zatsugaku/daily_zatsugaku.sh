@@ -6,7 +6,8 @@
 # 台本を書く工程だけ Claude に任せ、出典の確認（WebFetch）も Claude が行う。
 # それ以外（検査・絵の取得・書き出し・アップロード・記録）はこのスクリプトが行う。
 #
-# 音声: VOICEVOX（青山龍星）で固定（2026-10-01 オーナー判断）。
+# 形式: 2026-10-17 から、記事動画と同じ形式（アニメ調の語り手・Gemini の Leda の声）で作る。
+#       BGM だけは雑学動画の「Escort」（2026-10-16 オーナー指示）。書き出しは build_zatsugaku_talking.py。
 # 公開設定: PRIVACY（既定 public。2026-10-01 オーナー指示）。
 #
 # Mac がスリープなどで作れなかった日は、クラウドのルーティン（cloud_zatsugaku.sh）が代わりに作る。
@@ -16,8 +17,6 @@ set -u
 
 DIR="$HOME/jinja-matching/zatsugaku"
 REPO="$HOME/jinja-matching"
-ENGINE_DIR="${VOICEVOX_DIR:-$HOME/macos-arm64}"
-HOST="${VOICEVOX_HOST:-http://127.0.0.1:50021}"
 TODAY="$(TZ=Asia/Tokyo date +%F)"
 SCRIPT="scripts/$TODAY.json"
 OUT="out/$TODAY"
@@ -67,6 +66,15 @@ if [ -f "$HOME/.unlock_pass" ] && bash "$REPO/cloud/unlock.sh" "$(cat "$HOME/.un
   echo "YouTube の許可: クラウドと共通のものを使います"
 fi
 
+# 記事動画と同じ形式に必要なもの（Gemini の鍵・OpenCV）を、担当を取る前に確かめる。
+# 足りなければ理由を台帳に残して手放し、クラウドの予備に回す（台本を書いてから止まる無駄を避ける）
+[ -n "${GEMINI_API_KEY:-}" ] || die "Gemini の鍵（GEMINI_API_KEY）がありません（記事動画と同じ形式で作れないため、クラウドに任せます）"
+python3 -c "import cv2, numpy" 2>/dev/null \
+  || python3 -m pip install -q opencv-python-headless numpy >/dev/null 2>&1 \
+  || python3 -m pip install -q --user opencv-python-headless numpy >/dev/null 2>&1
+python3 -c "import cv2, numpy" 2>/dev/null \
+  || die "OpenCV を入れられませんでした（記事動画と同じ形式で作れないため、クラウドに任せます）"
+
 # 今日の担当を取る。投稿済みか、クラウドが作成中なら何もしない
 python3 zatsugaku_state.py claim --by mac
 code=$?
@@ -80,17 +88,6 @@ python3 zatsugaku_state.py pull || die "台帳を取得できませんでした"
 THEME="$(python3 zatsugaku_state.py theme)" || die "今日のテーマを決められませんでした"
 SCOPE="$(python3 zatsugaku_state.py theme --scope)"
 echo "今日のテーマ: $SCOPE"
-
-# --- 1. 音声エンジン ------------------------------------------------------
-if curl -sS -m 5 "$HOST/version" >/dev/null 2>&1; then
-  echo "音声: VOICEVOX（起動済み）"
-else
-  [ -x "$ENGINE_DIR/run" ] || die "VOICEVOX ENGINE がありません: $ENGINE_DIR/run"
-  (cd "$ENGINE_DIR" && nohup ./run --host 127.0.0.1 --port 50021 >"$LOG_DIR/engine.log" 2>&1 &)
-  for _ in $(seq 1 40); do sleep 3; curl -sS -m 5 "$HOST/version" >/dev/null 2>&1 && break; done
-  curl -sS -m 5 "$HOST/version" >/dev/null 2>&1 || die "VOICEVOX が起動しませんでした"
-  echo "音声: VOICEVOX（起動しました）"
-fi
 
 # --- 2. 台本（Claude）。検査に落ちたら指摘を渡して2回まで書き直させる ------
 CLAUDE_BIN="$(command -v claude || echo "$HOME/.local/bin/claude")"
@@ -147,16 +144,13 @@ $CHECK" \
 done
 python3 zatsugaku_state.py check "$SCRIPT" || die "台本の検査に通りませんでした"
 
-# --- 3. 絵（いらすとや） --------------------------------------------------
-python3 fetch_irasutoya.py "$SCRIPT" || die "絵の取得に失敗しました"
-
-# --- 4. 書き出し ----------------------------------------------------------
-python3 build_zatsugaku.py "$SCRIPT" -o "$OUT" --engine voicevox || die "動画の書き出しに失敗しました"
+# --- 3. 書き出し（記事動画と同じ形式。語り手・Gemini の声・雑学の BGM） ------------
+python3 build_zatsugaku_talking.py "$SCRIPT" -o "$OUT" || die "動画の書き出しに失敗しました"
 [ -f "$OUT/video.mp4" ] || die "$OUT/video.mp4 がありません"
-python3 -c "import json,sys; d=json.load(open('$OUT/meta.json'))['duration']; print(f'尺 {d:.1f}秒'); sys.exit(0 if 150 <= d <= 215 else 1)" \
+python3 -c "import json,sys; d=json.load(open('$OUT/meta.json'))['duration']; print(f'尺 {d:.1f}秒'); sys.exit(0 if 150 <= d <= 330 else 1)" \
   || die "尺が想定外です。台本の分量を確認してください"
 
-# --- 5. アップロード ------------------------------------------------------
+# --- 4. アップロード ------------------------------------------------------
 # shellcheck disable=SC1091
 . "$REPO/.venv/bin/activate"
 UP="$(cd "$REPO" && python3 upload_youtube.py "zatsugaku/$OUT/video.mp4" \
@@ -166,7 +160,7 @@ echo "$UP"
 URL="$(printf '%s\n' "$UP" | awk '/^完了:/{print $2}')"
 [ -n "$URL" ] || die "動画URLを取得できませんでした"
 
-# --- 6. 記録 --------------------------------------------------------------
+# --- 5. 記録 --------------------------------------------------------------
 python3 zatsugaku_state.py done "$SCRIPT" --url "$URL" --by mac \
   || { echo "注意: 台帳への記録に失敗しました（動画は公開済み）: $URL"; exit 1; }
 
