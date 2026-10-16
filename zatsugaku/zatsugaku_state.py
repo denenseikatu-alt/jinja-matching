@@ -80,6 +80,25 @@ LONG_FROM = "2026-10-17"
 LONG_MIN_ITEMS = 96          # 雑学の数（これで約31〜34分）
 LONG_CHARS = (11500, 15500)  # 読み上げの合計字数
 LONG_MIN_PER_CHAPTER = 10
+LONG_BODY_CHAPTERS = 8       # 体づくりの日の章の数
+# 体づくりの日の章は、この中から順に8つずつ回す（2026-10-16 オーナー指示: 食べ物の栄養素と健康効果、
+# denenseikatu.com の記事のカテゴリー〈ボディメイク・フィットネス・健康維持・アンチエイジング・美容・アウトドア〉から選ぶ）
+LONG_BODY_SCOPE = {
+    "筋トレ": THEME_SCOPE["筋トレ"],
+    "野菜と果物": "野菜と果物の栄養素と健康効果（食材ごとの成分・食べ方・研究の結果）",
+    "ボディメイク": "ボディメイク（体脂肪を減らす・筋肉をつける・体組成・食事と運動の組み合わせ）",
+    "魚・肉・卵・大豆": "魚・肉・卵・大豆の栄養素と健康効果（たんぱく質・脂質・食べ方・研究の結果）",
+    "フィットネス": "フィットネス（有酸素運動・持久力・心肺の力・歩く・走る・自転車・泳ぐ）",
+    "穀物・発酵食品・ナッツ": "穀物・発酵食品・ナッツの栄養素と健康効果（食物繊維・腸内環境・研究の結果）",
+    "健康維持": "健康維持（血圧・血糖・睡眠・疲れ・体重・毎日の習慣）",
+    "飲み物": "飲み物の栄養と健康効果（お茶・コーヒー・牛乳・水分のとり方）",
+    "アンチエイジング": "アンチエイジング（老化と運動・食事・骨・脳・健康寿命）",
+    "たんぱく質": "たんぱく質（量・とり方・プロテインと食品の違い）",
+    "美容": "美容（肌・髪・爪と食事・運動・睡眠の研究）",
+    "ビタミンとミネラル": "ビタミン・ミネラルの働きと健康効果（不足と取りすぎ・食品からのとり方・サプリの研究）",
+    "アウトドア": "アウトドアと健康（自然の中で歩く・日光・森林浴・キャンプ・登山の研究）",
+    "筋トレで変わる体": THEME_SCOPE["筋トレで変わる体"],
+}
 
 
 def long_kind(day: str) -> str:
@@ -98,13 +117,18 @@ def long_part(st: dict, day: str) -> str:
 def long_plan(st: dict, day: str) -> list[tuple[str, str, int]]:
     """長い動画の章（テーマ・範囲・最低の個数）。ネタがそろわない章は予備のテーマに替えてよい。"""
     if long_kind(day) == "体づくり":
-        per = -(-LONG_MIN_ITEMS // len(THEMES))
+        # 前日までの体づくりの日の数で、14テーマを8つずつ順に回す（全部のテーマが順に出る）
+        n = sum(1 for d, v in st.get("done", {}).items()
+                if v.get("format") == "long" and v.get("theme") == "体づくり" and d < day)
+        keys = list(LONG_BODY_SCOPE)
+        pick = [keys[(n * LONG_BODY_CHAPTERS + i) % len(keys)] for i in range(LONG_BODY_CHAPTERS)]
+        per = -(-LONG_MIN_ITEMS // LONG_BODY_CHAPTERS)
         out = []
-        for th in THEMES:
-            sc = THEME_SCOPE[th]
+        for th in pick:
+            sc = LONG_BODY_SCOPE[th]
             if th == "筋トレ":
                 part = long_part(st, day)
-                sc = f"{sc}。今回の部位: {part}（章の見出しにも「{part_word(part)}」を出す）"
+                sc = f"{sc}。今回の部位: {part}（雑学の文にも「{part_word(part)}」を出す）"
             out.append((th, sc, per))
         return out
     per = -(-LONG_MIN_ITEMS // len(PET_THEMES))
