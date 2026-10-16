@@ -291,7 +291,7 @@ def verify(lines: list[str], segs: list[bytes]) -> str | None:
         # （英語を日本語に訳して書き起こされると、下の英単語の数え方では見落とすため）
         # ただし外来語（カタカナ語）や「ドットコム」を英語と答えることがあるので、書き起こしが台本とよく合い
         # 英字も出ていなければ数えない
-        if eng.get(k) and not re.search(r"[A-Za-z]{3,}", line):
+        if eng.get(k) and not re.search(r"[A-Za-z]{3,}", line) and "ドットコム" not in line:
             close = difflib.SequenceMatcher(None, _norm(line), _norm(h)).ratio() >= 0.85
             letters = re.findall(r"[a-z]{3,}", re.sub(r"[A-Za-z][A-Za-z.\-]*\.(?:com|jp|net|org)(?![A-Za-z])", "", h))
             if letters or not close:
