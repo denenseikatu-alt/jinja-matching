@@ -261,6 +261,8 @@ def main() -> None:
     ap.add_argument("--host", default="http://127.0.0.1:50021")
     ap.add_argument("--speaker", type=int, default=None)
     ap.add_argument("--font", default=None)
+    ap.add_argument("--bgm", action="store_true",
+                    help="雑学動画の BGM（Escort）を声の下に敷く（全サイト紹介動画など。記事動画には使わない）")
     ap.add_argument("--preview", type=float, default=None, metavar="秒",
                     help="この秒数のフレームを1枚だけ PNG で書き出して終わる（音声合成あり）")
     args = ap.parse_args()
@@ -442,6 +444,22 @@ def main() -> None:
     proc.stdin.close()
     if proc.wait() != 0:
         sys.exit("ffmpeg が失敗しました")
+
+    if args.bgm:
+        # 雑学動画と同じ BGM・音量・つなぎ方（zatsugaku/build_zatsugaku.py）
+        sys.path.insert(0, str(Path(__file__).resolve().parent / "zatsugaku"))
+        from build_zatsugaku import BGM_VOLUME, make_bgm_bed
+        bed = outdir / "bgm_bed.wav"
+        make_bgm_bed(total, bed)
+        mixed = outdir / "video_bgm.mp4"
+        subprocess.run([
+            ffmpeg_bin(), "-y", "-loglevel", "error", "-i", str(mp4), "-i", str(bed), "-filter_complex",
+            f"[1:a]volume={BGM_VOLUME},atrim=0:{total:.3f},afade=t=out:st={max(0, total - 2):.3f}:d=2[bgm];"
+            f"[0:a]aresample=48000[nar];[nar][bgm]amix=inputs=2:duration=first:normalize=0[a]",
+            "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", str(mixed)], check=True)
+        mixed.replace(mp4)
+        bed.unlink(missing_ok=True)
+        print("BGM: 「Escort」もっぴーさうんど（フリーBGM OpenTracks 旧DOVA-SYNDROME）")
 
     write_srt(subtitles, outdir / "video.srt")
     credit = credit or speaker_credit(speaker, args.host)
