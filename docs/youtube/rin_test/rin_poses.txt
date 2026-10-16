@@ -1,0 +1,20 @@
+smile_open|warm smile with her mouth slightly open as if talking, hands lightly together in front of her.
+point_screen|turning her upper body toward the screen on the left and presenting it with her open right palm, friendly smile, looking at the viewer.
+look_screen|looking at the screen on the left with interest, pointing at it with her index finger, small smile.
+wave|waving cheerfully at the viewer with one hand raised beside her face, big bright smile.
+bow|a polite small bow with her head lowered and eyes closed, hands together in front, calm smile.
+laugh|laughing joyfully with eyes closed and mouth open, one hand near her mouth.
+surprise|surprised expression with wide eyes and an open mouth, both hands raised near her cheeks.
+wink|playful wink with one eye closed, smiling, making a small peace sign near her face.
+think|thinking pose, one finger on her chin, eyes looking up to the side, slightly puzzled expression.
+idea|raising her index finger beside her face with an inspired "I got it!" expression, eyes sparkling.
+thumbsup|giving a thumbs up toward the viewer, bright confident smile.
+clap|clapping her hands together in front of her chest, delighted smile.
+shy|shy and slightly embarrassed, cheeks blushing, one hand touching her cheek, soft smile.
+serious|serious, sincere expression with a gentle closed mouth, standing straight, hands together in front.
+explain|explaining with both hands open in front of her chest, mouth slightly open as if talking, friendly expression.
+caution|raising one index finger as a gentle warning, slightly serious but kind expression.
+heart|making a heart shape with both hands in front of her chest, sweet smile.
+nod|nodding with a gentle closed-eye smile.
+point_viewer|pointing her index finger toward the viewer with a cheerful smile.
+bye|waving goodbye with both hands, warm smile.

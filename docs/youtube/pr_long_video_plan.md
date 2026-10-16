@@ -66,3 +66,6 @@
   作り方: `python3 make_poses_gemini.py <名前> "<ポーズ>" --same --src assets_video/poses_rin_garden/base.png -o assets_video/poses_rin_garden`
   全身の絵（`assets_video/poses_rin/`）は使わない
 - 次: 12サイトの下調べ（10/17）→ 台本 → 切り抜き（isnet-anime）・口とまぶたの位置・スクリーンの位置の設定 → 書き出し
+- 10/16 訂正: オーナーが選んだのは **B 書斎**（温室のテラスではなかった）。`assets_video/poses_rin_library/base.png` を元に
+  20ポーズを作り直す（`--same --src assets_video/poses_rin_library/base.png -o assets_video/poses_rin_library`。ポーズの一覧は
+  温室の回と同じ）。Gemini の前払いの残高が切れたため、オーナーが残高を足してから作る。温室の絵（poses_rin_garden）は使わない
