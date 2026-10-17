@@ -73,3 +73,6 @@
   試しの動画 `docs/youtube/rin_test/rin_full_test.mp4`。書き出しは `build_talking.py --presenter assets_video/poses_rin_cut/smile.png
   --layout assets_video/poses_rin_cut/layout.json --poses assets_video/poses_rin_cut/poses.json --room assets_video/poses_rin_cut/room_clean.png`。
   声は Gemini が使えなければ自動で VOICEVOX（波音リツ）になる。BGM は雑学と同じ Escort（`--bgm`）
+- 10/17 下調べ: 12サイトを読んで `pr_sites_notes.md` を埋めた（STORES は STORES 側の守りで読めず、ほかのサイトの案内からわかる範囲だけ）。
+  台本で言い切らない点は同じファイルの「2. 台本の前に知っておくこと」にまとめた。
+- 次: 台本（約3万字）→ 口とまぶたの位置などの設定 → 書き出し → 日本時間16時以降にアップロード
