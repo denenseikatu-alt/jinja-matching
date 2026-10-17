@@ -1,0 +1,330 @@
+{
+  "theme": "人生",
+  "title": "9割が知らない 人生の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n人生の雑学",
+          "say": "知って得する、人生の雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "宝くじ",
+      "image_query_alt": "ガッツポーズ 男性",
+      "topic": "宝くじ当選者の幸福感（快楽的順応）",
+      "category": "人生",
+      "source": "Brickman ほか（1978年・人格社会心理学誌）",
+      "pmid": "690806",
+      "lines": [
+        {
+          "caption": "宝くじに当たると\nずっと幸せ？",
+          "say": "宝くじに当たったら、ずっと幸せになれるのでしょうか。"
+        },
+        {
+          "caption": "当選者22人と\n対照の22人を比較",
+          "say": "宝くじに当たった22人と、当たらなかった22人を比べた研究があります。"
+        },
+        {
+          "caption": "当選者の幸福度は\n対照群と変わらず",
+          "say": "当選した人たちの幸福度は、当たらなかった人たちと、変わりませんでした。"
+        },
+        {
+          "caption": "日常の喜びは\nむしろ小さく感じた",
+          "say": "むしろ、当選者は普段の小さな喜びを、感じにくくなっていました。"
+        }
+      ],
+      "image": "takarakuji_uriba.png",
+      "image_page": "https://www.irasutoya.com/2015/02/blog-post_660.html"
+    },
+    {
+      "image_query": "同窓会",
+      "image_query_alt": "女友達",
+      "topic": "友人関係の数の変化と感情への影響",
+      "category": "人生",
+      "source": "English・Carstensen（2014年・国際行動発達学誌）",
+      "pmid": "24910483",
+      "lines": [
+        {
+          "caption": "友達の数は\n年をとると減る？",
+          "say": "友達の数は、年を取るとともに、減っていくのでしょうか。"
+        },
+        {
+          "caption": "成人期全体を\n追いかけた研究",
+          "say": "成人になってからの人生全体を追いかけた研究では、"
+        },
+        {
+          "caption": "付き合いの浅い友人が\n特に減っていた",
+          "say": "付き合いの浅い友人の数が、特に減っていました。"
+        },
+        {
+          "caption": "親しい友人の数は\n安定、気分も良くなる",
+          "say": "一方、親しい友人の数は安定していて、人づきあいで感じる気分は、むしろ良くなっていました。"
+        }
+      ],
+      "image": "dousoukai_text.png",
+      "image_page": "https://www.irasutoya.com/2014/09/blog-post_17.html"
+    },
+    {
+      "image_query": "鏡 女性",
+      "image_query_alt": "性格",
+      "topic": "性格の生涯にわたる安定性",
+      "category": "人生",
+      "source": "Roberts・DelVecchio（2000年・心理学紀要）",
+      "pmid": "10668348",
+      "lines": [
+        {
+          "caption": "性格は\n何歳で固まる？",
+          "say": "性格は、何歳くらいで固まるものなのでしょうか。"
+        },
+        {
+          "caption": "152件の追跡調査を\nまとめた分析",
+          "say": "152件の追跡調査をまとめた分析によると、"
+        },
+        {
+          "caption": "一致度は子供時代3割\n30歳で6割に",
+          "say": "性格の一致の度合いは、子供時代は3割ほどでしたが、30歳では6割ほどまで上がっていました。"
+        },
+        {
+          "caption": "50〜70歳で\n7割まで上がり安定",
+          "say": "50歳から70歳では、7割ほどまで上がって、安定していました。"
+        }
+      ],
+      "image": "biyouin_sanpatsu_shippai.png",
+      "image_page": "https://www.irasutoya.com/2020/05/blog-post_61.html"
+    },
+    {
+      "image_query": "シニア夫婦",
+      "image_query_alt": "笑顔 高齢者",
+      "topic": "加齢による感情コントロール（ポジティビティ効果）",
+      "category": "人生",
+      "source": "Mather・Carstensen（2005年・認知科学トレンド誌）",
+      "pmid": "16154382",
+      "lines": [
+        {
+          "caption": "高齢になるほど\n気分が安定する理由",
+          "say": "高齢になるほど、気分が安定していく人が多いのには、理由があります。"
+        },
+        {
+          "caption": "いやな記憶より\n良い記憶を残しやすい",
+          "say": "研究によると、高齢の人ほど、いやな記憶より、良い記憶を残しやすくなっていました。"
+        },
+        {
+          "caption": "感情をコントロールする\n力が強くなるため",
+          "say": "これは、感情をコントロールする力が強くなるためだと考えられています。"
+        }
+      ],
+      "image": "koshi_magari_smile_objiisan.png",
+      "image_page": "https://www.irasutoya.com/2018/12/blog-post_213.html"
+    },
+    {
+      "image_query": "卒業アルバム",
+      "image_query_alt": "青春",
+      "topic": "自伝的記憶のレミニセンス・バンプ",
+      "category": "人生",
+      "source": "Janssen ほか（2005年・学術誌メモリー）",
+      "pmid": "16076679",
+      "lines": [
+        {
+          "caption": "人生で一番\n覚えている年代は？",
+          "say": "人生の中で、一番よく覚えている年代は、いつ頃でしょうか。"
+        },
+        {
+          "caption": "11〜70歳の\n約2000人に調査",
+          "say": "11歳から70歳までの、およそ2000人に聞いた調査があります。"
+        },
+        {
+          "caption": "男性は15〜18歳\n女性は13〜14歳が最多",
+          "say": "思い出が一番多く残っていたのは、男性で15歳から18歳、女性で13歳から14歳でした。"
+        }
+      ],
+      "image": "sotsugyou_album_blank.png",
+      "image_page": "https://www.irasutoya.com/2016/03/blog-post_48.html"
+    },
+    {
+      "image_query": "結婚式",
+      "image_query_alt": "新婚夫婦",
+      "topic": "結婚による幸福感の変化（セットポイント理論の検証）",
+      "category": "人生",
+      "source": "Lucas ほか（2003年・人格社会心理学誌）",
+      "pmid": "12635914",
+      "lines": [
+        {
+          "caption": "結婚で上がった幸せは\nそのまま続く？",
+          "say": "結婚で上がった幸せな気持ちは、そのまま続くものなのでしょうか。"
+        },
+        {
+          "caption": "2万4千人以上を\n15年間追跡",
+          "say": "2万4千人以上を、15年間にわたって追いかけた調査があります。"
+        },
+        {
+          "caption": "多くの人は\n数年で元の水準に",
+          "say": "多くの人は、数年のうちに、結婚前の満足度に近い水準へ戻っていました。"
+        },
+        {
+          "caption": "ただし個人差が大きく\n戻らない人もいた",
+          "say": "ただし個人差が大きく、長く満足度が高いままの人も、低いままの人もいました。"
+        }
+      ],
+      "image": "tablet_online_wedding.png",
+      "image_page": "https://www.irasutoya.com/2020/06/blog-post_990.html"
+    },
+    {
+      "image_query": "悩む人",
+      "image_query_alt": "後悔 女性",
+      "topic": "後悔の時間的パターン（行動と不行動）",
+      "category": "人生",
+      "source": "Gilovich・Medvec（1994年・人格社会心理学誌）",
+      "pmid": "7965599",
+      "lines": [
+        {
+          "caption": "後悔が長く残るのは\nどっち？",
+          "say": "長く後悔として残りやすいのは、やったことと、やらなかったこと、どちらでしょうか。"
+        },
+        {
+          "caption": "電話調査や面接など\n複数の方法で確認",
+          "say": "電話調査や面接など、複数の方法で確かめた研究があります。"
+        },
+        {
+          "caption": "直後はやった後悔が\n強く痛む",
+          "say": "行動した直後は、その後悔の方が強く痛みます。"
+        },
+        {
+          "caption": "時間がたつほど\nやらなかった後悔が重い",
+          "say": "ところが時間がたつほど、やらなかったことへの後悔の方が、重くなっていきました。"
+        }
+      ],
+      "image": "shinpai_ojisan.png",
+      "image_page": "https://www.irasutoya.com/2016/10/blog-post_82.html"
+    },
+    {
+      "image_query": "定年退職",
+      "image_query_alt": "退職 男性",
+      "topic": "定年退職後の生活満足度の変化",
+      "category": "人生",
+      "source": "Zhan ほか（2023年・応用心理学誌）",
+      "pmid": "36222631",
+      "lines": [
+        {
+          "caption": "定年後の満足度は\nどう変わる？",
+          "say": "定年を迎えたあと、生活の満足度はどう変わっていくのでしょうか。"
+        },
+        {
+          "caption": "中国の高齢労働者\n667人を2年間追跡",
+          "say": "退職を控えた、667人の中国の労働者を、2年間追いかけた調査があります。"
+        },
+        {
+          "caption": "退職前の健康・お金・\n家族の支えが影響",
+          "say": "退職前の、体と心の健康、お金の状況、家族の支えが、退職後の満足度に影響していました。"
+        }
+      ],
+      "image": "taisyoku_hanataba_old_woman.png",
+      "image_page": "https://www.irasutoya.com/2014/06/blog-post_6099.html"
+    },
+    {
+      "image_query": "お葬式",
+      "image_query_alt": "喪服",
+      "topic": "配偶者を亡くした後の死亡リスク（寡婦効果）",
+      "category": "人生",
+      "source": "Moon ほか（2011年・学術誌プロスワン）",
+      "pmid": "21858130",
+      "lines": [
+        {
+          "caption": "配偶者を亡くすと\n死亡リスクが上がる？",
+          "say": "配偶者を亡くすと、残された人の死亡リスクも、上がるのでしょうか。"
+        },
+        {
+          "caption": "226万人以上を\n15件の研究で分析",
+          "say": "226万人以上を対象にした、15件の研究をまとめた分析があります。"
+        },
+        {
+          "caption": "死別から半年以内は\nリスクが41%上昇",
+          "say": "死別から半年以内は、死亡のリスクが41パーセント上がっていました。"
+        },
+        {
+          "caption": "半年後も14%上昇\n男性は特に高い",
+          "say": "半年を過ぎても14パーセント高いままで、男性は特にリスクが上がっていました。"
+        }
+      ],
+      "image": "seiza_shibireru_osoushiki_woman.png",
+      "image_page": "https://www.irasutoya.com/2018/11/blog-post_841.html"
+    },
+    {
+      "image_query": "思い出 高齢者",
+      "image_query_alt": "アルバム",
+      "topic": "高齢期のライフレビュー（人生の振り返り）と心の健康",
+      "category": "人生",
+      "source": "Bohlmeijer ほか（2007年・老年期メンタルヘルス誌）",
+      "pmid": "17558580",
+      "lines": [
+        {
+          "caption": "昔を振り返ることは\n気分の改善に役立つ？",
+          "say": "昔を振り返ることは、気分の改善に役立つのでしょうか。"
+        },
+        {
+          "caption": "15件の研究を\nまとめた分析",
+          "say": "15件の研究をまとめた分析によると、"
+        },
+        {
+          "caption": "振り返りは\n気分や満足度を中程度改善",
+          "say": "人生を振り返る取り組みは、気分や生活の満足度を、中程度に改善させていました。"
+        },
+        {
+          "caption": "特に自宅で暮らす人に\n効果が大きかった",
+          "say": "特に、施設ではなく自宅で暮らす高齢者で、効果が大きくなっていました。"
+        }
+      ],
+      "image": "sotsugyou_album_open.png",
+      "image_page": "https://www.irasutoya.com/2016/03/blog-post_5.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない人生の雑学10選【論文で確認済み】宝くじで幸せは続かない",
+    "description": "「人生」をめぐる10個の雑学を、すべて査読論文で確かめて紹介します。",
+    "tags": [
+      "雑学",
+      "人生",
+      "心理学",
+      "人生の後悔",
+      "定年退職",
+      "豆知識"
+    ],
+    "sources": [
+      "Brickman P ほか. 人格社会心理学誌 1978;36:917-927 https://europepmc.org/article/MED/690806",
+      "English T, Carstensen LL. 国際行動発達学誌 2014;38:195-202 https://europepmc.org/article/MED/24910483",
+      "Roberts BW, DelVecchio WF. 心理学紀要 2000;126:3-25 https://europepmc.org/article/MED/10668348",
+      "Mather M, Carstensen LL. Trends in Cognitive Sciences 2005;9:496-502 https://europepmc.org/article/MED/16154382",
+      "Janssen SM ほか. Memory 2005;13:658-668 https://europepmc.org/article/MED/16076679",
+      "Lucas RE ほか. 人格社会心理学誌 2003;84:527-539 https://europepmc.org/article/MED/12635914",
+      "Gilovich T, Medvec VH. 人格社会心理学誌 1994;67:357-365 https://europepmc.org/article/MED/7965599",
+      "Zhan Y ほか. 応用心理学誌 2023;108:871-888 https://europepmc.org/article/MED/36222631",
+      "Moon JR ほか. PLoS One 2011;6:e23465 https://europepmc.org/article/MED/21858130",
+      "Bohlmeijer E ほか. Aging & Mental Health 2007;11:291-300 https://europepmc.org/article/MED/17558580"
+    ]
+  }
+}

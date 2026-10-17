@@ -1,0 +1,319 @@
+{
+  "theme": "美容",
+  "title": "9割が知らない 美容の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n美容の雑学",
+          "say": "知って得する、美容の雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "双子",
+      "image_query_alt": "老夫婦",
+      "topic": "見た目の年齢と寿命（双子の研究）",
+      "category": "美容",
+      "source": "Christensen ほか（2009年・英国医師会雑誌）",
+      "pmid": "20008378",
+      "lines": [
+        {
+          "caption": "見た目の若さは\n体の若さ？",
+          "say": "見た目が若い人は、体も若いのでしょうか。"
+        },
+        {
+          "caption": "70歳以上の双子\n1826人を追跡",
+          "say": "デンマークで、70歳以上の双子1826人の写真から、見た目の年齢を判定した研究があります。"
+        },
+        {
+          "caption": "老けて見えるほうが\n先に亡くなりやすい",
+          "say": "双子の中で、見た目の年齢の差が大きいほど、老けて見えるほうが先に亡くなりやすくなっていました。"
+        },
+        {
+          "caption": "体や頭の働きとも\n関係",
+          "say": "見た目の年齢は、体や頭の働きの衰え具合とも関係していました。"
+        }
+      ],
+      "image": "food_medamayaki_futago.png",
+      "image_page": "https://www.irasutoya.com/2017/10/blog-post_504.html"
+    },
+    {
+      "image_query": "排気ガス",
+      "image_query_alt": "車",
+      "topic": "大気中の粒子と顔のシミ",
+      "category": "美容",
+      "source": "Vierkötter ほか（2010年・皮膚科学研究雑誌）",
+      "pmid": "20664556",
+      "lines": [
+        {
+          "caption": "排気ガスと\nシミの関係",
+          "say": "シミの原因は、紫外線だけではないかもしれません。"
+        },
+        {
+          "caption": "70〜80歳の\n女性400人を調査",
+          "say": "ドイツの70歳から80歳の女性400人を調べた研究では、"
+        },
+        {
+          "caption": "交通由来の粒子が多いと\nシミが20%多い",
+          "say": "車などから出る空気中の粒子が多い地域ほど、額やほおのシミが20パーセント多くなっていました。"
+        },
+        {
+          "caption": "車の少ない地域の\n粒子とも関係",
+          "say": "交通量の少ない住宅地の空気中の粒子の量とも、シミの多さは関係していました。"
+        }
+      ],
+      "image": "earth_bad.png",
+      "image_page": "https://www.irasutoya.com/2014/06/blog-post_6528.html"
+    },
+    {
+      "image_query": "野菜",
+      "image_query_alt": "果物",
+      "topic": "野菜と果物の摂取と肌の色つや",
+      "category": "美容",
+      "source": "Whitehead ほか（2012年・プロスワン）",
+      "pmid": "22412966",
+      "lines": [
+        {
+          "caption": "野菜と果物で\n肌の色つやが変わる",
+          "say": "野菜と果物を増やすと、肌の色つやが変わります。"
+        },
+        {
+          "caption": "35人を\n6週間調べた",
+          "say": "35人の食事と肌の色を、6週間調べた研究では、"
+        },
+        {
+          "caption": "1日約3皿増で\n魅力的に見えた",
+          "say": "野菜と果物を1日におよそ3皿分増やした人は、顔色がより健康的で、魅力的に見えるようになっていました。"
+        },
+        {
+          "caption": "日焼けではなく\n野菜の色素",
+          "say": "この色の変化は、日焼けではなく、野菜や果物に含まれる色素によるものでした。"
+        }
+      ],
+      "image": "food_perimeni.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_923.html"
+    },
+    {
+      "image_query": "試験勉強",
+      "image_query_alt": "ストレス",
+      "topic": "心のストレスと肌のバリア機能",
+      "category": "美容",
+      "source": "Garg ほか（2001年・皮膚科学紀要）",
+      "pmid": "11176661",
+      "lines": [
+        {
+          "caption": "ストレスと\n肌荒れ",
+          "say": "ストレスがたまると、肌が荒れやすいのには理由があります。"
+        },
+        {
+          "caption": "学生27人の\n試験前後で比較",
+          "say": "医学部などの学生27人の肌を、試験の時期と、その前後で比べた研究では、"
+        },
+        {
+          "caption": "ストレスが強いと\nバリアの回復が遅い",
+          "say": "ストレスが強い試験の時期ほど、肌のバリア機能の回復が遅くなっていました。"
+        }
+      ],
+      "image": "anki_card.png",
+      "image_page": "https://www.irasutoya.com/2015/06/blog-post_88.html"
+    },
+    {
+      "image_query": "水を飲む",
+      "image_query_alt": "ペットボトル",
+      "topic": "飲む水の量と肌のうるおい",
+      "category": "美容",
+      "source": "Palma ほか（2015年・臨床美容皮膚科学）",
+      "pmid": "26345226",
+      "lines": [
+        {
+          "caption": "水を飲むと\n肌はうるおう？",
+          "say": "水をたくさん飲むと、肌はうるおうのでしょうか。"
+        },
+        {
+          "caption": "女性49人が\n1日約2リットル追加",
+          "say": "若い女性49人が、1か月間、飲む水を1日およそ2リットル増やした研究では、"
+        },
+        {
+          "caption": "普段あまり飲まない人ほど\nうるおいが変化",
+          "say": "肌のうるおいが変化し、特に普段あまり水を飲まない人で、はっきりした変化が見られました。"
+        }
+      ],
+      "image": "drink_suibun_hokyuu_sagyouin_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/05/blog-post_119.html"
+    },
+    {
+      "image_query": "スマホの光",
+      "image_query_alt": "日差し",
+      "topic": "目に見える光と肌の色素沈着",
+      "category": "美容",
+      "source": "Mahmoud ほか（2010年・皮膚科学研究雑誌）",
+      "pmid": "20410914",
+      "lines": [
+        {
+          "caption": "紫外線以外の光でも\n肌は焼ける？",
+          "say": "肌を黒くするのは、紫外線だけではありません。"
+        },
+        {
+          "caption": "20人に\n光を当てる実験",
+          "say": "肌の色が濃いめの20人に、目に見える光と、紫外線の一種を当てる実験では、"
+        },
+        {
+          "caption": "目に見える光のほうが\n濃く長く残った",
+          "say": "どちらでも色素沈着が起き、目に見える光のほうが、濃く長く残りました。"
+        }
+      ],
+      "image": "pet_sanpo_summer_atsui.png",
+      "image_page": "https://www.irasutoya.com/2018/08/blog-post_919.html"
+    },
+    {
+      "image_query": "笑顔",
+      "image_query_alt": "笑う女性",
+      "topic": "笑顔と見た目の年齢の推定",
+      "category": "美容",
+      "source": "Voelkle ほか（2012年・心理学と老化）",
+      "pmid": "21895379",
+      "lines": [
+        {
+          "caption": "笑顔は\n若く見える？",
+          "say": "笑顔は、人を若く見せるのでしょうか。"
+        },
+        {
+          "caption": "154人が\n顔写真の年齢を推定",
+          "say": "154人が、さまざまな表情の顔写真の年齢を当てる実験では、"
+        },
+        {
+          "caption": "笑顔の写真ほど\n若く見積もられた",
+          "say": "笑顔の写真ほど、実際より若く見積もられやすくなっていました。"
+        }
+      ],
+      "image": "eto_tatsu_fukubukuro.png",
+      "image_page": "https://www.irasutoya.com/2023/10/blog-post_125.html"
+    },
+    {
+      "image_query": "化粧",
+      "image_query_alt": "メイク",
+      "topic": "化粧と顔の印象（魅力・有能さ）",
+      "category": "美容",
+      "source": "Etcoff ほか（2011年・プロスワン）",
+      "pmid": "21991328",
+      "lines": [
+        {
+          "caption": "メイクで\n印象はどう変わる？",
+          "say": "メイクをすると、顔の印象はどう変わるのでしょうか。"
+        },
+        {
+          "caption": "4分の1秒\n見ただけでも",
+          "say": "女性の顔写真を、4分の1秒だけ見せて評価してもらう実験では、"
+        },
+        {
+          "caption": "魅力・有能さ・\n親しみやすさが上昇",
+          "say": "メイクをした顔のほうが、魅力的で、有能で、親しみやすく、信頼できると評価されました。"
+        }
+      ],
+      "image": "biyou_dounyueki.png",
+      "image_page": "https://www.irasutoya.com/2020/12/blog-post_2.html"
+    },
+    {
+      "image_query": "白髪",
+      "image_query_alt": "髪の毛",
+      "topic": "白髪に色が戻る現象とストレス",
+      "category": "美容",
+      "source": "Rosenberg ほか（2021年・イーライフ）",
+      "pmid": "34155974",
+      "lines": [
+        {
+          "caption": "白髪は\n元に戻らない？",
+          "say": "白髪は、一度なったら元に戻らないと思っていませんか。"
+        },
+        {
+          "caption": "1本の髪の\n色の変化を調べた",
+          "say": "髪の毛1本ごとに、色の変化を細かく調べた研究では、"
+        },
+        {
+          "caption": "自然に色が戻る\n白髪が見つかった",
+          "say": "年齢や性別に関係なく、自然に色が戻った白髪が見つかりました。"
+        },
+        {
+          "caption": "ストレスの時期とも\n重なっていた",
+          "say": "白髪になる時期や戻る時期は、心のストレスの時期とも重なっていました。"
+        }
+      ],
+      "image": "rakugo_rei_oldman.png",
+      "image_page": "https://www.irasutoya.com/2018/11/blog-post_175.html"
+    },
+    {
+      "image_query": "ジョギング",
+      "image_query_alt": "ランニング",
+      "topic": "持久系の運動と肌の老化",
+      "category": "美容",
+      "source": "Crane ほか（2015年・エイジング・セル）",
+      "pmid": "25902870",
+      "lines": [
+        {
+          "caption": "運動は\n肌にもいい？",
+          "say": "運動は、肌の老化にも関係しているようです。"
+        },
+        {
+          "caption": "人とマウスで\n調べた研究",
+          "say": "人とマウスで調べた研究では、ジョギングのような持久系の運動で、年齢とともに起きる肌の変化がやわらいでいました。"
+        },
+        {
+          "caption": "筋肉から出る物質が\n関わっていた",
+          "say": "運動したときに筋肉から出る物質が、肌の細胞の働きに関わっていると考えられています。"
+        }
+      ],
+      "image": "gym_running_people_dark.png",
+      "image_page": "https://www.irasutoya.com/2018/06/blog-post_530.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない美容の雑学10選【排気ガスでシミが20%多い】",
+    "description": "見た目の年齢と寿命、排気ガスとシミ、野菜と肌の色つや、ストレスと肌荒れ、笑顔やメイクの印象、白髪に色が戻る現象まで。美容の雑学を10個、すべて研究論文の要旨で確かめて紹介します。",
+    "tags": [
+      "雑学",
+      "美容",
+      "スキンケア",
+      "シミ",
+      "白髪",
+      "アンチエイジング",
+      "豆知識"
+    ],
+    "sources": [
+      "Christensen K ほか. 英国医師会雑誌 2009;339:b5262 https://europepmc.org/article/MED/20008378",
+      "Vierkötter A ほか. 皮膚科学研究雑誌 2010;130:2719-26 https://europepmc.org/article/MED/20664556",
+      "Whitehead RD ほか. プロスワン 2012;7:e32988 https://europepmc.org/article/MED/22412966",
+      "Garg A ほか. 皮膚科学紀要 2001;137:53-9 https://europepmc.org/article/MED/11176661",
+      "Palma L ほか. 臨床美容皮膚科学 2015;8:413-21 https://europepmc.org/article/MED/26345226",
+      "Mahmoud BH ほか. 皮膚科学研究雑誌 2010;130:2092-7 https://europepmc.org/article/MED/20410914",
+      "Voelkle MC ほか. 心理学と老化 2012;27:265-77 https://europepmc.org/article/MED/21895379",
+      "Etcoff NL ほか. プロスワン 2011;6:e25656 https://europepmc.org/article/MED/21991328",
+      "Rosenberg AM ほか. イーライフ 2021;10:e67437 https://europepmc.org/article/MED/34155974",
+      "Crane JD ほか. エイジング・セル 2015;14:625-34 https://europepmc.org/article/MED/25902870"
+    ]
+  }
+}

@@ -1,0 +1,343 @@
+{
+  "theme": "睡眠",
+  "title": "9割が信じてる 睡眠の伝説10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n睡眠の雑学",
+          "say": "知って得する、睡眠の雑学。"
+        },
+        {
+          "caption": "ネットでよく見る\n睡眠の伝説、検証します",
+          "say": "ネットでよく見る睡眠の伝説を、研究の結果でツッコんでいきます。"
+        }
+      ]
+    },
+    {
+      "image_query": "居眠り",
+      "image_query_alt": "あくび",
+      "topic": "睡眠制限への慣れの検証",
+      "category": "睡眠",
+      "source": "Belenky ほか（2003年・睡眠医学誌「Journal of Sleep Research」）",
+      "pmid": "12603781",
+      "lines": [
+        {
+          "caption": "短い睡眠でも\n慣れれば平気？",
+          "say": "短い睡眠でも、慣れてしまえば平気になる、と思っていませんか。"
+        },
+        {
+          "caption": "66人を4グループに\n分けて7日間観察",
+          "say": "66人を4つのグループに分け、7日間、睡眠時間を変えた実験があります。"
+        },
+        {
+          "caption": "3時間睡眠の人は\n毎日成績が低下",
+          "say": "1日3時間しか眠らなかった人たちの作業成績は、毎日下がり続けました。"
+        },
+        {
+          "caption": "3日休んでも\n元には戻らなかった",
+          "say": "残念ながら、3日間ゆっくり眠っても、成績は元の水準まで戻りませんでした。"
+        }
+      ],
+      "image": "sleep_inemuri_reclining_chair_woman.png",
+      "image_page": "https://www.irasutoya.com/2019/10/blog-post_12.html"
+    },
+    {
+      "image_query": "寝坊",
+      "image_query_alt": "布団",
+      "topic": "睡眠の前借り（事前の延長睡眠）の効果",
+      "category": "睡眠",
+      "source": "Rupp ほか（2009年・睡眠医学誌「Sleep」）",
+      "pmid": "19294951",
+      "lines": [
+        {
+          "caption": "忙しい週の前に\n寝だめは役立つ？",
+          "say": "忙しくなる前に、多めに寝ておく「寝だめ」は役立つのでしょうか。"
+        },
+        {
+          "caption": "24人を2グループに\n1週間の睡眠で比較",
+          "say": "24人を2グループに分け、1週間睡眠時間を変えてから制限した実験です。"
+        },
+        {
+          "caption": "長めに寝ていた人は\n制限中の崩れが少なかった",
+          "say": "普段より長く眠っていたグループは、その後の睡眠制限中、成績の崩れが少なめでした。"
+        },
+        {
+          "caption": "回復も早かったが\n蓄えには限りがある",
+          "say": "回復も早かったものの、蓄えには限りがありました。"
+        }
+      ],
+      "image": "nesugosu_woman.png",
+      "image_page": "https://www.irasutoya.com/2014/08/blog-post_848.html"
+    },
+    {
+      "image_query": "体重計",
+      "image_query_alt": "休日",
+      "topic": "週末の寝だめによる代謝への影響",
+      "category": "睡眠",
+      "source": "Depner ほか（2019年・医学誌「Current Biology」）",
+      "pmid": "30827911",
+      "lines": [
+        {
+          "caption": "週末の寝だめで\n取り戻せる？",
+          "say": "平日の寝不足は、週末にたくさん眠れば取り戻せるのでしょうか。"
+        },
+        {
+          "caption": "36人を3グループに\n9晩の生活を比較",
+          "say": "成人36人を3つのグループに分け、9晩の生活を比べた実験です。"
+        },
+        {
+          "caption": "週末だけ自由に寝ても\nインスリンの働き9〜27%低下",
+          "say": "週末だけ自由に眠ったグループも、インスリンの働きが9パーセントから27パーセント下がっていました。"
+        },
+        {
+          "caption": "体重も増えたままで\n帳消しにはならない",
+          "say": "体重の増加も戻らず、週末の寝だめだけでは帳消しにならないようです。"
+        }
+      ],
+      "image": "kenkoushindan03_taijuu_boy.png",
+      "image_page": "https://www.irasutoya.com/2019/02/blog-post_585.html"
+    },
+    {
+      "image_query": "お酒",
+      "image_query_alt": "ワイン",
+      "topic": "アルコール摂取と睡眠の質の変化",
+      "category": "睡眠",
+      "source": "Ebrahim ほか（2013年・アルコール医学誌「Alcoholism: Clinical and Experimental Research」）",
+      "pmid": "23347102",
+      "lines": [
+        {
+          "caption": "お酒を飲むと\nよく眠れる？",
+          "say": "お酒を飲むと、よく眠れると感じたことはありませんか。"
+        },
+        {
+          "caption": "お酒は眠りの前半を\n深くする",
+          "say": "お酒には、眠り始めの前半を、深く安定させる働きがあります。"
+        },
+        {
+          "caption": "後半は途中で\n目が覚めやすくなる",
+          "say": "ところが眠りの後半になると、目が覚めやすくなっていました。"
+        },
+        {
+          "caption": "夢を見るレム睡眠も\n後ろにずれ込む",
+          "say": "夢を見るレム睡眠が始まる時間も、後ろにずれ込んでいました。"
+        }
+      ],
+      "image": "party_drink_rojou_noimikai.png",
+      "image_page": "https://www.irasutoya.com/2021/05/blog-post_11.html"
+    },
+    {
+      "image_query": "早起き",
+      "image_query_alt": "腕時計",
+      "topic": "加齢と必要睡眠時間の変化",
+      "category": "睡眠",
+      "source": "Li, Vitiello, Gooneratne（2018年・医学誌「Sleep Medicine Clinics」）",
+      "pmid": "29412976",
+      "lines": [
+        {
+          "caption": "歳を取ったら\n睡眠は少なくてよい？",
+          "say": "歳を取ったら、睡眠時間は少なくてよいと思っていませんか。"
+        },
+        {
+          "caption": "睡眠は若者〜中年で\n短くなっていく",
+          "say": "睡眠時間は、若い頃から中年にかけて、短くなっていく傾向があります。"
+        },
+        {
+          "caption": "健康な高齢者どうしでは\nほとんど変化しない",
+          "say": "ところが健康な高齢者どうしでは、睡眠の長さはほとんど変わらないようです。"
+        },
+        {
+          "caption": "「歳だから眠らなくていい」\nわけではなさそう",
+          "say": "歳を重ねたから眠らなくてよい、というわけではなさそうです。"
+        }
+      ],
+      "image": "sleep_tracker_woman.png",
+      "image_page": "https://www.irasutoya.com/2021/05/blog-post_325.html"
+    },
+    {
+      "image_query": "お風呂",
+      "image_query_alt": "入浴剤",
+      "topic": "就寝前の入浴・シャワーと睡眠の質",
+      "category": "睡眠",
+      "source": "Haghayegh ほか（2019年・医学誌「Sleep Medicine Reviews」）",
+      "pmid": "31102877",
+      "lines": [
+        {
+          "caption": "お風呂に入ると\n寝つきが悪くなる？",
+          "say": "寝る前のお風呂は、体が温まって寝つきを悪くする、と思っていませんか。"
+        },
+        {
+          "caption": "17件の研究を\nまとめた分析",
+          "say": "17件の研究をまとめた分析では、むしろ違う結果が出ています。"
+        },
+        {
+          "caption": "就寝1〜2時間前に\n40〜42.5度で10分",
+          "say": "就寝の1時間ほど前に、40度ほどのお湯に10分入ると、"
+        },
+        {
+          "caption": "寝つくまでの時間が\n短くなった",
+          "say": "寝つくまでの時間が短くなり、睡眠の質も良くなっていました。"
+        }
+      ],
+      "image": "character_ofuro_bath.png",
+      "image_page": "https://www.irasutoya.com/2024/11/blog-post_85.html"
+    },
+    {
+      "image_query": "昼寝",
+      "image_query_alt": "ソファ",
+      "topic": "昼寝の長さと日中・夜間への影響",
+      "category": "睡眠",
+      "source": "Dhand, Sohal（2006年・呼吸器科学誌「Current Opinion in Pulmonary Medicine」）",
+      "pmid": "17053484",
+      "lines": [
+        {
+          "caption": "昼寝をすると\n夜眠れなくなる？",
+          "say": "昼寝をすると、夜眠れなくなると心配していませんか。"
+        },
+        {
+          "caption": "30分未満の昼寝は\n覚醒と能力を高める",
+          "say": "30分未満の短い昼寝は、日中の覚醒や作業の能力を高めるとされています。"
+        },
+        {
+          "caption": "長く・頻繁な昼寝は\n体への悪影響と関連",
+          "say": "一方、長く頻繁な昼寝は、体への悪い影響と関連すると指摘されています。"
+        },
+        {
+          "caption": "短い昼寝なら\n心配しすぎなくてよさそう",
+          "say": "短い昼寝なら、そこまで心配しすぎなくてよさそうです。"
+        }
+      ],
+      "image": "fish_manbou_mola_yoko.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_248.html"
+    },
+    {
+      "image_query": "ヨガ",
+      "image_query_alt": "ストレッチ",
+      "topic": "就寝前の運動と睡眠構造",
+      "category": "睡眠",
+      "source": "Stutz, Eiholzer, Spengler（2019年・スポーツ医学誌「Sports Medicine」）",
+      "pmid": "30374942",
+      "lines": [
+        {
+          "caption": "寝る前の運動は\n眠りを妨げる？",
+          "say": "寝る前に運動すると、眠りを妨げると思っていませんか。"
+        },
+        {
+          "caption": "23件の研究を\nまとめた分析",
+          "say": "23件の研究をまとめた分析では、この思い込みは支持されませんでした。"
+        },
+        {
+          "caption": "深い睡眠はむしろ増え\n浅い睡眠は減った",
+          "say": "むしろ深い睡眠の割合が増え、浅い睡眠の割合は減っていました。"
+        },
+        {
+          "caption": "就寝直前の激しい運動は\n中途覚醒が増加",
+          "say": "ただし就寝の直前に激しく運動すると、目覚める時間が増えていました。"
+        }
+      ],
+      "image": "yoga_chouza_tsue_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/12/blog-post_8.html"
+    },
+    {
+      "image_query": "エアコン",
+      "image_query_alt": "温度計",
+      "topic": "室温と睡眠構造の関係",
+      "category": "睡眠",
+      "source": "Okamoto-Mizuno, Mizuno（2012年・生理人類学誌「Journal of Physiological Anthropology」）",
+      "pmid": "22738673",
+      "lines": [
+        {
+          "caption": "寝室は暖かいほうが\nよく眠れる？",
+          "say": "寝室は暖かくしたほうが、よく眠れると思っていませんか。"
+        },
+        {
+          "caption": "熱い環境では\n目覚めが増える",
+          "say": "暑く感じる環境で眠ると、目が覚める回数が増えるとまとめられています。"
+        },
+        {
+          "caption": "深い睡眠も\n夢を見る睡眠も減る",
+          "say": "深い睡眠も、夢を見るレム睡眠も、暑い環境では減っていました。"
+        },
+        {
+          "caption": "涼しさを保つことも\n大事なようです",
+          "say": "暖かくするより、涼しさを保つほうが大事なようです。"
+        }
+      ],
+      "image": "eakon_tenjou_tsurigata.png",
+      "image_page": "https://www.irasutoya.com/2020/12/blog-post_202.html"
+    },
+    {
+      "image_query": "ホテル",
+      "image_query_alt": "枕",
+      "topic": "新しい環境での睡眠と脳の左右差",
+      "category": "睡眠",
+      "source": "Tamaki ほか（2016年・医学誌「Current Biology」）",
+      "pmid": "27112296",
+      "lines": [
+        {
+          "caption": "旅先で眠れないのは\nただの気のせい？",
+          "say": "旅先やホテルで眠れないのは、ただの気のせいでしょうか。"
+        },
+        {
+          "caption": "脳を調べると\n左右で睡眠の深さが違う",
+          "say": "脳を調べた実験では、慣れない場所では左右の脳で睡眠の深さが違っていました。"
+        },
+        {
+          "caption": "浅く眠る側の脳は\n外の物音に素早く反応",
+          "say": "浅く眠っている側の脳は、外の物音に、より早く反応して目を覚ましていました。"
+        },
+        {
+          "caption": "2回目以降の夜では\nこの差は消えた",
+          "say": "2回目以降の夜になると、この左右差は消えていました。"
+        }
+      ],
+      "image": "hotel_front_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/08/blog-post_592.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が信じてる睡眠の伝説10選【研究でツッコんでみた】",
+    "description": "「お酒を飲むとよく眠れる」「週末の寝だめで取り戻せる」など、ネットでよく見る睡眠の伝説を、研究論文や公的資料で1つずつ確かめました。",
+    "tags": [
+      "雑学",
+      "睡眠",
+      "睡眠の伝説",
+      "寝だめ",
+      "昼寝",
+      "健康",
+      "豆知識"
+    ],
+    "sources": [
+      "Belenky G ほか. Journal of Sleep Research誌 2003;12:1-12 https://europepmc.org/article/MED/12603781",
+      "Rupp TL ほか. Sleep誌 2009;32:311-321 https://europepmc.org/article/MED/19294951",
+      "Depner CM ほか. Current Biology誌 2019;29:957-967 https://europepmc.org/article/MED/30827911",
+      "Ebrahim IO ほか. Alcoholism: Clinical and Experimental Research誌 2013;37:539-549 https://europepmc.org/article/MED/23347102",
+      "Li J, Vitiello MV, Gooneratne NS. Sleep Medicine Clinics誌 2018;13:1-11 https://europepmc.org/article/MED/29412976",
+      "Haghayegh S ほか. Sleep Medicine Reviews誌 2019;46:124-135 https://europepmc.org/article/MED/31102877",
+      "Dhand R, Sohal H. Current Opinion in Pulmonary Medicine誌 2006;12:379-382 https://europepmc.org/article/MED/17053484",
+      "Stutz J, Eiholzer R, Spengler CM. Sports Medicine誌 2019;49:269-287 https://europepmc.org/article/MED/30374942",
+      "Okamoto-Mizuno K, Mizuno K. Journal of Physiological Anthropology誌 2012;31:14 https://europepmc.org/article/MED/22738673",
+      "Tamaki M ほか. Current Biology誌 2016;26:1190-1194 https://europepmc.org/article/MED/27112296"
+    ]
+  }
+}
