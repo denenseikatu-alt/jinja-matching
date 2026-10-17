@@ -94,6 +94,8 @@ BODY_WORDS = ("筋トレ", "筋肥大", "栄養", "プロテイン", "ビタミ�
 
 
 def kind(title: str, live: bool) -> str:
+    # 30分以上の長い雑学（「【聞き流し】9割が…」）も同じ再生リストに入れる
+    title = re.sub(r"^【[^】]*】", "", title)
     if title.startswith("9割が") and any(w in title for w in PET_WORDS):
         return "9割が知らない犬と猫の雑学"
     if title.startswith("9割が"):
