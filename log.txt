@@ -1,0 +1,4 @@
+10/17 08:53:13 prepare 開始（STYLE=talking）
+10/17 08:53:30 READY: alcohol-industry-moderate-drinking-mach-trial（抽出まで完了。次は台本）
+10/17 08:54:04 publish 開始: alcohol-industry-moderate-drinking-mach-trial
+10/17 09:03:03 公開: 完了: https://www.youtube.com/watch?v=2hFdeqeCPHw 公開設定: public 
