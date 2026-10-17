@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import random
 import subprocess
 import sys
@@ -261,6 +262,8 @@ def main() -> None:
     ap.add_argument("--host", default="http://127.0.0.1:50021")
     ap.add_argument("--speaker", type=int, default=None)
     ap.add_argument("--font", default=None)
+    ap.add_argument("--workers", type=int, default=0,
+                    help="フレームを作る処理の数（0 なら10分を超える動画だけ CPU の数まで使う）")
     ap.add_argument("--bgm", action="store_true",
                     help="雑学動画の BGM（Escort）を声の下に敷く（全サイト紹介動画など。記事動画には使わない）")
     ap.add_argument("--preview", type=float, default=None, metavar="秒",
@@ -429,21 +432,52 @@ def main() -> None:
         print(f"プレビュー: {p}")
         return
 
-    # 2. フレームを ffmpeg に直接流し込む
+    # 2. フレームを ffmpeg に直接流し込む。長い動画は、フレームの範囲を分けて複数の処理で同時に作り、
+    #    あとでつなぐ（30分以上の雑学動画で、1本の処理だと2時間を超えるため）
     mp4 = outdir / "video.mp4"
-    cmd = [ffmpeg_bin(), "-y", "-loglevel", "error",
-           "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
-           "-i", str(audio_path),
-           "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p",
-           "-c:a", "aac", "-b:a", "192k", "-t", f"{total:.3f}", str(mp4)]
-    proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
-    for i in range(n_frames):
-        proc.stdin.write(frame_at(i).tobytes())
-        if i % (FPS * 20) == 0:
-            print(f"\r書き出し {i / n_frames:5.0%}", end="", flush=True)
-    proc.stdin.close()
-    if proc.wait() != 0:
+    workers = args.workers or (min(4, os.cpu_count() or 1) if total > 600 else 1)
+
+    def encode(a: int, b: int, out_path: Path, show: bool) -> None:
+        cmd = [ffmpeg_bin(), "-y", "-loglevel", "error",
+               "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
+               "-c:v", "libx264", "-preset", "medium" if workers == 1 else "veryfast", "-crf", "20",
+               "-pix_fmt", "yuv420p", "-threads", "1" if workers > 1 else "0", str(out_path)]
+        proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
+        for i in range(a, b):
+            proc.stdin.write(frame_at(i).tobytes())
+            if show and (i - a) % (FPS * 20) == 0:
+                print(f"\r書き出し {(i - a) / max(1, b - a):5.0%}", end="", flush=True)
+        proc.stdin.close()
+        if proc.wait() != 0:
+            raise RuntimeError("ffmpeg が失敗しました")
+
+    bounds = [n_frames * k // workers for k in range(workers + 1)]
+    parts = [outdir / f"part{k}.mp4" for k in range(workers)]
+    if workers == 1:
+        encode(0, n_frames, parts[0], True)
+    else:
+        pids = []
+        for k in range(workers):
+            pid = os.fork()
+            if pid == 0:
+                try:
+                    encode(bounds[k], bounds[k + 1], parts[k], k == 0)
+                    os._exit(0)
+                except Exception as e:  # noqa: BLE001
+                    print(f"書き出しの分担 {k} が失敗: {e}", flush=True)
+                    os._exit(1)
+            pids.append(pid)
+        if any(os.waitpid(pid, 0)[1] != 0 for pid in pids):
+            sys.exit("ffmpeg が失敗しました")
+    lst = outdir / "parts.txt"
+    lst.write_text("".join(f"file '{p.resolve()}'\n" for p in parts), encoding="utf-8")
+    r = subprocess.run([ffmpeg_bin(), "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(lst),
+                        "-i", str(audio_path), "-map", "0:v", "-map", "1:a", "-c:v", "copy",
+                        "-c:a", "aac", "-b:a", "192k", "-t", f"{total:.3f}", str(mp4)])
+    if r.returncode:
         sys.exit("ffmpeg が失敗しました")
+    for p in parts + [lst]:
+        p.unlink(missing_ok=True)
 
     if args.bgm:
         # 雑学動画と同じ BGM・音量・つなぎ方（zatsugaku/build_zatsugaku.py）
