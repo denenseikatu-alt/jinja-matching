@@ -5,7 +5,9 @@
  "voice": {
   "engine": "gemini",
   "name": "Leda",
-  "style": "Say in a bright, friendly young woman's voice, at a natural, lively conversational pace"
+  "style": "Say in a cheerful, youthful voice of a young Japanese woman around twenty, light, bright and slightly high-pitched, smiling as she speaks, at a natural, lively conversational pace",
+  "fallback_speaker": 10,
+  "fallback_pitch": 0.03
  },
  "caption_replace": {
   "インボディ・トレーニング・プランナー": "InBody Training Planner",

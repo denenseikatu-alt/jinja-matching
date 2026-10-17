@@ -217,7 +217,8 @@ def draw_slide(
 # ---------------------------------------------------------------- 音声合成
 
 
-def synth(text: str, speaker: int, host: str, out_path: Path) -> None:
+def synth(text: str, speaker: int, host: str, out_path: Path, pitch: float = 0.0) -> None:
+    """pitch は VOICEVOX の pitchScale（0 で話者そのまま。+0.03 程度で少し高く・若く聞こえる）。"""
     q = urllib.parse.urlencode({"text": text, "speaker": speaker})
     req = urllib.request.Request(f"{host}/audio_query?{q}", method="POST")
     try:
@@ -225,6 +226,10 @@ def synth(text: str, speaker: int, host: str, out_path: Path) -> None:
             query = r.read()
     except Exception as e:
         sys.exit(f"VOICEVOX に接続できません ({host}): {e}\nVOICEVOX ENGINE を起動してください。")
+    if pitch:
+        q_json = json.loads(query)
+        q_json["pitchScale"] = pitch
+        query = json.dumps(q_json).encode("utf-8")
 
     req = urllib.request.Request(
         f"{host}/synthesis?speaker={speaker}",

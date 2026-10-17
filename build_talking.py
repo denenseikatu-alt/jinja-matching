@@ -280,8 +280,9 @@ def main() -> None:
         if not tts_gemini.available(voice.get("name", "Leda")):
             # 2026-10-16 オーナー指示: Gemini の残高を足せない間は、できるもの（VOICEVOX）で作る。
             # 既に作った Gemini の音声があっても、声が混ざらないよう全文を VOICEVOX で作り直す
-            speaker = FALLBACK_SPEAKER
-            voice = {"engine": "voicevox", "speaker": speaker}
+            # 台本の voice に "fallback_speaker" / "fallback_pitch" があればそれを使う（動画ごとに声を選べる）
+            speaker = int(voice.get("fallback_speaker", FALLBACK_SPEAKER))
+            voice = {"engine": "voicevox", "speaker": speaker, "pitch": float(voice.get("fallback_pitch", 0.0))}
             print(f"Gemini の声が使えないため（前払いの残高切れなど）、VOICEVOX（話者 {speaker}）で作ります", flush=True)
             ensure_voicevox(args.host)
             for old in (Path(args.outdir) / "audio").glob("*.wav"):
@@ -317,7 +318,7 @@ def main() -> None:
             n += 1
             wav = audio_dir / f"{n:04d}.wav"
             if not wav.exists():
-                synth(line, speaker, args.host, wav)
+                synth(line, speaker, args.host, wav, voice.get("pitch", 0.0))
             first_wav = first_wav or wav
             dur = wav_duration(wav)
             timeline.append(wav)
