@@ -67,7 +67,7 @@ PRIVACY="${PRIVACY:-public}"
 
 # YouTube の許可: 合言葉（~/.unlock_pass）があれば、クラウドと共通の暗号化した許可（cloud/secrets.enc）を使う。
 # 許可を取り直すのはクラウド側の1か所で済み、Mac の許可が切れて止まることがなくなる
-if [ -f "$HOME/.unlock_pass" ] && bash "$REPO/cloud/unlock.sh" "$(cat "$HOME/.unlock_pass")" >/dev/null 2>&1; then
+if [ -f "$HOME/.unlock_pass" ] && bash "$REPO/cloud/unlock.sh" >/dev/null 2>&1; then
   # shellcheck disable=SC1091
   . "$HOME/.video_env"
   echo "YouTube の許可: クラウドと共通のものを使います"

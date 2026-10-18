@@ -1,11 +1,33 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "permissions": {
+    "allow": [
+      "Bash(bash cloud/start.sh)",
+      "Bash(bash cloud/unlock.sh)",
+      "Bash(bash cloud/daily.sh *)",
+      "Bash(bash cloud/weekly_review.sh *)",
+      "Bash(bash zatsugaku/cloud_zatsugaku.sh *)",
+      "Bash(python3 yt_manage.py *)"
+    ],
     "deny": [
       "Read(client_secret.json)",
       "Read(token.json)",
       "Edit(client_secret.json)",
       "Edit(token.json)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/cloud/start.sh\" --hook",
+            "timeout": 600,
+            "statusMessage": "動画づくりの準備（ブランチ・認証情報・部品）"
+          }
+        ]
+      }
     ]
   }
 }

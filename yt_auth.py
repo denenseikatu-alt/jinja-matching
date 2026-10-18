@@ -25,6 +25,10 @@ import os
 import sys
 from pathlib import Path
 
+import video_env
+
+video_env.load()
+
 REPO_ROOT = Path(__file__).resolve().parent
 
 # 動画の送信と、送信済み動画の一覧（同じ記事を二度上げないため）に使う。

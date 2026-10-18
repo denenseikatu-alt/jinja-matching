@@ -9,6 +9,9 @@
 
 set -u
 cd "$(dirname "$0")/.." || exit 1
+
+# 認証情報（cloud/start.sh が用意する）を読む。コマンドの頭に「. ~/.video_env &&」を付けなくてよい
+[ -z "${YT_REFRESH_TOKEN:-}" ] && [ -f "$HOME/.video_env" ] && . "$HOME/.video_env"
 PRIVACY="${PRIVACY:-public}"
 OUT="out_review"
 

@@ -24,6 +24,10 @@ import sys
 import time
 import urllib.error
 import urllib.request
+
+import video_env
+
+video_env.load()
 import wave
 from pathlib import Path
 
