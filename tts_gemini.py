@@ -294,6 +294,14 @@ def verify(lines: list[str], segs: list[bytes]) -> str | None:
         return None
     import re
     heard, eng = {}, {}
+    if isinstance(got, list):
+        # まれに {"1": …} ではなく [{…}, {…}] の一覧で返ることがある（番号のキーがあればそれを使う）
+        if len(got) == 1 and isinstance(got[0], dict) and all(re.search(r"\d", str(k)) for k in got[0]):
+            got = got[0]
+        else:
+            got = {str(k): v for k, v in enumerate(got, 1)}
+    if not isinstance(got, dict):
+        return None
     for key, val in got.items():
         m = re.search(r"\d+", str(key))
         if m:
