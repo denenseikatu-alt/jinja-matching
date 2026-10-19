@@ -29,6 +29,7 @@ import json
 import math
 import os
 import random
+import re
 import subprocess
 import sys
 import wave
@@ -93,29 +94,35 @@ def blink_schedule(n_frames: int, seed: int = 7) -> dict[int, float]:
 
 
 def render_screen(scene: dict, size: tuple[int, int], font_path: str) -> Image.Image:
-    """スクリーンに映すスライド。見出しと箇条書きだけの簡素なもの。"""
+    """スクリーンに映すスライド。見出しと箇条書きだけの簡素なもの。
+    入りきらないときは、文字を少しずつ小さくして収める（全サイト紹介の長い箇条書きで下が切れたため）。"""
     sw, sh = size
-    img = Image.new("RGB", size, SCREEN_BG)
-    d = ImageDraw.Draw(img)
     pad = int(sw * 0.07)
-    hf = ImageFont.truetype(font_path, max(18, int(sh * 0.12)))
-    bf = ImageFont.truetype(font_path, max(14, int(sh * 0.085)))
-    d.rectangle([0, 0, sw, int(sh * 0.025)], fill=ACCENT)
-    y = int(sh * 0.12)
-    for line in wrap_ja(d, scene["heading"], hf, sw - pad * 2)[:3]:
-        d.text((pad, y), line, font=hf, fill=INK)
-        y += int(hf.size * 1.35)
-    d.rectangle([pad, y + 4, pad + int(sw * 0.1), y + 8], fill=ACCENT)
-    y += int(sh * 0.08)
-    for b in scene.get("bullets", [])[:5]:
-        rows = wrap_ja(d, b, bf, sw - pad * 2 - int(bf.size * 1.2))
-        r = bf.size * 0.22
-        cy = y + bf.size * 0.6
-        d.ellipse([pad, cy - r, pad + 2 * r, cy + r], fill=ACCENT)
-        for row in rows[:3]:
-            d.text((pad + int(bf.size * 1.2), y), row, font=bf, fill=INK)
-            y += int(bf.size * 1.4)
-        y += int(bf.size * 0.45)
+    img = d = None
+    for k in range(9):
+        scale = 1.0 - 0.05 * k
+        img = Image.new("RGB", size, SCREEN_BG)
+        d = ImageDraw.Draw(img)
+        hf = ImageFont.truetype(font_path, max(14, int(sh * 0.12 * scale)))
+        bf = ImageFont.truetype(font_path, max(12, int(sh * 0.085 * scale)))
+        d.rectangle([0, 0, sw, int(sh * 0.025)], fill=ACCENT)
+        y = int(sh * 0.12 * scale)
+        for line in wrap_ja(d, scene["heading"], hf, sw - pad * 2)[:3]:
+            d.text((pad, y), line, font=hf, fill=INK)
+            y += int(hf.size * 1.35)
+        d.rectangle([pad, y + 4, pad + int(sw * 0.1), y + 8], fill=ACCENT)
+        y += int(sh * 0.08 * scale)
+        for b in scene.get("bullets", [])[:5]:
+            rows = wrap_ja(d, b, bf, sw - pad * 2 - int(bf.size * 1.2))
+            r = bf.size * 0.22
+            cy = y + bf.size * 0.6
+            d.ellipse([pad, cy - r, pad + 2 * r, cy + r], fill=ACCENT)
+            for row in rows[:3]:
+                d.text((pad + int(bf.size * 1.2), y), row, font=bf, fill=INK)
+                y += int(bf.size * 1.4)
+            y += int(bf.size * 0.45)
+        if y <= sh - int(sh * 0.03):
+            break
     return img
 
 
@@ -131,6 +138,36 @@ def wrap_ja(d: ImageDraw.ImageDraw, text: str, font: ImageFont.FreeTypeFont,
             rows[i - 1] += rows[i][0]
             rows[i] = rows[i][1:]
     return [r for r in rows if r]
+
+
+def split_caption(text: str, font_path: str) -> list[str]:
+    """字幕が2行に入りきらない文を、読点や句点のところで2行以内の切れに分ける。"""
+    d = ImageDraw.Draw(Image.new("RGBA", (8, 8)))
+    f = ImageFont.truetype(font_path, 50)
+    fits = lambda t: len(wrap_ja(d, t, f, W - 360)) <= 2
+    if fits(text):
+        return [text]
+    parts = [p for p in re.split(r"(?<=[、。！？])", text) if p]
+    out, cur = [], ""
+    for p in parts:
+        if cur and not fits(cur + p):
+            out.append(cur)
+            cur = p
+        else:
+            cur += p
+    if cur:
+        out.append(cur)
+    # 読点のない長い切れは、2行ぶんずつ切る
+    res = []
+    for c in out:
+        while not fits(c):
+            rows = wrap_ja(d, c, f, W - 360)
+            head = rows[0] + rows[1]
+            res.append(head)
+            c = c[len(head):]
+        if c:
+            res.append(c)
+    return res
 
 
 def render_caption(text: str, font_path: str) -> Image.Image:
@@ -268,6 +305,8 @@ def main() -> None:
                     help="雑学動画の BGM（Escort）を声の下に敷く（全サイト紹介動画など。記事動画には使わない）")
     ap.add_argument("--preview", type=float, default=None, metavar="秒",
                     help="この秒数のフレームを1枚だけ PNG で書き出して終わる（音声合成あり）")
+    ap.add_argument("--no-fallback", action="store_true",
+                    help="Gemini が使えないとき VOICEVOX に切り替えず止める（作りかけの Gemini の音声を消さない）")
     args = ap.parse_args()
 
     script = json.loads(Path(args.script).read_text(encoding="utf-8"))
@@ -278,6 +317,8 @@ def main() -> None:
     if voice.get("engine") == "gemini":
         import tts_gemini
         if not tts_gemini.available(voice.get("name", "Leda")):
+            if args.no_fallback:
+                sys.exit("Gemini の声が使えません（前払いの残高切れなど）。--no-fallback のため止めます")
             # 2026-10-16 オーナー指示: Gemini の残高を足せない間は、できるもの（VOICEVOX）で作る。
             # 既に作った Gemini の音声があっても、声が混ざらないよう全文を VOICEVOX で作り直す
             # 台本の voice に "fallback_speaker" / "fallback_pitch" があればそれを使う（動画ごとに声を選べる）
@@ -309,8 +350,12 @@ def main() -> None:
         credit = None
     timeline: list[Path] = []
     subtitles: list[tuple[float, float, str]] = []
+    caps: list[tuple[float, float, str]] = []  # 字幕（長い文は2行以内の切れに分けたもの）
     scene_spans: list[tuple[float, float]] = []
     clock, n, first_wav = 0.0, 0, None
+    # 字幕の置き換えは長い語から1回だけ（「研究ノート」の「ノート」を note にしないため）
+    cap_map = script.get("caption_replace", {})
+    cap_re = re.compile("|".join(re.escape(k) for k in sorted(cap_map, key=len, reverse=True))) if cap_map else None
     silence: dict[float, Path] = {}
     for si, scene in enumerate(scenes):
         start = clock
@@ -322,10 +367,15 @@ def main() -> None:
             first_wav = first_wav or wav
             dur = wav_duration(wav)
             timeline.append(wav)
-            shown = line
-            for spoken, written in script.get("caption_replace", {}).items():
-                shown = shown.replace(spoken, written)
+            shown = cap_re.sub(lambda m: cap_map[m.group()], line) if cap_map else line
             subtitles.append((clock, clock + dur, shown))
+            pieces = split_caption(shown, font_path)
+            total_chars = sum(len(x) for x in pieces)
+            c0 = clock
+            for x in pieces:
+                c1 = c0 + dur * len(x) / total_chars
+                caps.append((c0, c1, x))
+                c0 = c1
             clock += dur
             gap = GAP_AFTER_SCENE if li == len(scene["lines"]) - 1 else GAP_AFTER_LINE
             if gap not in silence:
@@ -420,10 +470,10 @@ def main() -> None:
         img = Image.fromarray(cv2.warpAffine(
             np.asarray(img), np.float32([[cw / W, 0, ox], [0, ch / H, oy]]), (W, H),
             flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE))
-        ci = next((k for k, (a, b, _) in enumerate(subtitles) if a <= t < b), None)
+        ci = next((k for k, (a, b, _) in enumerate(caps) if a <= t < b), None)
         if ci is not None:
             if ci not in captions:
-                captions[ci] = render_caption(subtitles[ci][2], font_path)
+                captions[ci] = render_caption(caps[ci][2], font_path)
             img.paste(captions[ci], (0, 0), captions[ci])
         return img
 
@@ -496,7 +546,7 @@ def main() -> None:
         bed.unlink(missing_ok=True)
         print("BGM: 「Escort」もっぴーさうんど（フリーBGM OpenTracks 旧DOVA-SYNDROME）")
 
-    write_srt(subtitles, outdir / "video.srt")
+    write_srt(caps, outdir / "video.srt")
     credit = credit or speaker_credit(speaker, args.host)
     (outdir / "credits.txt").write_text(credit + "\n", encoding="utf-8")
     chapters = []
