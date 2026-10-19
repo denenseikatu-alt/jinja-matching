@@ -27,7 +27,9 @@ out="$HOME/.video_env"
 printf '%s' "$pass" | openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -a -pass stdin \
   -in cloud/secrets.enc -out "$out" || { rm -f "$out"; echo "合言葉が違います"; exit 1; }
 cat >>"$out" <<'EOF'
-export GEMINI_TTS_MODEL=gemini-3.8-flash-lite-tts
+# 2026-10-20 オーナー了承: lite の1日100回を使い切ったら、同じ Leda の声のまま gemini-3.8-flash-tts（別に1日100回）に切り替える
+# （全サイト紹介動画は声をそろえるため、コマンドの前に GEMINI_TTS_MODEL=gemini-3.8-flash-lite-tts を付けて lite だけで作る）
+export GEMINI_TTS_MODEL=gemini-3.8-flash-lite-tts,gemini-3.8-flash-tts
 export STYLE=talking
 EOF
 echo "認証情報を $out に書きました"
