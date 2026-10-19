@@ -308,7 +308,11 @@ def verify(lines: list[str], segs: list[bytes]) -> str | None:
         words = [w for w in re.findall(r"[A-Za-z]{4,}", h_words) if not w.isupper()]
         if words and not re.search(r"[A-Za-z]{4,}", line):
             return f"{k}文目に英語が入っている（{h[:40]}）"
-        ratio = difflib.SequenceMatcher(None, _norm(line), _norm(h)).ratio()
+        # アドレスの文は、書き起こしが英字（denenseikatsu.com など）になり、短い文だと一致率が下がるので、
+        # かなのアドレスと英字のアドレスを、どちらも「ドットコム」にそろえて比べる
+        line_c = re.sub(r"[ぁ-んァ-ヶー]+ドットコム", "ドットコム", line)
+        h_c = re.sub(r"[A-Za-z一-龥][A-Za-z一-龥.\-]*\.com(?![A-Za-z])", "ドットコム", h)
+        ratio = difflib.SequenceMatcher(None, _norm(line_c), _norm(h_c)).ratio()
         if ratio < 0.6:
             return f"{k}文目が台本と合わない（一致率 {ratio:.2f}: {h[:30]}）"
     return ""
