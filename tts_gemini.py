@@ -16,6 +16,7 @@ style は英語で書く。「指示: 本文」の形で送ると本文だけが
 from __future__ import annotations
 
 import base64
+import http.client
 import json
 
 import numpy as np
@@ -50,8 +51,20 @@ def _request(url: str, body: dict | None = None) -> dict:
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(url, data=data, headers={
         "x-goog-api-key": _key(), "Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=120) as resp:
-        return json.loads(resp.read())
+    # 通信が途中で切れたとき（相手が応答せずに切った・時間切れ）は、少し待って繰り返す
+    # （2026-10-20 全サイト紹介動画の書き出しが RemoteDisconnected で止まったため）。
+    # HTTP のエラー（402・429 など）は呼び出し側で扱うので、そのまま返す
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(req, timeout=120) as resp:
+                return json.loads(resp.read())
+        except urllib.error.HTTPError:
+            raise
+        except (urllib.error.URLError, http.client.HTTPException, ConnectionError, TimeoutError) as e:
+            if attempt == 4:
+                raise
+            print(f"    通信が切れました（{type(e).__name__}）。{20 * (attempt + 1)}秒後に繰り返します", flush=True)
+            time.sleep(20 * (attempt + 1))
 
 
 def pick_model() -> str:
