@@ -121,7 +121,12 @@ def _generate(prompt: str, voice: str) -> bytes:
                 # 保存して、翌日の枠で続きを作る
                 print("Gemini の音声生成の、今日の無料枠を使い切りました。", file=sys.stderr)
                 try:
-                    print("  " + json.loads(detail)["error"]["message"][:300], file=sys.stderr)
+                    err = json.loads(detail)["error"]
+                    print("  " + err["message"][:300], file=sys.stderr)
+                    # どの上限に当たったか（1日の回数・1分の回数など）を残す
+                    for x in err.get("details", []):
+                        for v in x.get("violations", []):
+                            print(f"  上限: {v.get('quotaId')} = {v.get('quotaValue')}", file=sys.stderr)
                 except Exception:
                     pass
                 sys.exit(QUOTA_EXIT)
