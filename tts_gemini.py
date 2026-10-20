@@ -257,6 +257,8 @@ def _norm(t: str) -> str:
     import re
     import unicodedata
     t = unicodedata.normalize("NFKC", t).replace("パーセント", "%")
+    # カタカナはひらがなにそろえる（台本の「あるもんでクック」が「アルモンデクック」と書き起こされるため）
+    t = "".join(chr(ord(c) - 0x60) if "ァ" <= c <= "ヶ" else c for c in t)
     return re.sub(r"[\s、。，．,.!?！？「」『』（）()・:：]", "", t)
 
 
