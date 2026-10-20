@@ -253,10 +253,18 @@ def synth_lines(lines: list[str], out_paths: list[Path], voice: str = "Leda",
         _write(seg, path)
 
 
+_LETTER = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                   ["エー", "ビー", "シー", "ディー", "イー", "エフ", "ジー", "エイチ", "アイ", "ジェー", "ケー", "エル",
+                    "エム", "エヌ", "オー", "ピー", "キュー", "アール", "エス", "ティー", "ユー", "ブイ", "ダブリュー",
+                    "エックス", "ワイ", "ゼット"]))
+
+
 def _norm(t: str) -> str:
     import re
     import unicodedata
     t = unicodedata.normalize("NFKC", t).replace("パーセント", "%")
+    # 大文字の略語はカタカナの読みに直す（台本の「ピーディーエフ」が「PDF」と書き起こされるため）
+    t = re.sub(r"[A-Z]{2,}", lambda m: "".join(_LETTER[c] for c in m.group()), t)
     # カタカナはひらがなにそろえる（台本の「あるもんでクック」が「アルモンデクック」と書き起こされるため）
     t = "".join(chr(ord(c) - 0x60) if "ァ" <= c <= "ヶ" else c for c in t)
     return re.sub(r"[\s、。，．,.!?！？「」『』（）()・:：]", "", t)
