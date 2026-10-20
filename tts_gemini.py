@@ -272,6 +272,14 @@ def _written(line: str) -> str:
     return pat.sub(lambda m: _CAPTION_REPLACE[m.group()], line)
 
 
+def _drop_written(heard: str) -> str:
+    """書き起こしから、台本で読みを開いた語の英字表記（iDeCo・NISA・note など）を除く。英語の混入の判定に使う。"""
+    for w in sorted(_CAPTION_REPLACE.values(), key=len, reverse=True):
+        if any("A" <= c <= "z" for c in w):
+            heard = heard.replace(w, "")
+    return heard
+
+
 def _ratio(line: str, heard: str) -> float:
     """台本の文と書き起こしの一致率。英字に戻した文と比べたほうが高ければ、そちらを使う。"""
     import difflib
@@ -353,14 +361,14 @@ def verify(lines: list[str], segs: list[bytes]) -> str | None:
         # 英字も出ていなければ数えない
         if eng.get(k) and not re.search(r"[A-Za-z]{3,}", line) and "ドットコム" not in line:
             close = _ratio(line, h) >= 0.85
-            letters = re.findall(r"[a-z]{3,}", re.sub(r"[A-Za-z][A-Za-z.\-]*\.(?:com|jp|net|org)(?![A-Za-z])", "", h))
+            letters = re.findall(r"[a-z]{3,}", re.sub(r"[A-Za-z][A-Za-z.\-]*\.(?:com|jp|net|org)(?![A-Za-z])", "", _drop_written(h)))
             if letters or not close:
                 return f"{k}文目に英語が話されている（{h[:40]}）"
         # 指示文を読んだときは英語の単語が混ざる。大文字だけの略語（ビーディーエヌエフ →
         # BDNF のように、カタカナで読ませた語を英字で書き起こしたもの）は数えない
         # サイト名（でんえんせいかつドットコム → denenseikatsu.com）のようなドメイン名も数えない
         # 直後に日本語が続く（「….comでは」）と \b が効かないので、英字が続かないことで判定する
-        h_words = re.sub(r"[A-Za-z][A-Za-z.\-]*\.(?:com|jp|net|org)(?![A-Za-z])", "", h)
+        h_words = re.sub(r"[A-Za-z][A-Za-z.\-]*\.(?:com|jp|net|org)(?![A-Za-z])", "", _drop_written(h))
         words = [w for w in re.findall(r"[A-Za-z]{4,}", h_words) if not w.isupper()]
         if words and not re.search(r"[A-Za-z]{4,}", line):
             return f"{k}文目に英語が入っている（{h[:40]}）"
