@@ -259,6 +259,26 @@ _LETTER = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ",
                     "エックス", "ワイ", "ゼット"]))
 
 
+# 台本の caption_replace（読み → 字幕の英字）。書き起こしが英字になる語（エーフォー → A4 など）は、
+# 英字に戻した文とも比べる。synth_script が台本の voice["caption_replace"] から入れる
+_CAPTION_REPLACE: dict[str, str] = {}
+
+
+def _written(line: str) -> str:
+    import re
+    if not _CAPTION_REPLACE:
+        return line
+    pat = re.compile("|".join(re.escape(k) for k in sorted(_CAPTION_REPLACE, key=len, reverse=True)))
+    return pat.sub(lambda m: _CAPTION_REPLACE[m.group()], line)
+
+
+def _ratio(line: str, heard: str) -> float:
+    """台本の文と書き起こしの一致率。英字に戻した文と比べたほうが高ければ、そちらを使う。"""
+    import difflib
+    return max(difflib.SequenceMatcher(None, _norm(x), _norm(heard)).ratio()
+               for x in {line, _written(line)})
+
+
 def _norm(t: str) -> str:
     import re
     import unicodedata
@@ -332,7 +352,7 @@ def verify(lines: list[str], segs: list[bytes]) -> str | None:
         # ただし外来語（カタカナ語）や「ドットコム」を英語と答えることがあるので、書き起こしが台本とよく合い
         # 英字も出ていなければ数えない
         if eng.get(k) and not re.search(r"[A-Za-z]{3,}", line) and "ドットコム" not in line:
-            close = difflib.SequenceMatcher(None, _norm(line), _norm(h)).ratio() >= 0.85
+            close = _ratio(line, h) >= 0.85
             letters = re.findall(r"[a-z]{3,}", re.sub(r"[A-Za-z][A-Za-z.\-]*\.(?:com|jp|net|org)(?![A-Za-z])", "", h))
             if letters or not close:
                 return f"{k}文目に英語が話されている（{h[:40]}）"
@@ -348,7 +368,7 @@ def verify(lines: list[str], segs: list[bytes]) -> str | None:
         # かなのアドレスと英字のアドレスを、どちらも「ドットコム」にそろえて比べる
         line_c = re.sub(r"[ぁ-んァ-ヶー]+ドットコム", "ドットコム", line)
         h_c = re.sub(r"[A-Za-z一-龥][A-Za-z一-龥.\-]*\.com(?![A-Za-z])", "ドットコム", h)
-        ratio = difflib.SequenceMatcher(None, _norm(line_c), _norm(h_c)).ratio()
+        ratio = max(_ratio(line_c, h_c), _ratio(line, h))
         if ratio < 0.6:
             return f"{k}文目が台本と合わない（一致率 {ratio:.2f}: {h[:30]}）"
     return ""
@@ -449,6 +469,8 @@ def synth_script(scenes: list[dict], audio_dir: Path, voice: dict, chunk_chars: 
     すでにある文のファイルは作り直さない（途中で止まっても、翌日などに続きから作れる）。
     """
     audio_dir.mkdir(parents=True, exist_ok=True)
+    _CAPTION_REPLACE.clear()
+    _CAPTION_REPLACE.update(voice.get("caption_replace") or {})
     chunk, count, k = [], 0, 0
 
     def flush(chunk):

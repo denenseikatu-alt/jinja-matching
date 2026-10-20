@@ -344,7 +344,8 @@ def main() -> None:
     if voice.get("engine") == "gemini":
         import tts_gemini
         # 数場面ずつまとめて生成する（1日の回数制限対策）。既にある文は作り直さない
-        tts_gemini.synth_script(scenes, audio_dir, voice)
+        # 字幕で英字に戻す語の一覧も渡す（音声の照合で、英字の書き起こしと比べるため）
+        tts_gemini.synth_script(scenes, audio_dir, {**voice, "caption_replace": script.get("caption_replace", {})})
         credit = tts_gemini.CREDIT
     else:
         credit = None
