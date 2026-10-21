@@ -274,16 +274,19 @@ def _written(line: str) -> str:
 
 def _drop_written(heard: str) -> str:
     """書き起こしから、台本で読みを開いた語の英字表記（iDeCo・NISA・note など）を除く。英語の混入の判定に使う。"""
+    import re
     for w in sorted(_CAPTION_REPLACE.values(), key=len, reverse=True):
         if any("A" <= c <= "z" for c in w):
-            heard = heard.replace(w, "")
+            # 大文字・小文字と空白の違いは無視する（biz xAI が「BizX AI」と書き起こされるため）
+            pat = r"\s*".join(re.escape(c) for c in w.replace(" ", ""))
+            heard = re.sub(pat, "", heard, flags=re.IGNORECASE)
     return heard
 
 
 def _ratio(line: str, heard: str) -> float:
     """台本の文と書き起こしの一致率。英字に戻した文と比べたほうが高ければ、そちらを使う。"""
     import difflib
-    return max(difflib.SequenceMatcher(None, _norm(x), _norm(heard)).ratio()
+    return max(difflib.SequenceMatcher(None, _norm(x).lower(), _norm(heard).lower()).ratio()
                for x in {line, _written(line)})
 
 
