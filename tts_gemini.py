@@ -507,10 +507,62 @@ def synth_script(scenes: list[dict], audio_dir: Path, voice: dict, chunk_chars: 
     final_check(scenes, audio_dir, voice)
 
 
+def _speech_sec(pcm: bytes) -> float:
+    """声が出ている長さ（秒）。50ミリ秒ごとの音量で数える。"""
+    a = np.frombuffer(pcm, dtype=np.int16).astype(np.float32)
+    win = int(RATE * 0.05)
+    n = len(a) // win
+    if n == 0:
+        return 0.0
+    rms = np.sqrt((a[: n * win].reshape(n, win) ** 2).mean(axis=1))
+    return float((rms > 300).sum()) * 0.05
+
+
+def _too_long(line: str, pcm: bytes, rate: float) -> bool:
+    """台本の文字数にくらべて声が長すぎるか（rate は台本全体の 1秒あたりの文字数の中央値）。
+
+    指示文（英語）を読み上げた文や、隣の文までまとめて入った文は、ふつうの倍近い長さになる。
+    1文だけ渡す文字起こしは、指示文の英語を書き落として照合を通すことがあったため（2026-10-26 確認:
+    10/20〜10/26 の雑学動画と紹介動画に指示文の読み上げが残っていた）、文字起こしとは別に長さでも確かめる。
+    """
+    expect = len(line) / rate
+    return _speech_sec(pcm) > max(expect / 0.62, expect + 2.5)
+
+
+def _cut_lead(line: str, pcm: bytes, rate: float) -> bytes:
+    """先頭で指示文を読んだ音声から、その部分を切り落とす。
+
+    指示文のあとには0.4秒以上の間（ま）があるので、はじめの10秒の中で、そこから後ろの声の長さが
+    台本の文に見合う間を探して、その間で切る。見つからなければそのまま返す。
+    """
+    if not _too_long(line, pcm, rate):
+        return pcm
+    a = np.frombuffer(pcm, dtype=np.int16)
+    win = int(RATE * 0.05)
+    n = len(a) // win
+    rms = np.sqrt((a[: n * win].astype(np.float32).reshape(n, win) ** 2).mean(axis=1))
+    quiet = rms <= 300
+    k = 0
+    while k < min(n, 200):
+        if quiet[k]:
+            j = k
+            while j < n and quiet[j]:
+                j += 1
+            if (j - k) * 0.05 >= 0.4 and k > 0:
+                rest = a[j * win:].tobytes()
+                if not _too_long(line, rest, rate) and _speech_sec(rest) >= len(line) / rate * 0.5:
+                    return _trim(rest)
+            k = j
+        else:
+            k += 1
+    return pcm
+
+
 def final_check(scenes: list[dict], audio_dir: Path, voice: dict, group: int = 8) -> None:
     """全文を作り終えたあと、文ごとの音声をもう一度まとめて文字起こしし、英語が混ざっていないか、
     台本と合っているかを確かめる。合わない文は1文ずつ作り直す（2026-10-16 オーナー指摘:
-    ナレーションの一部が英語で読まれていた）。照合できないまま終わる場合は止める。"""
+    ナレーションの一部が英語で読まれていた）。照合できないまま終わる場合は止める。
+    文字起こしとは別に、台本の文字数にくらべて長すぎる文（指示文を読んだ文など）も作り直す。"""
     if os.environ.get("TTS_FINAL_CHECK") == "0":
         # 試しの書き出し（前に確かめた音声を使い回すとき）だけ。公開する動画では使わない
         print("  最終確認を省きました（TTS_FINAL_CHECK=0）", flush=True)
@@ -522,7 +574,12 @@ def final_check(scenes: list[dict], audio_dir: Path, voice: dict, group: int = 8
         with wave.open(str(p), "rb") as w:
             return w.readframes(w.getnframes())
 
-    bad: list[int] = []
+    # 1秒あたりの文字数（台本全体の中央値）。長さの検査の基準にする
+    rates = [len(l) / s for l, p in zip(lines, paths) if (s := _speech_sec(read(p))) > 0.5]
+    rate = float(np.median(rates)) if rates else 7.5
+    bad: list[int] = [i for i in range(len(lines)) if _too_long(lines[i], read(paths[i]), rate)]
+    if bad:
+        print(f"  長さが台本に合わない文: {[i + 1 for i in bad]}", flush=True)
     for g in range(0, len(lines), group):
         idx = list(range(g, min(g + group, len(lines))))
         for attempt in range(4):
@@ -535,17 +592,28 @@ def final_check(scenes: list[dict], audio_dir: Path, voice: dict, group: int = 8
         # 1文ずつ確かめて、合わない文を集める（まとめての照合は最初の1つしか返さないため）
         if problem:
             for i in idx:
+                if i in bad:
+                    continue
                 p1 = verify([lines[i]], [read(paths[i])])
                 if p1:
                     bad.append(i)
-    for i in bad:
-        for attempt in range(5):
+    for i in sorted(bad):
+        for attempt in range(6):
             print(f"    最終確認で不一致の {i + 1}文目を作り直します（{attempt + 1}回目）", flush=True)
             synth(lines[i], paths[i], voice=voice.get("name", "Leda"), style=voice.get("style", ""))
-            if verify([lines[i]], [read(paths[i])]) == "":
+            pcm = read(paths[i])
+            cut = _cut_lead(lines[i], pcm, rate)
+            if cut is not pcm:
+                print("      先頭で読まれた指示文を切り落としました", flush=True)
+                _write(cut, paths[i])
+                pcm = cut
+            if not _too_long(lines[i], pcm, rate) and verify([lines[i]], [pcm]) == "":
                 break
         else:
             sys.exit(f"Gemini の音声が台本と一致しませんでした（{i + 1}文目: {lines[i][:30]}）")
+    left = [i + 1 for i in range(len(lines)) if _too_long(lines[i], read(paths[i]), rate)]
+    if left:
+        sys.exit(f"Gemini の音声の長さが台本と合わない文が残っています: {left}")
     print(f"  最終確認: 全{len(lines)}文を照合（作り直し {len(bad)}文）", flush=True)
 
 
