@@ -6546,7 +6546,7 @@
       "fixed": false
     },
     "2026-10-21": {
-      "url": "https://www.youtube.com/watch?v=WQzNbCg7SzY",
+      "url": "https://www.youtube.com/watch?v=8TFsjCOA3Fk",
       "by": "cloud",
       "title": "【聞き流し】9割が知らない体づくりの雑学105選｜全部、論文で確認済み",
       "theme": "体づくり",
@@ -7288,7 +7288,10 @@
           "say": "高齢者が筋トレをするとき、たんぱく質を足すと、効果は大きくなるのでしょうか。21の試験、1249人の結果をまとめた研究があります。筋トレだけの組より、手足の筋肉が0.39キログラム多く増え、握力なども高まりました。ただ、歩く速さなどの体の動きには、差が見られませんでした。"
         }
       ],
-      "fixed": false
+      "fixed": false,
+      "replaced": [
+        "https://www.youtube.com/watch?v=WQzNbCg7SzY"
+      ]
     },
     "2026-10-22": {
       "url": "https://www.youtube.com/watch?v=5Vef4VFyfRE",
