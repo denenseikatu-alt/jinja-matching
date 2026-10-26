@@ -526,7 +526,7 @@ def _too_long(line: str, pcm: bytes, rate: float) -> bool:
     10/20〜10/26 の雑学動画と紹介動画に指示文の読み上げが残っていた）、文字起こしとは別に長さでも確かめる。
     """
     expect = len(line) / rate
-    return _speech_sec(pcm) > max(expect / 0.62, expect + 2.5)
+    return _speech_sec(pcm) > max(expect / 0.62, expect + 1.5)
 
 
 def _cut_lead(line: str, pcm: bytes, rate: float) -> bytes:
