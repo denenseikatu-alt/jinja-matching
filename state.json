@@ -10173,7 +10173,7 @@
       "fixed": false
     },
     "2026-10-26": {
-      "url": "https://www.youtube.com/watch?v=ByJUx0FsRMM",
+      "url": "https://www.youtube.com/watch?v=d9FQe_Id59I",
       "by": "cloud",
       "title": "【聞き流し】9割が知らない犬と猫の雑学97選｜全部、論文で確認済み",
       "theme": "ペット",
@@ -10859,7 +10859,10 @@
           "say": "猫の体型は、寿命と関係があるのでしょうか。オーストラリアのシドニーの動物病院で、猫2609匹の体型と寿命を調べた研究があります。やや太めの猫と比べて、やせた猫は早く亡くなりやすく、いちばんやせた猫では4倍以上でした。いちばん太った猫も、早く亡くなりやすくなっていました。やせすぎず太りすぎない体型を保ちましょう。"
         }
       ],
-      "fixed": false
+      "fixed": false,
+      "replaced": [
+        "https://www.youtube.com/watch?v=ByJUx0FsRMM"
+      ]
     }
   },
   "claims": {},
