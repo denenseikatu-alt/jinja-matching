@@ -532,7 +532,7 @@ def _too_long(line: str, pcm: bytes, rate: float) -> bool:
 def _cut_lead(line: str, pcm: bytes, rate: float) -> bytes:
     """先頭で指示文を読んだ音声から、その部分を切り落とす。
 
-    指示文のあとには0.4秒以上の間（ま）があるので、はじめの10秒の中で、そこから後ろの声の長さが
+    指示文のあとには0.4秒以上の間（ま）があるので、はじめの20秒の中で、そこから後ろの声の長さが
     台本の文に見合う間を探して、その間で切る。見つからなければそのまま返す。
     """
     if not _too_long(line, pcm, rate):
@@ -543,7 +543,7 @@ def _cut_lead(line: str, pcm: bytes, rate: float) -> bytes:
     rms = np.sqrt((a[: n * win].astype(np.float32).reshape(n, win) ** 2).mean(axis=1))
     quiet = rms <= 300
     k = 0
-    while k < min(n, 200):
+    while k < min(n, 400):  # 紹介動画の指示文は約11秒あるため20秒まで探す
         if quiet[k]:
             j = k
             while j < n and quiet[j]:
