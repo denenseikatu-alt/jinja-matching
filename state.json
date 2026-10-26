@@ -5822,7 +5822,7 @@
       "fixed": false
     },
     "2026-10-20": {
-      "url": "https://www.youtube.com/watch?v=peVudas1eH8",
+      "url": "https://www.youtube.com/watch?v=8FEd2Ad-S68",
       "by": "cloud",
       "title": "【聞き流し】9割が知らない犬と猫の雑学102選｜全部、論文で確認済み",
       "theme": "ペット",
@@ -6543,7 +6543,10 @@
           "say": "ドーグ・ド・ボルドーやアラスカン・マラミュートのような、とても大きな犬種の健康を調べた研究があります。イギリスの動物病院に通う、29の超大型犬種、2万8345匹の記録を調べました。1年の間に、73.8パーセントの犬に、何かの病気の記録がありました。亡くなった年齢の真ん中の値は、8.94歳でした。"
         }
       ],
-      "fixed": false
+      "fixed": false,
+      "replaced": [
+        "https://www.youtube.com/watch?v=peVudas1eH8"
+      ]
     },
     "2026-10-21": {
       "url": "https://www.youtube.com/watch?v=8TFsjCOA3Fk",
