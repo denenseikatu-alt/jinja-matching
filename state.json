@@ -8014,7 +8014,7 @@
       ]
     },
     "2026-10-23": {
-      "url": "https://www.youtube.com/watch?v=mHAc95AOZk4",
+      "url": "https://www.youtube.com/watch?v=3el7FKSgcMo",
       "by": "cloud",
       "title": "【聞き流し】9割が知らない体づくりの雑学99選｜全部、論文で確認済み",
       "theme": "体づくり",
@@ -8714,7 +8714,10 @@
           "say": "脂ののった魚と、血圧の関係を調べた研究があります。南米エクアドルの海辺の村で、40歳以上の677人の血圧と、魚を食べる回数を調べました。週5回までは、魚を食べる回数が1回増えるごとに、上の血圧が2.3低くなっていました。週5回を超えて食べても、それ以上は下がりませんでした。"
         }
       ],
-      "fixed": false
+      "fixed": false,
+      "replaced": [
+        "https://www.youtube.com/watch?v=mHAc95AOZk4"
+      ]
     },
     "2026-10-24": {
       "url": "https://www.youtube.com/watch?v=1fmdFTA3NJY",
