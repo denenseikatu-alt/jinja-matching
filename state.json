@@ -8720,7 +8720,7 @@
       ]
     },
     "2026-10-24": {
-      "url": "https://www.youtube.com/watch?v=1fmdFTA3NJY",
+      "url": "https://www.youtube.com/watch?v=mehhks9lYpw",
       "by": "cloud",
       "title": "【聞き流し】9割が知らない犬と猫の雑学102選｜全部、論文で確認済み",
       "theme": "ペット",
@@ -9441,7 +9441,10 @@
           "say": "外で暮らす猫の歯は、どれくらい傷んでいるのでしょうか。南極に近いマリオン島で暮らしていた猫301匹の、頭の骨を調べた研究があります。54.8パーセントの猫に、歯の骨折がありました。骨折は牙と奥歯に多く、根の先の炎症もよく見られ、健康や寿命に影響していたと考えられています。"
         }
       ],
-      "fixed": false
+      "fixed": false,
+      "replaced": [
+        "https://www.youtube.com/watch?v=1fmdFTA3NJY"
+      ]
     },
     "2026-10-25": {
       "url": "https://www.youtube.com/watch?v=Ci3vnqjybq4",
