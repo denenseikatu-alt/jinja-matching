@@ -7294,7 +7294,7 @@
       ]
     },
     "2026-10-22": {
-      "url": "https://www.youtube.com/watch?v=5Vef4VFyfRE",
+      "url": "https://www.youtube.com/watch?v=zXGhPVDcP7c",
       "by": "cloud",
       "title": "【聞き流し】9割が知らない犬と猫の雑学101選｜全部、論文で確認済み",
       "theme": "ペット",
@@ -8008,7 +8008,10 @@
           "say": "犬の太りぐあいと、飼い主の体格には、関係があるのでしょうか。オランダの動物病院で、犬と飼い主47組を調べた研究があります。犬が太っているほど、飼い主の体格指数も高い傾向がありました。ただ、毎日の散歩の時間をそろえると、この関係は消えました。一緒に歩く時間がかぎのようです。"
         }
       ],
-      "fixed": false
+      "fixed": false,
+      "replaced": [
+        "https://www.youtube.com/watch?v=5Vef4VFyfRE"
+      ]
     },
     "2026-10-23": {
       "url": "https://www.youtube.com/watch?v=mHAc95AOZk4",
