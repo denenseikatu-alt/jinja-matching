@@ -518,6 +518,41 @@ def _speech_sec(pcm: bytes) -> float:
     return float((rms > 300).sum()) * 0.05
 
 
+def _english_heard(line: str, pcm: bytes) -> str | None:
+    """作り直した1文を、照合とは別の型でもう一度文字起こしし、英語の語が聞こえたらその語を返す。
+
+    照合（verify）の文字起こしは、英語で読まれた語をカタカナや日本語で書くことがあり、
+    「メイクとスキンケア」が英語の Makeup and skincare で読まれた文を通していた（2026-10-27 確認）。
+    台本の caption_replace の英字表記（字幕で英字に戻す語）は数えない。使えなければ None。
+    """
+    import io
+    import re
+    buf = io.BytesIO()
+    with wave.open(buf, "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(RATE)
+        w.writeframes(pcm)
+    body = {"contents": [{"parts": [
+        {"text": "この音声を一字一句そのまま文字起こししてください。英語で話されている部分は英語のまま英字で書く"
+                 "（日本語に直さない）。カタカナ語は日本語の発音ならカタカナで書く。JSONのみ: {\"text\": \"…\"}"},
+        {"inlineData": {"mimeType": "audio/wav", "data": base64.b64encode(buf.getvalue()).decode()}}]}],
+        "generationConfig": {"responseMimeType": "application/json"}}
+    for _ in range(3):
+        try:
+            res = _request(f"{API}/models/gemini-flash-latest:generateContent", body)
+            heard = str(json.loads(res["candidates"][0]["content"]["parts"][0]["text"]).get("text", ""))
+            break
+        except (urllib.error.HTTPError, KeyError, ValueError, AttributeError):
+            time.sleep(8)
+    else:
+        return None
+    allowed = {w.lower() for v in _CAPTION_REPLACE.values() for w in re.findall(r"[A-Za-z]+", v)}
+    words = [w for w in re.findall(r"[A-Za-z]{2,}", heard)
+             if w.lower() not in allowed and not w.isupper() and w.lower() not in line.lower()]
+    return " ".join(words)
+
+
 def _too_long(line: str, pcm: bytes, rate: float) -> bool:
     """台本の文字数にくらべて声が長すぎるか（rate は台本全体の 1秒あたりの文字数の中央値）。
 
@@ -608,6 +643,10 @@ def final_check(scenes: list[dict], audio_dir: Path, voice: dict, group: int = 8
                 _write(cut, paths[i])
                 pcm = cut
             if not _too_long(lines[i], pcm, rate) and verify([lines[i]], [pcm]) == "":
+                eng = _english_heard(lines[i], pcm)
+                if eng:
+                    print(f"      別の文字起こしで英語が聞こえました（{eng}）。作り直します", flush=True)
+                    continue
                 break
         else:
             sys.exit(f"Gemini の音声が台本と一致しませんでした（{i + 1}文目: {lines[i][:30]}）")
