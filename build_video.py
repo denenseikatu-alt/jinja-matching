@@ -275,11 +275,15 @@ def synth_openai(text: str, voice: str, model: str, instructions: str, out_path:
         headers={"Content-Type": "application/json"},
         method="POST",
     )
+    raw = out_path.with_suffix(".raw.wav")
     try:
         with urllib.request.urlopen(req, timeout=180) as r:
-            out_path.write_bytes(r.read())
+            raw.write_bytes(r.read())
     except urllib.error.HTTPError as e:
         sys.exit(f"OpenAI の音声合成に失敗しました（{e.code}）: {e.read()[:300]!r}")
+    # 届く wav はヘッダーの長さが「不明」のままなので、ffmpeg で書き直して実長を入れる
+    subprocess.run([ffmpeg_bin(), "-y", "-loglevel", "error", "-i", str(raw), str(out_path)], check=True)
+    raw.unlink()
 
 
 def openai_credit(model: str, voice: str) -> str:
@@ -385,6 +389,8 @@ def main() -> None:
                     help="--engine openai の話し方の指示")
     ap.add_argument("--fps", type=int, default=30, help="動画のコマ数。スライドだけなら小さくして容量を減らせる")
     ap.add_argument("--audio-bitrate", default="192k")
+    ap.add_argument("--keep-audio", action="store_true",
+                    help="audio/ に同じ番号の wav があれば作り直さずに使う（読みを直した行だけ消して作り直すとき）")
     args = ap.parse_args()
 
     script_path = Path(args.script)
@@ -443,7 +449,9 @@ def main() -> None:
             n += 1
             wav = audio_dir / f"{n:04d}.wav"
             text, say = (line, line) if isinstance(line, str) else (line["text"], line.get("say", line["text"]))
-            if args.engine == "openjtalk":
+            if args.keep_audio and wav.is_file():
+                pass
+            elif args.engine == "openjtalk":
                 synth_openjtalk(say, wav)
             elif args.engine == "openai":
                 synth_openai(say, args.voice, args.tts_model, args.tts_instructions, wav)
