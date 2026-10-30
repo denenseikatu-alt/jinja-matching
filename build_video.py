@@ -8,6 +8,10 @@
     python3 build_video.py script.json -o out/ --slides-only
 
 音声は VOICEVOX ENGINE (既定 http://127.0.0.1:50021) で合成する。
+--engine openai のときは OpenAI の音声合成（api.openai.com）を使う。鍵は作業場所の
+ネットワークシークレットが通信の途中で付けるので、ここでは読まない。
+場面に "image" があれば、スライドの右側にその絵を置く。
+lines の各行は文字列か {"text": 字幕, "say": 読み上げ} のどちらでもよい。
 字幕のタイムコードは、推定ではなく合成した wav の実長から組み立てる。
 """
 
@@ -19,6 +23,7 @@ import shutil
 import subprocess
 import sys
 import urllib.parse
+import urllib.error
 import urllib.request
 import wave
 from pathlib import Path
@@ -190,7 +195,16 @@ def draw_slide(
         f_body = ImageFont.truetype(font_path, 52)
         x = 180
         y = 200
-        for ln in wrap(d, scene["heading"], f_head, W - 360):
+        text_w = W - 360
+        pic = scene.get("image")
+        if pic and Path(pic).is_file():
+            # 右側に正方形の絵を置き、文字の幅をその分だけ狭める
+            side = 640
+            im = Image.open(pic).convert("RGB")
+            im = im.resize((side, side), Image.LANCZOS)
+            img.paste(im, (W - side - 120, (H - side) // 2))
+            text_w = W - side - 120 - x - 60
+        for ln in wrap(d, scene["heading"], f_head, text_w):
             d.text((x, y), ln, font=f_head, fill=INK)
             y += 96
         d.rectangle([x, y + 18, x + 120, y + 24], fill=ACCENT)
@@ -199,7 +213,7 @@ def draw_slide(
         for b in scene.get("bullets", []):
             d.ellipse([x + 6, y + 22, x + 24, y + 40], fill=ACCENT)
             bx = x + 56
-            for i, ln in enumerate(wrap(d, b, f_body, W - 360 - 56)):
+            for i, ln in enumerate(wrap(d, b, f_body, text_w - 56)):
                 d.text((bx, y), ln, font=f_body, fill=INK if i == 0 else SUB)
                 y += 68
             y += 22
@@ -246,6 +260,30 @@ OPENJTALK_CREDIT = (
     'Open JTalk / HTS Voice "Mei" '
     "(MMDAgent Project Team, 名古屋工業大学) CC BY 3.0"
 )
+
+
+OPENAI_TTS_URL = "https://api.openai.com/v1/audio/speech"
+
+
+def synth_openai(text: str, voice: str, model: str, instructions: str, out_path: Path) -> None:
+    body = {"model": model, "voice": voice, "input": text, "response_format": "wav"}
+    if instructions:
+        body["instructions"] = instructions
+    req = urllib.request.Request(
+        OPENAI_TTS_URL,
+        data=json.dumps(body).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=180) as r:
+            out_path.write_bytes(r.read())
+    except urllib.error.HTTPError as e:
+        sys.exit(f"OpenAI の音声合成に失敗しました（{e.code}）: {e.read()[:300]!r}")
+
+
+def openai_credit(model: str, voice: str) -> str:
+    return f"OpenAI の音声合成（{model}・声 {voice}）による AI 音声"
 
 
 def synth_openjtalk(text: str, out_path: Path) -> None:
@@ -339,8 +377,14 @@ def main() -> None:
     ap.add_argument("--font", default=None, help="日本語フォントを直接指定する")
     ap.add_argument("--narrator", default="assets_video/narrator.png",
                     help="スライド右下に置く語り手の画像。無ければ置かない")
-    ap.add_argument("--engine", choices=["voicevox", "openjtalk"], default="voicevox",
+    ap.add_argument("--engine", choices=["voicevox", "openjtalk", "openai"], default="voicevox",
                     help="音声合成の方式。openjtalk はローカル完結だが声質は素朴")
+    ap.add_argument("--voice", default="marin", help="--engine openai の声")
+    ap.add_argument("--tts-model", default="gpt-4o-mini-tts", help="--engine openai のモデル")
+    ap.add_argument("--tts-instructions", default="落ち着いた日本語のニュース読み上げ。はっきり、ややゆっくり。",
+                    help="--engine openai の話し方の指示")
+    ap.add_argument("--fps", type=int, default=30, help="動画のコマ数。スライドだけなら小さくして容量を減らせる")
+    ap.add_argument("--audio-bitrate", default="192k")
     args = ap.parse_args()
 
     script_path = Path(args.script)
@@ -398,14 +442,17 @@ def main() -> None:
         for li, line in enumerate(lines):
             n += 1
             wav = audio_dir / f"{n:04d}.wav"
+            text, say = (line, line) if isinstance(line, str) else (line["text"], line.get("say", line["text"]))
             if args.engine == "openjtalk":
-                synth_openjtalk(line, wav)
+                synth_openjtalk(say, wav)
+            elif args.engine == "openai":
+                synth_openai(say, args.voice, args.tts_model, args.tts_instructions, wav)
             else:
-                synth(line, speaker, args.host, wav)
+                synth(say, speaker, args.host, wav)
             first_wav = first_wav or wav
             dur = wav_duration(wav)
             timeline.append(wav)
-            subtitles.append((clock, clock + dur, line))
+            subtitles.append((clock, clock + dur, text))
             clock += dur
 
             gap = GAP_AFTER_SCENE if li == len(lines) - 1 else GAP_AFTER_LINE
@@ -442,8 +489,9 @@ def main() -> None:
         ffmpeg_bin(), "-y", "-loglevel", "error",
         "-f", "concat", "-safe", "0", "-i", str(image_list),
         "-f", "concat", "-safe", "0", "-i", str(audio_list),
-        "-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", "30",
-        "-c:a", "aac", "-b:a", "192k",
+        "-c:v", "libx264", *(["-tune", "stillimage"] if args.fps < 30 else []),
+        "-pix_fmt", "yuv420p", "-r", str(args.fps),
+        "-c:a", "aac", "-b:a", args.audio_bitrate,
         # concat の末尾で最終画像を再掲する作法が余分な尺を生み、-shortest では
         # 切り落とせないことがある。音声タイムラインの長さを明示して確実に揃える。
         "-t", f"{total:.3f}",
@@ -452,10 +500,12 @@ def main() -> None:
     subprocess.run(cmd, check=True)
 
     # 5. アップロード用の付随情報（実測タイムから作る）
-    credit = (
-        OPENJTALK_CREDIT if args.engine == "openjtalk"
-        else speaker_credit(speaker, args.host)
-    )
+    if args.engine == "openjtalk":
+        credit = OPENJTALK_CREDIT
+    elif args.engine == "openai":
+        credit = openai_credit(args.tts_model, args.voice)
+    else:
+        credit = speaker_credit(speaker, args.host)
     (outdir / "credits.txt").write_text(credit + "\n", encoding="utf-8")
 
     chapters, at = [], 0.0
