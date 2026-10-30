@@ -14,6 +14,13 @@
 - ChatGPT：通信は通る（401 が返る）が、このセッションでは OPENAI_API_KEY が見えない。新しいセッションが必要。
 - X：投稿の仕組みも鍵もない。api.x.com にもつながらない。ブラウザでのログインはしない。投稿文と絵を用意してオーナーが投稿する。
 
+## 2026-10-30 午後の追記
+- ChatGPT のキーは環境変数ではなく「ネットワークシークレット」（api.openai.com・Authorization: Bearer）で入っている。
+  コードでキーを読む必要はなく、api.openai.com にそのまま送れば通信の途中でキーが付く。
+  1回目は sk-proj- のキーが付いたが「Incorrect API key」。入れ替え後は「Missing bearer authentication」（キーが付かない）。新しいセッションで再確認する。
+- つながった公式サイト：www.keio.co.jp・gmo-aozora.com・www.asahigroup-holdings.com・www.tein.co.jp（200）。
+- www.nichirei.co.jp は通信制限で 403 のまま。jpn.nec.com はサイト側が curl を断る（403）。確認画面や断りはくぐり抜けない。
+
 ## 許可を頼んだドメイン（公式発表の確認用）
 - www.nichirei.co.jp（ニチレイ 2026年7月）
 - www.keio.co.jp（京王電鉄グループ 2026年9月）
