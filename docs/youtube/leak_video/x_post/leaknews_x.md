@@ -7,3 +7,6 @@
 ▶ https://youtu.be/23L7-Qc9MEc
 #情報漏洩 #個人情報
 ---
+
+## 投稿済み
+- 2026-10-31 23:54 に Mac の会話（Claude in Chrome）が投稿済み（オーナーが貼った報告より。こちらからは x.com を開けず未確認）: https://x.com/sAl5KkQze4adJEM/status/2116544469717958920
