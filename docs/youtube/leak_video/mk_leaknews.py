@@ -90,7 +90,7 @@ script={"title":"この2週間の情報流出まとめ","site":"田園生活","s
  "youtube":{"title":"この2週間の情報流出まとめ10社｜何が漏れた？放置するとどうなる？今日やること【2026年10月】",
   "description":desc,
   "tags":["情報漏洩","個人情報","不正アクセス","パスワード","フィッシング詐欺","二段階認証","セキュリティ","ニュース解説","田園生活"],
-  "categoryId":"27","privacyStatus":"unlisted","synthetic":True},
+  "categoryId":"27","privacyStatus":"public","synthetic":True},
  "scenes":[{"id":i+1,"heading":h,"bullets":b,"lines":l} for i,(h,b,l) in enumerate(S)]}
 for s in script['scenes']:
     for l in s['lines']:
