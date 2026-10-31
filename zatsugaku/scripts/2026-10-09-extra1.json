@@ -1,0 +1,310 @@
+{
+  "theme": "筋肥大",
+  "title": "9割が知らない 筋肥大の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n筋肥大の雑学",
+          "say": "知って得する、筋肥大の雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "力こぶ",
+      "image_query_alt": "筋トレ",
+      "topic": "筋トレの効果の個人差の大きさ",
+      "category": "筋肥大",
+      "source": "Hubal ほか（2005年・米国スポーツ医学会誌）",
+      "pmid": "15947721",
+      "lines": [
+        {
+          "caption": "同じ筋トレでも\n差は大きい",
+          "say": "同じ筋トレをしても、筋肉の増え方には大きな個人差があります。"
+        },
+        {
+          "caption": "585人が\n12週間の腕の筋トレ",
+          "say": "585人が12週間、利き腕と反対の腕を鍛えた研究では、"
+        },
+        {
+          "caption": "力こぶの太さ\nマイナス2%〜プラス59%",
+          "say": "力こぶの筋肉の太さの変化は、マイナス2パーセントから、プラス59パーセントまで、人によってばらばらでした。"
+        }
+      ],
+      "image": "chikarakobu.png",
+      "image_page": "https://www.irasutoya.com/2013/06/blog-post_861.html"
+    },
+    {
+      "image_query": "水風呂",
+      "image_query_alt": "氷",
+      "topic": "筋トレ後の冷水浴と筋肥大",
+      "category": "筋肥大",
+      "source": "Roberts ほか（2015年・生理学雑誌）",
+      "pmid": "26174323",
+      "lines": [
+        {
+          "caption": "筋トレ後の\n水風呂はどう？",
+          "say": "筋トレの後に、冷たい水に浸かるのはどうなのでしょうか。"
+        },
+        {
+          "caption": "21人が12週間\n筋トレ後に比較",
+          "say": "運動習慣のある21人の男性が、12週間、筋トレの後に10分間、冷たい水に浸かるか、軽く体を動かすかで比べました。"
+        },
+        {
+          "caption": "冷水のほうが\n筋肉の増え方が小さい",
+          "say": "冷たい水に浸かったグループのほうが、筋力も筋肉も増え方が小さくなっていました。"
+        }
+      ],
+      "image": "furooke_oyu.png",
+      "image_page": "https://www.irasutoya.com/2017/07/blog-post_313.html"
+    },
+    {
+      "image_query": "薬",
+      "image_query_alt": "錠剤",
+      "topic": "痛み止めの大量服用と筋肥大",
+      "category": "筋肥大",
+      "source": "Lilja ほか（2018年・生理学紀要）",
+      "pmid": "28834248",
+      "lines": [
+        {
+          "caption": "痛み止めと\n筋肉の成長",
+          "say": "痛み止めの薬を飲み続けると、筋肉の成長に影響することがあります。"
+        },
+        {
+          "caption": "18〜35歳が\n8週間の筋トレ",
+          "say": "18歳から35歳の人が、8週間の筋トレ中に、市販薬の上限量のイブプロフェンを毎日飲む実験では、"
+        },
+        {
+          "caption": "太ももの筋肉の増え方\n7.5%→3.7%",
+          "say": "太ももの筋肉の増え方が3.7パーセントと、少量のアスピリンのグループの7.5パーセントより小さくなりました。"
+        }
+      ],
+      "image": "medical_ugai_kusuri_glass_blue.png",
+      "image_page": "https://www.irasutoya.com/2020/08/blog-post_35.html"
+    },
+    {
+      "image_query": "ビール",
+      "image_query_alt": "お酒",
+      "topic": "筋トレ後の飲酒と筋肉の合成",
+      "category": "筋肥大",
+      "source": "Parr ほか（2014年・プロスワン）",
+      "pmid": "24533082",
+      "lines": [
+        {
+          "caption": "筋トレ後の\nお酒はどう？",
+          "say": "筋トレの後のお酒は、筋肉づくりにどう影響するのでしょうか。"
+        },
+        {
+          "caption": "8人の男性で\n比べた実験",
+          "say": "運動習慣のある8人の男性で比べた実験では、運動後に、およそ12杯分という大量のお酒を飲むと、"
+        },
+        {
+          "caption": "プロテインと一緒でも\n筋肉の合成24%低下",
+          "say": "プロテインと一緒に飲んでも、筋肉を作る速さが24パーセント低くなっていました。"
+        }
+      ],
+      "image": "dring_bottlecan_beer.png",
+      "image_page": "https://www.irasutoya.com/2020/10/blog-post_23.html"
+    },
+    {
+      "image_query": "徹夜",
+      "image_query_alt": "寝不足",
+      "topic": "一晩の徹夜と筋肉の合成",
+      "category": "筋肥大",
+      "source": "Lamon ほか（2021年・生理学リポーツ）",
+      "pmid": "33400856",
+      "lines": [
+        {
+          "caption": "徹夜すると\n筋肉は？",
+          "say": "一晩眠らないだけで、筋肉づくりに影響が出ます。"
+        },
+        {
+          "caption": "若い男女13人の\n実験",
+          "say": "若い男女13人が、一晩徹夜した場合と、普通に眠った場合を比べた実験では、"
+        },
+        {
+          "caption": "筋肉の合成18%低下\n男性ホルモン24%低下",
+          "say": "徹夜の後は、筋肉を作る速さが18パーセント下がり、男性ホルモンも24パーセント下がっていました。"
+        }
+      ],
+      "image": "game_tetsuya_woman.png",
+      "image_page": "https://www.irasutoya.com/2019/03/blog-post_359.html"
+    },
+    {
+      "image_query": "ダンベル 下ろす",
+      "image_query_alt": "ダンベル",
+      "topic": "下ろす動作と持ち上げる動作の筋肥大の比較",
+      "category": "筋肥大",
+      "source": "Schoenfeld ほか（2017年・米国筋力コンディショニング学会誌）",
+      "pmid": "28486337",
+      "lines": [
+        {
+          "caption": "上げる動作と\n下ろす動作",
+          "say": "筋肉は、持ち上げる動作と、ゆっくり下ろす動作の、どちらで大きくなりやすいのでしょうか。"
+        },
+        {
+          "caption": "15の試験を\nまとめた分析",
+          "say": "15の試験をまとめた分析では、筋肉の増え方の平均は、"
+        },
+        {
+          "caption": "下ろす動作10.0%\n上げる動作6.8%",
+          "say": "下ろす動作が10.0パーセント、持ち上げる動作が6.8パーセントでした。"
+        },
+        {
+          "caption": "差ははっきり\nしなかった",
+          "say": "ただし、統計的にははっきりした差とは言えませんでした。"
+        }
+      ],
+      "image": "undou_kettlebell_dumbbell.png",
+      "image_page": "https://www.irasutoya.com/2019/08/blog-post_49.html"
+    },
+    {
+      "image_query": "ジョギング",
+      "image_query_alt": "自転車",
+      "topic": "有酸素運動との組み合わせと筋肥大",
+      "category": "筋肥大",
+      "source": "Schumann ほか（2022年・スポーツ医学誌）",
+      "pmid": "34757594",
+      "lines": [
+        {
+          "caption": "有酸素運動で\n筋肉は減る？",
+          "say": "筋トレと一緒に有酸素運動をすると、筋肉がつきにくくなるのでしょうか。"
+        },
+        {
+          "caption": "43の研究を\nまとめた分析",
+          "say": "43の研究をまとめた分析では、筋肉の大きさと最大筋力には、はっきりした差はありませんでした。"
+        },
+        {
+          "caption": "瞬発力だけは\n少し不利",
+          "say": "ただ、瞬発力だけは少し伸びにくく、同じ日に続けて行うと、その差が大きくなっていました。"
+        }
+      ],
+      "image": "gym_running_people_dark.png",
+      "image_page": "https://www.irasutoya.com/2018/06/blog-post_530.html"
+    },
+    {
+      "image_query": "カレンダー",
+      "image_query_alt": "スケジュール",
+      "topic": "筋肉を維持するのに必要な筋トレの量",
+      "category": "筋肥大",
+      "source": "Bickel ほか（2011年・米国スポーツ医学会誌）",
+      "pmid": "21131862",
+      "lines": [
+        {
+          "caption": "つけた筋肉は\n少ない量で保てる？",
+          "say": "一度つけた筋肉は、少ない筋トレでも保てるのでしょうか。"
+        },
+        {
+          "caption": "16週間の筋トレの後\n32週間追跡",
+          "say": "70人が16週間の筋トレをした後、量を減らして32週間続けた研究があります。"
+        },
+        {
+          "caption": "若い人は\n9分の1の量でも維持",
+          "say": "20歳から35歳の人は、もとの9分の1の量でも、筋肉の大きさを保てていました。"
+        },
+        {
+          "caption": "60〜75歳では\n保てなかった",
+          "say": "一方、60歳から75歳の人では、量を減らすと筋肉を保てませんでした。"
+        }
+      ],
+      "image": "calender_schedule_empty.png",
+      "image_page": "https://www.irasutoya.com/2020/12/blog-post_799.html"
+    },
+    {
+      "image_query": "筋トレ お爺さん",
+      "image_query_alt": "シニア 運動",
+      "topic": "50歳以上の筋トレと除脂肪量",
+      "category": "筋肥大",
+      "source": "Peterson ほか（2011年・米国スポーツ医学会誌）",
+      "pmid": "20543750",
+      "lines": [
+        {
+          "caption": "50歳を過ぎても\n筋肉は増える",
+          "say": "50歳を過ぎても、筋トレで筋肉は増やせます。"
+        },
+        {
+          "caption": "49の研究\n1328人",
+          "say": "50歳以上の1328人をまとめた分析では、筋トレで、脂肪以外の体重が平均1.1キロ増えていました。"
+        },
+        {
+          "caption": "量が多いほど\n年齢が若いほど増加",
+          "say": "トレーニングの量が多いほど、そして年齢が若いほど、増え方は大きくなっていました。"
+        }
+      ],
+      "image": "kintore_ojiisan.png",
+      "image_page": "https://www.irasutoya.com/2015/06/blog-post_470.html"
+    },
+    {
+      "image_query": "サプリメント",
+      "image_query_alt": "粉末",
+      "topic": "クレアチンと筋肉の部位ごとの太さ",
+      "category": "筋肥大",
+      "source": "Burke ほか（2023年・ニュートリエンツ）",
+      "pmid": "37432300",
+      "lines": [
+        {
+          "caption": "クレアチンで\n筋肉は太くなる？",
+          "say": "人気のサプリ、クレアチンは、筋肉を太くするのでしょうか。"
+        },
+        {
+          "caption": "10の試験を\nまとめた分析",
+          "say": "筋トレと組み合わせた10の試験をまとめた分析では、"
+        },
+        {
+          "caption": "差はごく小さく\n0.1〜0.16センチ",
+          "say": "クレアチンで上乗せされた筋肉の厚さは、0.1から0.16センチほどで、効果はごく小さいものでした。"
+        }
+      ],
+      "image": "medical_kusuri_takusan_woman.png",
+      "image_page": "https://www.irasutoya.com/2018/04/blog-post_7.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない筋肥大の雑学10選【筋トレ後の水風呂で筋肉が増えにくい】",
+    "description": "筋トレの効果の個人差、筋トレ後の水風呂・お酒・徹夜・痛み止め、つけた筋肉の保ち方まで。筋肥大の雑学を10個、すべて研究論文の要旨で数値を確かめて紹介します。",
+    "tags": [
+      "雑学",
+      "筋肥大",
+      "筋トレ",
+      "筋肉",
+      "ボディメイク",
+      "豆知識"
+    ],
+    "sources": [
+      "Hubal MJ ほか. 米国スポーツ医学会誌 2005;37:964-72 https://europepmc.org/article/MED/15947721",
+      "Roberts LA ほか. 生理学雑誌 2015;593:4285-301 https://europepmc.org/article/MED/26174323",
+      "Lilja M ほか. 生理学紀要 2018;222 https://europepmc.org/article/MED/28834248",
+      "Parr EB ほか. プロスワン 2014;9:e88384 https://europepmc.org/article/MED/24533082",
+      "Lamon S ほか. 生理学リポーツ 2021;9:e14660 https://europepmc.org/article/MED/33400856",
+      "Schoenfeld BJ ほか. 米国筋力コンディショニング学会誌 2017;31:2599-608 https://europepmc.org/article/MED/28486337",
+      "Schumann M ほか. スポーツ医学誌 2022;52:601-12 https://europepmc.org/article/MED/34757594",
+      "Bickel CS ほか. 米国スポーツ医学会誌 2011;43:1177-87 https://europepmc.org/article/MED/21131862",
+      "Peterson MD ほか. 米国スポーツ医学会誌 2011;43:249-58 https://europepmc.org/article/MED/20543750",
+      "Burke R ほか. ニュートリエンツ 2023;15:2116 https://europepmc.org/article/MED/37432300"
+    ]
+  }
+}

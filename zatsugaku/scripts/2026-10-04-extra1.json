@@ -1,0 +1,332 @@
+{
+  "theme": "睡眠",
+  "title": "9割が知らない 睡眠の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n睡眠の雑学",
+          "say": "知って得する、睡眠の雑学。"
+        },
+        {
+          "caption": "全部、研究論文や\n公的資料で確かめました",
+          "say": "今日の10個は、すべて研究論文や公的な資料で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "あくび",
+      "image_query_alt": "居眠り",
+      "topic": "睡眠制限と自覚的な眠気のズレ",
+      "category": "睡眠",
+      "source": "Van Dongen ほか（2003年・睡眠医学誌「Sleep」）",
+      "pmid": "12683469",
+      "lines": [
+        {
+          "caption": "睡眠を削っても\n自分は平気？",
+          "say": "睡眠を削っても、自分は平気だと思っていませんか。"
+        },
+        {
+          "caption": "健康な大人が\n6時間睡眠を2週間",
+          "say": "健康な大人が、1晩6時間の睡眠を2週間続けた実験があります。"
+        },
+        {
+          "caption": "作業の成績は\n毎日下がり続けた",
+          "say": "作業の成績は、2週間、毎日下がり続けました。"
+        },
+        {
+          "caption": "本人が感じる眠さは\n数日で増えなくなった",
+          "say": "ところが本人が感じる眠さは、数日で増えなくなっていたのです。"
+        }
+      ],
+      "image": "hosu_businesswoman_taikutsu.png",
+      "image_page": "https://www.irasutoya.com/2017/03/blog-post_63.html"
+    },
+    {
+      "image_query": "布団",
+      "image_query_alt": "ベッド",
+      "topic": "成人の推奨睡眠時間",
+      "category": "睡眠",
+      "source": "Hirshkowitz ほか（2015年・米国睡眠財団誌「Sleep Health」）",
+      "pmid": "29073412",
+      "lines": [
+        {
+          "caption": "大人に必要な\n睡眠時間は？",
+          "say": "大人に必要な睡眠時間は、どのくらいでしょうか。"
+        },
+        {
+          "caption": "睡眠の専門家18人が\n研究で検討",
+          "say": "睡眠の専門家18人が、研究を基に検討しました。"
+        },
+        {
+          "caption": "成人は7〜9時間\n高齢者は7〜8時間",
+          "say": "結論は、成人が7時間から9時間、高齢者が7時間から8時間でした。"
+        },
+        {
+          "caption": "必要な時間には\n個人差もある",
+          "say": "必要な睡眠時間には、個人差もあると明記されています。"
+        }
+      ],
+      "image": "sleep_futon_smartphone_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/10/blog-post_67.html"
+    },
+    {
+      "image_query": "砂時計",
+      "image_query_alt": "時計",
+      "topic": "睡眠時間と死亡リスク",
+      "category": "睡眠",
+      "source": "Cappuccio ほか（2010年・睡眠医学誌「Sleep」）",
+      "pmid": "20469800",
+      "lines": [
+        {
+          "caption": "睡眠は短くても\n長くても負担に",
+          "say": "睡眠は、短すぎても長すぎても、体に負担がかかるようです。"
+        },
+        {
+          "caption": "16件の研究\n138万人分析",
+          "say": "16件の研究、138万人分のデータを分析した報告があります。"
+        },
+        {
+          "caption": "短い睡眠で死亡リスク12%増\n長い睡眠では30%増",
+          "say": "短い睡眠で死亡のリスクが12パーセント、長い睡眠では30パーセント高くなっていました。"
+        }
+      ],
+      "image": "toy_drop_motion.png",
+      "image_page": "https://www.irasutoya.com/2017/04/blog-post_312.html"
+    },
+    {
+      "image_query": "血圧計",
+      "image_query_alt": "血圧測定",
+      "topic": "短時間睡眠と高血圧",
+      "category": "睡眠",
+      "source": "Gangwisch ほか（2006年・高血圧専門誌「Hypertension」）",
+      "pmid": "16585410",
+      "lines": [
+        {
+          "caption": "寝不足は\n血圧にも関わる",
+          "say": "寝不足は、血圧にも関わっているようです。"
+        },
+        {
+          "caption": "4810人を\n8〜10年追跡",
+          "say": "32歳から59歳の4810人を、8年から10年追いかけた研究では、"
+        },
+        {
+          "caption": "5時間以下の人は\n高血圧が2.1倍",
+          "say": "1日5時間以下しか眠らない人は、高血圧になるリスクが2.1倍でした。"
+        }
+      ],
+      "image": "medical_ketsuatsukei_aneroid.png",
+      "image_page": "https://www.irasutoya.com/2019/12/blog-post_934.html"
+    },
+    {
+      "image_query": "採血",
+      "image_query_alt": "注射器",
+      "topic": "睡眠制限と血糖・ストレスホルモン",
+      "category": "睡眠",
+      "source": "Spiegel ほか（1999年・ランセット）",
+      "pmid": "10543671",
+      "lines": [
+        {
+          "caption": "寝不足が続くと\n体の中でも変化",
+          "say": "寝不足が続くと、体の中でも変化が起きています。"
+        },
+        {
+          "caption": "11人の男性が\n4時間睡眠を6晩",
+          "say": "11人の若い男性が、1晩4時間の睡眠を6晩続けた実験では、"
+        },
+        {
+          "caption": "血糖値の下がり方が\n悪くなった",
+          "say": "血糖値の下がり方が悪くなり、"
+        },
+        {
+          "caption": "夜のストレス\nホルモンも上昇",
+          "say": "夜のストレスホルモンも、上昇していました。"
+        }
+      ],
+      "image": "kenkoushindan09_saiketsu_girl.png",
+      "image_page": "https://www.irasutoya.com/2019/06/blog-post_629.html"
+    },
+    {
+      "image_query": "ワクチン",
+      "image_query_alt": "予防接種",
+      "topic": "睡眠とワクチンの抗体反応",
+      "category": "睡眠",
+      "source": "Lange ほか（2003年・心身医学誌「Psychosomatic Medicine」）",
+      "pmid": "14508028",
+      "lines": [
+        {
+          "caption": "ワクチンの後は\nよく眠った方が良い？",
+          "say": "ワクチンを受けた後は、よく眠ったほうが良いのでしょうか。"
+        },
+        {
+          "caption": "A型肝炎ワクチン後\n19人を2グループに",
+          "say": "A型肝炎のワクチンを受けた19人を、2つのグループに分けた実験です。"
+        },
+        {
+          "caption": "接種後に眠った人は\n抗体量がほぼ2倍",
+          "say": "接種した日の夜に眠った人は、4週間後の抗体の量が、起きていた人のほぼ2倍でした。"
+        }
+      ],
+      "image": "medical_koutai_man.png",
+      "image_page": "https://www.irasutoya.com/2021/09/blog-post_24.html"
+    },
+    {
+      "image_query": "居眠り運転",
+      "image_query_alt": "お酒",
+      "topic": "覚醒時間とアルコールに例えた作業能力",
+      "category": "睡眠",
+      "source": "Williamson・Feyer（2000年・産業・環境医学誌「Occupational and Environmental Medicine」）",
+      "pmid": "10984335",
+      "lines": [
+        {
+          "caption": "寝不足は\nお酒に例えると？",
+          "say": "寝不足の状態は、お酒に例えるとどのくらいでしょうか。"
+        },
+        {
+          "caption": "39人の\n覚醒時間と酔いを比較",
+          "say": "39人を対象に、起きている時間と、酔いの程度を比べた実験があります。"
+        },
+        {
+          "caption": "17〜19時間の覚醒で\nアルコール濃度0.05%相当",
+          "say": "17時間から19時間起きたままだと、血液中のアルコール濃度0.05パーセントに相当する状態になっていました。"
+        },
+        {
+          "caption": "反応速度は\n最大50%遅く",
+          "say": "作業の反応速度は、最大で50パーセント遅くなっていました。"
+        }
+      ],
+      "image": "car_inemuri.png",
+      "image_page": "https://www.irasutoya.com/2013/03/blog-post_8383.html"
+    },
+    {
+      "image_query": "おじいさん",
+      "image_query_alt": "高齢者",
+      "topic": "加齢による睡眠構造の変化",
+      "category": "睡眠",
+      "source": "Ohayon ほか（2004年・睡眠医学誌「Sleep」）",
+      "pmid": "15586779",
+      "lines": [
+        {
+          "caption": "歳を重ねると\n睡眠の質も変化",
+          "say": "歳を重ねると、睡眠の質も変わっていきます。"
+        },
+        {
+          "caption": "65件の研究\n3577人分析",
+          "say": "65件の研究、3577人分の脳波データをまとめた分析があります。"
+        },
+        {
+          "caption": "深い睡眠の割合は\n加齢で減っていく",
+          "say": "深い睡眠の割合は、年齢が上がるほど減っていくことが分かりました。"
+        },
+        {
+          "caption": "夜中に目覚める時間も\n加齢で増加",
+          "say": "夜中に目が覚めている時間も、年齢とともに増えていました。"
+        }
+      ],
+      "image": "ireba_hazureru_man.png",
+      "image_page": "https://www.irasutoya.com/2020/12/blog-post_199.html"
+    },
+    {
+      "image_query": "ピアノ練習",
+      "image_query_alt": "キーボード",
+      "topic": "一晩の睡眠と運動技能の習得",
+      "category": "睡眠",
+      "source": "Walker ほか（2002年・ニューロン誌「Neuron」）",
+      "pmid": "12123620",
+      "lines": [
+        {
+          "caption": "新しい動きの練習は\n眠ると上達",
+          "say": "新しい体の動きの練習は、眠ることで上達するようです。"
+        },
+        {
+          "caption": "指で順番をなぞる\n練習をした実験",
+          "say": "指で決まった順番をなぞる練習をしてもらった実験では、"
+        },
+        {
+          "caption": "一晩眠った人だけ\n速さが20%アップ",
+          "say": "一晩眠ったグループだけ、動きの速さが20パーセント上がっていました。"
+        },
+        {
+          "caption": "起きていただけでは\n伸びなかった",
+          "say": "同じ時間起きていただけでは、速さは伸びませんでした。"
+        }
+      ],
+      "image": "music_voice_training_woman.png",
+      "image_page": "https://www.irasutoya.com/2018/04/blog-post_677.html"
+    },
+    {
+      "image_query": "DNA",
+      "image_query_alt": "遺伝子",
+      "topic": "遺伝子変異による本当のショートスリーパー",
+      "category": "睡眠",
+      "source": "He ほか（2009年・サイエンス誌）、Shi ほか（2019年・ニューロン誌「Neuron」）",
+      "pmid": "19679812",
+      "lines": [
+        {
+          "caption": "自分はショートスリーパー\nだと思う人は多い",
+          "say": "自分はショートスリーパーだと思っている人は、多いと言われています。"
+        },
+        {
+          "caption": "本当に必要な睡眠が\n少ない人はごくまれ",
+          "say": "ですが、本当に必要な睡眠が少ない体質の人は、ごくまれだと考えられています。"
+        },
+        {
+          "caption": "ある遺伝子の変化で\n平均6.25時間で足りる人も",
+          "say": "ある家族を調べた研究では、ある遺伝子の変化を持つ人が、平均6.25時間の睡眠で足りていました。"
+        },
+        {
+          "caption": "別の遺伝子の変化でも\n睡眠が平均2時間短い",
+          "say": "別の家族でも、別の遺伝子の変化で、睡眠が平均2時間ほど短くなっていました。"
+        }
+      ],
+      "image": "medical_realtime_pcr.png",
+      "image_page": "https://www.irasutoya.com/2025/05/pcr.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない睡眠の雑学10選【論文で確認済み】自称ショートスリーパーの真実",
+    "description": "睡眠時間の重要性から、寝不足が血圧や血糖に与える影響、そして「自称ショートスリーパー」の正体まで。10個すべて論文・公的資料で確かめました。",
+    "tags": [
+      "雑学",
+      "睡眠",
+      "睡眠時間",
+      "ショートスリーパー",
+      "健康",
+      "寝不足",
+      "豆知識"
+    ],
+    "sources": [
+      "Van Dongen HP ほか. Sleep誌 2003;26:117-126 https://europepmc.org/article/MED/12683469",
+      "Hirshkowitz M ほか. Sleep Health誌 2015;1:233-243 https://europepmc.org/article/MED/29073412",
+      "Cappuccio FP ほか. Sleep誌 2010;33:585-592 https://europepmc.org/article/MED/20469800",
+      "Gangwisch JE ほか. Hypertension誌 2006;47:833-839 https://europepmc.org/article/MED/16585410",
+      "Spiegel K, Leproult R, Van Cauter E. ランセット 1999;354:1435-1439 https://europepmc.org/article/MED/10543671",
+      "Lange T ほか. Psychosomatic Medicine誌 2003;65:831-835 https://europepmc.org/article/MED/14508028",
+      "Williamson AM, Feyer AM. Occupational and Environmental Medicine誌 2000;57:649-655 https://europepmc.org/article/MED/10984335",
+      "Ohayon MM ほか. Sleep誌 2004;27:1255-1273 https://europepmc.org/article/MED/15586779",
+      "Walker MP ほか. Neuron誌 2002;35:205-211 https://europepmc.org/article/MED/12123620",
+      "He Y ほか. Science誌 2009;325:866-870 https://europepmc.org/article/MED/19679812",
+      "Shi G ほか. Neuron誌 2019;103:1044-1055 https://europepmc.org/article/MED/31473062"
+    ]
+  }
+}
