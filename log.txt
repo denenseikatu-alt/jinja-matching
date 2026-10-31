@@ -1,0 +1,4 @@
+10/31 08:53:44 prepare 開始（STYLE=talking）
+10/31 08:53:57 READY: ashwagandha-sleep-stress-meta-analysis（抽出まで完了。次は台本）
+10/31 08:54:46 publish 開始: ashwagandha-sleep-stress-meta-analysis
+10/31 09:02:58 公開: 完了: https://www.youtube.com/watch?v=wXN7zeYJFEE 公開設定: public 
