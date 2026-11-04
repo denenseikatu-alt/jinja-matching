@@ -93,9 +93,14 @@ PET_WORDS = ("猫の", "犬の", "ペット")
 BODY_WORDS = ("筋トレ", "筋肥大", "栄養", "プロテイン", "ビタミン", "持久", "長寿", "体", "ダイエット", "健康")
 
 
-def kind(title: str, live: bool) -> str:
+ARTICLE_MARK = "denenseikatu.com/articles/"   # 記事動画の概要欄には記事の URL が入る
+
+
+def kind(title: str, live: bool, desc: str = "") -> str:
     # 30分以上の長い雑学（「【聞き流し】9割が…」）も同じ再生リストに入れる
     title = re.sub(r"^【[^】]*】", "", title)
+    if ARTICLE_MARK in desc:
+        return ""      # 記事動画（題名に「｜」が無くても）は猫の再生リストに入れない（2026-11-04）
     if title.startswith("9割が") and any(w in title for w in PET_WORDS):
         return "9割が知らない犬と猫の雑学"
     if title.startswith("9割が"):
@@ -122,7 +127,7 @@ def cmd_sync(limit: int, apply: bool) -> None:
                                   id=",".join(ids[k:k + 50])).execute()["items"]:
             if v["status"]["privacyStatus"] != "public":
                 continue
-            name = kind(v["snippet"]["title"], "liveStreamingDetails" in v)
+            name = kind(v["snippet"]["title"], "liveStreamingDetails" in v, v["snippet"].get("description", ""))
             if name:
                 want[name].append((int(v["statistics"].get("viewCount", 0)), v["id"]))
     left = limit
@@ -171,7 +176,7 @@ def cmd_promote(min_views: int, limit: int, apply: bool) -> None:
                 # 前の言い回しの誘導文（最初の3行）を外して、今の言い回しで入れ直す
                 sn["description"] = desc.split("\n", 3)[3].lstrip("\n") if desc.count("\n") >= 3 else ""
             if (v["status"]["privacyStatus"] == "public" and int(v["statistics"].get("viewCount", 0)) >= min_views
-                    and kind(sn["title"], "liveStreamingDetails" in v) == "猫と旅の一言シリーズ"
+                    and kind(sn["title"], "liveStreamingDetails" in v, desc) == "猫と旅の一言シリーズ"
                     and (stale or PROMO_MARK not in desc)):
                 hits.append((int(v["statistics"]["viewCount"]), v["id"], sn))
     hits.sort(key=lambda h: -h[0])
@@ -194,13 +199,13 @@ SCENERY_WORDS = ("ブリッジ", "満月", "船", "鉄道", "ロープウェイ"
 
 
 def seo_plan(title: str, live: bool, sn: dict) -> dict | None:
-    k = kind(title, live)
+    k = kind(title, live, sn.get("description", ""))
     tags = list(sn.get("tags", []))
     if title.startswith("9割が") and k == "9割が知らない犬と猫の雑学":
         cat, add, hashtags = "15", ["雑学", "豆知識", "猫", "犬", "ペット", "動物行動学", "田園生活"], "#猫 #雑学 #ペット"
     elif title.startswith("9割が") or title.startswith("【聞き流し") or title.startswith("今週の体づくり"):
         cat, add, hashtags = "27", ["雑学", "豆知識", "健康", "体づくり", "論文", "田園生活"], "#雑学 #健康 #豆知識"
-    elif "｜" in title:      # 記事動画
+    elif "｜" in title or ARTICLE_MARK in sn.get("description", ""):      # 記事動画
         cat, add, hashtags = "27", ["健康", "運動", "40代", "田園生活"], "#健康 #運動 #田園生活"
     elif live:
         cat, add, hashtags = "15", ["地域猫", "クロちゃん", "猫", "ライブ配信", "田園生活"], "#地域猫 #クロちゃん #猫"
@@ -279,7 +284,8 @@ def cmd_comment(min_views: int, limit: int, apply: bool) -> None:
         for v in yt.videos().list(part="snippet,statistics,status,liveStreamingDetails",
                                   id=",".join(ids[k:k + 50])).execute()["items"]:
             if (v["status"]["privacyStatus"] == "public" and int(v["statistics"].get("viewCount", 0)) >= min_views
-                    and kind(v["snippet"]["title"], "liveStreamingDetails" in v) == "猫と旅の一言シリーズ"
+                    and kind(v["snippet"]["title"], "liveStreamingDetails" in v,
+                             v["snippet"].get("description", "")) == "猫と旅の一言シリーズ"
                     and not any(w in v["snippet"]["title"] for w in SCENERY_WORDS)):
                 hits.append((int(v["statistics"]["viewCount"]), v["id"], v["snippet"]["title"]))
     hits.sort(reverse=True)
