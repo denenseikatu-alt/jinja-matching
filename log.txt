@@ -1,0 +1,6 @@
+11/04 10:52:58 prepare 開始（STYLE=talking）
+11/04 10:53:11 READY: berberine-blood-sugar-meta-analysis-2024（抽出まで完了。次は台本）
+11/04 10:54:46 publish 開始: berberine-blood-sugar-meta-analysis-2024
+11/04 11:06:06 公開: 完了: https://www.youtube.com/watch?v=U9cEiSk_6rw 公開設定: public 
+11/04 12:38:19 publish 開始: training-no-absolutes-hiro-philosophy
+11/04 12:48:49 公開: 完了: https://www.youtube.com/watch?v=42UOWY0miW4 公開設定: public 
