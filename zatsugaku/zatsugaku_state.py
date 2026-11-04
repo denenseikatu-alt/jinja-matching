@@ -326,8 +326,14 @@ def cmd_pull() -> None:
     print(f"台帳を取得しました（使用済みの話題 {len(st['used_topics'])}件・投稿 {len(st['done'])}本）")
 
 
+WEEKLY_FROM = "2026-11-05"   # この日から、聞き流しの雑学動画は週1回・土曜日だけ（2026-11-04 オーナー指示）
+
+
 def cmd_claim(by: str) -> None:
     day = today()
+    if day >= WEEKLY_FROM and date.fromisoformat(day).weekday() != 5:
+        print(f"聞き流しの雑学動画は週1回、土曜日だけ作ります（今日 {day} は作りません）")
+        sys.exit(3)
 
     def change(st):
         if day in st["done"]:
