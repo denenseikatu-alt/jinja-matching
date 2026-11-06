@@ -94,6 +94,7 @@ BODY_WORDS = ("筋トレ", "筋肥大", "栄養", "プロテイン", "ビタミ�
 
 
 ARTICLE_MARK = "denenseikatu.com/articles/"   # 記事動画の概要欄には記事の URL が入る
+JA = re.compile(r"[ぁ-んァ-ヶ一-龥]")
 
 
 def kind(title: str, live: bool, desc: str = "") -> str:
@@ -101,6 +102,8 @@ def kind(title: str, live: bool, desc: str = "") -> str:
     title = re.sub(r"^【[^】]*】", "", title)
     if ARTICLE_MARK in desc:
         return ""      # 記事動画（題名に「｜」が無くても）は猫の再生リストに入れない（2026-11-04）
+    if not JA.search(title):
+        return ""      # 英語圏向けの動画（日本語を含まない題名）は猫の再生リストに入れない（2026-11-06）
     if title.startswith("9割が") and any(w in title for w in PET_WORDS):
         return "9割が知らない犬と猫の雑学"
     if title.startswith("9割が"):
@@ -199,6 +202,8 @@ SCENERY_WORDS = ("ブリッジ", "満月", "船", "鉄道", "ロープウェイ"
 
 
 def seo_plan(title: str, live: bool, sn: dict) -> dict | None:
+    if not JA.search(title):
+        return None    # 英語圏向けの動画は設定を変えない（猫の動画と取り違えない）
     k = kind(title, live, sn.get("description", ""))
     tags = list(sn.get("tags", []))
     if title.startswith("9割が") and k == "9割が知らない犬と猫の雑学":
