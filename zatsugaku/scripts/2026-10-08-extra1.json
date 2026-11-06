@@ -1,0 +1,321 @@
+{
+  "theme": "アンチエイジング",
+  "title": "9割が知らない アンチエイジングの雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\nアンチエイジングの雑学",
+          "say": "知って得する、アンチエイジングの雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "お年寄り 笑顔",
+      "image_query_alt": "老人",
+      "topic": "老いへの前向きな受け止め方と寿命",
+      "category": "アンチエイジング",
+      "source": "Levy ほか（2002年・人格社会心理学雑誌）",
+      "pmid": "12150226",
+      "lines": [
+        {
+          "caption": "老いの受け止め方で\n寿命が変わる？",
+          "say": "年をとることを、どう受け止めているかで、寿命は変わるのでしょうか。"
+        },
+        {
+          "caption": "50歳以上の\n660人を追跡",
+          "say": "アメリカで、50歳以上の660人を、最長23年にわたって追いかけた研究があります。"
+        },
+        {
+          "caption": "前向きな人は\n7.5年長生き",
+          "say": "年をとることを前向きにとらえていた人は、そうでない人より、7.5年長く生きていました。"
+        }
+      ],
+      "image": "couple_fufu_old.png",
+      "image_page": "https://www.irasutoya.com/2017/12/blog-post_75.html"
+    },
+    {
+      "image_query": "床に座る",
+      "image_query_alt": "立ち上がる",
+      "topic": "床から立ち上がる力と死亡リスク",
+      "category": "アンチエイジング",
+      "source": "Brito ほか（2014年・欧州予防心臓病学誌）",
+      "pmid": "23242910",
+      "lines": [
+        {
+          "caption": "床から\n手を使わずに立てる？",
+          "say": "床に座った状態から、なるべく手を使わずに立ち上がれますか。"
+        },
+        {
+          "caption": "51〜80歳の\n約2000人を調査",
+          "say": "51歳から80歳の、およそ2000人に、座って立ち上がる動きを10点満点で採点しました。"
+        },
+        {
+          "caption": "1点上がるごとに\n生存率21%改善",
+          "say": "点数が1点高いごとに、その後の生存率が21パーセント良くなっていました。"
+        }
+      ],
+      "image": "pet_cat_sit.png",
+      "image_page": "https://www.irasutoya.com/2017/07/blog-post_225.html"
+    },
+    {
+      "image_query": "持久走",
+      "image_query_alt": "ジョギング",
+      "topic": "運動の種類とテロメア",
+      "category": "アンチエイジング",
+      "source": "Werner ほか（2019年・欧州心臓病学誌）",
+      "pmid": "30496493",
+      "lines": [
+        {
+          "caption": "細胞の若さと\n運動の種類",
+          "say": "細胞の若さの目安とされる、染色体の端のテロメアと、運動の関係を調べた実験があります。"
+        },
+        {
+          "caption": "運動していない\n124人が6か月",
+          "say": "運動習慣のない124人が、6か月間、種類の違う運動をしました。"
+        },
+        {
+          "caption": "持久系の運動で\nテロメアを保つ酵素が2〜3倍",
+          "say": "ジョギングのような持久系の運動では、テロメアを保つ酵素の働きが2倍から3倍になりました。"
+        },
+        {
+          "caption": "筋トレだけでは\n増えなかった",
+          "say": "一方、筋トレだけのグループでは、増えていませんでした。"
+        }
+      ],
+      "image": "gym_running_people_dark.png",
+      "image_page": "https://www.irasutoya.com/2018/06/blog-post_530.html"
+    },
+    {
+      "image_query": "友達",
+      "image_query_alt": "おしゃべり",
+      "topic": "人とのつながりと生存率",
+      "category": "アンチエイジング",
+      "source": "Holt-Lunstad ほか（2010年・プロス・メディシン）",
+      "pmid": "20668659",
+      "lines": [
+        {
+          "caption": "人とのつながりと\n長生き",
+          "say": "人とのつながりは、長生きとも関係しています。"
+        },
+        {
+          "caption": "148の研究\n約31万人",
+          "say": "148の研究、およそ31万人をまとめた分析では、"
+        },
+        {
+          "caption": "つながりが強い人は\n生存の可能性1.5倍",
+          "say": "人とのつながりが強い人は、生き続けている可能性が、およそ1.5倍高くなっていました。"
+        },
+        {
+          "caption": "年齢や性別に\n関係なく",
+          "say": "この傾向は、年齢や性別に関係なく見られました。"
+        }
+      ],
+      "image": "friends_frienemy_woman.png",
+      "image_page": "https://www.irasutoya.com/2026/08/frenemywoman.html"
+    },
+    {
+      "image_query": "楽観的",
+      "image_query_alt": "ポジティブ",
+      "topic": "楽観的な性格と長寿",
+      "category": "アンチエイジング",
+      "source": "Lee ほか（2019年・米国科学アカデミー紀要）",
+      "pmid": "31451635",
+      "lines": [
+        {
+          "caption": "楽観的な人は\n長生き？",
+          "say": "楽観的な人は、長生きするのでしょうか。"
+        },
+        {
+          "caption": "アメリカの\n2つの大規模調査",
+          "say": "アメリカの女性と男性の、2つの大規模な調査を分析した研究では、"
+        },
+        {
+          "caption": "最も楽観的な女性は\n寿命が14.9%長い",
+          "say": "最も楽観的な女性は、最も悲観的な女性より、寿命が14.9パーセント長くなっていました。"
+        },
+        {
+          "caption": "85歳まで生きる可能性\n1.5〜1.7倍",
+          "say": "85歳まで生きる可能性も、女性で1.5倍、男性で1.7倍高くなっていました。"
+        }
+      ],
+      "image": "kimochi_positive_woman.png",
+      "image_page": "https://www.irasutoya.com/2017/10/blog-post_56.html"
+    },
+    {
+      "image_query": "散歩 老人",
+      "image_query_alt": "歩く",
+      "topic": "歩く速さと高齢者の生存",
+      "category": "アンチエイジング",
+      "source": "Studenski ほか（2011年・米国医師会雑誌）",
+      "pmid": "21205966",
+      "lines": [
+        {
+          "caption": "歩く速さで\n分かること",
+          "say": "歩く速さは、体の元気さを映す目安になります。"
+        },
+        {
+          "caption": "65歳以上の\n約3万4千人",
+          "say": "65歳以上の、およそ3万4千人をまとめた分析では、"
+        },
+        {
+          "caption": "75歳男性の10年生存率\n19%〜87%",
+          "say": "75歳の男性の10年後の生存率は、歩く速さによって、19パーセントから87パーセントまで差がありました。"
+        }
+      ],
+      "image": "roujinsya_couple2.png",
+      "image_page": "https://www.irasutoya.com/2013/08/blog-post_8197.html"
+    },
+    {
+      "image_query": "腹八分目",
+      "image_query_alt": "食事",
+      "topic": "2年間の控えめなカロリー制限と心臓・代謝の数値",
+      "category": "アンチエイジング",
+      "source": "Kraus ほか（2019年・ランセット糖尿病内分泌学）",
+      "pmid": "31303390",
+      "lines": [
+        {
+          "caption": "食べる量を\n少し減らすと",
+          "say": "健康な人が、食べる量を少し減らし続けると、どうなるのでしょうか。"
+        },
+        {
+          "caption": "21〜50歳の\n218人が2年間",
+          "say": "21歳から50歳の、太っていない218人が参加した、2年間の実験があります。"
+        },
+        {
+          "caption": "食べる量は\n約12%減",
+          "say": "食べる量を減らしたグループは、実際に約12パーセント減らし、体重は平均7.5キロ減りました。"
+        },
+        {
+          "caption": "血圧や悪玉コレステロールが\n改善",
+          "say": "血圧や悪玉コレステロールなど、心臓や血管に関わる数値が良くなっていました。"
+        }
+      ],
+      "image": "syokuji_message_mokusyoku_gokyouryoku_kudasai.png",
+      "image_page": "https://www.irasutoya.com/2021/05/blog-post312.html"
+    },
+    {
+      "image_query": "若い気持ち",
+      "image_query_alt": "元気なお年寄り",
+      "topic": "自分の感じる年齢と健康",
+      "category": "アンチエイジング",
+      "source": "Westerhof ほか（2014年・心理学と老化）",
+      "pmid": "25365689",
+      "lines": [
+        {
+          "caption": "気持ちの若さは\n体にも関係？",
+          "say": "自分を若いと感じているかどうかは、体の健康にも関係するのでしょうか。"
+        },
+        {
+          "caption": "19の研究を\nまとめた分析",
+          "say": "19の研究をまとめた分析では、自分の老いを前向きに感じている人ほど、"
+        },
+        {
+          "caption": "健康や生存に\n小さいながら良い影響",
+          "say": "健康や生存に、小さいながらもはっきりした良い影響が見られました。"
+        }
+      ],
+      "image": "hirameki_man.png"
+    },
+    {
+      "image_query": "カメラ",
+      "image_query_alt": "パッチワーク",
+      "topic": "新しい技能を学ぶことと高齢者の記憶力",
+      "category": "アンチエイジング",
+      "source": "Park ほか（2014年・心理科学）",
+      "pmid": "24214244",
+      "lines": [
+        {
+          "caption": "新しいことを\n学ぶと脳は？",
+          "say": "年をとってから新しいことを学ぶと、脳はどうなるのでしょうか。"
+        },
+        {
+          "caption": "3か月間\nキルトや写真を習う",
+          "say": "高齢者が3か月間、キルト作りやデジタル写真を、週に平均16時間ほど習う実験があります。"
+        },
+        {
+          "caption": "記憶力が\n良くなった",
+          "say": "すると、出来事を覚える記憶力が、軽い活動だけのグループより良くなっていました。"
+        }
+      ],
+      "image": "sankyaku_ikkyaku_camera_back.png",
+      "image_page": "https://www.irasutoya.com/2021/08/blog-post.html"
+    },
+    {
+      "image_query": "野菜",
+      "image_query_alt": "健康的な食事",
+      "topic": "8週間の食事・生活習慣の改善と体の年齢の指標",
+      "category": "アンチエイジング",
+      "source": "Fitzgerald ほか（2021年・エイジング）",
+      "pmid": "33844651",
+      "lines": [
+        {
+          "caption": "生活習慣で\n体の年齢は戻る？",
+          "say": "生活習慣を変えると、体の年齢の指標は変わるのでしょうか。"
+        },
+        {
+          "caption": "50〜72歳の\n男性43人が8週間",
+          "say": "50歳から72歳の、43人の男性が、8週間、食事や睡眠、運動などを見直す小さな実験をしました。"
+        },
+        {
+          "caption": "体の年齢の指標が\n3.23年若い結果に",
+          "say": "すると、何もしなかったグループに比べて、遺伝子から見た体の年齢の指標が、3.23年若い結果になりました。"
+        },
+        {
+          "caption": "さらに大きな研究が\n必要",
+          "say": "ただし少人数の試験で、研究者も、より大きく長い研究が必要だとしています。"
+        }
+      ],
+      "image": "food_perimeni.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_923.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らないアンチエイジング雑学10選【前向きな人は7.5年長生き】",
+    "description": "老いの受け止め方、床から立ち上がる力、歩く速さ、人とのつながり、新しい習い事まで。アンチエイジングの雑学を10個、すべて研究論文の要旨で数値を確かめて紹介します。",
+    "tags": [
+      "雑学",
+      "アンチエイジング",
+      "健康寿命",
+      "長生き",
+      "老化",
+      "豆知識"
+    ],
+    "sources": [
+      "Levy BR ほか. 人格社会心理学雑誌 2002;83:261-70 https://europepmc.org/article/MED/12150226",
+      "Brito LB ほか. 欧州予防心臓病学誌 2014;21:892-8 https://europepmc.org/article/MED/23242910",
+      "Werner CM ほか. 欧州心臓病学誌 2019;40:34-46 https://europepmc.org/article/MED/30496493",
+      "Holt-Lunstad J ほか. プロス・メディシン 2010;7:e1000316 https://europepmc.org/article/MED/20668659",
+      "Lee LO ほか. 米国科学アカデミー紀要 2019;116:18357-62 https://europepmc.org/article/MED/31451635",
+      "Studenski S ほか. 米国医師会雑誌 2011;305:50-8 https://europepmc.org/article/MED/21205966",
+      "Kraus WE ほか. ランセット糖尿病内分泌学 2019;7:673-83 https://europepmc.org/article/MED/31303390",
+      "Westerhof GJ ほか. 心理学と老化 2014;29:793-802 https://europepmc.org/article/MED/25365689",
+      "Park DC ほか. 心理科学 2014;25:103-12 https://europepmc.org/article/MED/24214244",
+      "Fitzgerald KN ほか. エイジング 2021;13:9419-32 https://europepmc.org/article/MED/33844651"
+    ]
+  }
+}

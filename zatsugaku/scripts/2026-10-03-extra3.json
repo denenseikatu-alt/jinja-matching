@@ -1,0 +1,343 @@
+{
+  "theme": "投資",
+  "title": "9割が知らない 投資の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n投資の雑学",
+          "say": "知って得する、投資の雑学。"
+        },
+        {
+          "caption": "全部、公的資料と\n論文で確かめました",
+          "say": "今日の10個は、すべて国の資料や研究論文で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "証券マン",
+      "image_query_alt": "ガッツポーズ ビジネスマン",
+      "topic": "トレーダーの朝のテストステロンと利益",
+      "category": "投資",
+      "source": "Coates・Herbert（2008年・米国科学アカデミー紀要）",
+      "pmid": "18413617",
+      "lines": [
+        {
+          "caption": "朝のホルモンで\n成績が変わる？",
+          "say": "トレーダーの朝のホルモンで、その日の成績は変わるのでしょうか。"
+        },
+        {
+          "caption": "ロンドンの男性トレーダーの\nホルモンを測定",
+          "say": "ロンドンの金融街で働く男性トレーダーたちを調べた研究です。"
+        },
+        {
+          "caption": "朝のテストステロンが高いと\nその日の利益も高い",
+          "say": "朝のテストステロンが高い人ほど、その日の利益が高くなりました。"
+        },
+        {
+          "caption": "市場が荒れるほど\nストレスホルモンも上昇",
+          "say": "市場が荒れるほど、ストレスホルモンも上がっていました。"
+        }
+      ],
+      "image": "syouken_torihiki_man.png",
+      "image_page": "https://www.irasutoya.com/2015/06/blog-post_156.html"
+    },
+    {
+      "image_query": "貯金箱",
+      "image_query_alt": "積み立て",
+      "topic": "新NISAの年間投資枠と非課税保有限度額",
+      "category": "投資",
+      "source": "金融庁「NISAを知る」（2026年10月時点）",
+      "url": "https://www.fsa.go.jp/policy/nisa2/know/index.html",
+      "lines": [
+        {
+          "caption": "新NISAは\n年間いくら積める？",
+          "say": "新しいNISAは、年間いくらまで積み立てられるのでしょうか。"
+        },
+        {
+          "caption": "つみたて投資枠は\n年間120万円",
+          "say": "つみたて投資枠は年間120万円、成長投資枠は年間240万円です。"
+        },
+        {
+          "caption": "非課税で持てる上限は\n合わせて1800万円",
+          "say": "一生涯の非課税保有限度額は、二つ合わせて1800万円です。"
+        },
+        {
+          "caption": "成長投資枠だけだと\n上限は1200万円",
+          "say": "成長投資枠だけで使う場合は、1200万円が上限とされています。"
+        }
+      ],
+      "image": "money_chokin_shippai_woman_.png",
+      "image_page": "https://www.irasutoya.com/2017/11/blog-post_318.html"
+    },
+    {
+      "image_query": "頭を抱える人",
+      "image_query_alt": "ストレス",
+      "topic": "ストレスホルモンとリスク選好の変化",
+      "category": "投資",
+      "source": "Kandasamy ほか（2014年・米国科学アカデミー紀要）",
+      "pmid": "24550472",
+      "lines": [
+        {
+          "caption": "ストレスで\n投資の判断は変わる？",
+          "say": "ストレスが続くと、投資の判断は変わってしまうのでしょうか。"
+        },
+        {
+          "caption": "ストレスホルモンを\n薬で8日間上げる実験",
+          "say": "参加者のストレスホルモンを、薬で8日間上げ続けた実験があります。"
+        },
+        {
+          "caption": "上がった人ほど\n危険を避けるように",
+          "say": "ホルモンが上がった人ほど、危険を避けるようになりました。"
+        },
+        {
+          "caption": "特に男性で\n確率の感じ方がゆがんだ",
+          "say": "特に男性で、めったに起きないことの感じ方が大きくゆがんでいました。"
+        }
+      ],
+      "image": "fusagikomu_woman.png",
+      "image_page": "https://www.irasutoya.com/2019/07/blog-post_218.html"
+    },
+    {
+      "image_query": "グラフ 上昇",
+      "image_query_alt": "右肩上がり",
+      "topic": "NISA口座数と買付額の推移",
+      "category": "投資",
+      "source": "金融庁「NISA口座の利用状況に関する調査結果」（2025年12月末時点）",
+      "url": "https://www.fsa.go.jp/policy/nisa/20260703.html",
+      "lines": [
+        {
+          "caption": "NISAを使う人は\nどれだけ増えた？",
+          "say": "NISAを使う人は、この10年あまりでどれくらい増えたのでしょうか。"
+        },
+        {
+          "caption": "2014年は492万口座\n2025年末は2821万口座",
+          "say": "2014年に492万だった口座数は、2025年末に2821万まで増えました。"
+        },
+        {
+          "caption": "累計の買付額は\n71兆円に到達",
+          "say": "累計の買付額も、2025年12月末の時点で71兆円に達しています。"
+        },
+        {
+          "caption": "政府目標は\n2027年に3400万口座",
+          "say": "政府は2027年末までに、3400万口座にする目標を掲げています。"
+        }
+      ],
+      "image": "kabu_chart_man_happy.png",
+      "image_page": "https://www.irasutoya.com/2013/09/blog-post_4471.html"
+    },
+    {
+      "image_query": "脳",
+      "image_query_alt": "ひらめき 電球",
+      "topic": "リスクを取る前の脳の報酬系活動",
+      "category": "投資",
+      "source": "Kuhnen・Knutson（2005年・脳科学の専門誌「ニューロン」）",
+      "pmid": "16129404",
+      "lines": [
+        {
+          "caption": "危ない方に賭ける前\n脳で何が起きている？",
+          "say": "危ない方に賭ける前、脳の中では何が起きているのでしょうか。"
+        },
+        {
+          "caption": "投資ゲーム中の脳を\n画像で撮影する実験",
+          "say": "投資を模したゲームをしながら、脳の働きを画像で調べた実験です。"
+        },
+        {
+          "caption": "報酬を期待する部分が働くと\n危ない方を選びやすい",
+          "say": "報酬を期待する部分が強く働くと、危ない方を選びやすくなりました。"
+        },
+        {
+          "caption": "不安を感じる部分が働くと\n安全な方を選んだ",
+          "say": "逆に不安を感じる部分が働くと、安全な方を選ぶ傾向がありました。"
+        }
+      ],
+      "image": "sick_ninchisyou_zentousokutougata.png",
+      "image_page": "https://www.irasutoya.com/2025/03/blog-post.html"
+    },
+    {
+      "image_query": "世界地図",
+      "image_query_alt": "天秤",
+      "topic": "日本・米国の家計金融資産構成の違い",
+      "category": "投資",
+      "source": "日本銀行「資金循環の日米欧比較」（2026年3月末時点）",
+      "url": "https://www.boj.or.jp/statistics/sj/sjhiq.pdf",
+      "lines": [
+        {
+          "caption": "日本人の資産は\n現金・預金が多い？",
+          "say": "日本の家計は、現金や預金をどれくらい持っているのでしょうか。"
+        },
+        {
+          "caption": "日本は現金・預金47%\n株式などは17%",
+          "say": "日本の家計の金融資産は、現金・預金が47.2%、株式などは16.7%でした。"
+        },
+        {
+          "caption": "米国は株式などが43%\n現金・預金は11%",
+          "say": "一方アメリカの家計は、株式などが43.4%、現金・預金は10.7%でした。"
+        },
+        {
+          "caption": "2026年3月末時点の\n日本銀行の資料です",
+          "say": "これは2026年3月末時点の、日本銀行の資料による数字です。"
+        }
+      ],
+      "image": "travel_world_jisa.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_63.html"
+    },
+    {
+      "image_query": "年金手帳",
+      "image_query_alt": "通帳",
+      "topic": "iDeCoの掛金上限は働き方で変わる",
+      "category": "投資",
+      "source": "iDeCo公式サイト（国民年金基金連合会、2026年10月時点）",
+      "url": "https://www.ideco-koushiki.jp/",
+      "lines": [
+        {
+          "caption": "iDeCoの掛金上限は\n誰でも同じ？",
+          "say": "iDeCoで積み立てられる掛金の上限は、みんな同じではありません。"
+        },
+        {
+          "caption": "企業年金がない会社員は\n月2万3000円まで",
+          "say": "勤め先に企業年金がない会社員は、上限が月額2万3000円です。"
+        },
+        {
+          "caption": "公務員や企業年金がある人は\n月2万円が上限",
+          "say": "公務員や、企業年金のある会社員は、上限が月額2万円になります。"
+        },
+        {
+          "caption": "働き方によって\n上限が変わります",
+          "say": "このように上限額は、働き方や勤め先の制度によって変わります。"
+        }
+      ],
+      "image": "nenkin_techou_obaasan.png",
+      "image_page": "https://www.irasutoya.com/2015/11/blog-post_633.html"
+    },
+    {
+      "image_query": "電卓",
+      "image_query_alt": "確定申告書",
+      "topic": "株式等の譲渡益・配当の税率20.315%",
+      "category": "投資",
+      "source": "国税庁タックスアンサー No.1463",
+      "url": "https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1463.htm",
+      "lines": [
+        {
+          "caption": "株の利益に\nかかる税率は？",
+          "say": "株や投資信託で得た利益には、どれくらい税金がかかるのでしょうか。"
+        },
+        {
+          "caption": "税率は合わせて\n20.315%",
+          "say": "上場株式などの譲渡益や配当の税率は、合わせて20.315%です。"
+        },
+        {
+          "caption": "内訳は所得税15%\n住民税5%など",
+          "say": "内訳は、所得税が15%、住民税が5%、復興特別所得税が0.315%です。"
+        },
+        {
+          "caption": "NISAの枠の中なら\nこの税金はかかりません",
+          "say": "NISAの枠の中なら、この税金がかからない仕組みになっています。"
+        }
+      ],
+      "image": "dentaku_syoumen_big.png",
+      "image_page": "https://www.irasutoya.com/2017/09/blog-post_387.html"
+    },
+    {
+      "image_query": "書類 判子",
+      "image_query_alt": "カレンダー",
+      "topic": "株の譲渡損失の繰越控除",
+      "category": "投資",
+      "source": "国税庁タックスアンサー No.1474",
+      "url": "https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1474.htm",
+      "lines": [
+        {
+          "caption": "株で損をしたら\n税金はどうなる？",
+          "say": "株などで損をした年、税金の仕組みはどうなっているのでしょうか。"
+        },
+        {
+          "caption": "損失は翌年から\n3年間繰り越せる",
+          "say": "その年の損失は、翌年から3年間、利益と相殺して繰り越せます。"
+        },
+        {
+          "caption": "売買がない年も\n毎年の申告が必要",
+          "say": "ただし、売買がない年も、繰り越すための申告が毎年必要です。"
+        },
+        {
+          "caption": "申告を忘れると\n繰り越せなくなります",
+          "say": "申告を忘れると、その年の繰り越しができなくなってしまいます。"
+        }
+      ],
+      "image": "document_hanko_bunka.png",
+      "image_page": "https://www.irasutoya.com/2018/12/blog-post_822.html"
+    },
+    {
+      "image_query": "選択に迷う人",
+      "image_query_alt": "分かれ道",
+      "topic": "損得の見せ方（フレーミング）と扁桃体",
+      "category": "投資",
+      "source": "De Martino ほか（2006年・科学誌「サイエンス」）",
+      "pmid": "16888142",
+      "lines": [
+        {
+          "caption": "見せ方で\n選ぶお金が変わる？",
+          "say": "同じ損得でも、見せ方を変えると選ぶお金が変わるのでしょうか。"
+        },
+        {
+          "caption": "「残る確率」と\n「失う確率」で比較",
+          "say": "「残る確率」と「失う確率」、言い方を変えて選ばせました。"
+        },
+        {
+          "caption": "言い方に流されたとき\n脳の扁桃体が働いた",
+          "say": "言い方に流されて選んだときは、脳の扁桃体という部分が働いていました。"
+        },
+        {
+          "caption": "流されにくい人ほど\n前頭前野の働きが強い",
+          "say": "流されにくい人ほど、前頭前野という部分の働きが強めでした。"
+        }
+      ],
+      "image": "life_wakaremichi_woman.png",
+      "image_page": "https://www.irasutoya.com/2017/06/blog-post_65.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない投資の雑学10選【NISA・税金・脳科学で検証】",
+    "description": "NISAやiDeCoの制度、株の税金の仕組み、投資とホルモン・脳の関係まで、公的資料と研究論文で確かめた雑学を10個まとめました。",
+    "tags": [
+      "雑学",
+      "投資",
+      "NISA",
+      "iDeCo",
+      "資産形成",
+      "行動経済学",
+      "豆知識"
+    ],
+    "sources": [
+      "Coates JM, Herbert J. 米国科学アカデミー紀要 2008;105:6167-72 https://europepmc.org/article/MED/18413617",
+      "金融庁「NISAを知る」https://www.fsa.go.jp/policy/nisa2/know/index.html",
+      "Kandasamy N ほか. 米国科学アカデミー紀要 2014;111:3608-13 https://europepmc.org/article/MED/24550472",
+      "金融庁「NISA口座の利用状況に関する調査結果」（2025年12月末時点）https://www.fsa.go.jp/policy/nisa/20260703.html",
+      "Kuhnen CM, Knutson B. ニューロン 2005;47:763-70 https://europepmc.org/article/MED/16129404",
+      "日本銀行「資金循環の日米欧比較」（2026年8月31日）https://www.boj.or.jp/statistics/sj/sjhiq.pdf",
+      "iDeCo公式サイト（国民年金基金連合会）https://www.ideco-koushiki.jp/",
+      "国税庁タックスアンサー No.1463 https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1463.htm",
+      "国税庁タックスアンサー No.1474 https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1474.htm",
+      "De Martino B ほか. サイエンス 2006;313:684-7 https://europepmc.org/article/MED/16888142"
+    ]
+  }
+}

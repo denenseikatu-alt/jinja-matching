@@ -1,0 +1,330 @@
+{
+  "theme": "幸福感",
+  "title": "9割が知らない 幸福感の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n幸福感の雑学",
+          "say": "知って得する、幸福感の雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文や海外の調査で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "ご近所さん",
+      "image_query_alt": "笑顔の人々",
+      "topic": "幸福感の伝染（隣人・友人への広がり）",
+      "category": "幸福感",
+      "source": "Fowler・Christakis（2008年・英国医師会雑誌）",
+      "pmid": "19056788",
+      "lines": [
+        {
+          "caption": "幸せは\n人から人へうつる？",
+          "say": "幸せな気持ちは、まわりの人にうつることがあります。"
+        },
+        {
+          "caption": "4739人を\n20年間追跡",
+          "say": "4739人を、1983年から20年間追いかけた研究です。"
+        },
+        {
+          "caption": "友達の友達の友達\nまで影響",
+          "say": "幸せの広がりは、友達の友達のそのまた友達まで、およそ3人隔たりまで届いていました。"
+        },
+        {
+          "caption": "近所に住む友人が幸せだと\n自分も25%幸せになりやすい",
+          "say": "1.6キロ以内に住む友人が幸せになると、自分が幸せになる確率が25パーセント上がっていました。"
+        }
+      ],
+      "image": "hirameki_man.png"
+    },
+    {
+      "image_query": "プレゼントを渡す人",
+      "image_query_alt": "募金",
+      "topic": "人のためにお金を使うことと幸福感",
+      "category": "幸福感",
+      "source": "Dunn・Aknin・Norton（2008年・サイエンス誌）",
+      "pmid": "18356530",
+      "lines": [
+        {
+          "caption": "お金は人のために使うと\n幸せになる？",
+          "say": "お金は、自分のためより人のために使った方が、幸せになるのでしょうか。"
+        },
+        {
+          "caption": "全国調査・追跡調査\nランダム化実験の3通りで確認",
+          "say": "全国調査と、臨時収入の使い道を追った調査、そしてくじ引きの実験、3つの方法で確かめました。"
+        },
+        {
+          "caption": "人のために使った人の方が\n一貫して幸福感が高い",
+          "say": "結果は3つとも同じで、人のためにお金を使った人の方が、幸福感が高くなっていました。"
+        }
+      ],
+      "image": "bokin_girl.png",
+      "image_page": "https://www.irasutoya.com/2014/01/blog-post_829.html"
+    },
+    {
+      "image_query": "疲れたサラリーマン",
+      "image_query_alt": "ため息 女性",
+      "topic": "幸福感の年齢によるU字カーブ",
+      "category": "幸福感",
+      "source": "Blanchflower・Oswald（2008年・社会科学と医学誌）",
+      "pmid": "18316146",
+      "lines": [
+        {
+          "caption": "幸福感は人生で\nU字を描く",
+          "say": "幸福感は、人生を通じてU字型のカーブを描くといわれています。"
+        },
+        {
+          "caption": "50万人を分析\n底は中年期",
+          "say": "アメリカとヨーロッパの50万人を調べると、幸福感が最も低いのは、中年期でした。"
+        },
+        {
+          "caption": "72か国でも\n同じ傾向",
+          "say": "この傾向は、先進国・発展途上国72か国でも確かめられています。"
+        },
+        {
+          "caption": "中年を抜ければ\nまた上向く",
+          "say": "若い頃と高齢期は、中年期より幸福感が高く出ていました。"
+        }
+      ],
+      "image": "tsukareta_business_man.png",
+      "image_page": "https://www.irasutoya.com/2014/05/blog-post_10.html"
+    },
+    {
+      "image_query": "スマホ 疲れ",
+      "image_query_alt": "スマートフォン",
+      "topic": "SNSを1週間休むことと幸福感",
+      "category": "幸福感",
+      "source": "Lambert ほか（2022年・サイバー心理学誌）",
+      "pmid": "35512731",
+      "lines": [
+        {
+          "caption": "SNSを1週間休むと\nどうなる？",
+          "say": "SNSを1週間休むと、気持ちはどう変わるのでしょうか。"
+        },
+        {
+          "caption": "平均29.6歳の\n154人で実験",
+          "say": "平均年齢29.6歳の154人を、SNSを休むグループと普段通り使うグループに分けました。"
+        },
+        {
+          "caption": "幸福感がアップ\nうつ・不安は低下",
+          "say": "1週間後、休んだグループは幸福感が上がり、気分の落ち込みも不安も減っていました。"
+        }
+      ],
+      "image": "eye_ganseihirou_smartphone_woman.png",
+      "image_page": "https://www.irasutoya.com/2019/11/blog-post_9.html"
+    },
+    {
+      "image_query": "休日の家族",
+      "image_query_alt": "週末 公園",
+      "topic": "週末と平日の幸福感の違い",
+      "category": "幸福感",
+      "source": "Helliwell・Wang（2015年・プロスワン誌）",
+      "pmid": "26699709",
+      "lines": [
+        {
+          "caption": "週末は\nなぜ幸せ？",
+          "say": "週末になると、気持ちが明るくなるのはなぜでしょうか。"
+        },
+        {
+          "caption": "アメリカの労働者を\n分析",
+          "say": "アメリカの働く人を調べた研究では、週末にすべての感情で変化が見られました。"
+        },
+        {
+          "caption": "正社員の方が\n週末の変化は大きい",
+          "say": "特に正社員は、パート社員より週末の変化が大きくなっていました。"
+        },
+        {
+          "caption": "職場の信頼関係が\n大きく影響",
+          "say": "職場での信頼関係や人間関係が、週末の幸福感の違いの多くを説明していました。"
+        }
+      ],
+      "image": "party_drink_rojou_noimikai.png",
+      "image_page": "https://www.irasutoya.com/2021/05/blog-post_11.html"
+    },
+    {
+      "image_query": "犬と女性",
+      "image_query_alt": "猫を抱く人",
+      "topic": "ペットを飼うことと幸福感",
+      "category": "幸福感",
+      "source": "McConnell ほか（2011年・人格社会心理学誌）",
+      "pmid": "21728449",
+      "lines": [
+        {
+          "caption": "ペットを飼うと\n幸せになる？",
+          "say": "ペットを飼うと、幸せになれるのでしょうか。"
+        },
+        {
+          "caption": "自尊心が高く\n孤独に強い",
+          "say": "飼い主は、自尊心が高く、人づきあいでの落ち込みにも強いことがわかりました。"
+        },
+        {
+          "caption": "人との関係と\n競合しない",
+          "say": "ペットとの関係は、人との関係の代わりではなく、支えを補う形で働いていました。"
+        }
+      ],
+      "image": "pet_dog_dance_woman.png",
+      "image_page": "https://www.irasutoya.com/2019/11/blog-post_296.html"
+    },
+    {
+      "image_query": "ボランティア 高齢者",
+      "image_query_alt": "シニア 介護",
+      "topic": "高齢者のボランティアと本人の幸福感",
+      "category": "幸福感",
+      "source": "Wheeler ほか（1998年・加齢と人間発達国際誌）",
+      "pmid": "9718488",
+      "lines": [
+        {
+          "caption": "ボランティアは\n誰のため？",
+          "say": "高齢者のボランティア活動は、誰のためになっているのでしょうか。"
+        },
+        {
+          "caption": "37件の研究を分析",
+          "say": "37件の研究をまとめた分析です。"
+        },
+        {
+          "caption": "支えた相手の85%に\n改善が見られた",
+          "say": "支えられた高齢者の85パーセントに、気分の落ち込みなどの改善が見られました。"
+        },
+        {
+          "caption": "ボランティア自身の\n幸福感も高まっていた",
+          "say": "そして、ボランティアをした本人の幸福感も、高まっていました。"
+        }
+      ],
+      "image": "gomihiroi_volunteer_woman.png",
+      "image_page": "https://www.irasutoya.com/2018/10/blog-post_376.html"
+    },
+    {
+      "image_query": "日向ぼっこ",
+      "image_query_alt": "散歩 太陽",
+      "topic": "日照時間と生活満足度",
+      "category": "幸福感",
+      "source": "Liu ほか（2025年・バイオデモグラフィー誌）",
+      "pmid": "40195127",
+      "lines": [
+        {
+          "caption": "晴れた日は\n幸せになる？",
+          "say": "日差しが強い日は、幸せな気持ちになるのでしょうか。"
+        },
+        {
+          "caption": "中国で8年間\n追跡調査",
+          "say": "中国で8年間、同じ人たちを追いかけた調査があります。"
+        },
+        {
+          "caption": "日照時間が長い日ほど\n満足度が高い",
+          "say": "その日の日照時間が長いほど、生活への満足度は高くなっていました。"
+        },
+        {
+          "caption": "ただし効果は\nわずか",
+          "say": "ただし、その効果の大きさは、わずかなものにとどまっていました。"
+        }
+      ],
+      "image": "yagai_kyoushitsu_casual_walk.png",
+      "image_page": "https://www.irasutoya.com/2020/03/blog-post_784.html"
+    },
+    {
+      "image_query": "感謝日記",
+      "image_query_alt": "日記を書く人",
+      "topic": "幸福感を高める心理的介入の効果",
+      "category": "幸福感",
+      "source": "Seligman ほか（2005年・米国心理学会誌）",
+      "pmid": "16045394",
+      "lines": [
+        {
+          "caption": "幸せになる方法\n確かなのはどれ？",
+          "say": "幸せになるための方法には、効果が確かめられたものと、そうでないものがあります。"
+        },
+        {
+          "caption": "6グループで比較\nプラセボ対照の実験",
+          "say": "6つのグループに分けて比べた、インターネット上の実験です。"
+        },
+        {
+          "caption": "5つの方法のうち\n3つに効果",
+          "say": "試した5つの方法のうち、3つで幸福感が長く高まり、気分の落ち込みも減っていました。"
+        },
+        {
+          "caption": "残り2つは\nはっきりしなかった",
+          "say": "残りの2つは、効果がはっきりしませんでした。"
+        }
+      ],
+      "image": "hirameki_man.png"
+    },
+    {
+      "image_query": "お金を数える人",
+      "image_query_alt": "札束",
+      "topic": "年収と幸福感の頭打ち説の検証",
+      "category": "幸福感",
+      "source": "Kahneman・Deaton（2010年）／Killingsworth（2021年、ともに米国科学アカデミー紀要）",
+      "lines": [
+        {
+          "caption": "年収7万5000ドルで\n幸せは頭打ち？",
+          "say": "年収がおよそ7万5000ドルを超えると、幸せは頭打ちになる、といわれてきました。"
+        },
+        {
+          "caption": "45万件の調査で\nそう見えた",
+          "say": "45万件以上の調査データを分析した、2010年の研究がもとになっています。"
+        },
+        {
+          "caption": "のちに170万件超の\nデータで再検証",
+          "say": "ところが、170万件を超えるデータを使った、のちの研究では違う結果が出ました。"
+        },
+        {
+          "caption": "頭打ちは見られず\n年収とともに上昇",
+          "say": "年収が上がるほど、幸福感も頭打ちなく上がり続けていたのです。"
+        }
+      ],
+      "pmid": "33468644",
+      "image": "envelop_money.png",
+      "image_page": "https://www.irasutoya.com/2019/02/blog-post_8.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない幸福感の雑学10選【論文で確認済み】幸せは伝染する",
+    "description": "幸福感についての雑学10選。すべて研究論文や公的資料で数値を確かめています。",
+    "tags": [
+      "雑学",
+      "幸福感",
+      "心理学",
+      "ウェルビーイング",
+      "SNS疲れ",
+      "ボランティア",
+      "豆知識"
+    ],
+    "sources": [
+      "Fowler JH, Christakis NA. 英国医師会雑誌 2008 https://europepmc.org/article/MED/19056788",
+      "Dunn EW, Aknin LB, Norton MI. サイエンス誌 2008 https://europepmc.org/article/MED/18356530",
+      "Blanchflower DG, Oswald AJ. 社会科学と医学誌 2008 https://europepmc.org/article/MED/18316146",
+      "Lambert J ほか. サイバー心理学誌 2022 https://europepmc.org/article/MED/35512731",
+      "Helliwell JF, Wang S. プロスワン誌 2015 https://europepmc.org/article/MED/26699709",
+      "McConnell AR ほか. 人格社会心理学誌 2011 https://europepmc.org/article/MED/21728449",
+      "Wheeler JA ほか. 加齢と人間発達国際誌 1998 https://europepmc.org/article/MED/9718488",
+      "Liu S ほか. バイオデモグラフィー誌 2025 https://europepmc.org/article/MED/40195127",
+      "Seligman MEP ほか. 米国心理学会誌 2005 https://europepmc.org/article/MED/16045394",
+      "Kahneman D, Deaton A. 米国科学アカデミー紀要 2010 https://europepmc.org/article/MED/20823223",
+      "Killingsworth MA. 米国科学アカデミー紀要 2021 https://europepmc.org/article/MED/33468644"
+    ]
+  }
+}
