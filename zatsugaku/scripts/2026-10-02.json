@@ -1,0 +1,332 @@
+{
+  "title": "9割が知らない 暮らしと健康の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n暮らしと健康の雑学",
+          "say": "知って得する、暮らしと健康の雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "筋トレ",
+      "image_query_alt": "ダンベル",
+      "topic": "筋トレの時間と死亡リスク",
+      "category": "筋トレ",
+      "source": "Momma ほか（2022年・英国スポーツ医学誌）",
+      "pmid": "35228201",
+      "lines": [
+        {
+          "caption": "筋トレは\n週にどれくらい？",
+          "say": "筋トレは、週にどれくらいやればいいのでしょうか。"
+        },
+        {
+          "caption": "16の研究を\nまとめた分析",
+          "say": "16の研究をまとめた分析では、筋トレをする人ほど、死亡や心臓病などのリスクが低くなっていました。"
+        },
+        {
+          "caption": "週30〜60分で\nリスク10〜20%低下",
+          "say": "リスクが最も低かったのは週30分から60分ほどで、およそ10から20パーセント低くなっていました。"
+        },
+        {
+          "caption": "それ以上の効果は\nはっきりしない",
+          "say": "それより長くやった場合の効果は、はっきりしませんでした。"
+        }
+      ],
+      "image": "undou_calf_raise.png",
+      "image_page": "https://www.irasutoya.com/2020/11/blog-post_24.html"
+    },
+    {
+      "image_query": "ナッツ",
+      "image_query_alt": "アーモンド",
+      "topic": "ナッツと死亡リスク",
+      "category": "栄養",
+      "source": "Bao ほか（2013年・ニューイングランド医学誌）",
+      "pmid": "24256379",
+      "lines": [
+        {
+          "caption": "ナッツを食べる人は\n長生き？",
+          "say": "ナッツをよく食べる人は、長生きする傾向があるようです。"
+        },
+        {
+          "caption": "約12万人を\n最長30年追跡",
+          "say": "アメリカの医療職、およそ12万人を、最長30年追いかけた研究があります。"
+        },
+        {
+          "caption": "毎日食べる人は\n死亡リスク20%低い",
+          "say": "ナッツを毎日食べる人は、食べない人に比べて、死亡のリスクが20パーセント低くなっていました。"
+        },
+        {
+          "caption": "週1回でも\n11%低かった",
+          "say": "週に1回の人でも、11パーセント低くなっていました。"
+        }
+      ],
+      "image": "nut_pecan.png",
+      "image_page": "https://www.irasutoya.com/2018/08/blog-post_341.html"
+    },
+    {
+      "image_query": "散歩",
+      "image_query_alt": "森",
+      "topic": "自然の中で過ごす時間と幸福感",
+      "category": "幸福感",
+      "source": "White ほか（2019年・サイエンティフィック・リポーツ）",
+      "pmid": "31197192",
+      "lines": [
+        {
+          "caption": "自然の中で過ごすのは\n週に何分？",
+          "say": "公園や森など、自然の中で過ごす時間は、週に何分あるといいのでしょうか。"
+        },
+        {
+          "caption": "イギリスの\n約2万人を調査",
+          "say": "イギリスのおよそ2万人を調べた研究では、"
+        },
+        {
+          "caption": "週120分以上で\n健康・幸福感が高い",
+          "say": "自然の中で週120分以上過ごした人ほど、健康で、幸福感が高いと答えていました。"
+        },
+        {
+          "caption": "1回でも小分けでも\n同じだった",
+          "say": "まとめて1回でも、何回かに分けても、違いはありませんでした。"
+        }
+      ],
+      "image": "yagai_kyoushitsu_casual_walk.png",
+      "image_page": "https://www.irasutoya.com/2020/03/blog-post_784.html"
+    },
+    {
+      "image_query": "水 コップ",
+      "image_query_alt": "ダイエット",
+      "topic": "食前の水と減量",
+      "category": "ダイエット",
+      "source": "Dennis ほか（2010年・肥満学会誌）",
+      "pmid": "19661958",
+      "lines": [
+        {
+          "caption": "食事の前に\n水を500ml",
+          "say": "毎食の前に、水を500ミリリットル飲むと、体重が落ちやすくなるかもしれません。"
+        },
+        {
+          "caption": "55〜75歳の\n48人の実験",
+          "say": "太りぎみの55歳から75歳の、48人の実験です。全員がカロリーを控えた食事をしました。"
+        },
+        {
+          "caption": "12週間で\n約2kg多くやせた",
+          "say": "12週間後、食前に水を飲んだ人たちは、飲まなかった人たちより、およそ2キロ多くやせていました。"
+        }
+      ],
+      "image": "medical_ugai_kusuri_glass_blue.png",
+      "image_page": "https://www.irasutoya.com/2020/08/blog-post_35.html"
+    },
+    {
+      "image_query": "寝不足",
+      "image_query_alt": "あくび",
+      "topic": "寝不足と顔の見た目",
+      "category": "美容",
+      "source": "Axelsson ほか（2010年・英国医師会雑誌）",
+      "pmid": "21156746",
+      "lines": [
+        {
+          "caption": "寝不足は\n顔に出る",
+          "say": "寝不足は、本当に顔に出るようです。"
+        },
+        {
+          "caption": "よく寝た日と\n寝不足の日の写真",
+          "say": "23人の若い大人の顔写真を、よく眠った翌日と、寝不足で31時間起き続けたあとに撮りました。"
+        },
+        {
+          "caption": "65人が\n見比べると",
+          "say": "これを65人に見比べてもらうと、"
+        },
+        {
+          "caption": "寝不足の顔は\n不健康・魅力が低い",
+          "say": "寝不足の顔は、健康そうに見えず、魅力も低いと評価されました。"
+        }
+      ],
+      "image": "nebusoku_doctor_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/06/blog-post_90.html"
+    },
+    {
+      "image_query": "マッチングアプリ",
+      "image_query_alt": "結婚式",
+      "topic": "ネットで出会った夫婦",
+      "category": "恋愛",
+      "source": "Cacioppo ほか（2013年・米国科学アカデミー紀要）",
+      "pmid": "23733955",
+      "lines": [
+        {
+          "caption": "ネットで出会った夫婦は\n長続きしない？",
+          "say": "ネットで出会った夫婦は、長続きしないと思っていませんか。"
+        },
+        {
+          "caption": "アメリカの\n約1万9千人を調査",
+          "say": "2005年から2012年に結婚した、アメリカのおよそ1万9千人を調べた研究では、"
+        },
+        {
+          "caption": "3組に1組以上が\nネットで出会っていた",
+          "say": "3組に1組以上が、ネットで出会っていました。"
+        },
+        {
+          "caption": "離婚はわずかに少なく\n満足度はわずかに高い",
+          "say": "しかも、離婚や別居はわずかに少なく、結婚の満足度はわずかに高くなっていました。"
+        }
+      ],
+      "image": "smartphone_matching_app_renai.png",
+      "image_page": "https://www.irasutoya.com/2018/06/blog-post_201.html"
+    },
+    {
+      "image_query": "サウナ",
+      "image_query_alt": "銭湯",
+      "topic": "サウナと心臓の突然死",
+      "category": "病気予防",
+      "source": "Laukkanen ほか（2015年・米国医師会雑誌 内科版）",
+      "pmid": "25705824",
+      "lines": [
+        {
+          "caption": "サウナに通う人ほど\n心臓の突然死が少ない",
+          "say": "サウナによく入る人ほど、心臓の突然死が少ないという研究があります。"
+        },
+        {
+          "caption": "フィンランドの男性\n2315人を約20年",
+          "say": "フィンランドの、2315人の中年男性を、およそ20年追いかけた研究です。"
+        },
+        {
+          "caption": "週4〜7回の人は\nリスクが63%低い",
+          "say": "週に4回から7回入る人は、週1回の人に比べて、心臓の突然死のリスクが63パーセント低くなっていました。"
+        }
+      ],
+      "image": "ofuro_sauna_neppashi_woman.png",
+      "image_page": "https://www.irasutoya.com/2022/01/blog-post_31.html"
+    },
+    {
+      "image_query": "シャワー",
+      "image_query_alt": "冷水",
+      "topic": "冷水シャワーと病欠",
+      "category": "健康情報",
+      "source": "Buijze ほか（2016年・プロスワン）",
+      "pmid": "27631616",
+      "lines": [
+        {
+          "caption": "シャワーの最後を\n冷水にすると？",
+          "say": "シャワーの最後を、冷たい水に切り替えるとどうなるでしょうか。"
+        },
+        {
+          "caption": "3018人で\n30日間の実験",
+          "say": "3018人の大人を、くじ引きで分けて、30日間続けてもらった実験では、"
+        },
+        {
+          "caption": "仕事を休んだ日が\n29%少なかった",
+          "say": "冷水シャワーの人たちは、病気で仕事を休む日が、29パーセント少なくなっていました。"
+        },
+        {
+          "caption": "病気になった日数は\n変わらなかった",
+          "say": "ただし、体調をくずした日数そのものは、変わりませんでした。"
+        }
+      ],
+      "image": "character_ofuro_bath.png",
+      "image_page": "https://www.irasutoya.com/2024/11/blog-post_85.html"
+    },
+    {
+      "image_query": "目標",
+      "image_query_alt": "老後",
+      "topic": "生きがいと死亡リスク",
+      "category": "人生",
+      "source": "Alimujiang ほか（2019年・米国医師会雑誌 ネットワーク・オープン）",
+      "pmid": "31125099",
+      "lines": [
+        {
+          "caption": "生きがいがある人ほど\n長生き",
+          "say": "生きがいを強く感じている人ほど、長生きする傾向があります。"
+        },
+        {
+          "caption": "50歳以上の\n約7000人を調査",
+          "say": "アメリカの50歳以上、およそ7000人を調べた研究では、"
+        },
+        {
+          "caption": "生きがいが低い人は\n死亡リスク2.4倍",
+          "say": "人生の目的を感じる度合いが最も低い人は、最も高い人に比べて、死亡のリスクが約2.4倍でした。"
+        }
+      ],
+      "image": "challenge_mokuhyou_businesswoman.png",
+      "image_page": "https://www.irasutoya.com/2018/08/blog-post_700.html"
+    },
+    {
+      "image_query": "睡眠",
+      "image_query_alt": "認知症",
+      "topic": "中年期の睡眠時間と認知症",
+      "category": "認知症予防",
+      "source": "Sabia ほか（2021年・ネイチャー・コミュニケーションズ）",
+      "pmid": "33879784",
+      "lines": [
+        {
+          "caption": "50〜60代の睡眠が\n認知症に関わる",
+          "say": "50代、60代の睡眠時間が、のちの認知症に関わっているかもしれません。"
+        },
+        {
+          "caption": "イギリスの約8000人を\n25年追跡",
+          "say": "イギリスのおよそ8000人を、25年間追いかけた研究では、"
+        },
+        {
+          "caption": "睡眠6時間以下が\nずっと続くと",
+          "say": "50歳から70歳まで、ずっと睡眠が6時間以下だった人は、"
+        },
+        {
+          "caption": "7時間の人より\nリスク30%高い",
+          "say": "7時間の人より、認知症のリスクが30パーセント高くなっていました。"
+        }
+      ],
+      "image": "sleep_tracker_woman.png",
+      "image_page": "https://www.irasutoya.com/2021/05/blog-post_325.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない暮らしと健康の雑学10選【論文で確認済み】サウナと長生き",
+    "description": "サウナ、ナッツ、冷水シャワー、ネットの出会いまで。暮らしと健康の雑学を10個、すべて研究論文の要旨で数値を確かめて紹介します。",
+    "tags": [
+      "雑学",
+      "健康",
+      "暮らし",
+      "筋トレ",
+      "サウナ",
+      "睡眠",
+      "認知症予防",
+      "ダイエット",
+      "豆知識"
+    ],
+    "sources": [
+      "Momma H ほか. 英国スポーツ医学誌 2022;56:755-63 https://europepmc.org/article/MED/35228201",
+      "Bao Y ほか. ニューイングランド医学誌 2013;369:2001-11 https://europepmc.org/article/MED/24256379",
+      "White MP ほか. サイエンティフィック・リポーツ 2019;9:7730 https://europepmc.org/article/MED/31197192",
+      "Dennis EA ほか. 肥満学会誌 2010;18:300-7 https://europepmc.org/article/MED/19661958",
+      "Axelsson J ほか. 英国医師会雑誌 2010;341:c6614 https://europepmc.org/article/MED/21156746",
+      "Cacioppo JT ほか. 米国科学アカデミー紀要 2013;110:10135-40 https://europepmc.org/article/MED/23733955",
+      "Laukkanen T ほか. 米国医師会雑誌 内科版 2015;175:542-8 https://europepmc.org/article/MED/25705824",
+      "Buijze GA ほか. プロスワン 2016;11:e0161749 https://europepmc.org/article/MED/27631616",
+      "Alimujiang A ほか. 米国医師会雑誌 ネットワーク・オープン 2019;2:e194270 https://europepmc.org/article/MED/31125099",
+      "Sabia S ほか. ネイチャー・コミュニケーションズ 2021;12:2289 https://europepmc.org/article/MED/33879784"
+    ]
+  }
+}

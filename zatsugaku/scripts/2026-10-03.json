@@ -1,0 +1,328 @@
+{
+  "theme": "筋トレ",
+  "title": "9割が知らない 筋トレの雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n筋トレの雑学",
+          "say": "知って得する、筋トレの雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "ダンベル",
+      "image_query_alt": "筋トレ",
+      "topic": "軽い重さと重い重さの筋肥大の比較",
+      "category": "筋トレ",
+      "source": "Morton ほか（2016年・応用生理学誌）",
+      "pmid": "27174923",
+      "lines": [
+        {
+          "caption": "軽いダンベルでも\n筋肉は育つ？",
+          "say": "筋肉を大きくするには、重いダンベルが必要だと思っていませんか。"
+        },
+        {
+          "caption": "経験者49人が\n12週間の筋トレ",
+          "say": "筋トレ経験のある49人の男性が、12週間、全身の筋トレをした実験があります。"
+        },
+        {
+          "caption": "軽めで20〜25回\n重めで8〜12回",
+          "say": "軽めの重さで20回から25回、重めの重さで8回から12回、どちらも限界まで行いました。"
+        },
+        {
+          "caption": "筋肉の増え方に\n差はなかった",
+          "say": "すると、筋肉の増え方に、はっきりした差はありませんでした。"
+        }
+      ],
+      "image": "undou_kettlebell_dumbbell.png",
+      "image_page": "https://www.irasutoya.com/2019/08/blog-post_49.html"
+    },
+    {
+      "image_query": "ベンチプレス",
+      "image_query_alt": "筋トレ 男性",
+      "topic": "週のセット数と筋肥大の量反応関係",
+      "category": "筋トレ",
+      "source": "Schoenfeld ほか（2017年・スポーツ科学誌）",
+      "pmid": "27433992",
+      "lines": [
+        {
+          "caption": "セット数を増やすと\nどうなる？",
+          "say": "筋トレのセット数は、多いほうがいいのでしょうか。"
+        },
+        {
+          "caption": "15の研究を\nまとめた分析",
+          "say": "15の研究をまとめた分析では、1週間のセット数が多いほど、筋肉が大きくなっていました。"
+        },
+        {
+          "caption": "1セット増えるごとに\n増え方+0.37%",
+          "say": "1セット増えるごとに、筋肉の増え方が0.37パーセントずつ大きくなる関係でした。"
+        }
+      ],
+      "image": "undou_bench_press_woman.png",
+      "image_page": "https://www.irasutoya.com/2018/10/blog-post_8.html"
+    },
+    {
+      "image_query": "休憩",
+      "image_query_alt": "ストップウォッチ",
+      "topic": "セット間の休憩時間と筋肥大",
+      "category": "筋トレ",
+      "source": "Schoenfeld ほか（2016年・米国筋力コンディショニング学会誌）",
+      "pmid": "26605807",
+      "lines": [
+        {
+          "caption": "セット間の休憩は\n短いほどいい？",
+          "say": "セットの間の休憩は、短いほうがいいと思っていませんか。"
+        },
+        {
+          "caption": "休憩1分と3分で\n8週間比べた",
+          "say": "筋トレ経験のある21人の若い男性を、休憩1分と3分に分けて、8週間比べた実験があります。"
+        },
+        {
+          "caption": "3分のほうが\n筋力が大きく伸びた",
+          "say": "3分休んだほうが、スクワットとベンチプレスの筋力が大きく伸びました。"
+        },
+        {
+          "caption": "太ももの筋肉も\n厚くなった",
+          "say": "太ももの前の筋肉も、3分休んだほうが厚くなっていました。"
+        }
+      ],
+      "image": "drink_suibun_hokyuu_sagyouin_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/05/blog-post_119.html"
+    },
+    {
+      "image_query": "うつ",
+      "image_query_alt": "悩む 女性",
+      "topic": "筋トレと抑うつ症状",
+      "category": "筋トレ",
+      "source": "Gordon ほか（2018年・米国医師会雑誌 精神医学版）",
+      "pmid": "29800984",
+      "lines": [
+        {
+          "caption": "筋トレは\n気分にも関係ある？",
+          "say": "筋トレは、気分の落ち込みとも関係があるのでしょうか。"
+        },
+        {
+          "caption": "33の試験\n約1900人を分析",
+          "say": "33の試験、およそ1900人をまとめた分析では、筋トレで抑うつ症状が軽くなっていました。"
+        },
+        {
+          "caption": "筋力の伸びとは\n関係なかった",
+          "say": "しかもこの結果は、筋力がどれだけ伸びたかとは関係がありませんでした。"
+        }
+      ],
+      "image": "medical_hikari_ryouhou_woman.png",
+      "image_page": "https://www.irasutoya.com/2019/11/blog-post_98.html"
+    },
+    {
+      "image_query": "女性 筋トレ",
+      "image_query_alt": "ダンベル 女性",
+      "topic": "筋トレの効果の男女差",
+      "category": "筋トレ",
+      "source": "Roberts ほか（2020年・米国筋力コンディショニング学会誌）",
+      "pmid": "32218059",
+      "lines": [
+        {
+          "caption": "女性は筋トレの\n効果が出にくい？",
+          "say": "女性は、男性より筋トレの効果が出にくいと思われがちです。"
+        },
+        {
+          "caption": "同じ内容で\n男女を比べると",
+          "say": "同じ内容の筋トレで男女を比べた研究をまとめると、筋肉の大きくなり方に差はありませんでした。"
+        },
+        {
+          "caption": "上半身の筋力は\n女性のほうが伸びた",
+          "say": "上半身の筋力の伸び率は、むしろ女性のほうが大きくなっていました。"
+        }
+      ],
+      "image": "undou_back_extension_woman.png",
+      "image_page": "https://www.irasutoya.com/2019/11/blog-post_35.html"
+    },
+    {
+      "image_query": "血圧計",
+      "image_query_alt": "血圧",
+      "topic": "運動の種類と安静時の血圧",
+      "category": "筋トレ",
+      "source": "Edwards ほか（2023年・英国スポーツ医学誌）",
+      "pmid": "37491419",
+      "lines": [
+        {
+          "caption": "血圧を下げるのに\n筋トレはどう？",
+          "say": "血圧が気になる人に、筋トレはどうなのでしょうか。"
+        },
+        {
+          "caption": "270の試験\n約1万6千人",
+          "say": "270の試験、およそ1万6千人をまとめた分析があります。"
+        },
+        {
+          "caption": "筋トレで\n上の血圧4.55下がる",
+          "say": "ダンベルなどを動かす筋トレでは、上の血圧が平均4.55下がっていました。"
+        },
+        {
+          "caption": "止めて力を入れる\n筋トレは8.24",
+          "say": "体を動かさずに力を入れ続ける筋トレでは、8.24下がり、調べた運動の中で最も大きい下がり方でした。"
+        }
+      ],
+      "image": "medical_ketsuatsukei_aneroid.png",
+      "image_page": "https://www.irasutoya.com/2019/12/blog-post_934.html"
+    },
+    {
+      "image_query": "不安",
+      "image_query_alt": "心配",
+      "topic": "筋トレと不安症状",
+      "category": "筋トレ",
+      "source": "Gordon ほか（2017年・スポーツ医学誌）",
+      "pmid": "28819746",
+      "lines": [
+        {
+          "caption": "筋トレと\n不安な気持ち",
+          "say": "筋トレは、不安な気持ちとも関係があります。"
+        },
+        {
+          "caption": "16の試験\n922人を分析",
+          "say": "16の試験、922人をまとめた分析では、筋トレで不安の症状が軽くなっていました。"
+        },
+        {
+          "caption": "健康な人ほど\n差が大きかった",
+          "say": "特に、病気のない健康な人で、より大きな差が見られました。"
+        }
+      ],
+      "image": "kowai_interphone.png",
+      "image_page": "https://www.irasutoya.com/2018/12/blog-post_202.html"
+    },
+    {
+      "image_query": "疲れた 運動",
+      "image_query_alt": "汗",
+      "topic": "限界まで追い込む筋トレの必要性",
+      "category": "筋トレ",
+      "source": "Grgic ほか（2022年・スポーツ健康科学誌）",
+      "pmid": "33497853",
+      "lines": [
+        {
+          "caption": "毎回、限界まで\n追い込むべき？",
+          "say": "筋トレは、毎回もう上がらない限界まで、追い込むべきなのでしょうか。"
+        },
+        {
+          "caption": "15の研究を\nまとめた分析",
+          "say": "15の研究をまとめた分析では、限界までやる場合と、手前でやめる場合を比べました。"
+        },
+        {
+          "caption": "筋力も筋肉も\nはっきりした差なし",
+          "say": "全体では、筋力にも筋肉の大きさにも、はっきりした差はありませんでした。"
+        },
+        {
+          "caption": "限界までは\n必ずしも要らない",
+          "say": "限界まで追い込むことは、必ずしも必要ではないようです。"
+        }
+      ],
+      "image": "rmoney_rich_ase.png",
+      "image_page": "https://www.irasutoya.com/2020/08/blog-post_835.html"
+    },
+    {
+      "image_query": "ジム",
+      "image_query_alt": "トレーニングマシン",
+      "topic": "筋肉を伸ばした姿勢での筋トレと筋肥大",
+      "category": "筋トレ",
+      "source": "Maeo ほか（2021年・米国スポーツ医学会誌）",
+      "pmid": "33009197",
+      "lines": [
+        {
+          "caption": "同じ種目でも\n姿勢で差が出る",
+          "say": "同じ種目でも、姿勢を変えるだけで、筋肉のつき方が変わることがあります。"
+        },
+        {
+          "caption": "座ってと\nうつぶせで比べた",
+          "say": "20人が12週間、片脚は座って、もう片脚はうつぶせで、太ももの裏を鍛える実験をしました。"
+        },
+        {
+          "caption": "座ったほうが\n+14% 対 +9%",
+          "say": "太ももの裏の筋肉は、座ったほうが14パーセント、うつぶせは9パーセント増えました。"
+        },
+        {
+          "caption": "筋肉を伸ばした\n姿勢が有利",
+          "say": "筋肉が伸びた姿勢で鍛えるほうが、大きくなりやすいと考えられています。"
+        }
+      ],
+      "image": "building_sports_gym.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_98.html"
+    },
+    {
+      "image_query": "力こぶ",
+      "image_query_alt": "腕相撲",
+      "topic": "鍛える筋肉を意識する集中と筋肥大",
+      "category": "筋トレ",
+      "source": "Schoenfeld ほか（2018年・欧州スポーツ科学誌）",
+      "pmid": "29533715",
+      "lines": [
+        {
+          "caption": "筋肉を意識すると\n大きくなる？",
+          "say": "鍛えている筋肉を意識すると、筋肉は大きくなりやすいのでしょうか。"
+        },
+        {
+          "caption": "初心者30人が\n8週間の筋トレ",
+          "say": "筋トレ初心者の30人の男性が、8週間、筋トレをした実験があります。"
+        },
+        {
+          "caption": "力こぶの筋肉を\n意識した人は12.4%",
+          "say": "力こぶの筋肉を意識した人は、筋肉の厚さが12.4パーセント増えました。"
+        },
+        {
+          "caption": "結果を意識した人は\n6.9%",
+          "say": "重りを上げることを意識した人は、6.9パーセントでした。"
+        }
+      ],
+      "image": "chikarakobu.png",
+      "image_page": "https://www.irasutoya.com/2013/06/blog-post_861.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない筋トレの雑学10選【論文で確認済み】軽い重さでも筋肉は育つ",
+    "description": "軽いダンベルの効果、休憩時間、セット数、女性の筋トレ、血圧や気分との関係まで。筋トレの雑学を10個、すべて研究論文の要旨で数値を確かめて紹介します。",
+    "tags": [
+      "雑学",
+      "筋トレ",
+      "筋肥大",
+      "ダンベル",
+      "血圧",
+      "メンタル",
+      "女性 筋トレ",
+      "豆知識"
+    ],
+    "sources": [
+      "Morton RW ほか. 応用生理学誌 2016;121:129-38 https://europepmc.org/article/MED/27174923",
+      "Schoenfeld BJ ほか. スポーツ科学誌 2017;35:1073-82 https://europepmc.org/article/MED/27433992",
+      "Schoenfeld BJ ほか. 米国筋力コンディショニング学会誌 2016;30:1805-12 https://europepmc.org/article/MED/26605807",
+      "Gordon BR ほか. 米国医師会雑誌 精神医学版 2018;75:566-76 https://europepmc.org/article/MED/29800984",
+      "Roberts BM ほか. 米国筋力コンディショニング学会誌 2020;34:1448-60 https://europepmc.org/article/MED/32218059",
+      "Edwards JJ ほか. 英国スポーツ医学誌 2023;57:1317-26 https://europepmc.org/article/MED/37491419",
+      "Gordon BR ほか. スポーツ医学誌 2017;47:2521-32 https://europepmc.org/article/MED/28819746",
+      "Grgic J ほか. スポーツ健康科学誌 2022;11:202-11 https://europepmc.org/article/MED/33497853",
+      "Maeo S ほか. 米国スポーツ医学会誌 2021;53:825-37 https://europepmc.org/article/MED/33009197",
+      "Schoenfeld BJ ほか. 欧州スポーツ科学誌 2018;18:705-12 https://europepmc.org/article/MED/29533715"
+    ]
+  }
+}
