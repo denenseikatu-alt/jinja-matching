@@ -8,8 +8,7 @@
     python3 build_video.py script.json -o out/ --slides-only
 
 音声は VOICEVOX ENGINE (既定 http://127.0.0.1:50021) で合成する。
---engine openai のときは OpenAI の音声合成（api.openai.com）を使う。鍵は作業場所の
-ネットワークシークレットが通信の途中で付けるので、ここでは読まない。
+ChatGPT（OpenAI）の声はアクセントが不自然なため使わない（2026-10-30 オーナーの指示）。
 場面に "image" があれば、スライドの右側にその絵を置く。
 lines の各行は文字列か {"text": 字幕, "say": 読み上げ} のどちらでもよい。
 字幕のタイムコードは、推定ではなく合成した wav の実長から組み立てる。
@@ -23,7 +22,6 @@ import shutil
 import subprocess
 import sys
 import urllib.parse
-import urllib.error
 import urllib.request
 import wave
 from pathlib import Path
@@ -262,34 +260,6 @@ OPENJTALK_CREDIT = (
 )
 
 
-OPENAI_TTS_URL = "https://api.openai.com/v1/audio/speech"
-
-
-def synth_openai(text: str, voice: str, model: str, instructions: str, out_path: Path) -> None:
-    body = {"model": model, "voice": voice, "input": text, "response_format": "wav"}
-    if instructions:
-        body["instructions"] = instructions
-    req = urllib.request.Request(
-        OPENAI_TTS_URL,
-        data=json.dumps(body).encode("utf-8"),
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    raw = out_path.with_suffix(".raw.wav")
-    try:
-        with urllib.request.urlopen(req, timeout=180) as r:
-            raw.write_bytes(r.read())
-    except urllib.error.HTTPError as e:
-        sys.exit(f"OpenAI の音声合成に失敗しました（{e.code}）: {e.read()[:300]!r}")
-    # 届く wav はヘッダーの長さが「不明」のままなので、ffmpeg で書き直して実長を入れる
-    subprocess.run([ffmpeg_bin(), "-y", "-loglevel", "error", "-i", str(raw), str(out_path)], check=True)
-    raw.unlink()
-
-
-def openai_credit(model: str, voice: str) -> str:
-    return f"OpenAI の音声合成（{model}・声 {voice}）による AI 音声"
-
-
 def synth_openjtalk(text: str, out_path: Path) -> None:
     """VOICEVOX が使えない環境向けのローカル合成。声質は素朴だが外部接続が要らない。"""
     try:
@@ -381,12 +351,8 @@ def main() -> None:
     ap.add_argument("--font", default=None, help="日本語フォントを直接指定する")
     ap.add_argument("--narrator", default="assets_video/narrator.png",
                     help="スライド右下に置く語り手の画像。無ければ置かない")
-    ap.add_argument("--engine", choices=["voicevox", "openjtalk", "openai"], default="voicevox",
+    ap.add_argument("--engine", choices=["voicevox", "openjtalk"], default="voicevox",
                     help="音声合成の方式。openjtalk はローカル完結だが声質は素朴")
-    ap.add_argument("--voice", default="marin", help="--engine openai の声")
-    ap.add_argument("--tts-model", default="gpt-4o-mini-tts", help="--engine openai のモデル")
-    ap.add_argument("--tts-instructions", default="落ち着いた日本語のニュース読み上げ。はっきり、ややゆっくり。",
-                    help="--engine openai の話し方の指示")
     ap.add_argument("--fps", type=int, default=30, help="動画のコマ数。スライドだけなら小さくして容量を減らせる")
     ap.add_argument("--audio-bitrate", default="192k")
     ap.add_argument("--keep-audio", action="store_true",
@@ -453,8 +419,6 @@ def main() -> None:
                 pass
             elif args.engine == "openjtalk":
                 synth_openjtalk(say, wav)
-            elif args.engine == "openai":
-                synth_openai(say, args.voice, args.tts_model, args.tts_instructions, wav)
             else:
                 synth(say, speaker, args.host, wav)
             first_wav = first_wav or wav
@@ -510,8 +474,6 @@ def main() -> None:
     # 5. アップロード用の付随情報（実測タイムから作る）
     if args.engine == "openjtalk":
         credit = OPENJTALK_CREDIT
-    elif args.engine == "openai":
-        credit = openai_credit(args.tts_model, args.voice)
     else:
         credit = speaker_credit(speaker, args.host)
     (outdir / "credits.txt").write_text(credit + "\n", encoding="utf-8")
