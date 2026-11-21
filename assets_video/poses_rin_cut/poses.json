@@ -1,0 +1,172 @@
+{
+ "_説明": "全サイト紹介動画の凛（全身・画面中央）の試作。絵は poses_rin（Gemini）を make_pose_cutouts.py --room inpaint で切り抜いた。顔が小さいので口とまぶたは描かず、ポーズの切り替えと体の揺れで見せる",
+ "background": "assets_video/poses_rin_cut/room_clean.png",
+ "groups": {
+  "greet": [
+   "wave",
+   "bow"
+  ],
+  "screen": [
+   "point_left",
+   "explain",
+   "lookleft"
+  ],
+  "look": [
+   "lookleft",
+   "lookright"
+  ],
+  "talk": [
+   "talk",
+   "explain",
+   "idea",
+   "think",
+   "thumbsup",
+   "clap",
+   "caution",
+   "hands_heart",
+   "laugh",
+   "surprise",
+   "shy",
+   "wink",
+   "nod",
+   "point_viewer",
+   "smile"
+  ],
+  "bye": [
+   "bye",
+   "wave"
+  ]
+ },
+ "poses": {
+  "base": {
+   "image": "assets_video/poses_rin_cut/smile.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "smile": {
+   "image": "assets_video/poses_rin_cut/smile.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "bow": {
+   "image": "assets_video/poses_rin_cut/bow.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "bye": {
+   "image": "assets_video/poses_rin_cut/bye.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "caution": {
+   "image": "assets_video/poses_rin_cut/caution.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "clap": {
+   "image": "assets_video/poses_rin_cut/clap.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "explain": {
+   "image": "assets_video/poses_rin_cut/explain.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "hands_heart": {
+   "image": "assets_video/poses_rin_cut/hands_heart.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "idea": {
+   "image": "assets_video/poses_rin_cut/idea.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "laugh": {
+   "image": "assets_video/poses_rin_cut/laugh.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "lookleft": {
+   "image": "assets_video/poses_rin_cut/lookleft.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "lookright": {
+   "image": "assets_video/poses_rin_cut/lookright.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "nod": {
+   "image": "assets_video/poses_rin_cut/nod.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "point_left": {
+   "image": "assets_video/poses_rin_cut/point_left.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "point_right": {
+   "image": "assets_video/poses_rin_cut/point_right.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "point_viewer": {
+   "image": "assets_video/poses_rin_cut/point_viewer.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "serious": {
+   "image": "assets_video/poses_rin_cut/serious.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "shy": {
+   "image": "assets_video/poses_rin_cut/shy.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "surprise": {
+   "image": "assets_video/poses_rin_cut/surprise.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "talk": {
+   "image": "assets_video/poses_rin_cut/talk.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "think": {
+   "image": "assets_video/poses_rin_cut/think.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "thumbsup": {
+   "image": "assets_video/poses_rin_cut/thumbsup.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "turn": {
+   "image": "assets_video/poses_rin_cut/turn.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "walk": {
+   "image": "assets_video/poses_rin_cut/walk.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "wave": {
+   "image": "assets_video/poses_rin_cut/wave.png",
+   "mouth": null,
+   "eyes": []
+  },
+  "wink": {
+   "image": "assets_video/poses_rin_cut/wink.png",
+   "mouth": null,
+   "eyes": []
+  }
+ }
+}

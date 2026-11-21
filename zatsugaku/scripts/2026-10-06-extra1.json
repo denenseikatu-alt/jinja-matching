@@ -1,0 +1,327 @@
+{
+  "theme": "夫婦生活",
+  "title": "9割が知らない 夫婦生活の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n夫婦生活の雑学",
+          "say": "知って得する、夫婦生活の雑学。"
+        },
+        {
+          "caption": "メリットも\nデメリットも",
+          "say": "今日は、夫婦生活のメリットとデメリットを、研究論文で確かめた10個です。"
+        }
+      ]
+    },
+    {
+      "image_query": "夫婦喧嘩",
+      "image_query_alt": "喧嘩",
+      "topic": "夫婦げんかと傷の治りの速さ",
+      "category": "夫婦生活",
+      "source": "Kiecolt-Glaser ほか（2005年・米国医師会雑誌 精神医学版）",
+      "pmid": "16330726",
+      "lines": [
+        {
+          "caption": "夫婦げんかは\n傷の治りに影響？",
+          "say": "夫婦げんかは、体の傷の治り方にも関係するのでしょうか。"
+        },
+        {
+          "caption": "42組の夫婦で\n実験",
+          "say": "42組の夫婦が、病院の研究施設で、話し合いをする実験に参加しました。"
+        },
+        {
+          "caption": "言い争いの後は\n傷の治りが遅い",
+          "say": "意見の食い違いを話し合った後は、支え合う話をした後より、小さな傷の治りが遅くなっていました。"
+        }
+      ],
+      "image": "rikon_kodomo.png",
+      "image_page": "https://www.irasutoya.com/2014/07/blog-post_5.html"
+    },
+    {
+      "image_query": "心臓",
+      "image_query_alt": "ハート",
+      "topic": "結婚の有無と心臓・血管の病気",
+      "category": "夫婦生活",
+      "source": "Wong ほか（2018年・心臓誌）",
+      "pmid": "29921571",
+      "lines": [
+        {
+          "caption": "結婚と\n心臓の病気",
+          "say": "結婚しているかどうかは、心臓の病気とも関係があります。"
+        },
+        {
+          "caption": "34の研究\n200万人以上",
+          "say": "34の研究、200万人以上をまとめた分析があります。"
+        },
+        {
+          "caption": "結婚していない人は\nリスク42%高い",
+          "say": "結婚していない人は、心臓や血管の病気のリスクが、42パーセント高くなっていました。"
+        }
+      ],
+      "image": "medical_hojo_jinkou_shinzou_woman.png",
+      "image_page": "https://www.irasutoya.com/2021/03/blog-post_4.html"
+    },
+    {
+      "image_query": "介護",
+      "image_query_alt": "老老介護",
+      "topic": "配偶者の介護の負担と死亡リスク",
+      "category": "夫婦生活",
+      "source": "Schulz・Beach（1999年・米国医師会雑誌）",
+      "pmid": "10605972",
+      "lines": [
+        {
+          "caption": "配偶者の介護と\n自分の健康",
+          "say": "年をとってからの、配偶者の介護は、自分の健康にも関係します。"
+        },
+        {
+          "caption": "66〜96歳の\n約800人を追跡",
+          "say": "66歳から96歳の、およそ800人を4年あまり追いかけた研究があります。"
+        },
+        {
+          "caption": "負担を感じる介護で\n死亡リスク63%高い",
+          "say": "負担を感じながら配偶者を介護している人は、死亡のリスクが63パーセント高くなっていました。"
+        },
+        {
+          "caption": "負担がなければ\n差はなかった",
+          "say": "一方、負担を感じずに介護している人では、はっきりした差はありませんでした。"
+        }
+      ],
+      "image": "medical_bed_kaigo.png",
+      "image_page": "https://www.irasutoya.com/2024/06/blog-post_736.html"
+    },
+    {
+      "image_query": "認知症",
+      "image_query_alt": "老夫婦",
+      "topic": "結婚の有無と認知症",
+      "category": "夫婦生活",
+      "source": "Sommerlad ほか（2018年・英国神経学神経外科精神医学誌）",
+      "pmid": "29183957",
+      "lines": [
+        {
+          "caption": "結婚と\n認知症の関係",
+          "say": "結婚と認知症の関係を調べた研究もあります。"
+        },
+        {
+          "caption": "15の研究\n約81万人",
+          "say": "15の研究、およそ81万人をまとめた分析では、"
+        },
+        {
+          "caption": "ずっと独身の人は\nリスク42%高い",
+          "say": "ずっと独身の人は、結婚している人より、認知症のリスクが42パーセント高くなっていました。"
+        },
+        {
+          "caption": "健康状態の差も\n関係していた",
+          "say": "ただし、体の健康状態の違いも、この差に関係していると考えられています。"
+        }
+      ],
+      "image": "sick_ninchisyou_zentousokutougata.png",
+      "image_page": "https://www.irasutoya.com/2025/03/blog-post.html"
+    },
+    {
+      "image_query": "糖尿病",
+      "image_query_alt": "血糖値",
+      "topic": "配偶者の糖尿病と自分の糖尿病",
+      "category": "夫婦生活",
+      "source": "Leong ほか（2014年・BMC医学誌）",
+      "pmid": "24460622",
+      "lines": [
+        {
+          "caption": "夫婦は病気も\n似てくる？",
+          "say": "夫婦は、病気まで似てくることがあります。"
+        },
+        {
+          "caption": "約7万5千組の\n夫婦を分析",
+          "say": "およそ7万5千組の夫婦をまとめた分析では、"
+        },
+        {
+          "caption": "配偶者が糖尿病だと\nリスク26%高い",
+          "say": "配偶者が糖尿病だと、自分も糖尿病になるリスクが26パーセント高くなっていました。"
+        },
+        {
+          "caption": "食事や運動の習慣を\n共有するため",
+          "say": "食事や運動などの生活習慣を、一緒に過ごす中で共有するためと考えられています。"
+        }
+      ],
+      "image": "medical_machine_insulin_pump_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/10/blog-post_784.html"
+    },
+    {
+      "image_query": "病院",
+      "image_query_alt": "お医者さん",
+      "topic": "結婚の有無とがんの経過",
+      "category": "夫婦生活",
+      "source": "Aizer ほか（2013年・米国臨床腫瘍学会誌）",
+      "pmid": "24062405",
+      "lines": [
+        {
+          "caption": "結婚と\nがんの経過",
+          "say": "がんの経過と、結婚の関係を調べた研究があります。"
+        },
+        {
+          "caption": "がん患者\n約126万人",
+          "say": "アメリカのがん患者、およそ126万人のデータでは、"
+        },
+        {
+          "caption": "結婚している人は\nがんの死亡20%低い",
+          "say": "結婚している人は、がんで亡くなるリスクが20パーセント低くなっていました。"
+        },
+        {
+          "caption": "転移した状態で\n見つかることも少ない",
+          "say": "転移した状態で見つかることも、少なくなっていました。"
+        }
+      ],
+      "image": "medical_bed_kaigo_reclining.png",
+      "image_page": "https://www.irasutoya.com/2024/06/blog-post_10.html"
+    },
+    {
+      "image_query": "心臓病",
+      "image_query_alt": "胸が痛い",
+      "topic": "夫婦関係のストレスと女性の心臓病の再発",
+      "category": "夫婦生活",
+      "source": "Orth-Gomér ほか（2000年・米国医師会雑誌）",
+      "pmid": "11122587",
+      "lines": [
+        {
+          "caption": "夫婦のストレスと\n心臓病",
+          "say": "夫婦関係のストレスは、心臓にも負担になることがあります。"
+        },
+        {
+          "caption": "心臓病の女性\n187人を追跡",
+          "say": "スウェーデンで、心臓病で入院した、結婚や同居をしている187人の女性を追いかけた研究では、"
+        },
+        {
+          "caption": "再発リスクが\n2.9倍",
+          "say": "夫婦関係のストレスが強い人は、心臓病の再発のリスクが2.9倍になっていました。"
+        }
+      ],
+      "image": "sick_itai_mune_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/08/blog-post_70.html"
+    },
+    {
+      "image_query": "夫婦",
+      "image_query_alt": "仲良し 夫婦",
+      "topic": "夫婦関係の質と健康",
+      "category": "夫婦生活",
+      "source": "Robles ほか（2014年・心理学紀要）",
+      "pmid": "23527470",
+      "lines": [
+        {
+          "caption": "大事なのは\n関係の質",
+          "say": "結婚しているかどうかだけでなく、関係の質も大切です。"
+        },
+        {
+          "caption": "7万2千人以上\n126の研究",
+          "say": "126の研究、7万2千人以上をまとめた分析では、夫婦関係の質が高い人ほど、健康状態が良くなっていました。"
+        },
+        {
+          "caption": "個人差は\n大きい",
+          "say": "ただ、その差は小さく、個人差も大きいことが分かっています。"
+        }
+      ],
+      "image": "eto_hebi_couple.png",
+      "image_page": "https://www.irasutoya.com/2024/10/blog-post_30.html"
+    },
+    {
+      "image_query": "体重計",
+      "image_query_alt": "太った人",
+      "topic": "結婚と体重の増加",
+      "category": "夫婦生活",
+      "source": "Tang ほか（2024年・BMC公衆衛生誌）",
+      "pmid": "39725877",
+      "lines": [
+        {
+          "caption": "結婚すると\n太りやすい？",
+          "say": "結婚すると、太りやすくなるのでしょうか。"
+        },
+        {
+          "caption": "中国の約4万4千件の\nデータ",
+          "say": "中国の、およそ4万4千件のデータを分析した研究では、"
+        },
+        {
+          "caption": "太りぎみになる確率が\n6.5%高まった",
+          "say": "結婚すると、太りぎみになる確率が6.5パーセント高まっていました。"
+        },
+        {
+          "caption": "運動が減ることが\n主な理由",
+          "say": "結婚後に運動が減ることが、主な理由と考えられています。"
+        }
+      ],
+      "image": "kenkoushindan03_taijuu_boy.png",
+      "image_page": "https://www.irasutoya.com/2019/02/blog-post_585.html"
+    },
+    {
+      "image_query": "禁煙",
+      "image_query_alt": "タバコ",
+      "topic": "パートナーの健康習慣の変化と自分の変化",
+      "category": "夫婦生活",
+      "source": "Jackson ほか（2015年・米国医師会雑誌 内科版）",
+      "pmid": "25599511",
+      "lines": [
+        {
+          "caption": "パートナーが\n禁煙すると",
+          "say": "パートナーが禁煙すると、自分もやめやすくなります。"
+        },
+        {
+          "caption": "50歳以上の\n3722組の夫婦",
+          "say": "イギリスで、50歳以上の3722組の夫婦を調べた研究では、"
+        },
+        {
+          "caption": "禁煙できた男性\n48% 対 8%",
+          "say": "妻が禁煙した男性の48パーセントが禁煙したのに対し、妻が吸い続けた男性では8パーセントでした。"
+        },
+        {
+          "caption": "運動や減量でも\n同じ傾向",
+          "say": "運動や減量でも、同じ傾向が見られました。"
+        }
+      ],
+      "image": "nicotine_gum.png",
+      "image_page": "https://www.irasutoya.com/2019/09/blog-post_96.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない夫婦生活の雑学10選【論文で確認済み】夫婦は病気も似てくる",
+    "description": "夫婦げんかと傷の治り、介護の負担、心臓や認知症との関係、パートナーの禁煙まで。夫婦生活のメリットとデメリットを10個、すべて研究論文の要旨で数値を確かめて紹介します。どれも集団の傾向で、個人差は大きいことにご注意ください。",
+    "tags": [
+      "雑学",
+      "夫婦生活",
+      "夫婦",
+      "結婚",
+      "健康",
+      "介護",
+      "豆知識"
+    ],
+    "sources": [
+      "Kiecolt-Glaser JK ほか. 米国医師会雑誌 精神医学版 2005;62:1377-84 https://europepmc.org/article/MED/16330726",
+      "Wong CW ほか. 心臓誌 2018;104:1937-48 https://europepmc.org/article/MED/29921571",
+      "Schulz R, Beach SR. 米国医師会雑誌 1999;282:2215-9 https://europepmc.org/article/MED/10605972",
+      "Sommerlad A ほか. 英国神経学神経外科精神医学誌 2018;89:231-8 https://europepmc.org/article/MED/29183957",
+      "Leong A ほか. BMC医学誌 2014;12:12 https://europepmc.org/article/MED/24460622",
+      "Aizer AA ほか. 米国臨床腫瘍学会誌 2013;31:3869-76 https://europepmc.org/article/MED/24062405",
+      "Orth-Gomér K ほか. 米国医師会雑誌 2000;284:3008-14 https://europepmc.org/article/MED/11122587",
+      "Robles TF ほか. 心理学紀要 2014;140:140-87 https://europepmc.org/article/MED/23527470",
+      "Tang F ほか. BMC公衆衛生誌 2024;24:3591 https://europepmc.org/article/MED/39725877",
+      "Jackson SE ほか. 米国医師会雑誌 内科版 2015;175:385-92 https://europepmc.org/article/MED/25599511"
+    ]
+  }
+}

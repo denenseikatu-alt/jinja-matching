@@ -1,0 +1,304 @@
+{
+  "theme": "栄養",
+  "title": "9割が知らない 栄養の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n栄養の雑学",
+          "say": "知って得する、栄養の雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文で確かめた、体づくりの栄養の話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "朝食",
+      "image_query_alt": "スクワット",
+      "topic": "朝食抜きと筋トレのパフォーマンス",
+      "category": "栄養",
+      "source": "Bin Naharudin ほか（2019年・体力・コンディショニング研究誌）",
+      "pmid": "30707135",
+      "lines": [
+        {
+          "caption": "朝食を抜いて\n筋トレすると？",
+          "say": "朝食を抜いてから筋トレをすると、どうなるのでしょうか。"
+        },
+        {
+          "caption": "筋トレ経験者\n16人の男性で比較",
+          "say": "筋トレ経験のある16人の男性が、朝食をとる日ととらない日を比べました。"
+        },
+        {
+          "caption": "スクワットの反復数\n58回 対 68回",
+          "say": "限界までのスクワットの反復回数は、朝食を抜いた日が58回、とった日が68回でした。"
+        }
+      ],
+      "image": "pan_toast_jam.png",
+      "image_page": "https://www.irasutoya.com/2018/11/blog-post_90.html"
+    },
+    {
+      "image_query": "朝ごはん",
+      "image_query_alt": "たんぱく質",
+      "topic": "たんぱく質を均等に分ける食べ方と筋肉をつくる働き",
+      "category": "栄養",
+      "source": "Mamerow ほか（2014年・米国栄養学会誌）",
+      "pmid": "24477298",
+      "lines": [
+        {
+          "caption": "たんぱく質は\n夜にまとめて？",
+          "say": "たんぱく質は、夕食にまとめてとればいい、と思っていませんか。"
+        },
+        {
+          "caption": "8人の食事を\n1週間ずつ比較",
+          "say": "8人が、均等に分けた食事と、夕食に偏らせた食事を、1週間ずつ試しました。"
+        },
+        {
+          "caption": "均等に分けた方が\n筋肉をつくる働き25%高い",
+          "say": "均等に分けて食べたほうが、24時間の筋肉をつくる働きが、25%高くなっていました。"
+        }
+      ],
+      "image": "food_taiwan_shentoujan.png",
+      "image_page": "https://www.irasutoya.com/2022/01/blog-post_17.html"
+    },
+    {
+      "image_query": "牛肉",
+      "image_query_alt": "筋トレ お婆さん",
+      "topic": "赤身肉を使った高たんぱく食と高齢女性の筋肉",
+      "category": "栄養",
+      "source": "Daly ほか（2014年・米国臨床栄養学会誌）",
+      "pmid": "24477043",
+      "lines": [
+        {
+          "caption": "赤身肉で\n筋トレの効果アップ？",
+          "say": "赤身肉をしっかり食べると、筋トレの効果が上がるのでしょうか。"
+        },
+        {
+          "caption": "60〜90歳の100人が\n赤身肉160gで4か月筋トレ",
+          "say": "60歳から90歳の100人の女性が、赤身肉160グラムを週6日多く食べながら4か月筋トレを続けました。"
+        },
+        {
+          "caption": "筋肉量が増え\n筋力は18%アップ",
+          "say": "赤身肉を多く食べたグループは、筋肉量が増え、筋力も18%高くなっていました。"
+        }
+      ],
+      "image": "food_yukkejan.png",
+      "image_page": "https://www.irasutoya.com/2020/11/blog-post_21.html"
+    },
+    {
+      "image_query": "卵",
+      "image_query_alt": "卵白",
+      "topic": "全卵と卵白、筋トレ後にとる効果の違い",
+      "category": "栄養",
+      "source": "Bagheri ほか（2021年・体力・コンディショニング研究誌）",
+      "pmid": "33306586",
+      "lines": [
+        {
+          "caption": "全卵と卵白\n効果に差はある？",
+          "say": "筋トレのあと、全卵と卵白では、効果に違いがあるのでしょうか。"
+        },
+        {
+          "caption": "筋トレ経験者30人が\n12週間比較",
+          "say": "筋トレ経験のある30人の男性が、筋トレの直後に、全卵3個か卵白6個分をとりました。"
+        },
+        {
+          "caption": "全卵のグループは\n握力・筋力が向上",
+          "say": "全卵をとったグループのほうが、握力や膝の筋力の伸びが大きくなっていました。"
+        }
+      ],
+      "image": "food_nattou_tamago_gohan.png",
+      "image_page": "https://www.irasutoya.com/2021/12/blog-post_24.html"
+    },
+    {
+      "image_query": "牛乳",
+      "image_query_alt": "握力計",
+      "topic": "牛乳を飲む量と握力の関連",
+      "category": "栄養",
+      "source": "Granic ほか（2023年・英国栄養学雑誌）",
+      "pmid": "35795912",
+      "lines": [
+        {
+          "caption": "牛乳をよく飲む人は\n握力が強い？",
+          "say": "牛乳をよく飲む人は、将来の握力も強いままなのでしょうか。"
+        },
+        {
+          "caption": "2723人を\n33年間追跡",
+          "say": "2723人を、36歳から69歳まで、33年間追いかけたイギリスの研究があります。"
+        },
+        {
+          "caption": "減脂肪乳をよく飲む人は\n握力が弱くなるリスク低い",
+          "say": "減脂肪乳を多く飲んでいた人は、69歳で握力が弱くなるリスクが低くなっていました。"
+        }
+      ],
+      "image": "ofuro_drink_milk_woman.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_417.html"
+    },
+    {
+      "image_query": "断食",
+      "image_query_alt": "ダイエット",
+      "topic": "食べる時間を8時間に区切る食事法と筋トレの効果",
+      "category": "栄養",
+      "source": "Correia ほか（2023年・ニュートリエンツ誌）",
+      "pmid": "36678156",
+      "lines": [
+        {
+          "caption": "食べる時間を\n8時間に区切ると？",
+          "say": "1日に食べる時間を8時間に区切ると、筋トレの効果は変わるのでしょうか。"
+        },
+        {
+          "caption": "筋トレ経験者18人が\nふだんの食事と比較",
+          "say": "筋トレ経験のある18人が、ふだんの食事と、8時間に区切った食事を4週間ずつ試しました。"
+        },
+        {
+          "caption": "脂肪や筋肉量は同じでも\n上下半身で伸び方に違い",
+          "say": "脂肪や筋肉量の変化はどちらも同じでしたが、上半身の力と下半身のジャンプ力の伸び方には違いが見られました。"
+        }
+      ],
+      "image": "hunger_strike.png",
+      "image_page": "https://www.irasutoya.com/2016/02/blog-post_464.html"
+    },
+    {
+      "image_query": "ご飯",
+      "image_query_alt": "パスタ",
+      "topic": "炭水化物のとる量と筋トレの効果",
+      "category": "栄養",
+      "source": "Ribeiro ほか（2023年・国際運動科学誌）",
+      "pmid": "37114196",
+      "lines": [
+        {
+          "caption": "炭水化物を減らすと\n筋肉がつきにくい？",
+          "say": "炭水化物を減らすと、筋トレで筋肉がつきにくくなるのでしょうか。"
+        },
+        {
+          "caption": "筋トレ経験者29人が\n8週間比較",
+          "say": "筋トレ経験のある29人が、炭水化物を少なめ、または多めにとり、8週間筋トレをしました。"
+        },
+        {
+          "caption": "筋肉量の増え方は同じ\n腕の筋力は多めが優位",
+          "say": "筋肉量の増え方はほぼ同じでしたが、腕の筋力は多めのグループのほうがより伸びていました。"
+        }
+      ],
+      "image": "syokuji_girl_silent.png",
+      "image_page": "https://www.irasutoya.com/2021/03/blog-post_42.html"
+    },
+    {
+      "image_query": "豆腐",
+      "image_query_alt": "ベジタリアン",
+      "topic": "動物性たんぱく質とヴィーガンの高たんぱく食、筋肉の増え方の比較",
+      "category": "栄養",
+      "source": "Monteyne ほか（2023年・米国栄養学会誌）",
+      "pmid": "36822394",
+      "lines": [
+        {
+          "caption": "動物性でなくても\n筋肉はつく？",
+          "say": "動物性のたんぱく質でなくても、筋トレで筋肉はきちんと発達するのでしょうか。"
+        },
+        {
+          "caption": "22人が10週間の\n高強度の筋トレ",
+          "say": "22人が、肉を使った食事か、動物性食品を使わない高たんぱく食で、10週間筋トレをしました。"
+        },
+        {
+          "caption": "筋肉の太さも\n筋力も同じように増加",
+          "say": "どちらの食事でも、太ももの筋肉の太さや筋力は、同じくらい増えていました。"
+        }
+      ],
+      "image": "food_tofu_bar.png",
+      "image_page": "https://www.irasutoya.com/2024/06/blog-post_07.html"
+    },
+    {
+      "image_query": "野菜",
+      "image_query_alt": "握力計",
+      "topic": "野菜・果物の摂取量を増やすことと高齢者の握力",
+      "category": "栄養",
+      "source": "Neville ほか（2013年・老年学誌エイジ）",
+      "pmid": "23543264",
+      "lines": [
+        {
+          "caption": "野菜と果物を増やすと\n握力も強くなる？",
+          "say": "野菜と果物を多く食べると、高齢になっても握力が強くなるのでしょうか。"
+        },
+        {
+          "caption": "65〜85歳の83人が\n16週間試した",
+          "say": "65歳から85歳の83人が、ふだんの量か、5皿分以上の野菜・果物を、16週間試しました。"
+        },
+        {
+          "caption": "握力は強まる傾向も\nはっきりした差はなし",
+          "say": "多く食べたグループのほうが握力が強くなる傾向はありましたが、統計的にはっきりした差とは言えませんでした。"
+        }
+      ],
+      "image": "food_perimeni.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_923.html"
+    },
+    {
+      "image_query": "ベジタリアン",
+      "image_query_alt": "筋トレ 女性",
+      "topic": "ベジタリアンの女性と筋トレの効果",
+      "category": "栄養",
+      "source": "Martini ほか（2026年・北欧スポーツ医学誌）",
+      "pmid": "41684167",
+      "lines": [
+        {
+          "caption": "たんぱく質が少なめでも\n効果は変わらない？",
+          "say": "たんぱく質が少なめでも、筋トレの効果は変わらないのでしょうか。"
+        },
+        {
+          "caption": "25人の厳格な\nベジタリアン女性で比較",
+          "say": "25人の厳格なベジタリアンの女性と、20人のふつうの食事の女性が、16週間筋トレをしました。"
+        },
+        {
+          "caption": "たんぱく質は少なめでも\n筋肉の伸び方は同じ",
+          "say": "ベジタリアンのグループはたんぱく質の摂取量が少なめでしたが、筋肉の太さや筋力の伸び方に差は見られませんでした。"
+        }
+      ],
+      "image": "syokuji_vegetarian.png",
+      "image_page": "https://www.irasutoya.com/2016/04/blog-post_591.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない栄養の雑学10選【朝食抜きでスクワット15%減】",
+    "description": "体づくりのための栄養について、論文で確かめた10個の雑学を紹介します。食べる時間・たんぱく質の配分・食材選びなど、知っておきたい話をまとめました。",
+    "tags": [
+      "雑学",
+      "栄養",
+      "筋トレ",
+      "たんぱく質",
+      "食事",
+      "筋肥大",
+      "ダイエット",
+      "豆知識"
+    ],
+    "sources": [
+      "Bin Naharudin MN ほか. 体力・コンディショニング研究誌 2019;33:1766-72 https://europepmc.org/article/MED/30707135",
+      "Mamerow MM ほか. 米国栄養学会誌 2014;144:876-80 https://europepmc.org/article/MED/24477298",
+      "Daly RM ほか. 米国臨床栄養学会誌 2014;99:899-910 https://europepmc.org/article/MED/24477043",
+      "Bagheri R ほか. 体力・コンディショニング研究誌 2021;35:411-9 https://europepmc.org/article/MED/33306586",
+      "Granic A ほか. 英国栄養学雑誌 2023;129:820-31 https://europepmc.org/article/MED/35795912",
+      "Correia JM ほか. ニュートリエンツ誌 2023;15:285 https://europepmc.org/article/MED/36678156",
+      "Ribeiro AS ほか. 国際運動科学誌 2023;16:267-80 https://europepmc.org/article/MED/37114196",
+      "Monteyne AJ ほか. 米国栄養学会誌 2023;153:1680-95 https://europepmc.org/article/MED/36822394",
+      "Neville CE ほか. 老年学誌エイジ 2013;35:2409-22 https://europepmc.org/article/MED/23543264",
+      "Martini GL ほか. 北欧スポーツ医学誌 2026;36:e70224 https://europepmc.org/article/MED/41684167"
+    ]
+  }
+}

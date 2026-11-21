@@ -1,0 +1,318 @@
+{
+  "theme": "婚活",
+  "title": "9割が知らない 婚活の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n婚活の雑学",
+          "say": "知って得する、婚活の雑学。"
+        },
+        {
+          "caption": "全部、調査や論文で\n確かめました",
+          "say": "今日の10個は、国の調査や論文で確かめた話だけを集めました。"
+        }
+      ]
+    },
+    {
+      "image_query": "パソコン 女性",
+      "image_query_alt": "スマホ カップル",
+      "topic": "出会いのきっかけでネットが学校を上回る",
+      "category": "婚活",
+      "source": "国立社会保障・人口問題研究所「第17回出生動向基本調査」(2026年発表)",
+      "url": "https://www.ipss.go.jp/ps-doukou/j/doukou17/JNFS17gaiyo.pdf",
+      "lines": [
+        {
+          "caption": "出会いのきっかけ\n今やネットが2割",
+          "say": "いま、夫婦が出会ったきっかけで、ネットが学校を上回っています。"
+        },
+        {
+          "caption": "国の調査による\n直近5年の夫婦",
+          "say": "国の調査で、直近5年に結婚した夫婦を聞いたところ、"
+        },
+        {
+          "caption": "ネットが11%から\n20.2%に倍増",
+          "say": "インターネットがきっかけという人が、11パーセントから20.2パーセントに倍増していました。"
+        },
+        {
+          "caption": "学校の14%を\n初めて上回った",
+          "say": "これは、学校で出会った14パーセントを、初めて上回る結果です。"
+        }
+      ],
+      "image": "neochi_computer_woman.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_11.html"
+    },
+    {
+      "image_query": "結婚式",
+      "image_query_alt": "お見合い",
+      "topic": "お見合い結婚は戦前は主流、今は1%ほど",
+      "category": "婚活",
+      "source": "国立社会保障・人口問題研究所「第17回出生動向基本調査」(2026年発表)",
+      "url": "https://www.ipss.go.jp/ps-doukou/j/doukou17/JNFS17gaiyo.pdf",
+      "lines": [
+        {
+          "caption": "お見合い結婚は\n昔は当たり前だった",
+          "say": "お見合い結婚は、かつて日本の結婚のほとんどを占めていました。"
+        },
+        {
+          "caption": "1935年ごろは\n69%がお見合い",
+          "say": "1935年から39年に結婚した夫婦では、69パーセントがお見合い結婚でした。"
+        },
+        {
+          "caption": "今はわずか1%\n恋愛結婚が71%に",
+          "say": "2020年から24年の夫婦では、お見合い結婚はわずか1パーセント、恋愛結婚が71.4パーセントです。"
+        }
+      ],
+      "image": "tablet_online_wedding.png",
+      "image_page": "https://www.irasutoya.com/2020/06/blog-post_990.html"
+    },
+    {
+      "image_query": "家計簿",
+      "image_query_alt": "プロポーズ",
+      "topic": "結婚相手に求める条件、重視する点が変化",
+      "category": "婚活",
+      "source": "国立社会保障・人口問題研究所「第17回出生動向基本調査」(2026年発表)",
+      "url": "https://www.ipss.go.jp/ps-doukou/j/doukou17/JNFS17gaiyo.pdf",
+      "lines": [
+        {
+          "caption": "結婚相手に求める条件は\n時代とともに変わる",
+          "say": "結婚相手に何を求めるかは、時代とともに変わっています。"
+        },
+        {
+          "caption": "経済力を重視する男性\n1992年の2倍に",
+          "say": "女性に経済力を重視する男性の割合は、1992年の26.7%から2025年には55.6%に増えました。"
+        },
+        {
+          "caption": "家事育児の能力を重視\nする女性も7割近くに",
+          "say": "男性に家事や育児の能力を重視する女性の割合も、1997年の43.6%から2025年には68.4%に増えています。"
+        }
+      ],
+      "image": "money_kakeibo_happy.png",
+      "image_page": "https://www.irasutoya.com/2017/11/blog-post_609.html"
+    },
+    {
+      "image_query": "悩む 女性",
+      "image_query_alt": "一人暮らし",
+      "topic": "いずれ結婚するつもり、初めて8割を下回る",
+      "category": "婚活",
+      "source": "国立社会保障・人口問題研究所「第17回出生動向基本調査」(2026年発表)",
+      "url": "https://www.ipss.go.jp/ps-doukou/j/doukou17/JNFS17gaiyo.pdf",
+      "lines": [
+        {
+          "caption": "「いずれ結婚する\nつもり」が急減",
+          "say": "いずれ結婚するつもり、と答える未婚者が減っています。"
+        },
+        {
+          "caption": "男性75.1%\n女性77.8%に",
+          "say": "18歳から34歳の未婚者では、男性が75.1%、女性が77.8%でした。"
+        },
+        {
+          "caption": "調査開始以来\n初めて8割を下回る",
+          "say": "この調査が始まって以来、男女とも初めて8割を下回りました。"
+        }
+      ],
+      "image": "kenkyu_woman_shikinbusoku.png",
+      "image_page": "https://www.irasutoya.com/2018/10/blog-post_521.html"
+    },
+    {
+      "image_query": "考える 男性",
+      "image_query_alt": "ひとり 男性",
+      "topic": "結婚するつもりがない人も、気持ちが変わる可能性",
+      "category": "婚活",
+      "source": "国立社会保障・人口問題研究所「第17回出生動向基本調査」(2026年発表)",
+      "url": "https://www.ipss.go.jp/ps-doukou/j/doukou17/JNFS17gaiyo.pdf",
+      "lines": [
+        {
+          "caption": "「結婚するつもりは\nない」と答えた人でも",
+          "say": "一生結婚するつもりはない、と答えた人も。"
+        },
+        {
+          "caption": "男性の4割\n女性の5割弱が",
+          "say": "男性のおよそ4割、女性のおよそ5割が、"
+        },
+        {
+          "caption": "考えが変わる\n可能性があると回答",
+          "say": "今後、考えが変わる可能性がある、または、あるかもしれないと答えています。"
+        },
+        {
+          "caption": "理由は「結婚したい\n相手が現れたら」",
+          "say": "理由として多かったのは、結婚したいと思う相手が現れることでした。"
+        }
+      ],
+      "image": "pose_shinpai_fukidashi_man.png",
+      "image_page": "https://www.irasutoya.com/2018/02/blog-post_84.html"
+    },
+    {
+      "image_query": "大学生",
+      "image_query_alt": "オフィス 女性",
+      "topic": "独身でいる理由は年代で違う",
+      "category": "婚活",
+      "source": "国立社会保障・人口問題研究所「第17回出生動向基本調査」(2026年発表)",
+      "url": "https://www.ipss.go.jp/ps-doukou/j/doukou17/JNFS17gaiyo.pdf",
+      "lines": [
+        {
+          "caption": "独身でいる理由は\n年代でかなり違う",
+          "say": "独身でいる理由は、年代によってかなり違います。"
+        },
+        {
+          "caption": "18〜24歳は\n「結婚はまだ早い」",
+          "say": "18歳から24歳では、結婚するにはまだ若すぎる、という理由が上位でした。"
+        },
+        {
+          "caption": "25〜34歳は\n「相手にめぐり会わない」",
+          "say": "25歳から34歳では、適当な相手にまだめぐり会わない、という理由が最も多くなっています。"
+        },
+        {
+          "caption": "もちろん\n個人差は大きいです",
+          "say": "もちろん、独身でいる理由には、個人差が大きいことも忘れないでください。"
+        }
+      ],
+      "image": "school_tani_get_girl.png",
+      "image_page": "https://www.irasutoya.com/2017/12/blog-post_6.html"
+    },
+    {
+      "image_query": "電話 お年寄り",
+      "image_query_alt": "契約書",
+      "topic": "結婚相手紹介サービスのトラブルにも注意",
+      "category": "婚活",
+      "source": "独立行政法人国民生活センター（2017年10月19日公表）",
+      "url": "https://www.kokusen.go.jp/news/data/n-20171019_1.html",
+      "lines": [
+        {
+          "caption": "結婚相談所の\nトラブルにも注意",
+          "say": "結婚相手を紹介するサービスをめぐるトラブルも、報告されています。"
+        },
+        {
+          "caption": "国民生活センターに\n年500件超の相談",
+          "say": "国民生活センターには、2012年度から2016年度まで、毎年500件以上の相談が寄せられていました。"
+        },
+        {
+          "caption": "親への訪問・電話\n勧誘がきっかけ",
+          "say": "中でも多いのが、親への訪問や電話による勧誘がきっかけのケースです。"
+        },
+        {
+          "caption": "トラブル割合\n43.9%→52.2%に",
+          "say": "その割合は、2012年度の43.9%から2017年度には52.2%に増えています。"
+        }
+      ],
+      "image": "money_syunyuinshi.png",
+      "image_page": "https://www.irasutoya.com/2016/12/blog-post_143.html"
+    },
+    {
+      "image_query": "スマホ 検索",
+      "image_query_alt": "お見合い",
+      "topic": "AIマッチングで出会いを後押しする自治体も",
+      "category": "婚活",
+      "source": "こども家庭庁「令和5年版 地域少子化対策重点推進交付金採択事例集」",
+      "url": "https://www.cfa.go.jp/assets/contents/node/basic_page/field_ref_resources/d92922d1-a79e-4798-bcd6-d2da80498467/31201849/20251015_policies_shoushika_koufukin_06.pdf",
+      "lines": [
+        {
+          "caption": "自治体が婚活を\n支援する例も",
+          "say": "自治体が、婚活を支援する取り組みも広がっています。"
+        },
+        {
+          "caption": "大分県の支援拠点\n5年で156組成婚",
+          "say": "大分県の出会いサポートセンターでは、2018年度からの5年間で、合計156組が成婚しました。"
+        },
+        {
+          "caption": "AIマッチング導入後\nお見合いが12%増",
+          "say": "価値観診断をもとにしたAIマッチングを導入したあと、お見合いの件数が12%増えています。"
+        }
+      ],
+      "image": "renai_feeling_couple.png",
+      "image_page": "https://www.irasutoya.com/2019/02/blog-post_80.html"
+    },
+    {
+      "image_query": "仲人",
+      "image_query_alt": "相談窓口",
+      "topic": "ボランティアの仲人役が支える結婚支援",
+      "category": "婚活",
+      "source": "こども家庭庁「令和5年版 地域少子化対策重点推進交付金採択事例集」",
+      "url": "https://www.cfa.go.jp/assets/contents/node/basic_page/field_ref_resources/d92922d1-a79e-4798-bcd6-d2da80498467/31201849/20251015_policies_shoushika_koufukin_06.pdf",
+      "lines": [
+        {
+          "caption": "ボランティアの\n仲人役もいる",
+          "say": "ボランティアが仲人役を務める結婚支援もあります。"
+        },
+        {
+          "caption": "石川県の「縁結びist」\n641人が活動",
+          "say": "石川県では、縁結びistと呼ばれるボランティアが641人活動しています。"
+        },
+        {
+          "caption": "累計の成婚数は\n1266組に",
+          "say": "この仕組みを含めた県の結婚支援事業で、累計1266組が結婚しました。"
+        }
+      ],
+      "image": "soudan_uketsuke_madoguchi_sheet.png",
+      "image_page": "https://www.irasutoya.com/2020/05/blog-post.html"
+    },
+    {
+      "image_query": "合コン",
+      "image_query_alt": "パーティー 男女",
+      "topic": "好みと実際に選ぶ相手は一致しない",
+      "category": "婚活",
+      "source": "Todd PM ほか（2007年・米国科学アカデミー紀要）",
+      "pmid": "17827279",
+      "lines": [
+        {
+          "caption": "婚活パーティーで\n選ぶ相手は？",
+          "say": "婚活パーティーのような場で選ぶ相手は、事前の好みどおりでしょうか。"
+        },
+        {
+          "caption": "46人の\nスピードデーティング実験",
+          "say": "46人が参加したスピードデーティングの実験があります。"
+        },
+        {
+          "caption": "事前に答えた好みは\n実際の選択と一致せず",
+          "say": "事前に答えた理想の相手の条件は、実際にその場で選んだ相手とは、一致していませんでした。"
+        },
+        {
+          "caption": "男性は見た目\n女性はより選び抜いた",
+          "say": "男性は相手の身体的な魅力を重視して選び、女性はより選び抜いて相手を決めていました。"
+        }
+      ],
+      "image": "nomikai_nigate.png",
+      "image_page": "https://www.irasutoya.com/2015/11/blog-post_71.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない婚活の雑学10選【ネット婚が2割に急増】",
+    "description": "国の結婚動向調査や自治体の婚活支援データ、心理学の研究から、婚活にまつわる10個の事実をまとめました。",
+    "tags": [
+      "雑学",
+      "婚活",
+      "結婚",
+      "出会い",
+      "マッチング",
+      "結婚相談所",
+      "お見合い",
+      "豆知識"
+    ],
+    "sources": [
+      "国立社会保障・人口問題研究所「2025年社会保障・人口問題基本調査（結婚と出産に関する全国調査）第17回出生動向基本調査 結果の概要」2026年9月 https://www.ipss.go.jp/ps-doukou/j/doukou17/JNFS17gaiyo.pdf",
+      "独立行政法人国民生活センター「子の未婚は親の責任？－結婚相手紹介サービスの、親への訪問や電話勧誘にご注意ください－」2017年10月19日 https://www.kokusen.go.jp/news/data/n-20171019_1.html",
+      "こども家庭庁「令和5年版 地域少子化対策重点推進交付金採択事例集」 https://www.cfa.go.jp/assets/contents/node/basic_page/field_ref_resources/d92922d1-a79e-4798-bcd6-d2da80498467/31201849/20251015_policies_shoushika_koufukin_06.pdf",
+      "Todd PM ほか. 米国科学アカデミー紀要 2007;104:15011-15016 https://europepmc.org/article/MED/17827279"
+    ]
+  }
+}

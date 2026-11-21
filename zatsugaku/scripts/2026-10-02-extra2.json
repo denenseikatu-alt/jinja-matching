@@ -1,0 +1,328 @@
+{
+  "theme": "栄養",
+  "title": "9割が知らない 栄養の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n栄養の雑学",
+          "say": "知って得する、栄養の雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文や公的な資料で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "唐辛子",
+      "image_query_alt": "激辛",
+      "topic": "唐辛子と死亡リスク",
+      "category": "栄養",
+      "source": "Chopan・Littenberg（2017年・プロスワン）",
+      "pmid": "28068423",
+      "lines": [
+        {
+          "caption": "辛いもの好きは\n長生きする？",
+          "say": "辛いもの好きの人は、長生きするのでしょうか。"
+        },
+        {
+          "caption": "1万6179人を\n平均19年近く追跡",
+          "say": "アメリカで1万6179人を、平均19年近く追いかけた研究があります。"
+        },
+        {
+          "caption": "唐辛子を食べる人は\n死亡リスクが13%低い",
+          "say": "唐辛子を食べる習慣がある人は、死亡のリスクが13パーセント低くなっていました。"
+        },
+        {
+          "caption": "死亡率は21.6%\n対33.6%だった",
+          "say": "食べる人の死亡率は21.6パーセント、食べない人は33.6パーセントでした。"
+        }
+      ],
+      "image": "cooking_olio_piccante.png",
+      "image_page": "https://www.irasutoya.com/2020/10/blog-post_40.html"
+    },
+    {
+      "image_query": "寝坊",
+      "image_query_alt": "トースト",
+      "topic": "朝食抜きと心血管死亡",
+      "category": "栄養",
+      "source": "Rong ほか（2019年・米国心臓病学会誌）",
+      "pmid": "31023424",
+      "lines": [
+        {
+          "caption": "朝食を抜く習慣は\n体に悪い？",
+          "say": "朝食を抜く習慣は、体に悪いのでしょうか。"
+        },
+        {
+          "caption": "6550人を\n平均20年近く追跡",
+          "say": "6550人を、平均で20年近く追いかけた研究があります。"
+        },
+        {
+          "caption": "朝食を全く食べない人は\n心臓の死亡が1.87倍",
+          "say": "朝食を全く食べない人は、心臓の病気で亡くなるリスクが、1.87倍になっていました。"
+        }
+      ],
+      "image": "nesugosu_woman.png",
+      "image_page": "https://www.irasutoya.com/2014/08/blog-post_848.html"
+    },
+    {
+      "image_query": "インスタント食品",
+      "image_query_alt": "スナック菓子",
+      "topic": "超加工食品と死亡リスク",
+      "category": "栄養",
+      "source": "Schnabel ほか（2019年・米国医師会雑誌 内科版）",
+      "pmid": "30742202",
+      "lines": [
+        {
+          "caption": "袋入りのお菓子や\n即席麺は体に悪い？",
+          "say": "袋入りのお菓子や、即席麺のような超加工食品は、体に悪いのでしょうか。"
+        },
+        {
+          "caption": "4万4551人を\n平均7年あまり追跡",
+          "say": "フランスで4万4551人を、平均7年あまり追いかけた研究があります。"
+        },
+        {
+          "caption": "超加工食品の割合が\n10%増えるごとに",
+          "say": "食事に占める超加工食品の割合が、10パーセント増えるごとに、"
+        },
+        {
+          "caption": "死亡リスクが\n14%上昇していた",
+          "say": "死亡のリスクが、14パーセント上がっていました。"
+        }
+      ],
+      "image": "potato_chips_package_snackbowl.png",
+      "image_page": "https://www.irasutoya.com/2019/01/blog-post_272.html"
+    },
+    {
+      "image_query": "塩",
+      "image_query_alt": "減塩",
+      "topic": "減塩と血圧",
+      "category": "栄養",
+      "source": "Sacks ほか（2001年・ニューイングランド医学誌）",
+      "pmid": "11136953",
+      "lines": [
+        {
+          "caption": "塩分を減らすと\n血圧はどれだけ下がる？",
+          "say": "塩分を減らすと、血圧はどれくらい下がるのでしょうか。"
+        },
+        {
+          "caption": "412人で\n食事と塩分量を比較",
+          "say": "412人を対象に、食事の内容と塩分の量を、細かく比較した実験があります。"
+        },
+        {
+          "caption": "野菜を増やし減塩すると\n血圧が最大11.5下がった",
+          "say": "野菜を増やした食事と減塩を組み合わせると、血圧の高い人で、上の血圧が最大11.5下がりました。"
+        }
+      ],
+      "image": "sports_sumo_shio.png",
+      "image_page": "https://www.irasutoya.com/2020/08/blog-post_374.html"
+    },
+    {
+      "image_query": "ジュース",
+      "image_query_alt": "清涼飲料水",
+      "topic": "加糖飲料と2型糖尿病",
+      "category": "栄養",
+      "source": "Malik ほか（2010年・ダイアビーティーズケア誌）",
+      "pmid": "20693348",
+      "lines": [
+        {
+          "caption": "甘い飲み物で\n糖尿病のリスクは上がる？",
+          "say": "甘い飲み物をよく飲むと、糖尿病のリスクは上がるのでしょうか。"
+        },
+        {
+          "caption": "31万人以上を調べた\n研究をまとめた分析",
+          "say": "31万人以上を調べた、複数の研究をまとめた分析があります。"
+        },
+        {
+          "caption": "よく飲む人は\n2型糖尿病が26%多い",
+          "say": "甘い飲み物をよく飲む人は、めったに飲まない人より、2型糖尿病が26パーセント多くなっていました。"
+        }
+      ],
+      "image": "drink_aojiru_man.png",
+      "image_page": "https://www.irasutoya.com/2020/06/blog-post_72.html"
+    },
+    {
+      "image_query": "オリーブオイル",
+      "image_query_alt": "ナッツ",
+      "topic": "地中海食と心血管イベント",
+      "category": "栄養",
+      "source": "Estruch ほか（2018年・ニューイングランド医学誌）",
+      "pmid": "29897866",
+      "lines": [
+        {
+          "caption": "地中海食は\n心臓病を防ぐ？",
+          "say": "オリーブ油やナッツを使う地中海食は、心臓病を防ぐのでしょうか。"
+        },
+        {
+          "caption": "7447人を\n平均4.8年追跡",
+          "say": "スペインで7447人を、平均4.8年追いかけた実験があります。"
+        },
+        {
+          "caption": "オリーブ油を足した人は\n心筋梗塞などが31%減少",
+          "say": "地中海食にオリーブ油を足した人たちは、心筋梗塞や脳卒中が、31パーセント減っていました。"
+        }
+      ],
+      "image": "food_spaghetti_su_aglio_olio.png",
+      "image_page": "https://www.irasutoya.com/2019/05/blog-post_862.html"
+    },
+    {
+      "image_query": "青魚",
+      "image_query_alt": "魚油",
+      "topic": "青魚の油と死亡リスク",
+      "category": "栄養",
+      "source": "GISSI-Prevenzione試験（1999年・ランセット）",
+      "pmid": "10465168",
+      "lines": [
+        {
+          "caption": "青魚の油は\n心臓によい？",
+          "say": "青魚に多く含まれる油は、心臓の病気を防ぐのでしょうか。"
+        },
+        {
+          "caption": "心筋梗塞を経験した\n1万1324人で実験",
+          "say": "心筋梗塞を経験した、1万1324人を対象にした実験があります。"
+        },
+        {
+          "caption": "この油をとり続けた人は\n死亡リスクが20%減少",
+          "say": "この油をとり続けた人たちは、3年半後、死亡のリスクが20パーセント減っていました。"
+        },
+        {
+          "caption": "心臓が原因の死亡は\n30%減っていた",
+          "say": "中でも、心臓が原因の死亡は、30パーセント減っていました。"
+        }
+      ],
+      "image": "food_heshiko.png",
+      "image_page": "https://www.irasutoya.com/2020/01/blog-post_411.html"
+    },
+    {
+      "image_query": "玄米",
+      "image_query_alt": "食物繊維",
+      "topic": "食物繊維と死亡リスク",
+      "category": "栄養",
+      "source": "Reynolds ほか（2019年・ランセット）",
+      "pmid": "30638909",
+      "lines": [
+        {
+          "caption": "食物繊維は\nどれだけ体にいい？",
+          "say": "食物繊維は、体にどれくらい良いのでしょうか。"
+        },
+        {
+          "caption": "185件の研究、\n延べ1億3500万人年を分析",
+          "say": "185件の研究、延べ1億3500万人年分のデータをまとめた分析があります。"
+        },
+        {
+          "caption": "多く摂る人は\n死亡リスクが15〜30%低い",
+          "say": "食物繊維を多くとる人は、少ない人より、死亡のリスクが15から30パーセント低くなっていました。"
+        },
+        {
+          "caption": "目安は\n1日25〜29g",
+          "say": "目安は、1日25から29グラムです。"
+        }
+      ],
+      "image": "kome_haigamai.png",
+      "image_page": "https://www.irasutoya.com/2017/08/blog-post_75.html"
+    },
+    {
+      "image_query": "味噌",
+      "image_query_alt": "ヨーグルト",
+      "topic": "発酵食品と腸内細菌の多様性",
+      "category": "栄養",
+      "source": "Wastyk ほか（2021年・セル誌）",
+      "pmid": "34256014",
+      "lines": [
+        {
+          "caption": "発酵食品は\n腸にいい？",
+          "say": "味噌やヨーグルトのような発酵食品は、腸にいいのでしょうか。"
+        },
+        {
+          "caption": "36人を\n17週間、2つの食事で比較",
+          "say": "36人を、高繊維食と発酵食品を増やす食事の、2つのグループに分けた実験があります。"
+        },
+        {
+          "caption": "発酵食品を増やした人は\n腸内細菌の種類が増加",
+          "say": "発酵食品を増やしたグループは、腸内細菌の種類が、着実に増えていきました。"
+        },
+        {
+          "caption": "体の炎症を示す値も\n下がっていた",
+          "say": "体の炎症を示す値も、下がっていました。"
+        }
+      ],
+      "image": "cooking_miso_mame.png",
+      "image_page": "https://www.irasutoya.com/2020/07/blog-post_224.html"
+    },
+    {
+      "image_query": "野菜セット",
+      "image_query_alt": "果物",
+      "topic": "野菜・果物の摂取量と死亡リスク",
+      "category": "栄養",
+      "source": "Wang ほか（2021年・サーキュレーション誌）",
+      "pmid": "33641343",
+      "lines": [
+        {
+          "caption": "野菜と果物は\n多いほどいい？",
+          "say": "野菜と果物は、たくさん食べるほど体にいいのでしょうか。"
+        },
+        {
+          "caption": "189万人分の\nデータを分析",
+          "say": "189万人分のデータをまとめた分析があります。"
+        },
+        {
+          "caption": "1日5皿分で\n死亡リスクが最も低い",
+          "say": "1日に野菜3皿、果物2皿のおよそ5皿分で、死亡のリスクが最も低くなっていました。"
+        },
+        {
+          "caption": "それ以上食べても\n効果は頭打ち",
+          "say": "それより多く食べても、リスクはそれ以上下がりませんでした。"
+        }
+      ],
+      "image": "food_soup_curry.png",
+      "image_page": "https://www.irasutoya.com/2017/04/blog-post_48.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない栄養の雑学10選【論文で確認済み】唐辛子好きは死亡リスク13%低い",
+    "description": "栄養にまつわる10個の雑学を、すべて論文や公的資料で確かめてから紹介します。",
+    "tags": [
+      "雑学",
+      "栄養",
+      "食物繊維",
+      "地中海食",
+      "超加工食品",
+      "発酵食品",
+      "減塩",
+      "豆知識"
+    ],
+    "sources": [
+      "Chopan M, Littenberg B. プロスワン 2017 https://europepmc.org/article/MED/28068423",
+      "Rong S ほか. 米国心臓病学会誌 2019 https://europepmc.org/article/MED/31023424",
+      "Schnabel L ほか. 米国医師会雑誌 内科版 2019 https://europepmc.org/article/MED/30742202",
+      "Sacks FM ほか. ニューイングランド医学誌 2001 https://europepmc.org/article/MED/11136953",
+      "Malik VS ほか. ダイアビーティーズケア誌 2010 https://europepmc.org/article/MED/20693348",
+      "Estruch R ほか. ニューイングランド医学誌 2018 https://europepmc.org/article/MED/29897866",
+      "Gruppo Italiano per lo Studio della Sopravvivenza nell'Infarto miocardico. ランセット 1999 https://europepmc.org/article/MED/10465168",
+      "Reynolds A ほか. ランセット 2019 https://europepmc.org/article/MED/30638909",
+      "Wastyk HC ほか. セル誌 2021 https://europepmc.org/article/MED/34256014",
+      "Wang DD ほか. サーキュレーション誌 2021 https://europepmc.org/article/MED/33641343"
+    ]
+  }
+}

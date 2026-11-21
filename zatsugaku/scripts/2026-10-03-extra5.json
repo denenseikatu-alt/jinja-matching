@@ -1,0 +1,344 @@
+{
+  "theme": "認知症予防",
+  "title": "9割が知らない 認知症予防の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n認知症予防の雑学",
+          "say": "知って得する、認知症予防の雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "入れ歯",
+      "image_query_alt": "歯科検診",
+      "topic": "歯を失うことと認知症リスク",
+      "category": "認知症予防",
+      "source": "Qi ほか（2021年・米国長期ケア医学会誌）",
+      "pmid": "34579934",
+      "lines": [
+        {
+          "caption": "歯を失うと\n認知症になりやすい？",
+          "say": "歯を失うと、認知症になりやすくなるのでしょうか。"
+        },
+        {
+          "caption": "14件、3万4074人の\nデータを分析",
+          "say": "14件の研究、3万4074人のデータを集めた分析があります。"
+        },
+        {
+          "caption": "歯を多く失った人は\n認知症のリスク1.28倍",
+          "say": "歯を多く失った人は、認知症のリスクが1.28倍でした。"
+        },
+        {
+          "caption": "入れ歯を使っている人では\n関連がはっきりしなかった",
+          "say": "入れ歯を使っていた人では、この関連がはっきりしませんでした。"
+        }
+      ],
+      "image": "ireba_hazureru_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/12/blog-post_211.html"
+    },
+    {
+      "image_query": "目の検査",
+      "image_query_alt": "眼科",
+      "topic": "白内障手術と認知症リスク",
+      "category": "認知症予防",
+      "source": "Lee ほか（2022年・米国医師会雑誌 内科版）",
+      "pmid": "34870676",
+      "lines": [
+        {
+          "caption": "白内障の手術で\n認知症になりにくい？",
+          "say": "白内障の手術をすると、認知症になりにくくなるのでしょうか。"
+        },
+        {
+          "caption": "65歳以上3038人を\n20年以上追跡",
+          "say": "65歳以上、3038人を、平均で20年以上追いかけた研究があります。"
+        },
+        {
+          "caption": "白内障手術をした人は\n認知症リスク29%低い",
+          "say": "白内障の手術をした人は、認知症のリスクが29パーセント低くなっていました。"
+        },
+        {
+          "caption": "視力を回復しない\n緑内障手術では差なし",
+          "say": "視力を回復しない、緑内障の手術では、差がありませんでした。"
+        }
+      ],
+      "image": "kodomo_shiryoku_kensa_handkerchief.png",
+      "image_page": "https://www.irasutoya.com/2020/06/blog-post_67.html"
+    },
+    {
+      "image_query": "将棋",
+      "image_query_alt": "読書 高齢者",
+      "topic": "レジャー活動（読書・楽器・ダンスなど）と認知症リスク",
+      "category": "認知症予防",
+      "source": "Verghese ほか（2003年・ニューイングランド医学誌）",
+      "pmid": "12815136",
+      "lines": [
+        {
+          "caption": "頭を使う趣味は\n認知症に関係ある？",
+          "say": "読書やゲームなど、頭を使う趣味は、認知症に関係あるのでしょうか。"
+        },
+        {
+          "caption": "75歳以上469人を\n平均5年追跡",
+          "say": "75歳以上、469人を、平均5年、追いかけた研究です。"
+        },
+        {
+          "caption": "読書・ボードゲーム・\n楽器・ダンスでリスク低下",
+          "say": "読書、ボードゲーム、楽器、ダンスをする人ほど、認知症のリスクが低くなっていました。"
+        },
+        {
+          "caption": "散歩などの運動量では\n差がはっきりしなかった",
+          "say": "一方、散歩などの運動量では、差がはっきりしませんでした。"
+        }
+      ],
+      "image": "sports_syougi_taikyoku_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/06/blog-post_50.html"
+    },
+    {
+      "image_query": "通訳",
+      "image_query_alt": "外国語 勉強",
+      "topic": "二言語を話すことと認知症の発症年齢",
+      "category": "認知症予防",
+      "source": "Bialystok ほか（2007年・神経心理学誌）",
+      "pmid": "17125807",
+      "lines": [
+        {
+          "caption": "2つの言語を話すと\n認知症になりにくい？",
+          "say": "2つの言語を話せる人は、認知症になりにくいのでしょうか。"
+        },
+        {
+          "caption": "認知症と診断された\n184人を調査",
+          "say": "認知症と診断された184人を調べた研究があります。"
+        },
+        {
+          "caption": "2言語話者は症状が出た\n年齢が平均4年遅い",
+          "say": "2つの言語を話していた人は、症状が出た年齢が、平均4年遅くなっていました。"
+        },
+        {
+          "caption": "言語が認知症を\n防ぐとは言えない",
+          "say": "ただし、言語を話すことが、認知症を防ぐとは言い切れません。"
+        }
+      ],
+      "image": "job_tsuuyaku_youyaku_hikki.png",
+      "image_page": "https://www.irasutoya.com/2018/10/blog-post_47.html"
+    },
+    {
+      "image_query": "血糖値測定",
+      "image_query_alt": "糖尿病",
+      "topic": "糖尿病と認知症リスクの男女差",
+      "category": "認知症予防",
+      "source": "Chatterjee ほか（2016年・米国糖尿病学会誌）",
+      "pmid": "26681727",
+      "lines": [
+        {
+          "caption": "糖尿病と認知症は\n関係ある？",
+          "say": "糖尿病と、認知症には、関係があるのでしょうか。"
+        },
+        {
+          "caption": "231万人以上の\nデータを分析",
+          "say": "231万人以上のデータを、まとめて分析した研究があります。"
+        },
+        {
+          "caption": "糖尿病がある人は\n認知症リスクが6割増",
+          "say": "糖尿病がある人は、認知症のリスクが6割増えていました。"
+        },
+        {
+          "caption": "血管性の認知症は\n女性の方がリスクが高い",
+          "say": "血管性の認知症では、女性の方が、男性よりリスクが高くなっていました。"
+        }
+      ],
+      "image": "kettouchi_kensa.png",
+      "image_page": "https://www.irasutoya.com/2015/02/blog-post_25.html"
+    },
+    {
+      "image_query": "一人暮らし 高齢者",
+      "image_query_alt": "縁側 おばあさん",
+      "topic": "孤独感と認知症リスク",
+      "category": "認知症予防",
+      "source": "Luchetti ほか（2024年・ネイチャー・メンタルヘルス誌）",
+      "pmid": "39802418",
+      "lines": [
+        {
+          "caption": "孤独を感じることと\n認知症は関係ある？",
+          "say": "孤独を感じることと、認知症には、関係があるのでしょうか。"
+        },
+        {
+          "caption": "60万人以上の\nデータを分析",
+          "say": "60万人以上のデータを、まとめて分析した研究があります。"
+        },
+        {
+          "caption": "孤独を感じる人は\n認知症リスクが31%高い",
+          "say": "孤独を感じている人は、認知症のリスクが31パーセント高くなっていました。"
+        },
+        {
+          "caption": "一人の時間とは別に\n孤独感自体が関係",
+          "say": "一人で過ごす時間とは別に、孤独という気持ちそのものが関係していました。"
+        }
+      ],
+      "image": "hitorigurashi_cry_woman.png",
+      "image_page": "https://www.irasutoya.com/2018/08/blog-post_468.html"
+    },
+    {
+      "image_query": "血圧計",
+      "image_query_alt": "血圧測定 高齢者",
+      "topic": "血圧管理と軽度認知障害・認知症リスク",
+      "category": "認知症予防",
+      "source": "SPRINT MIND研究グループ（2019年・米国医師会雑誌）",
+      "pmid": "30688979",
+      "lines": [
+        {
+          "caption": "血圧を厳しく下げると\n認知症になりにくい？",
+          "say": "血圧を厳しく下げると、認知症が減るのでしょうか。"
+        },
+        {
+          "caption": "高血圧の人を\n2つの目標値で比較",
+          "say": "高血圧の人を、2つの目標値のグループに分けた実験があります。"
+        },
+        {
+          "caption": "軽い認知障害が\n千人あたり14.6件に減",
+          "say": "血圧を厳しく下げると、軽度の認知障害が、千人年あたり14.6件に減っていました。"
+        },
+        {
+          "caption": "認知症そのものの差は\nはっきりしなかった",
+          "say": "ただ、認知症そのものの発生数の差は、はっきりしませんでした。"
+        }
+      ],
+      "image": "medical_ketsuatsukei_aneroid.png",
+      "image_page": "https://www.irasutoya.com/2019/12/blog-post_934.html"
+    },
+    {
+      "image_query": "脳トレ",
+      "image_query_alt": "ウォーキング 高齢者",
+      "topic": "食事・運動・脳トレなど多因子の生活介入と認知機能",
+      "category": "認知症予防",
+      "source": "Ngandu ほか（2015年・ランセット）",
+      "pmid": "25771249",
+      "lines": [
+        {
+          "caption": "生活習慣を\n一度に変えると？",
+          "say": "食事や運動など、複数の生活習慣を、一度に変えるとどうなるでしょうか。"
+        },
+        {
+          "caption": "リスクが高い高齢者\n1260人で2年間実験",
+          "say": "認知症のリスクが高い高齢者、1260人で、2年間の実験が行われました。"
+        },
+        {
+          "caption": "食事・運動・脳トレ・\n血管管理を同時に実施",
+          "say": "食事、運動、脳トレ、血管の管理を同時に行うグループを作りました。"
+        },
+        {
+          "caption": "テストの点数が\nわずかに高かった",
+          "say": "2年後、テストの点数が、何もしなかったグループより、わずかに高くなっていました。"
+        }
+      ],
+      "image": "character_noukin.png",
+      "image_page": "https://www.irasutoya.com/2017/05/blog-post_327.html"
+    },
+    {
+      "image_query": "補聴器",
+      "image_query_alt": "耳 検査",
+      "topic": "補聴器の使用と認知機能低下（はっきりしなかった効果）",
+      "category": "認知症予防",
+      "source": "Lin ほか（2023年・ランセット）",
+      "pmid": "37478886",
+      "lines": [
+        {
+          "caption": "補聴器をつけると\n認知症になりにくい？",
+          "say": "補聴器をつけると、認知症を防げるのでしょうか。"
+        },
+        {
+          "caption": "聴力が低い高齢者\n977人を3年間追跡",
+          "say": "聴力が低い高齢者977人を、3年間追いかけた実験があります。"
+        },
+        {
+          "caption": "全体では認知機能の差は\nはっきりしなかった",
+          "say": "全体では、補聴器を使った人との差ははっきりしませんでした。"
+        },
+        {
+          "caption": "リスクが高い人では\n低下がゆるやかな可能性",
+          "say": "ただ、リスクが高かった人たちでは、低下がゆるやかな可能性があります。"
+        }
+      ],
+      "image": "hochouki_girl.png",
+      "image_page": "https://www.irasutoya.com/2016/03/blog-post_817.html"
+    },
+    {
+      "image_query": "日本酒",
+      "image_query_alt": "ビール",
+      "topic": "飲酒量と認知症リスク",
+      "category": "認知症予防",
+      "source": "Sabia ほか（2018年・英国医師会雑誌）",
+      "pmid": "30068508",
+      "lines": [
+        {
+          "caption": "お酒を飲む人は\n認知症になりにくい？",
+          "say": "お酒を飲む人の方が、認知症になりにくいと聞いたことはありませんか。"
+        },
+        {
+          "caption": "9087人を\n23年間追跡",
+          "say": "9087人を、平均23年間、追いかけたイギリスの研究があります。"
+        },
+        {
+          "caption": "禁酒していた人は\nリスクが47%高い",
+          "say": "禁酒していた人は、適度に飲む人より、認知症のリスクが47パーセント高くなっていました。"
+        },
+        {
+          "caption": "週14単位を超えると\n飲むほどリスク上昇",
+          "say": "一方、週14単位を超えて飲む人は、飲む量が増えるほど、リスクが上昇していました。"
+        }
+      ],
+      "image": "drink_bin_futa.png",
+      "image_page": "https://www.irasutoya.com/2020/01/blog-post_195.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない認知症予防の雑学10選【白内障手術の人は認知症リスク29%低い】",
+    "description": "認知症予防についての雑学10選。すべて研究論文で数値を確かめています。",
+    "tags": [
+      "雑学",
+      "認知症予防",
+      "認知症",
+      "白内障",
+      "補聴器",
+      "糖尿病",
+      "孤独感",
+      "豆知識"
+    ],
+    "sources": [
+      "Qi X ほか. 米国長期ケア医学会誌 2021;22:2039-45 https://europepmc.org/article/MED/34579934",
+      "Lee CS ほか. 米国医師会雑誌 内科版 2022;182:134-141 https://europepmc.org/article/MED/34870676",
+      "Verghese J ほか. ニューイングランド医学誌 2003;348:2508-16 https://europepmc.org/article/MED/12815136",
+      "Bialystok E, Craik FIM, Freedman M. 神経心理学誌 2007;45:459-64 https://europepmc.org/article/MED/17125807",
+      "Chatterjee S ほか. 米国糖尿病学会誌 2016;39:300-307 https://europepmc.org/article/MED/26681727",
+      "Luchetti M ほか. ネイチャー・メンタルヘルス誌 2024;2:1350-61 https://europepmc.org/article/MED/39802418",
+      "SPRINT MIND Investigators. 米国医師会雑誌 2019;321:553-61 https://europepmc.org/article/MED/30688979",
+      "Ngandu T ほか. ランセット 2015;385:2255-63 https://europepmc.org/article/MED/25771249",
+      "Lin FR ほか. ランセット 2023;402:786-97 https://europepmc.org/article/MED/37478886",
+      "Sabia S ほか. 英国医師会雑誌 2018;362:k2927 https://europepmc.org/article/MED/30068508"
+    ]
+  }
+}

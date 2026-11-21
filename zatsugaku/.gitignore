@@ -1,0 +1,5 @@
+.env
+out/
+logs/
+assets/
+state.json
