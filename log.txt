@@ -1,0 +1,8 @@
+11/21 21:27:14 prepare 開始（STYLE=talking）
+11/21 21:27:22 READY: bodymake-beginner-guide-injury-free（抽出まで完了。次は台本）
+11/21 21:27:49 publish 開始: bodymake-beginner-guide-injury-free
+11/21 21:27:49 中断: script.json の検証に失敗しました
+11/21 21:28:52 publish 開始: bodymake-beginner-guide-injury-free
+11/21 21:28:52 中断: script.json の検証に失敗しました
+11/21 21:30:24 publish 開始: bodymake-beginner-guide-injury-free
+11/21 21:40:15 公開: 完了: https://www.youtube.com/watch?v=-CMB3Kf4hX0 公開設定: public 
