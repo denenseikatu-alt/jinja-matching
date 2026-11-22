@@ -1,0 +1,2 @@
+11/23 08:53:46 prepare 開始（STYLE=talking）
+11/23 08:53:51 READY: bone-density-weight-bearing-menopause（抽出まで完了。次は台本）
