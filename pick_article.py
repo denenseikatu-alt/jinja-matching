@@ -81,6 +81,9 @@ def list_articles_sitemap(url: str) -> list[str]:
     return slugs
 
 
+JA_TITLE = re.compile(r"[ぁ-んァ-ヶ一-龥]")
+
+
 def youtube_done() -> dict:
     """チャンネルの投稿済み動画から、動画にした記事を集める。{スラッグ: {date, url}}"""
     from googleapiclient.discovery import build
@@ -99,6 +102,10 @@ def youtube_done() -> dict:
                                        maxResults=50, pageToken=token).execute()
         for item in page.get("items", []):
             sn = item["snippet"]
+            # 英語圏向けの動画（題名に日本語がない）は、記事の URL を載せていても記事動画に数えない。
+            # 数えると「今日は投稿済み」と誤判定される（2026-11-23: 英語の週まとめで朝の動画が飛んだ）
+            if not JA_TITLE.search(sn.get("title", "")):
+                continue
             for slug in ARTICLE_URL.findall(sn.get("description", "")):
                 vid = sn.get("resourceId", {}).get("videoId", "")
                 done.setdefault(slug, {"date": sn.get("publishedAt", ""),
