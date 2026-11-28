@@ -1,0 +1,339 @@
+{
+  "theme": "暮らし",
+  "title": "9割が知らない 暮らしの雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n暮らしの雑学",
+          "say": "知って得する、暮らしの雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "落とした食べ物",
+      "image_query_alt": "食べ物を落とす",
+      "topic": "床に落とした食べ物と3秒ルール",
+      "category": "暮らし",
+      "source": "Miranda・Schaffner（2016年・応用環境微生物学誌）",
+      "pmid": "27590818",
+      "lines": [
+        {
+          "caption": "落としても\nすぐ拾えば大丈夫？",
+          "say": "床に落とした食べ物も、すぐ拾えば大丈夫、と思っていませんか。"
+        },
+        {
+          "caption": "4種類の床と\n4種類の食べ物で実験",
+          "say": "ステンレス、タイル、木、カーペットに、スイカやパンなどを落とす実験があります。"
+        },
+        {
+          "caption": "1秒未満でも\n細菌は移った",
+          "say": "すると、1秒未満でも、細菌が食べ物に移ることが分かりました。"
+        },
+        {
+          "caption": "触れている時間が\n長いほど多い",
+          "say": "触れている時間が長いほど、移る量も多くなっていました。"
+        }
+      ],
+      "image": "binbou_man.png",
+      "image_page": "https://www.irasutoya.com/2013/04/blog-post_6914.html"
+    },
+    {
+      "image_query": "観葉植物",
+      "image_query_alt": "植木鉢",
+      "topic": "観葉植物と室内の空気",
+      "category": "暮らし",
+      "source": "Cummings・Waring（2020年・曝露科学環境疫学誌）",
+      "pmid": "31695112",
+      "lines": [
+        {
+          "caption": "観葉植物で\n空気はきれいになる？",
+          "say": "観葉植物を置くと、部屋の空気はきれいになるのでしょうか。"
+        },
+        {
+          "caption": "12の研究を\nまとめた分析",
+          "say": "12の研究、196の実験結果をまとめた分析があります。"
+        },
+        {
+          "caption": "換気と同じ効果には\n1㎡に10〜1000鉢",
+          "say": "普通の換気と同じ効果を出すには、床1平方メートルあたり、10から1000鉢も必要という計算でした。"
+        },
+        {
+          "caption": "空気より\n心の効果に期待",
+          "say": "研究者は、空気よりも、気分などへの良い影響を調べるべきだとしています。"
+        }
+      ],
+      "image": "plant_bikaku_shida.png",
+      "image_page": "https://www.irasutoya.com/2018/05/blog-post_982.html"
+    },
+    {
+      "image_query": "手洗い",
+      "image_query_alt": "石鹸",
+      "topic": "手洗いと感染症",
+      "category": "暮らし",
+      "source": "Aiello ほか（2008年・米国公衆衛生学雑誌）",
+      "pmid": "18556606",
+      "lines": [
+        {
+          "caption": "手洗いで\nどれくらい防げる？",
+          "say": "手洗いで、病気はどれくらい防げるのでしょうか。"
+        },
+        {
+          "caption": "30の試験を\nまとめた分析",
+          "say": "30の試験をまとめた分析では、手洗いを改善すると、"
+        },
+        {
+          "caption": "おなかの病気31%減\n呼吸器の病気21%減",
+          "say": "おなかの病気が31パーセント、呼吸器の病気が21パーセント減っていました。"
+        },
+        {
+          "caption": "抗菌せっけんの\n上乗せ効果は小さい",
+          "say": "抗菌せっけんを使っても、普通のせっけんと比べた上乗せの効果は、ほとんどありませんでした。"
+        }
+      ],
+      "image": "hankachi_hand_boy.png",
+      "image_page": "https://www.irasutoya.com/2020/07/blog-post_76.html"
+    },
+    {
+      "image_query": "電子書籍",
+      "image_query_alt": "タブレット",
+      "topic": "寝る前の電子書籍と睡眠",
+      "category": "暮らし",
+      "source": "Chang ほか（2015年・米国科学アカデミー紀要）",
+      "pmid": "25535358",
+      "lines": [
+        {
+          "caption": "寝る前の読書\n紙と画面で違う？",
+          "say": "寝る前の読書は、紙の本と光る画面とで、違いがあるのでしょうか。"
+        },
+        {
+          "caption": "光る画面で\n読んだ夜は",
+          "say": "光る画面の電子書籍と、紙の本を比べた実験では、電子書籍の夜のほうが、"
+        },
+        {
+          "caption": "寝つきが遅く\n眠気のホルモンも減少",
+          "say": "寝つくまでに時間がかかり、眠気を促すホルモンも減っていました。"
+        },
+        {
+          "caption": "翌朝の\n目覚めも悪かった",
+          "say": "そのうえ、翌朝の目覚めもすっきりしませんでした。"
+        }
+      ],
+      "image": "smartphone_app.png",
+      "image_page": "https://www.irasutoya.com/2015/06/blog-post_824.html"
+    },
+    {
+      "image_query": "スタンディングデスク",
+      "image_query_alt": "立って仕事",
+      "topic": "立って使える机と座る時間",
+      "category": "暮らし",
+      "source": "Shrestha ほか（2018年・コクラン・レビュー）",
+      "pmid": "30556590",
+      "lines": [
+        {
+          "caption": "座りすぎを\n減らすには？",
+          "say": "仕事中の座りすぎは、どうすれば減らせるのでしょうか。"
+        },
+        {
+          "caption": "立っても座っても\n使える机で",
+          "say": "職場での工夫を調べた研究のまとめでは、立っても座っても使える机で、"
+        },
+        {
+          "caption": "座る時間が\n1日100分減少",
+          "say": "座る時間が、3か月までの間で、1日あたり100分減っていました。"
+        },
+        {
+          "caption": "30分ごとの小休憩でも\n40分減",
+          "say": "30分ごとに1、2分の休憩をとるだけでも、40分減っていました。"
+        }
+      ],
+      "image": "standing_desk.png",
+      "image_page": "https://www.irasutoya.com/2015/02/blog-post_692.html"
+    },
+    {
+      "image_query": "家庭菜園",
+      "image_query_alt": "ガーデニング",
+      "topic": "ガーデニングと心身の健康",
+      "category": "暮らし",
+      "source": "Soga ほか（2017年・予防医学リポーツ）",
+      "pmid": "27981022",
+      "lines": [
+        {
+          "caption": "土いじりは\n体にいい？",
+          "say": "ガーデニングや家庭菜園は、心と体にいいのでしょうか。"
+        },
+        {
+          "caption": "22の研究を\nまとめた分析",
+          "say": "22の研究をまとめた分析では、ガーデニングをする人で、"
+        },
+        {
+          "caption": "うつや不安が減り\n生活の満足度が上昇",
+          "say": "気分の落ち込みや不安が減り、生活の満足度や、地域とのつながりの感覚が高まっていました。"
+        }
+      ],
+      "image": "nougyou_funnmuki.png",
+      "image_page": "https://www.irasutoya.com/2015/09/blog-post_97.html"
+    },
+    {
+      "image_query": "散らかった部屋",
+      "image_query_alt": "片付け",
+      "topic": "家の語られ方と気分・ストレスホルモン",
+      "category": "暮らし",
+      "source": "Saxbe・Repetti（2010年・人格社会心理学紀要）",
+      "pmid": "19934011",
+      "lines": [
+        {
+          "caption": "家の印象と\nストレス",
+          "say": "自分の家をどう感じているかと、ストレスの関係を調べた研究があります。"
+        },
+        {
+          "caption": "夫婦に自宅を\n案内してもらった",
+          "say": "夫婦に、自宅を案内しながら説明してもらい、その言葉を分析しました。"
+        },
+        {
+          "caption": "落ち着かない家と\n語る妻は気分が沈む",
+          "say": "家をストレスの多い場所として語った妻ほど、1日を通して気分が沈んでいく傾向がありました。"
+        },
+        {
+          "caption": "ストレスホルモンの\nリズムも平坦に",
+          "say": "ストレスホルモンの1日の変化も平坦になっていて、これは健康に良くない形とされています。"
+        }
+      ],
+      "image": "neet_man2.png",
+      "image_page": "https://www.irasutoya.com/2013/10/blog-post_8874.html"
+    },
+    {
+      "image_query": "料理",
+      "image_query_alt": "自炊",
+      "topic": "家での夕食づくりと食事の質",
+      "category": "暮らし",
+      "source": "Wolfson・Bleich（2015年・公衆衛生栄養学誌）",
+      "pmid": "25399031",
+      "lines": [
+        {
+          "caption": "家で夕食を\n作る人ほど",
+          "say": "家で夕食を作る回数は、食事の中身とも関係しています。"
+        },
+        {
+          "caption": "週6〜7回と\n週0〜1回を比較",
+          "say": "アメリカの大人を調べた研究で、夕食を週6から7回作る家と、週0から1回の家を比べると、"
+        },
+        {
+          "caption": "砂糖が1日\n135g→119g",
+          "say": "よく作る家の人は、1日の砂糖が135グラムから119グラムに少なくなっていました。"
+        },
+        {
+          "caption": "脂質も\n少なかった",
+          "say": "脂質やカロリーも、少なくなっていました。"
+        }
+      ],
+      "image": "restaurant_haizen_robot.png",
+      "image_page": "https://www.irasutoya.com/2022/04/blog-post_27.html"
+    },
+    {
+      "image_query": "犬の散歩",
+      "image_query_alt": "犬",
+      "topic": "犬を飼うことと運動量",
+      "category": "暮らし",
+      "source": "Westgarth ほか（2019年・サイエンティフィック・リポーツ）",
+      "pmid": "31000795",
+      "lines": [
+        {
+          "caption": "犬を飼うと\n運動量が変わる？",
+          "say": "犬を飼うと、運動量は変わるのでしょうか。"
+        },
+        {
+          "caption": "イギリスの\n約650人を調査",
+          "say": "イギリスで、犬を飼う人と飼わない人、およそ650人を調べた研究では、"
+        },
+        {
+          "caption": "運動の目安を満たす\n可能性が4倍",
+          "say": "犬を飼う人は、週150分という運動の目安を満たす可能性が、4倍高くなっていました。"
+        },
+        {
+          "caption": "ほかの運動は\n変わらなかった",
+          "say": "散歩の分が上乗せされ、ほかの運動の量は変わりませんでした。"
+        }
+      ],
+      "image": "pet_sanpo_summer_atsui.png",
+      "image_page": "https://www.irasutoya.com/2018/08/blog-post_919.html"
+    },
+    {
+      "image_query": "読書",
+      "image_query_alt": "本を読む",
+      "topic": "本を読む習慣と寿命",
+      "category": "暮らし",
+      "source": "Bavishi ほか（2016年・社会科学と医学）",
+      "pmid": "27471129",
+      "lines": [
+        {
+          "caption": "本を読む人は\n長生き？",
+          "say": "本を読む習慣は、寿命と関係があるのでしょうか。"
+        },
+        {
+          "caption": "約3600人を\n12年間追跡",
+          "say": "アメリカで、およそ3600人を12年間追いかけた研究では、"
+        },
+        {
+          "caption": "本を読む人は\n死亡リスク20%低い",
+          "say": "本を読む人は、読まない人より、死亡のリスクが20パーセント低くなっていました。"
+        },
+        {
+          "caption": "新聞や雑誌より\n本のほうが差が大きい",
+          "say": "その差は、新聞や雑誌よりも、本のほうが大きかったのです。"
+        }
+      ],
+      "image": "eye_ganseihirou_book_woman.png",
+      "image_page": "https://www.irasutoya.com/2020/08/blog-post_940.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない暮らしの雑学10選【論文で確認済み】3秒ルールは1秒でもアウト",
+    "description": "落とした食べ物の3秒ルール、観葉植物と空気、手洗い、寝る前の電子書籍、犬の散歩、読書と寿命まで。暮らしの雑学を10個、すべて研究論文の要旨で数値を確かめて紹介します。",
+    "tags": [
+      "雑学",
+      "暮らし",
+      "生活の知恵",
+      "睡眠",
+      "手洗い",
+      "読書",
+      "豆知識"
+    ],
+    "sources": [
+      "Miranda RC, Schaffner DW. 応用環境微生物学誌 2016;82:6490-6 https://europepmc.org/article/MED/27590818",
+      "Cummings BE, Waring MS. 曝露科学環境疫学誌 2020;30:253-61 https://europepmc.org/article/MED/31695112",
+      "Aiello AE ほか. 米国公衆衛生学雑誌 2008;98:1372-81 https://europepmc.org/article/MED/18556606",
+      "Chang AM ほか. 米国科学アカデミー紀要 2015;112:1232-7 https://europepmc.org/article/MED/25535358",
+      "Shrestha N ほか. コクラン・レビュー 2018;12:CD010912 https://europepmc.org/article/MED/30556590",
+      "Soga M ほか. 予防医学リポーツ 2017;5:92-9 https://europepmc.org/article/MED/27981022",
+      "Saxbe DE, Repetti R. 人格社会心理学紀要 2010;36:71-81 https://europepmc.org/article/MED/19934011",
+      "Wolfson JA, Bleich SN. 公衆衛生栄養学誌 2015;18:1397-406 https://europepmc.org/article/MED/25399031",
+      "Westgarth C ほか. サイエンティフィック・リポーツ 2019;9:5704 https://europepmc.org/article/MED/31000795",
+      "Bavishi A ほか. 社会科学と医学 2016;164:44-8 https://europepmc.org/article/MED/27471129"
+    ]
+  }
+}

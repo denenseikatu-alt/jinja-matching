@@ -1,0 +1,344 @@
+{
+  "theme": "持久力",
+  "title": "9割が知らない 持久力の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n持久力の雑学",
+          "say": "知って得する、持久力の雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文で確かめた、持久力の話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "自転車 通勤",
+      "image_query_alt": "自転車",
+      "topic": "自転車通勤と死亡・がん・心血管疾患リスク",
+      "category": "持久力",
+      "source": "Celis-Morales ほか（2017年・英国医師会雑誌）",
+      "pmid": "28424154",
+      "lines": [
+        {
+          "caption": "自転車通勤は\n体にいい？",
+          "say": "自転車で通勤する人は、病気になりにくいのでしょうか。"
+        },
+        {
+          "caption": "26万人以上を\n5年追跡",
+          "say": "イギリスで26万人以上を、5年ほど追いかけた研究があります。"
+        },
+        {
+          "caption": "死亡リスクが\n41%低い",
+          "say": "自転車で通勤していた人は、死亡のリスクが41%低くなっていました。"
+        },
+        {
+          "caption": "がん死亡40%\n心血管死亡52%低下",
+          "say": "がんの死亡は40%、心血管の死亡は52%低くなっていました。"
+        }
+      ],
+      "image": "bicycle_tsukin_woman.png",
+      "image_page": "https://www.irasutoya.com/2015/12/blog-post_40.html"
+    },
+    {
+      "image_query": "ジョギング",
+      "image_query_alt": "ランニング",
+      "topic": "少しのランニングでも死亡リスクが下がる",
+      "category": "持久力",
+      "source": "Lee ほか（2014年・米国心臓病学会雑誌）",
+      "pmid": "25082581",
+      "lines": [
+        {
+          "caption": "ランニングは\n長く走らないとダメ？",
+          "say": "ランニングは、長い時間、速く走らないと意味がないのでしょうか。"
+        },
+        {
+          "caption": "5万5千人を\n15年追跡",
+          "say": "5万5千人以上を、15年間追いかけた研究があります。"
+        },
+        {
+          "caption": "1日5〜10分\n時速9.7キロ未満でも",
+          "say": "1日5分から10分、ゆっくりした走りでも、効果がありました。"
+        },
+        {
+          "caption": "死亡リスク30%\n心血管死亡45%減",
+          "say": "走る人は死亡リスクが30%、心血管死亡は45%低くなっていました。"
+        }
+      ],
+      "image": "gym_running_people_dark.png",
+      "image_page": "https://www.irasutoya.com/2018/06/blog-post_530.html"
+    },
+    {
+      "image_query": "心電図",
+      "image_query_alt": "心拍計",
+      "topic": "運動後の心拍回復の速さと死亡リスク",
+      "category": "持久力",
+      "source": "Cole ほか（1999年・ニューイングランド医学誌）",
+      "pmid": "10536127",
+      "lines": [
+        {
+          "caption": "運動後の心拍\nすぐ元に戻る？",
+          "say": "運動をやめた直後、心拍数はすぐに落ち着くでしょうか。"
+        },
+        {
+          "caption": "2428人を\n6年間追跡",
+          "say": "2428人の成人を、6年間追いかけた研究があります。"
+        },
+        {
+          "caption": "1分で12以下しか\n下がらない人は26%",
+          "say": "運動後1分で、心拍数が12しか下がらなかった人が、26%いました。"
+        },
+        {
+          "caption": "死亡リスクは\n2倍",
+          "say": "その人たちは、ほかの危険因子を考えても、死亡のリスクが2倍でした。"
+        }
+      ],
+      "image": "medical_treadmill_undoufuka_kensa.png",
+      "image_page": "https://www.irasutoya.com/2016/07/blog-post_985.html"
+    },
+    {
+      "image_query": "膝 痛い",
+      "image_query_alt": "ランニング",
+      "topic": "ランニングと変形性関節症（通説の検証）",
+      "category": "持久力",
+      "source": "Alentorn-Geli ほか（2017年・整形外科・スポーツ理学療法誌）",
+      "pmid": "28504066",
+      "lines": [
+        {
+          "caption": "ランニングで\n膝を壊す？",
+          "say": "ランニングを続けると、膝を壊してしまうのでしょうか。"
+        },
+        {
+          "caption": "座りがち・競技・\n趣味ランナーを比較",
+          "say": "座りがちな人、競技ランナー、趣味で走る人を比べた研究があります。"
+        },
+        {
+          "caption": "座りがちな人は\n10.2%",
+          "say": "座りがちな人は10.2%が、膝や股関節の病気を抱えていました。"
+        },
+        {
+          "caption": "趣味ランナーは3.5%\n競技選手は13.3%",
+          "say": "趣味で走る人は3.5%と低く、競技選手は13.3%と高くなっていました。"
+        }
+      ],
+      "image": "kansetsutsuu_hiza.png",
+      "image_page": "https://www.irasutoya.com/2016/01/blog-post_27.html"
+    },
+    {
+      "image_query": "早歩き",
+      "image_query_alt": "ウォーキング",
+      "topic": "インターバル速歩と中高年の体力・血圧",
+      "category": "持久力",
+      "source": "Nemoto ほか（2007年・メイヨー・クリニック・プロシーディングス）",
+      "pmid": "17605959",
+      "lines": [
+        {
+          "caption": "ただ歩くだけでは\nもったいない？",
+          "say": "歩き方を少し変えるだけで、体力は大きく変わるのでしょうか。"
+        },
+        {
+          "caption": "246人の中高年が\n5か月挑戦",
+          "say": "平均63歳の246人が、5か月間、歩き方を変える運動を試しました。"
+        },
+        {
+          "caption": "早歩きとゆっくりを\n3分ずつ繰り返す",
+          "say": "少しきつい早歩きと、ゆっくり歩きを3分ずつ繰り返す方法です。"
+        },
+        {
+          "caption": "最大酸素摂取量\nおよそ8〜9%アップ",
+          "say": "自転車や歩行での最大酸素摂取量が、8%から9%ほど高くなっていました。"
+        }
+      ],
+      "image": "walking_group_cap.png",
+      "image_page": "https://www.irasutoya.com/2016/09/blog-post_68.html"
+    },
+    {
+      "image_query": "階段",
+      "image_query_alt": "階段 運動",
+      "topic": "階段のぼりの短い運動と心肺持久力",
+      "category": "持久力",
+      "source": "Jenkins ほか（2019年・応用生理学・栄養・代謝学誌）",
+      "pmid": "30649897",
+      "lines": [
+        {
+          "caption": "忙しくて運動\nする時間がない",
+          "say": "忙しくて運動の時間がとれない人は、多いのではないでしょうか。"
+        },
+        {
+          "caption": "1回60段を\n1日3回、6週間",
+          "say": "60段の階段を、1日3回、週3日、6週間のぼり続けた実験があります。"
+        },
+        {
+          "caption": "1〜4時間おきの\n短い運動でも",
+          "say": "1回ごとの間隔は、1時間から4時間で構いませんでした。"
+        },
+        {
+          "caption": "心肺持久力が\nしっかり向上",
+          "say": "続けた人たちは、心肺持久力を示す数値が、はっきり高くなっていました。"
+        }
+      ],
+      "image": "seiji_naikaku.png",
+      "image_page": "https://www.irasutoya.com/2020/08/blog-post_73.html"
+    },
+    {
+      "image_query": "散歩 考え事",
+      "image_query_alt": "散歩",
+      "topic": "歩くことと創造的思考",
+      "category": "持久力",
+      "source": "Oppezzo・Schwartz（2014年・実験心理学会誌〈学習・記憶・認知〉）",
+      "pmid": "24749966",
+      "lines": [
+        {
+          "caption": "良いアイデアは\n歩くと浮かぶ？",
+          "say": "良いアイデアを思いつきたいとき、歩くのは効果があるのでしょうか。"
+        },
+        {
+          "caption": "座っているときと\n歩いているときを比較",
+          "say": "座っているときと、歩いているときの、発想力のテストを比べた実験です。"
+        },
+        {
+          "caption": "自由な発想のテストで\n81%成績アップ",
+          "say": "自由な発想のテストでは、81%の人が歩くと成績が伸びました。"
+        },
+        {
+          "caption": "決まった答えを探す\nテストでは23%",
+          "say": "一方、決まった答えを探すテストでは23%にとどまりました。"
+        }
+      ],
+      "image": "yagai_kyoushitsu_casual_walk.png",
+      "image_page": "https://www.irasutoya.com/2020/03/blog-post_784.html"
+    },
+    {
+      "image_query": "水泳 高齢者",
+      "image_query_alt": "水泳",
+      "topic": "マスターズスイマーの加齢による持久力の低下",
+      "category": "持久力",
+      "source": "Rubin ほか（2026年・オープンアクセス・スポーツ医学誌）",
+      "pmid": "42694021",
+      "lines": [
+        {
+          "caption": "水泳の実力は\n何歳まで保てる？",
+          "say": "泳ぎの実力は、何歳ごろまで保てるものなのでしょうか。"
+        },
+        {
+          "caption": "1時間泳ぐ大会を\n40年分析",
+          "say": "1時間泳ぐ大会の記録を、40年分、5万件以上調べた研究があります。"
+        },
+        {
+          "caption": "女性は69歳\n男性は75歳まで緩やか",
+          "say": "女性はおよそ69歳、男性はおよそ75歳まで、低下はゆるやかでした。"
+        },
+        {
+          "caption": "トップ選手は\n10年以上も好調持続",
+          "say": "優れた選手の中には、10年以上、高い実力を保つ人もいました。"
+        }
+      ],
+      "image": "sports_swimming_tobikomidai.png",
+      "image_page": "https://www.irasutoya.com/2020/10/blog-post_912.html"
+    },
+    {
+      "image_query": "マラソン 笑顔",
+      "image_query_alt": "ランニング",
+      "topic": "ランナーズハイとエンドカンナビノイド",
+      "category": "持久力",
+      "source": "Raichlen ほか（2012年・実験生物学誌）",
+      "pmid": "22442371",
+      "lines": [
+        {
+          "caption": "ランナーズハイは\n人間だけ？",
+          "say": "気分が高まる、ランナーズハイは、人間だけに起きるのでしょうか。"
+        },
+        {
+          "caption": "人・犬・フェレットの\n血液を比較",
+          "say": "持久走のあと、人と犬、フェレットの血液の変化を比べた研究があります。"
+        },
+        {
+          "caption": "人と犬は激しい\n持久走の後に変化",
+          "say": "持久力に優れた人と犬は、激しい持久走のあとだけ、物質が増えていました。"
+        },
+        {
+          "caption": "ゆっくり歩いた時は\n変化なし",
+          "say": "ゆっくり歩いただけのときは、人も犬も、変化していませんでした。"
+        }
+      ],
+      "image": "gym_running_people.png",
+      "image_page": "https://www.irasutoya.com/2018/09/blog-post_313.html"
+    },
+    {
+      "image_query": "マラソン ゴール",
+      "image_query_alt": "心臓",
+      "topic": "マラソン後の心臓の筋肉の数値の上昇",
+      "category": "持久力",
+      "source": "Regwan ほか（2010年・インターベンション心臓病学誌）",
+      "pmid": "20663014",
+      "lines": [
+        {
+          "caption": "マラソン後\n心臓にも変化が",
+          "say": "マラソンを走り終えた後、心臓にはどんな変化が起きているのでしょうか。"
+        },
+        {
+          "caption": "16件の研究\n939人を分析",
+          "say": "16件の研究、939人分のデータをまとめた分析があります。"
+        },
+        {
+          "caption": "心臓の筋肉の数値が\n51%で上昇",
+          "say": "心臓の筋肉に関わる数値が、走り終えた人の51%で、上昇していました。"
+        },
+        {
+          "caption": "健康への意味は\nまだはっきりしない",
+          "say": "この変化が体に良いのか悪いのか、まだはっきりしていません。"
+        }
+      ],
+      "image": "medical_hojo_jinkou_shinzou_woman.png",
+      "image_page": "https://www.irasutoya.com/2021/03/blog-post_4.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない持久力の雑学10選【自転車通勤は死亡リスク41%減】",
+    "description": "有酸素運動・ランニング・自転車・水泳など、持久力にまつわる雑学10個を、論文や公的資料で確かめました。",
+    "tags": [
+      "雑学",
+      "持久力",
+      "ランニング",
+      "自転車通勤",
+      "心肺持久力",
+      "マラソン",
+      "水泳",
+      "豆知識"
+    ],
+    "sources": [
+      "Celis-Morales CA ほか. 英国医師会雑誌 2017;357:j1456 https://europepmc.org/article/MED/28424154",
+      "Lee DC ほか. 米国心臓病学会雑誌 2014;64(5):472-481 https://europepmc.org/article/MED/25082581",
+      "Cole CR ほか. ニューイングランド医学誌 1999;341(18):1351-1357 https://europepmc.org/article/MED/10536127",
+      "Alentorn-Geli E ほか. 整形外科・スポーツ理学療法誌 2017;47(6):373-390 https://europepmc.org/article/MED/28504066",
+      "Nemoto K ほか. メイヨー・クリニック・プロシーディングス 2007;82(7):803-811 https://europepmc.org/article/MED/17605959",
+      "Jenkins EM ほか. 応用生理学・栄養・代謝学誌 2019;44(6):681-684 https://europepmc.org/article/MED/30649897",
+      "Oppezzo M, Schwartz DL. 実験心理学会誌〈学習・記憶・認知〉 2014;40(4):1142-1152 https://europepmc.org/article/MED/24749966",
+      "Raichlen DA ほか. 実験生物学誌 2012;215(8):1331-1336 https://europepmc.org/article/MED/22442371",
+      "Rubin RT ほか. オープンアクセス・スポーツ医学誌 2026;17:2641292 https://europepmc.org/article/MED/42694021",
+      "Regwan S ほか. インターベンション心臓病学誌 2010;23(5):443-450 https://europepmc.org/article/MED/20663014"
+    ]
+  }
+}

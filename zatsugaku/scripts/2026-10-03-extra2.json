@@ -1,0 +1,340 @@
+{
+  "theme": "美容",
+  "title": "9割が知らない 美容の雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n美容の雑学",
+          "say": "知って得する、美容の雑学。"
+        },
+        {
+          "caption": "全部、研究論文で\n確かめました",
+          "say": "今日の10個は、すべて研究論文や国の資料で確かめた話です。"
+        }
+      ]
+    },
+    {
+      "image_query": "日焼け止め",
+      "image_query_alt": "日傘",
+      "topic": "日焼け止めと肌の老化予防",
+      "category": "美容",
+      "source": "Hughes ほか（2013年・内科学年報）",
+      "pmid": "23732711",
+      "lines": [
+        {
+          "caption": "日焼け止めは\n毎日塗った方がいい？",
+          "say": "日焼け止めは、毎日塗った方がいいのでしょうか。"
+        },
+        {
+          "caption": "903人を4年半\n追跡した実験",
+          "say": "オーストラリアで903人を、4年半にわたって追跡した実験があります。"
+        },
+        {
+          "caption": "老化のサインが\n24%少ない",
+          "say": "毎日塗ったグループは、気が向いたときだけ塗ったグループより、肌の老化のサインが24パーセント少なくなっていました。"
+        }
+      ],
+      "image": "biyou_myanmar_tanaka.png",
+      "image_page": "https://www.irasutoya.com/2019/10/blog-post_15.html"
+    },
+    {
+      "image_query": "レモン",
+      "image_query_alt": "みかん",
+      "topic": "ビタミンC摂取と肌のしわ",
+      "category": "美容",
+      "source": "Cosgrove ほか（2007年・米国臨床栄養学雑誌）",
+      "pmid": "17921406",
+      "lines": [
+        {
+          "caption": "ビタミンCをとる人は\nしわが少ない？",
+          "say": "ビタミンシーを多くとる人は、しわが少ないのでしょうか。"
+        },
+        {
+          "caption": "40〜74歳の\n女性4025人を調査",
+          "say": "40歳から74歳の女性、4025人を調べた調査では、"
+        },
+        {
+          "caption": "摂取が多いほど\nしわのリスクが低い",
+          "say": "ビタミンシーの摂取が多い人ほど、しわができているリスクが低くなっていました。"
+        },
+        {
+          "caption": "肌の乾燥の\nリスクも低い傾向",
+          "say": "肌の乾燥のリスクも、低い傾向が見られました。"
+        }
+      ],
+      "image": "cooking_lemon.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_29.html"
+    },
+    {
+      "image_query": "美容ドリンク",
+      "image_query_alt": "コラーゲン鍋",
+      "topic": "コラーゲン摂取と肌の水分・弾力",
+      "category": "美容",
+      "source": "Pu ほか（2023年・Nutrients）",
+      "pmid": "37432180",
+      "lines": [
+        {
+          "caption": "コラーゲンを\n飲むと肌は変わる？",
+          "say": "コラーゲンを飲むと、肌は変わるのでしょうか。"
+        },
+        {
+          "caption": "26件の実験\n1721人分を分析",
+          "say": "26件の実験、合わせて1721人分のデータをまとめた分析があります。"
+        },
+        {
+          "caption": "飲んだグループは\n肌の水分が増えた",
+          "say": "コラーゲンを飲んだグループは、飲んでいないグループより、肌の水分がはっきり増えていました。"
+        },
+        {
+          "caption": "肌の弾力も\n同じように改善",
+          "say": "肌の弾力も、同じように改善していました。"
+        }
+      ],
+      "image": "biyou_pack_doro.png",
+      "image_page": "https://www.irasutoya.com/2020/07/blog-post_963.html"
+    },
+    {
+      "image_query": "緑茶",
+      "image_query_alt": "急須",
+      "topic": "緑茶ポリフェノールと紫外線による肌の赤み",
+      "category": "美容",
+      "source": "Heinrich ほか（2011年・栄養学雑誌）",
+      "pmid": "21525260",
+      "lines": [
+        {
+          "caption": "緑茶を飲むと\n肌が紫外線に強くなる？",
+          "say": "緑茶を飲むと、肌が紫外線に強くなるのでしょうか。"
+        },
+        {
+          "caption": "40〜65歳の女性60人が\n12週間緑茶を摂取",
+          "say": "40歳から65歳の女性60人が、12週間、緑茶の成分を多く含む飲み物を飲んだ実験では、"
+        },
+        {
+          "caption": "紫外線による肌の赤みが\n12週間で25%減少",
+          "say": "紫外線を当てたときの肌の赤みが、12週間で25パーセント減っていました。"
+        },
+        {
+          "caption": "肌の水分や\nきめも改善",
+          "say": "肌の水分や、きめの細かさも改善していました。"
+        }
+      ],
+      "image": "sweets_ochagashi_otsukigashi.png",
+      "image_page": "https://www.irasutoya.com/2020/10/blog-post_521.html"
+    },
+    {
+      "image_query": "チョコレート",
+      "image_query_alt": "ココア",
+      "topic": "ココアフラバノールと紫外線による肌の赤み",
+      "category": "美容",
+      "source": "Heinrich ほか（2006年・栄養学雑誌）",
+      "pmid": "16702322",
+      "lines": [
+        {
+          "caption": "チョコレートの成分で\n肌が変わる？",
+          "say": "チョコレートの成分で、肌が変わるのでしょうか。"
+        },
+        {
+          "caption": "18〜25歳の女性が\n高カカオ飲料を12週間",
+          "say": "18歳から25歳の女性が、フラバノールの多いココア飲料を、12週間飲んだ実験では、"
+        },
+        {
+          "caption": "紫外線による赤みが\n12週間で25%減少",
+          "say": "紫外線を当てたときの赤みが、12週間で25パーセント減っていました。"
+        },
+        {
+          "caption": "肌の厚みも\n増えていた",
+          "say": "肌の厚みも、1.11ミリから1.24ミリに増えていました。"
+        }
+      ],
+      "image": "chara_girl_valentinesday.png",
+      "image_page": "https://www.irasutoya.com/2026/02/valentinesday.html"
+    },
+    {
+      "image_query": "ヨーグルト",
+      "image_query_alt": "乳酸菌",
+      "topic": "乳酸菌と肌の弾力",
+      "category": "美容",
+      "source": "Lee ほか（2015年・微生物学・バイオテクノロジー雑誌）",
+      "pmid": "26428734",
+      "lines": [
+        {
+          "caption": "乳酸菌を飲むと\n肌が変わる？",
+          "say": "乳酸菌を飲むと、肌が変わるのでしょうか。"
+        },
+        {
+          "caption": "ある乳酸菌を\n12週間とった実験",
+          "say": "ある種類の乳酸菌を、12週間とり続けた実験では、"
+        },
+        {
+          "caption": "肌の弾力が\n12週間で21.7%改善",
+          "say": "肌の弾力が、12週間でおよそ22パーセント改善していました。"
+        },
+        {
+          "caption": "顔の水分量や\nしわの深さも改善",
+          "say": "顔の水分量や、しわの深さも改善していました。"
+        }
+      ],
+      "image": "body_nyuusankin.png",
+      "image_page": "https://www.irasutoya.com/2019/05/blog-post_264.html"
+    },
+    {
+      "image_query": "玄米",
+      "image_query_alt": "野菜",
+      "topic": "低グリセミック食とニキビの数",
+      "category": "美容",
+      "source": "Smith ほか（2007年・米国臨床栄養学雑誌）",
+      "pmid": "17616769",
+      "lines": [
+        {
+          "caption": "食事を変えると\nニキビは減る？",
+          "say": "食事を変えると、ニキビは減るのでしょうか。"
+        },
+        {
+          "caption": "15〜25歳の男性\n43人を12週間調査",
+          "say": "15歳から25歳の男性43人を、12週間調べた実験では、"
+        },
+        {
+          "caption": "ニキビの数が\n平均23.5個減少",
+          "say": "血糖値が上がりにくい食事のグループは、ニキビの数が平均23.5個減りました。"
+        },
+        {
+          "caption": "ふつうの食事では\n12個の減少にとどまる",
+          "say": "ふつうの食事のグループでは、12個の減少にとどまっていました。"
+        }
+      ],
+      "image": "kome_haigamai.png",
+      "image_page": "https://www.irasutoya.com/2017/08/blog-post_75.html"
+    },
+    {
+      "image_query": "牛乳",
+      "image_query_alt": "ニキビ",
+      "topic": "高校時代の乳製品摂取とニキビ",
+      "category": "美容",
+      "source": "Adebamowo ほか（2005年・米国皮膚科学会誌）",
+      "pmid": "15692464",
+      "lines": [
+        {
+          "caption": "牛乳をよく飲む人は\nニキビが多い？",
+          "say": "牛乳をよく飲んでいた人は、ニキビが多いのでしょうか。"
+        },
+        {
+          "caption": "女性4万7355人に\n高校時代の食事を調査",
+          "say": "女性4万7355人に、高校時代の食事を振り返ってもらった調査では、"
+        },
+        {
+          "caption": "脱脂乳をよく飲んだ人は\nニキビのリスクが1.44倍",
+          "say": "脱脂乳をよく飲んでいた人は、重いニキビがあったリスクが1.44倍でした。"
+        },
+        {
+          "caption": "普通の牛乳でも\nリスクは1.22倍",
+          "say": "ふつうの牛乳でも、リスクは1.22倍になっていました。"
+        }
+      ],
+      "image": "ofuro_drink_milk_woman.png",
+      "image_page": "https://www.irasutoya.com/2021/01/blog-post_417.html"
+    },
+    {
+      "image_query": "サプリメント",
+      "image_query_alt": "ビタミン剤",
+      "topic": "ビオチンサプリと髪・爪への効果",
+      "category": "美容",
+      "source": "Patel ほか（2017年・Skin Appendage Disorders）",
+      "pmid": "28879195",
+      "lines": [
+        {
+          "caption": "ビオチンサプリは\n髪や爪に役立つ？",
+          "say": "ビオチンのサプリは、髪や爪に役立つのでしょうか。"
+        },
+        {
+          "caption": "過去の報告を\nまとめた論文",
+          "say": "過去の報告をまとめた論文があります。"
+        },
+        {
+          "caption": "効果が見られたのは\n欠乏症や病気がある人だけ",
+          "say": "効果がはっきり見られたのは、ビオチンが不足していたり、爪や髪に病気がある人だけでした。"
+        },
+        {
+          "caption": "健康な人には\n証拠が不足",
+          "say": "もともと健康な人への効果は、証拠が足りないとされています。"
+        }
+      ],
+      "image": "medical_kusuri_takusan_woman.png",
+      "image_page": "https://www.irasutoya.com/2018/04/blog-post_7.html"
+    },
+    {
+      "image_query": "タバコ",
+      "image_query_alt": "双子",
+      "topic": "喫煙と顔の老化（一卵性双生児）",
+      "category": "美容",
+      "source": "Doshi ほか（2007年・皮膚科学アーカイブ）",
+      "pmid": "18087005",
+      "lines": [
+        {
+          "caption": "タバコを吸うと\n顔は老けて見える？",
+          "say": "タバコを吸っていると、顔が老けて見えるのでしょうか。"
+        },
+        {
+          "caption": "同じ遺伝子の\n双子を比べた研究",
+          "say": "同じ遺伝子を持つ双子を比べた研究があります。"
+        },
+        {
+          "caption": "長年タバコを吸った方は\n肌の老化が重かった",
+          "say": "長い間タバコを吸っていた方は、吸っていない方より、肌の老化がはっきり重く出ていました。"
+        },
+        {
+          "caption": "日照条件は\nほぼ同じだった",
+          "say": "二人が浴びた日光の量は、ほぼ同じだったといいます。"
+        }
+      ],
+      "image": "mark_poisute_kinshi_tabako.png",
+      "image_page": "https://www.irasutoya.com/2020/01/blog-post_51.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない美容の雑学10選【論文で確認済み】日焼け止めで老化24%減少",
+    "description": "日焼け止め・ビタミンC・コラーゲンなど、美容にまつわる10個の雑学を、論文や公的資料で確かめてご紹介します。",
+    "tags": [
+      "雑学",
+      "美容",
+      "日焼け止め",
+      "コラーゲン",
+      "ビタミンC",
+      "ニキビ",
+      "アンチエイジング",
+      "豆知識"
+    ],
+    "sources": [
+      "Hughes MCB ほか. 内科学年報 2013;158:781-90 https://europepmc.org/article/MED/23732711",
+      "Cosgrove MC ほか. 米国臨床栄養学雑誌 2007;86:1225-31 https://europepmc.org/article/MED/17921406",
+      "Pu SY ほか. Nutrients 2023;15:2080 https://europepmc.org/article/MED/37432180",
+      "Heinrich U ほか. 栄養学雑誌 2011;141:1202-8 https://europepmc.org/article/MED/21525260",
+      "Heinrich U ほか. 栄養学雑誌 2006;136:1565-9 https://europepmc.org/article/MED/16702322",
+      "Lee DE ほか. 微生物学・バイオテクノロジー雑誌 2015;25:2160-8 https://europepmc.org/article/MED/26428734",
+      "Smith RN ほか. 米国臨床栄養学雑誌 2007;86:107-15 https://europepmc.org/article/MED/17616769",
+      "Adebamowo CA ほか. 米国皮膚科学会誌 2005;52:207-14 https://europepmc.org/article/MED/15692464",
+      "Patel DP ほか. Skin Appendage Disorders 2017;3:166-9 https://europepmc.org/article/MED/28879195",
+      "Doshi DN ほか. 皮膚科学アーカイブ 2007;143:1543-6 https://europepmc.org/article/MED/18087005"
+    ]
+  }
+}

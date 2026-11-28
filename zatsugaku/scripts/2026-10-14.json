@@ -1,0 +1,336 @@
+{
+  "theme": "筋トレ",
+  "title": "9割が知らない 脚の筋トレ雑学10選",
+  "speaker": 13,
+  "gemini_voice": "Charon",
+  "items": [
+    {
+      "image": "hirameki_man.png",
+      "lines": [
+        {
+          "caption": "知って得する\n筋トレの雑学",
+          "say": "知って得する、筋トレの雑学。"
+        },
+        {
+          "caption": "今日は脚、太ももの\n筋トレだけ10個",
+          "say": "今日は、脚と太ももの筋トレだけを、10個の研究で確かめました。"
+        }
+      ]
+    },
+    {
+      "image_query": "スクワット",
+      "image_query_alt": "膝 痛み",
+      "topic": "深いスクワットと膝への影響（通説の検証）",
+      "category": "筋トレ",
+      "source": "Rojas-Jaramillo ほか（2024年・スポーツ医科学誌〈フロンティアーズ〉）",
+      "pmid": "39640505",
+      "lines": [
+        {
+          "caption": "深いスクワットは\n膝に悪い?",
+          "say": "しゃがみ込む深いスクワットは、膝に悪いと思っていませんか。"
+        },
+        {
+          "caption": "2274件の研究から\n信頼できる15件を厳選",
+          "say": "2274件の研究から、信頼できる15件を選んだ報告があります。"
+        },
+        {
+          "caption": "14件は膝への\n悪い影響なし",
+          "say": "そのうち14件では、膝への悪い影響は見られませんでした。"
+        },
+        {
+          "caption": "正しい姿勢なら\n深くしゃがんでも大丈夫",
+          "say": "正しい姿勢なら、深くしゃがんでも心配しすぎなくてよいようです。"
+        }
+      ],
+      "image": "undou_squat_woman.png",
+      "image_page": "https://www.irasutoya.com/2018/10/blog-post_39.html"
+    },
+    {
+      "image_query": "レッグエクステンション",
+      "image_query_alt": "スクワット",
+      "topic": "スクワットとレッグエクステンションの効果の違い（部位別の肥大）",
+      "category": "筋トレ",
+      "source": "Kassiano ほか（2026年・筋力・コンディショニング研究誌）",
+      "pmid": "41379528",
+      "lines": [
+        {
+          "caption": "スクワットと\n別の筋トレ、違いは?",
+          "say": "スクワットとレッグエクステンションで、太ももの育ち方は違うのでしょうか。"
+        },
+        {
+          "caption": "筋トレ未経験の\n63人の女性が8週間",
+          "say": "筋トレ未経験の、63人の女性が、8週間、どちらかの種目を続けました。"
+        },
+        {
+          "caption": "部位ごとに\n発達する場所が違う",
+          "say": "レッグエクステンションは前もも、スクワットは奥の筋肉を、よく発達させました。"
+        }
+      ],
+      "image": "undou_isu_suwaritachi_squat_old.png",
+      "image_page": "https://www.irasutoya.com/2017/04/blog-post_977.html"
+    },
+    {
+      "image_query": "スクワット",
+      "image_query_alt": "ランジ",
+      "topic": "スクワットの足幅と筋肉の使われ方（思い込みの検証）",
+      "category": "筋トレ",
+      "source": "McCaw・Melrose（1999年・米国スポーツ医学会誌）",
+      "pmid": "10188748",
+      "lines": [
+        {
+          "caption": "足を広げると\n違う筋肉を使う?",
+          "say": "スクワットで足を広げると、使う筋肉が変わると思っていませんか。"
+        },
+        {
+          "caption": "9人の男性で\n足幅を比較",
+          "say": "9人の男性が、足幅を変えてスクワットをし、働きを比べました。"
+        },
+        {
+          "caption": "太もも前面の筋肉は\n足幅で変わらず",
+          "say": "太もも前面の筋肉の働きは、足の幅を変えても、ほとんど変わりませんでした。"
+        },
+        {
+          "caption": "内ももの筋肉だけ\n足を広げると増えた",
+          "say": "変わったのは内ももの筋肉で、足を広げたときだけ、働きが増えていました。"
+        }
+      ],
+      "image": "undou_isu_suwaritachi_squat.png",
+      "image_page": "https://www.irasutoya.com/2017/04/blog-post_350.html"
+    },
+    {
+      "image_query": "ダンベル",
+      "image_query_alt": "筋トレ 男性",
+      "topic": "ドロップセット法と通常法の太ももの発達の違い",
+      "category": "筋トレ",
+      "source": "Varović ほか（2021年・スポーツ誌）",
+      "pmid": "34564324",
+      "lines": [
+        {
+          "caption": "ギリギリから重さを\n減らして続けると?",
+          "say": "セットの最後に重さを減らす、ドロップセットは、何が変わるのでしょうか。"
+        },
+        {
+          "caption": "16人の男性が\n8週間の脚トレ",
+          "say": "筋トレ経験のある、16人の男性が、8週間、脚の筋トレを続けました。"
+        },
+        {
+          "caption": "持てる重さは\n30%以上アップ",
+          "say": "持てる重さは、ドロップセットで34.6%、通常法でも32.0%増えました。"
+        },
+        {
+          "caption": "発達する場所だけ\n2つの方法で違った",
+          "say": "ただ、太ももが発達する場所は、2つの方法で、少し違っていました。"
+        }
+      ],
+      "image": "undou_kettlebell_dumbbell.png",
+      "image_page": "https://www.irasutoya.com/2019/08/blog-post_49.html"
+    },
+    {
+      "image_query": "女性 筋トレ",
+      "image_query_alt": "薬 シート",
+      "topic": "閉経後の女性のホルモン補充療法と筋トレによる太ももの発達の違い",
+      "category": "筋トレ",
+      "source": "Dam ほか（2020年・フロンティアーズ・イン・フィジオロジー）",
+      "pmid": "33542694",
+      "lines": [
+        {
+          "caption": "閉経後の筋トレ\n育ち方に差がある?",
+          "say": "閉経後の女性の筋トレ、育ち方に差が出るのでしょうか。"
+        },
+        {
+          "caption": "31人の閉経後の\n女性が12週間",
+          "say": "31人の、閉経してまもない女性が、12週間筋トレを続けました。"
+        },
+        {
+          "caption": "女性ホルモンを補う\n治療も受けた人は",
+          "say": "ホルモンを補う治療も受けた人たちは、太ももの筋肉が7.9%増えました。"
+        },
+        {
+          "caption": "治療なしの人は\n3.9%にとどまる",
+          "say": "治療を受けなかった人は3.9%でした。治療は医師に相談してください。"
+        }
+      ],
+      "image": "undou_back_extension_woman.png",
+      "image_page": "https://www.irasutoya.com/2019/11/blog-post_35.html"
+    },
+    {
+      "image_query": "ラグビー",
+      "image_query_alt": "レッグプレス",
+      "topic": "片脚だけのレッグプレス訓練と両脚訓練の効果の違い",
+      "category": "筋トレ",
+      "source": "Zhao ほか（2023年・人間キネティクス誌）",
+      "pmid": "37181263",
+      "lines": [
+        {
+          "caption": "片脚だけ鍛えると\n伸びる力が違う?",
+          "say": "片脚だけ鍛えると、伸びる力は変わるのでしょうか。"
+        },
+        {
+          "caption": "26人の10代選手が\n5週間トレーニング",
+          "say": "平均15歳の、26人のラグビー選手が、5週間、片脚か両脚で鍛えました。"
+        },
+        {
+          "caption": "片脚で鍛えた人は\n片脚の力が20%アップ",
+          "say": "片脚だけで鍛えた選手は、片脚で持ち上げる力が、20.2%伸びました。"
+        },
+        {
+          "caption": "両脚で鍛えた人は\n12%アップにとどまる",
+          "say": "両脚で鍛えた選手は、同じ片脚の力の伸びが、12.4%にとどまりました。"
+        }
+      ],
+      "image": "sports_rugby_kids.png",
+      "image_page": "https://www.irasutoya.com/2019/01/blog-post_66.html"
+    },
+    {
+      "image_query": "階段 のぼる",
+      "image_query_alt": "筋トレ お爺さん",
+      "topic": "階段のぼり運動とマシン運動の脚のパワーへの効果比較（高齢者）",
+      "category": "筋トレ",
+      "source": "Van Roie ほか（2025年・筋力・コンディショニング研究誌）",
+      "pmid": "39590559",
+      "lines": [
+        {
+          "caption": "脚のトレーニングは\nマシンが必須?",
+          "say": "脚を鍛えるには、マシンが必ず必要なのでしょうか。"
+        },
+        {
+          "caption": "70歳前後の46人が\n階段かマシンで12週",
+          "say": "平均71歳の46人が、階段運動かマシン運動を12週間続けました。"
+        },
+        {
+          "caption": "マシン運動は脚の力が\n19.5%アップ",
+          "say": "マシン運動を続けた人たちは、脚の最大パワーが、19.5%伸びました。"
+        },
+        {
+          "caption": "階段のぼりも\n13.7%アップと同等",
+          "say": "階段をのぼる運動でも、13.7%伸び、マシン運動と同じくらいでした。"
+        }
+      ],
+      "image": "kaidan_ojisan.png",
+      "image_page": "https://www.irasutoya.com/2013/05/blog-post_9804.html"
+    },
+    {
+      "image_query": "アメフト",
+      "image_query_alt": "膝 サポーター",
+      "topic": "太もも前後の筋力バランスとひざのケガ（アメリカンフットボール選手）",
+      "category": "筋トレ",
+      "source": "Taketomi ほか（2024年・アジア太平洋スポーツ医学誌）",
+      "pmid": "38187929",
+      "lines": [
+        {
+          "caption": "太もも前後の筋力差\nケガに関係ある?",
+          "say": "太もも前後の筋力バランスは、ケガに関係あるのでしょうか。"
+        },
+        {
+          "caption": "152人の選手を\nシーズン中に追跡",
+          "say": "152人のアメリカンフットボール選手を、シーズン中、追いかけた研究があります。"
+        },
+        {
+          "caption": "11人が膝の\n十字靭帯を損傷",
+          "say": "このうち11人が、膝の十字靭帯を損傷し、割合は7.1%でした。"
+        },
+        {
+          "caption": "もも裏の筋力が\n弱い選手ほど多かった",
+          "say": "損傷した選手は、太もも裏の筋力が、前面に比べて弱い傾向がありました。"
+        }
+      ],
+      "image": "sports_coin_toss.png",
+      "image_page": "https://www.irasutoya.com/2017/10/blog-post_759.html"
+    },
+    {
+      "image_query": "筋トレ お爺さん",
+      "image_query_alt": "筋トレ お婆さん",
+      "topic": "高齢者の筋トレ頻度（週1回と週2回）による太ももの発達の比較",
+      "category": "筋トレ",
+      "source": "Baxter ほか（2024年・サイエンティフィック・リポーツ）",
+      "pmid": "38671049",
+      "lines": [
+        {
+          "caption": "高齢者の筋トレは\n週2回必要?",
+          "say": "高齢になってからの筋トレは、週2回やらないと意味がないのでしょうか。"
+        },
+        {
+          "caption": "平均69歳の36人が\n週1回か週2回で検証",
+          "say": "平均69歳の、36人が、週1回か週2回、12週間、太ももの筋トレを続けました。"
+        },
+        {
+          "caption": "週1回でも\n9〜18%発達",
+          "say": "太もも外側の筋肉は、週1回でも週2回とほぼ同じ、9から18%発達していました。"
+        }
+      ],
+      "image": "kintore_ojiisan.png",
+      "image_page": "https://www.irasutoya.com/2015/06/blog-post_470.html"
+    },
+    {
+      "image_query": "車椅子",
+      "image_query_alt": "お婆さん 心配",
+      "topic": "筋トレ中止後1年の太ももの筋力低下（高齢女性）",
+      "category": "筋トレ",
+      "source": "Connelly・Vandervoort（1997年・整形外科・スポーツ理学療法誌）",
+      "pmid": "9402571",
+      "lines": [
+        {
+          "caption": "筋トレをやめると\n脚の力はどうなる?",
+          "say": "筋トレをやめると、高齢者の脚の力はどうなるのでしょうか。"
+        },
+        {
+          "caption": "施設で暮らす\n高齢の女性で調査",
+          "say": "施設で暮らす、高齢の女性を対象に、筋トレをやめた後を調べた研究があります。"
+        },
+        {
+          "caption": "1年後、太ももの力は\n68.3%も低下",
+          "say": "1年後には、太もも前面の力が、トレーニング時より68.3%も低下していました。"
+        },
+        {
+          "caption": "歩く速さも\n落ちていた",
+          "say": "歩く速さも、トレーニングをやめる前と比べて、遅くなっていました。"
+        }
+      ],
+      "image": "dendou_kurumaisu_oldwoman.png",
+      "image_page": "https://www.irasutoya.com/2020/08/blog-post_234.html"
+    },
+    {
+      "image": "uroko_man.png",
+      "lines": [
+        {
+          "caption": "いくつ\n知っていましたか？",
+          "say": "いくつ、知っていましたか。"
+        },
+        {
+          "caption": "出典は\n概要欄にまとめています",
+          "say": "出典は、概要欄にまとめています。"
+        },
+        {
+          "caption": "チャンネル登録\nお願いします",
+          "say": "役に立ったら、チャンネル登録をお願いします。"
+        }
+      ]
+    }
+  ],
+  "youtube": {
+    "title": "9割が知らない脚の筋トレ雑学10選【やめると1年で脚の力68%減】",
+    "description": "脚(太もも)の筋トレについて、論文で確かめた10の話です。鍛え方・回数・頻度・休み方の工夫をまとめました。",
+    "tags": [
+      "雑学",
+      "筋トレ",
+      "脚トレ",
+      "スクワット",
+      "太もも",
+      "筋肥大",
+      "高齢者",
+      "豆知識"
+    ],
+    "sources": [
+      "Rojas-Jaramillo A ほか. Frontiers in Sports and Active Living 2024 https://europepmc.org/article/MED/39640505",
+      "Kassiano W ほか. Journal of Strength and Conditioning Research 2026 https://europepmc.org/article/MED/41379528",
+      "McCaw ST, Melrose DR. Medicine and Science in Sports and Exercise 1999 https://europepmc.org/article/MED/10188748",
+      "Varović D ほか. Sports (Basel) 2021;9:112 https://europepmc.org/article/MED/34564324",
+      "Dam TV ほか. Frontiers in Physiology 2020;11:596130 https://europepmc.org/article/MED/33542694",
+      "Zhao X ほか. Journal of Human Kinetics 2023;87:107-118 https://europepmc.org/article/MED/37181263",
+      "Van Roie E ほか. Journal of Strength and Conditioning Research 2025 https://europepmc.org/article/MED/39590559",
+      "Taketomi S ほか. Asia-Pacific Journal of Sports Medicine, Arthroscopy, Rehabilitation and Technology 2024;35:1-6 https://europepmc.org/article/MED/38187929",
+      "Baxter BA ほか. Scientific Reports 2024;14:9536 https://europepmc.org/article/MED/38671049",
+      "Connelly DM, Vandervoort AA. Journal of Orthopaedic and Sports Physical Therapy 1997;26:340-346 https://europepmc.org/article/MED/9402571"
+    ]
+  }
+}
